@@ -8,7 +8,7 @@ header-includes:
 author: |
     | Alli Nilles
     | \hfill
-    | ![](figures/standards.png)
+    | ![](figures/standards.png){width=75%}
 ...
 
 
@@ -17,19 +17,24 @@ Roadmap
 
 1.  Case Studies
 
-    i)  Low level: Arduino
+    i)  Low level: Arduino / embedded programming
     i)  High level: ROS
 
 2.  Lessons?
 
     i)  power vs. simplicity vs. flexibility (vs. verifiability?)
     i)  Ideas from functional programming
+    i)  Good tools need good communities
+    i)  Good communities form around good tools...
 
 How to Evaluate Tools?
 ----------------------
 
 ![](./figures/venn.pdf)\
 
+
+Embedded Programming
+====================
 
 Case Study: Arduino Hacking
 -----------------------------
@@ -38,29 +43,42 @@ Case Study: Arduino Hacking
 \column{.5\textwidth}
 
 -	Measure rotation of rolling ball robot, reconstruct motion
--	Easy to get rough estimate, hard to get exact
 -	Need small footprint, onboard data logging
+-	Easy to get rough estimate, hard to get exact
 
 \column{.5\textwidth}
 
-![](./figures/imu.jpg)
+![](./figures/imu.jpg)\
 
 \columnsend
 
-Case Study: Takeaways
----------------------
+Takeaways
+---------
 
 -   Simplicity: where we tell beginners to start matters
     -   Is traditional C++ style programming the best place to start?
 -   Powerful: large community
 -   Lose flexibility when tied to Arduino platforms/libraries/IDE
 
-Possible solutions:
+Alternatives:
 
 -   mBed: about as simple and powerful, more flexible through online IDE
 -   possible fork into high-level and low-level languages
     -   microPython
     -   llvm for devices?
+
+Takeaways
+---------
+
+-   Networking:
+    -   Example: Need to network a home-grown OS on embedded device
+    -   $\heartsuit$ rosserial $\heartsuit$: all you need is `init`, `read`,
+        `write`, and `time`
+    -   $\heartsuit$ ESP8266 $\heartsuit$
+    -   Better to use networked chip than add a new component to your design
+
+ROS
+===
 
 Case Study: ROS
 ---------------
@@ -80,26 +98,30 @@ My use cases:
 
 \columnsend
 
-Case Study: ROS
----------------
+Takeaways
+---------
 
 -   flexible: large community, integrated with many platforms
 -   powerful: scalable framework, solid protocols
 -   simple?
     -   networking issues
-    -   versioning issues: gazebo7 for Kinetic, gazebo2 for Indigo
-    -   XML / catkin
+        -   Ex: Optitrack Mocap
+    -   versioning issues
+        -   Ex: gazebo7 for Kinetic, gazebo2 for Indigo
+    -   catkin
+    -   XML
 
-Case Study 3: ROS
------------------
+The Angle Bracket Tax [^1]
+---------------
+
+[^1]:
+  [https://blog.codinghorror.com/xml-the-angle-bracket-tax/](https://blog.codinghorror.com/xml-the-angle-bracket-tax/)
 
 ```xml
-
 <launch>
     <arg name="world" default="simple_world"/>
     <arg name="init_pos_x" default="0.0"/>
     <arg name="init_pos_y" default="0.0"/>
-
 	<node pkg="gazebo_ros" type="spawn_model"
 		name="spawn_robot"
 		respawn="false" output="screen"
@@ -111,11 +133,10 @@ Case Study 3: ROS
         -model youbot">
     </node>
 </launch>
-
 ```
 
-Alternative
------------
+Alternative: yaml
+-----------------
 
 ```yaml
 
@@ -138,8 +159,8 @@ Alternative
 
 ```
 
-Case Study 3: ROS
------------------
+More Takeaways
+--------------
 
 -   Lack of simplicity leads to wasted time
 -   Low level timing issues left to user
@@ -151,9 +172,9 @@ Case Study 3: ROS
 Possible Solution: Haskell Client
 ---------------------------------
 
-Credit to Anthony Cowley [^1], UPenn GRASP lab
+Credit to Anthony Cowley [^2], UPenn GRASP lab
 
-[^1]:
+[^2]:
   [https://github.com/acowley/roshask](https://github.com/acowley/roshask)
 
 ```haskell
@@ -189,12 +210,12 @@ Advantages:
 
 Other nice things about roshask:
 
--   `everyNew` function
+-   `everyNew`, `bothNew` functions
 -   composable nodes: data on one machine is shared, not streamed, while
     preserving modularity
 
-But why Haskell?
-----------------
+But why invest in learning Haskell?
+-----------------------------------
 
 -   High-level robotic control is functional in style
 -   Built around infinite lists: natural for robotics
@@ -202,3 +223,12 @@ But why Haskell?
 -   Lack of side-effects means robots that act more consistently and are easier
     to verify
 -   Large community, Foreign Function Interface (FFI) is hardware-friendly
+    -   [Learn you a Haskell for Great Good!](http://learnyouahaskell.com/)
+
+Conclusions
+===========
+
+How to Move Towards the Middle?
+-------------------------------
+
+![](./figures/venn.pdf)\

@@ -21,10 +21,14 @@ vennD =   atPoints (trailVertices $ regPoly 3 1)
             <> text "DIY"       # fontSizeL 0.14 # fc black
                                 # translate ((r2 (0,-0.8)) # rotate (2*pi/3.3 @@ rad))
             <> text "ideal ROS" # fontSizeL 0.14 # fc black
-            <> text "actual ROS"# fontSizeL 0.14 # fc black
+            <> text "actual ROS" # fontSizeL 0.14 # fc black
                                 # translate ((r2 (0,-0.8)) # rotate (2*pi/2.5 @@ rad))
+            <> text "roshask"   # fontSizeL 0.14 # fc black
+                                # translate ((r2 (0,-0.7)) # rotate (0.73*pi @@ rad))
             <> text "mBed"      # fontSizeL 0.14 # fc black
                                 # translate (r2 (0.4,-0.4))
+            <> text "microPython"      # fontSizeL 0.14 # fc black
+                                # translate ((r2 (0,-0.5)) # rotate (1.3*pi @@ rad))
             <> text "microPython"      # fontSizeL 0.14 # fc black
                                 # translate ((r2 (0,-0.5)) # rotate (1.3*pi @@ rad))
 main :: IO ()
