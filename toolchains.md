@@ -5,6 +5,7 @@ color: beaver
 header-includes:
 	- \usepackage{svg}
 	- \usepackage{jeffe}
+date: September 9, 2016
 author: |
     | Alli Nilles
     | \hfill

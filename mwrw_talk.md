@@ -13,7 +13,6 @@ date: \today
 header-includes:
     -   \usetheme[block=fill]{metropolis}
     -   \usepackage{epstopdf}
-    -   \usepackage{jeffe}
     -   \usepackage[font=small]{subcaption}
     -   \usepackage{multimedia}
     -   \usepackage{amsmath}
