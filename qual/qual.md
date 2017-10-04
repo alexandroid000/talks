@@ -117,7 +117,7 @@ Results
 Morphogenesis
 -------------
 
-With Yuliy Baryshnikov
+With Dr. Yuliy Baryshnikov
 
 ![One type of epithelial cell reconfiguration
 [@fletcher2014vertex].](../figures/reconfig.jpg){width=6cm}
@@ -129,6 +129,8 @@ With Yuliy Baryshnikov
 
 Improv: a High-Level Language for Live-Coding Robot Motion
 ----------------------------------------------------------
+
+Joint work with Chase Gladish, supervised by Drs. Amy LaViers, Mattox Beckman
 
 ![](../figures/improv.jpg)\
 
@@ -190,14 +192,6 @@ point.
 . . .
 
 When this value is larger, that training point is more *influential*.
-
-Related Work
-------------
-
--   statistics: Cook, Weisberg 1980: *Residuals and influence in regression*
-    -   focused on linear models, exact solutions
--   ML: 
--   adversarial examples and training-set attacks
 
 
 Definitions
@@ -262,6 +256,8 @@ Taylor expand the right hand side around $\hat{\theta}$
   & \pb{\nabla^2 R(\hat\theta) + \epsilon \nabla^2 L(z, \hat\theta)} \Updelta_\epsilon  \\
 \end{align*}
 
+. . .
+
 and solve for $\Updelta_{\epsilon}$
 
 \vspace{-1em}
@@ -278,6 +274,8 @@ Keeping only $O(\epsilon)$ terms, we have
 \begin{align*}
   \Updelta_\epsilon \approx & -\nabla^2 R(\hat\theta)^{-1} \nabla L(z, \hat\theta) \epsilon.
 \end{align*}
+
+. . .
 
 We conclude that:
 \begin{align*}
@@ -300,8 +298,10 @@ which measures influence on the loss, not just the parameters.
 
 . . .
 
-We can also measure the influence of perturbing the **value** of a training input: $z_{\delta} =
-(x+\delta, y)$, which gives:
+We can also measure the influence of perturbing the **value** of a training input, $z_{\delta} =
+(x+\delta, y)$:
+
+. . .
 
 \begin{align}
 \label{eqn:inflinput-discrete}
@@ -367,7 +367,7 @@ Analysis - Remove Terms from Influence
 ![](../figures/fig-components.png)\
 
 
-**left:** $\sigma(-y \theta^\top x)$ gives points with high training loss more
+**left:** $\sigma(-y \theta^\top x)$ gives points with low training loss less 
     influence: without it, we overestimate the influence of training points
 
 Analysis - Remove Terms from Influence
@@ -384,6 +384,35 @@ Analysis - Remove Terms from Influence
 **middle/right:** the weighted covariance matrix $H_{\hat\theta}^{-1}$ measures the
     "resistance" of the other training points to the removal of $z$. Without it,
     all same-label points are helpful, all opposite-label points are harmful.
+
+Context and Related Work
+------------
+
+-   statistics: Cook, Weisberg 1980: *Residuals and influence in regression*
+    -   focused on linear models, exact solutions
+
+\centering
+![](../figures/glossary.pdf){width=6cm}\
+
+
+
+Context and Related Work
+------------
+
+-   statistics: Cook, Weisberg 1980: *Residuals and influence in regression*
+    -   focused on linear models, exact solutions
+
+> -   *Robustness of Convex Risk Minimization Models* [@christmann2004robustness]
+      -   $n=500$, SVM with different kernels, focus on effect of adding a data point
+> -   *Model selection in kernel based regression using the influence function* [@debruyne2008model]
+> -   *"Influence Sketching": Finding Influential Samples In Large-Scale Regressions* [@wojnowicz2016influence]
+      -   randomized algorithm for approximating influence, specific to
+            generalized linear models. $n=2$ million
+> -   adversarial examples and training-set attacks
+
+
+
+
 
 Efficiency
 ----------
@@ -413,6 +442,13 @@ Overall approach:
 
 **Stochastic Estimation**
 
+Both automatically handled in systems like TensorFlow, Theano - users just
+specify $L$.
+
+How to Know if it Works?
+========================
+
+
 Validation: Influence matches leave-one-out retraining
 ----------
 
@@ -425,8 +461,10 @@ exactly with CG. **Mid:** Same, but with the stochastic approximation.
 points with CG. For the actual difference in loss, we removed each point and
 retrained from $\tilde \theta$ for 30k steps](../figures/fig-approx.png)
 
-Nonconvexity
-------------
+
+Non-differentiable losses
+-------------------------
+
 
 ![](../figures/fig-hinge.png)\
 
@@ -437,27 +475,74 @@ Nonconvexity
 -   t=0.001, Pearson's R=0.95
 -   t=0.1, Pearson's R=0.91
 
-Non-differentiable losses
--------------------------
 
-Applications
-------------
+What to Use it For?
+===================
 
-**Understanding Model Behavior**
 
-**Adversarial Training Examples**
 
-**Domain Mismatch**
 
-**Fixing Mislabeled Examples**
+Understanding Model Behavior
+----------------------------
 
+![**Bottom left:** $-\inflloss(z, z_\text{test})$ vs.
+$\lVert z - z_\text{test} \rVert^2_2$. Green dots are fish and red dots are dogs.
+**Bottom right:** The two most helpful training images, for each model, on the
+test. **Top right:** An image of a dog in the training set that helped the
+Inception model correctly classify the test image as a
+fish.](../figures/fig-rbf.jpeg){width=7cm}
+
+Adversarial Training Examples
+---------------------------------
+
+![We targeted a set of 30 test images featuring the **first author's dog** in a variety of poses and backgrounds. By maximizing the average loss over these 30 images,
+we created a visually-imperceptible change to the particular training image (shown on top) that flipped predictions on 16 test images. 
+](../figures/fig-attack.jpeg)
+
+
+Conclusion
+----------
+
+-   Why Best Paper?
+    -   Connects statistical technique with large-scale applications
+    -   Relatively usable "out of the box": code and datasets available,
+        parameterized over loss
+    -   Addresses important question for safety-critical systems
+-   What could be better / remaining questions?
+    -   Analysis of CNN example still leaves questions: How to linearize loss?
+        How to apply to other architectures?
+    -   Should analyze nonconvexity and nonconvergence separately, not together.
+    -   How to make datasets uniformly influential?
+
+
+Now For Something Completely Different!
+=======================================
+
+
+Robots!
+-------
+
+\centering
+![](../figures/a_softer_robot.jpg){width=\textwidth}\
+
+
+Challenges in Robotics
+----------------------
+
+-   We have low-level planning mostly figured out (thanks Steve!)
+    -   Even in real time: see, dynamic replanning, *Robot Motion Planning on a
+        Chip*
+-   More than ever, robots "just work" (but don't ask me to demo)
+-   Now, we can focus on the hugely important problem of human-robot interaction
+
+Robots and Humans, Working Together!
+------------------------------------
 
 
 # Thank you! {.standout}
 
 
 
-References
----------
+## References  {.allowframebreaks}
 
 \tiny
