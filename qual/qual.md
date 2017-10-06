@@ -7,6 +7,7 @@ subtitle:
 author: Alli Nilles 
 institute: University of Illinois at Urbana-Champaign
 bibliography: /home/alli/common/refs.bib
+csl: ieee.csl
 date: \today
 header-includes:
     -   \usetheme[block=fill]{metropolis}
@@ -29,18 +30,14 @@ header-includes:
 Outline
 -------
 
--   Brief overview of my research projects
-    -   bouncing robots
-    -   improv: a high-level language for live-coding robot motion
-    -   morphogenesis through local cell reconfigurations
-    -   weaselballs (undergraduate-led project)
--   *Understanding Black Box Predictions via Influence Functions*
-    -  deriving influence (sketch/intuition of proof)
-    -  validation
-    -  application domains
--   *Generating Plans that Predict Themselves*
-    -  defining what makes a plan $t$-predictable
-    -  instantiation and experiments
+> -   Brief overview of my research projects
+> -   *Understanding Black Box Predictions via Influence Functions*
+>     -  what is "influence"?
+>     -  validation
+>     -  applications
+> -   *Generating Plans that Predict Themselves*
+>     -  defining what makes a plan $t$-predictable
+>     -  instantiation and experiments
 
 My Research
 ===========
@@ -49,117 +46,145 @@ My Research
 Simple Mobile Robots
 --------------------
 
--   Mobile robots can vacuum floors, transport goods in warehouses, act as
+> -   Mobile robots can vacuum floors, transport goods in warehouses, act as
     security robots (patrol), etc
--   We want to **minimize** sensing, computation, actuation
-    -   make robots less expensive, more energy efficient
--   Often, robots can bump into things and be ok!
--   How can we use **contact with the environment** as a strategy or source of information?
+> -   We want to **minimize** sensing, computation, actuation
+>     -   make robots less expensive, more energy efficient
+> -   Often, robots can bump into things and be ok!
+> -   How can we use **contact with the environment** as a strategy or source of information?
 
 \centering
 
 ![](../figures/robot_brain.jpg){width=6cm}\
 
 
-Blind, Bouncing Robots [^1]
+Blind, Bouncing Robots
 ----------------------
 
-Abstract the robot as a point moving **in straight lines** in the plane, "bouncing" off the boundary
-at a **fixed angle** $\theta$ from the normal:
+Restrict the robot motion to:
 
-![A point robot moving in the plane. The top row shows bounces at zero degrees
-from the normal. The second row shows bounces at 50 degrees clockwise from
-normal.](../figures/bounce_examples.pdf)
+> -   moving forward in straight lines until collision
+> -   when in contact with boundary, rotate in place to some angle $\theta$, then move forward again
+
+
+![In this environment, bouncing at the normal, the robot will become trapped
+in the area between the purple lines [^1].](../figures/triangle_trap.jpg)
+
+[^1]: [@bounce], ICRA 13
 
 
 Research Questions
 ------------------
 
-Given a constant control strategy, will the robot become "trapped" in part of
-the environment? Or in a certain motion pattern? We focus on **patrolling**:
-periodically orbiting the workspace.
+Given a constant control strategy, will the robot become "trapped" in a certain
+motion pattern (attractor)?
 
-![In this environment, bouncing at the normal, the robot will become trapped
-in the area between the purple lines [^1].](../figures/triangle_trap.jpg)
+. . .
 
-[^1]: [@bounce], ICRA
+We show that such a robot can perform the task of **patrolling**: periodically
+following the same path.
 
-Related Work in Robotics
-------------
-
--   Minimal sensing, actuation, computation requirements for mapping, navigating, localizing, patrolling, pursuit evasion [^2]
--   formalize tradeoffs between sensor and actuator power, computational
-    complexity, energy use, etc
-    -   ICRA 1996 workshop, RSS '08, '16, '17
-
-\vspace{-1em}
 \centering
 
-![](../figures/steve-front.jpg){width=2cm}\ ![](../figures/kinect-front.jpg){width=2cm}\ ![](../figures/easter-eggs-front.jpg){width=2cm}\
+![](../figures/pent_limit_0pt5.pdf){width=3.5cm}\ ![](../figures/multi_start.pdf){width=3.5cm}\
 
 
-[^2]: @tovar2005gap, @bilo2012reconstructing, @OkaLav06, @disser11
 
 Results
 -------
 
--   limit cycles in regular polygons
--   limit cycles in convex polygons (Israel Becerra, postdoc)
--   next steps: incorporate feedback control, and explore design space (other
-    sensors, actuation strategies, etc)
+> -   limit cycles in regular polygons [@NilBecLav17, IROS 17]
+> -   limit cycles in convex polygons (upcoming, with Israel Becerra, postdoc)
+> -   next steps: incorporate feedback control, and explore design space (other
+    sensors, actuation strategies, etc), multiple robots, etc
+
+. . .
 
 \centering
-
-![](../figures/pent_limit_0pt5.pdf){width=3.5cm}\
-
+![](../figures/shear.pdf){width=3.5cm}\ ![](../figures/oct.pdf){width=3.5cm}\
 
 
-Morphogenesis
+Other Projects
 -------------
 
-With Dr. Yuliy Baryshnikov
+\columnsbegin
 
-![One type of epithelial cell reconfiguration
-[@fletcher2014vertex].](../figures/reconfig.jpg){width=6cm}
-
-
-![Morphogenesis in amphibian blastula
-[@staveley].](../figures/morpho.jpg){width=6cm}
+\column{0.45\textwidth}
 
 
-Improv: a High-Level Language for Live-Coding Robot Motion
-----------------------------------------------------------
+\footnotesize With Dr. Yuliy Baryshnikov: morphogenesis from local cell
+reconfigurations. \tiny Figures from [@fletcher2014vertex] [@staveley]
 
-Joint work with Chase Gladish, supervised by Drs. Amy LaViers, Mattox Beckman
+![](../figures/reconfig.pdf)\
+
+
+\footnotesize Weaselball assemblies (undergradates run this project!)
+\centering
+![](../figures/weaselball_case.pdf){width=3cm}\
+
+
+\column{0.55\textwidth}
+
+
+\footnotesize Robot "live coding" language for ROS - with Chase Gladish, Drs. Amy LaViers, Mattox Beckman
 
 ![](../figures/improv.jpg)\
 
 
-Weaselballs
------------
 
-\centering
+\footnotesize Robot Design Game (RSS 17 Workshop)
 
-![](../figures/weaselball_case.pdf){width=5cm}\
+![](../figures/steve-front.jpg){width=2cm}\ ![](../figures/kinect-front.jpg){width=2cm}\ ![](../figures/easter-eggs-front.jpg){width=2cm}\
 
+\columnsend
 
--   largely undergradute-led project
--   related to *Asymmetric gear rectifies random robot motion* [@asymm-gear] and *Bacterial
-    Ratchet Motors* [@di2010bacterial]
-
-Common Themes?
---------------
-
--   geometrical, topological, dynamical systems approaches
--   exploiting dynamics to make simple models and controllers
--   use abstractions to make better tools and programming languages for robotics
-
--   Why AI qual?
-    -   context for making planners/controllers
-    -   need to reason about subsystems that use learning
 
 Understanding Black Box Predictions via Influence Functions
 ===========================================================
+
+
+Motivation
+----------
+
+\centering
+![](../figures/auto.jpg){width=5cm}\ ![](../figures/grasp.jpg){width=5cm}\ [^3]$^,$[^4]
+
+
+> -   How can we interpret trained models, and perform sanity checks?
+> -   How can we avoid possible training-set and test-set attacks?
+> -   How robust are our models to noise?
+> -   Strong need for quantitative analysis tools
+
+[^3]: From Voyage Auto, "An Introduction to Lidar"
+[^4]: From Google Research
+
+
+Paper Contributions
+-------------------
+
+> -   A scalable implementation of influence functions, parameterized over loss
+      function
+> -   Evidence of usefulness for model understanding, generating adversarial
+      training examples, debugging domain mismatch, and fixing mislabeled examples
+
+. . .
+
+Much more work remains to be done! This is an analysis tool - what to do with
+results of analysis?
+
+
+Context and Related Work
+------------
+
+> -   statistics: Cook, Weisberg 1980: *Residuals and influence in regression*
+>     -   focused on linear models, exact solutions
+> -   *Robustness of Convex Risk Minimization Models* [@christmann2004robustness]
+>       -   $n=500$, SVM with different kernels, focus on effect of adding a data point
+> -   *Model selection in kernel based regression using the influence function* [@debruyne2008model]
+> -   *"Influence Sketching": Finding Influential Samples In Large-Scale Regressions* [@wojnowicz2016influence]
+>       -   randomized algorithm for approximating influence, specific to
+>           generalized linear models. $n=2$ million
+> -   adversarial examples and training-set attacks
 
 Background
 ----------
@@ -173,8 +198,13 @@ Background
 > adversaries... it is critical to build tools to help us make machine learning
 > more reliable 'in the wild.'" -- Percy Liang
 
+
 Problem Formulation
 -------------------
+
+What does it mean for a training point to be *influential*?
+
+. . .
 
 For a given learned model (with known loss function):
 
@@ -219,69 +249,6 @@ loss $L(z, \theta)$ and empirical risk $R(\theta) = \frac{1}{n} \sum_{i=1}^n L(z
 
 empirical risk minimizer $\hat{\theta} = \arg\min_{\theta\in\Uptheta} R(\theta)$
 
-Sketch of Derivation
---------------------
-
-We want to find change in model parameters if training point $z$ is removed, but we don't want to retrain
-
-Instead, weight $z$ by $\epsilon$:
-
-$$ \hat{\theta}_{\epsilon, z} = \arg\min_{\theta\in\Uptheta} \frac{1}{n}
-\sum_{i=1}^n L(z_i, \theta) + \epsilon L(z,\theta) $$
-
-. . .
-
-With $\Updelta_{\epsilon} = \hat{\theta}_{\epsilon, z} - \hat{\theta}$, we can
-calculate influence as:
-
-$$ \inflparams(z) \eqdef \frac{d \hat{\theta}_{\epsilon, z}}{d \epsilon} = 
-\frac{d \Updelta_{\epsilon, z}}{d \epsilon} $$ 
-
-Sketch of Derivation
---------------------
-
-$\hat{\theta}_{\epsilon, z}$ minimizes $R(\theta) + \epsilon L(z,\theta)$:
-
-\vspace{-1em}
-$$ 0 = \nabla R(\hat{\theta}_{\epsilon,z}) + \epsilon \nabla L(z,
-\hat{\theta}_{\epsilon, z}) $$
-
-. . .
-
-Taylor expand the right hand side around $\hat{\theta}$
-
-\vspace{-1em}
-\begin{align*}
-  0 \approx & \pb{\nabla R(\hat\theta) + \epsilon \nabla L(z, \hat\theta)} + \\
-  & \pb{\nabla^2 R(\hat\theta) + \epsilon \nabla^2 L(z, \hat\theta)} \Updelta_\epsilon  \\
-\end{align*}
-
-. . .
-
-and solve for $\Updelta_{\epsilon}$
-
-\vspace{-1em}
-\begin{align*}
-  \Updelta_\epsilon \approx & -\pb{\nabla^2 R(\hat\theta) + \epsilon \nabla^2 L(z, \hat\theta)}^{-1} \\
-  & \pb{\nabla R(\hat\theta) + \epsilon \nabla L(z, \hat\theta)}. \nonumber
-\end{align*}
-
-Sketch of Derivation
---------------------
-
-But $\nabla R(\hat\theta) = 0$.
-Keeping only $O(\epsilon)$ terms, we have
-\begin{align*}
-  \Updelta_\epsilon \approx & -\nabla^2 R(\hat\theta)^{-1} \nabla L(z, \hat\theta) \epsilon.
-\end{align*}
-
-. . .
-
-We conclude that:
-\begin{align*}
-  \frac{d\hat\theta_{\epsilon,z}}{d\epsilon}\Bigr|_{\substack{\epsilon = 0}} &= -H_{\hat\theta}^{-1} \nabla L(z, \hat\theta) \\
-  &\eqdef \inflparams(z).
-\end{align*}
 
 Removing and Perturbing Training Points
 ---------------------------------------
@@ -289,7 +256,7 @@ Removing and Perturbing Training Points
 Similar methods can derive the following:
 
 \begin{align*}
-\inflloss(z, z_{test})
+\sI_{L}(z, z_{test})
 & \eqdef \frac{d L(z_{test},\hat{\theta}_{\epsilon,z})}{d\epsilon} \Bigr|_{\substack{\epsilon = 0}} \\
 & = -\nabla_\theta L(z_\text{test}, \hat\theta) ^\top H_{\hat\theta}^{-1} \nabla_\theta L(z,\hat\theta)
 \end{align*}
@@ -305,7 +272,9 @@ We can also measure the influence of perturbing the **value** of a training inpu
 
 \begin{align}
 \label{eqn:inflinput-discrete}
-\frac{d\hat\theta_{\epsilon, z_\delta, -z}}{d\epsilon}\Bigr|_{\substack{\epsilon = 0}} &= \inflparams(z_\delta) -\inflparams(z) \nonumber\\
+\frac{d\hat\theta_{\epsilon, z_\delta, -z}}{d\epsilon}\Bigr|_{\substack{\epsilon = 0}} &=
+\sI_{\hat{\theta}}(z_\delta)
+-\sI_{\hat{\theta}}(z) \nonumber\\
 &= -H_{\hat\theta}^{-1} \big(\nabla_\theta L(z_\delta, \hat\theta) - \nabla_\theta L(z, \hat\theta) \big).
 \end{align}
 
@@ -329,7 +298,7 @@ H_\theta                   &= \frac{1}{n} \sum_{i=1}^n \sigma(\theta^\top x_i) \
 
 . . .
 
-and $\inflloss(z, z_\text{test})$ is
+and $\sI_{L}(z, z_\text{test})$ is
 
 \begin{align*}
 -y_\text{test} y \cdot \sigma(-y_\text{test} \theta^\top x_\text{test}) \cdot \sigma(-y \theta^\top x) \cdot x_\text{test}^\top H_{\hat\theta}^{-1} x.
@@ -350,7 +319,7 @@ L(z, \theta)               &= \log (1 + \exp(-y \theta^\top x)) \\
 H_\theta                   &= \frac{1}{n} \sum_{i=1}^n \sigma(\theta^\top x_i) \sigma(-\theta^\top x_i) x_i x_i^\top
 \end{align*}
 
-and $\inflloss(z, z_\text{test})$ is
+and $\sI_{L}(z, z_\text{test})$ is
 
 \begin{align*}
 -y_\text{test} y \cdot \sigma(-y_\text{test} \theta^\top x_\text{test}) \cdot \sigma(-y \theta^\top x) \cdot
@@ -385,32 +354,6 @@ Analysis - Remove Terms from Influence
     "resistance" of the other training points to the removal of $z$. Without it,
     all same-label points are helpful, all opposite-label points are harmful.
 
-Context and Related Work
-------------
-
--   statistics: Cook, Weisberg 1980: *Residuals and influence in regression*
-    -   focused on linear models, exact solutions
-
-\centering
-![](../figures/glossary.pdf){width=6cm}\
-
-
-
-Context and Related Work
-------------
-
--   statistics: Cook, Weisberg 1980: *Residuals and influence in regression*
-    -   focused on linear models, exact solutions
-
-> -   *Robustness of Convex Risk Minimization Models* [@christmann2004robustness]
-      -   $n=500$, SVM with different kernels, focus on effect of adding a data point
-> -   *Model selection in kernel based regression using the influence function* [@debruyne2008model]
-> -   *"Influence Sketching": Finding Influential Samples In Large-Scale Regressions* [@wojnowicz2016influence]
-      -   randomized algorithm for approximating influence, specific to
-            generalized linear models. $n=2$ million
-> -   adversarial examples and training-set attacks
-
-
 
 
 
@@ -431,30 +374,30 @@ Overall approach:
 
 > -   Efficiently approximate $s_{test} \eqdef
       H_{\hat{\theta}}^{-1} \nabla_{\theta} L(z_{test}, \hat{\theta})$
-> -   Use this to efficiently compute $\inflloss(z, z_{test})$ by just multiplying
+> -   Use this to efficiently compute $\sI_{L}(z, z_{test})$ by just multiplying
       $s_{test}$ by $\nabla_{\theta} L(z, \theta)$ as needed!
 
 . . .
 
 **Conjugate Gradients** 
 
-. . .
-
 **Stochastic Estimation**
 
 Both automatically handled in systems like TensorFlow, Theano - users just
 specify $L$.
 
+Speeds up calculating influence for all training points on a given test point to
+$\mathcal{O}(np)$.
+
 How to Know if it Works?
 ========================
-
 
 Validation: Influence matches leave-one-out retraining
 ----------
 
 ![**Left:** For each of the 500 training
 points with largest influence, we plotted
-$-\frac{1}{n} \cdot \inflloss(z, z_\text{test})$ against the actual change in
+$-\frac{1}{n} \cdot \sI_{L}(z, z_\text{test})$ against the actual change in
 test loss after removing that point and retraining. The inverse HVP was solved
 exactly with CG. **Mid:** Same, but with the stochastic approximation.
 **Right:** The same plot for a CNN, computed on the 100 most influential
@@ -464,7 +407,6 @@ retrained from $\tilde \theta$ for 30k steps](../figures/fig-approx.png)
 
 Non-differentiable losses
 -------------------------
-
 
 ![](../figures/fig-hinge.png)\
 
@@ -480,12 +422,10 @@ What to Use it For?
 ===================
 
 
-
-
 Understanding Model Behavior
 ----------------------------
 
-![**Bottom left:** $-\inflloss(z, z_\text{test})$ vs.
+![**Bottom left:** $-\sI_{L}(z, z_\text{test})$ vs.
 $\lVert z - z_\text{test} \rVert^2_2$. Green dots are fish and red dots are dogs.
 **Bottom right:** The two most helpful training images, for each model, on the
 test. **Top right:** An image of a dog in the training set that helped the
@@ -541,6 +481,73 @@ Robots and Humans, Working Together!
 
 # Thank you! {.standout}
 
+Appendix
+========
+
+
+Sketch of Derivation
+--------------------
+
+We want to find change in model parameters if training point $z$ is removed, but we don't want to retrain
+
+Instead, weight $z$ by $\epsilon$:
+
+$$ \hat{\theta}_{\epsilon, z} = \arg\min_{\theta\in\Uptheta} \frac{1}{n}
+\sum_{i=1}^n L(z_i, \theta) + \epsilon L(z,\theta) $$
+
+. . .
+
+With $\Updelta_{\epsilon} = \hat{\theta}_{\epsilon, z} - \hat{\theta}$, we can
+calculate influence as:
+
+$$ \sI_{\hat{\theta}}(z) \eqdef \frac{d \hat{\theta}_{\epsilon, z}}{d \epsilon} = 
+\frac{d \Updelta_{\epsilon, z}}{d \epsilon} $$ 
+
+Sketch of Derivation
+--------------------
+
+$\hat{\theta}_{\epsilon, z}$ minimizes $R(\theta) + \epsilon L(z,\theta)$:
+
+\vspace{-1em}
+$$ 0 = \nabla R(\hat{\theta}_{\epsilon,z}) + \epsilon \nabla L(z,
+\hat{\theta}_{\epsilon, z}) $$
+
+. . .
+
+Taylor expand the right hand side around $\hat{\theta}$
+
+\vspace{-1em}
+\begin{align*}
+  0 \approx & \pb{\nabla R(\hat\theta) + \epsilon \nabla L(z, \hat\theta)} + \\
+  & \pb{\nabla^2 R(\hat\theta) + \epsilon \nabla^2 L(z, \hat\theta)} \Updelta_\epsilon  \\
+\end{align*}
+
+. . .
+
+and solve for $\Updelta_{\epsilon}$
+
+\vspace{-1em}
+\begin{align*}
+  \Updelta_\epsilon \approx & -\pb{\nabla^2 R(\hat\theta) + \epsilon \nabla^2 L(z, \hat\theta)}^{-1} \\
+  & \pb{\nabla R(\hat\theta) + \epsilon \nabla L(z, \hat\theta)}. \nonumber
+\end{align*}
+
+Sketch of Derivation
+--------------------
+
+But $\nabla R(\hat\theta) = 0$.
+Keeping only $O(\epsilon)$ terms, we have
+\begin{align*}
+  \Updelta_\epsilon \approx & -\nabla^2 R(\hat\theta)^{-1} \nabla L(z, \hat\theta) \epsilon.
+\end{align*}
+
+. . .
+
+We conclude that:
+\begin{align*}
+  \frac{d\hat\theta_{\epsilon,z}}{d\epsilon}\Bigr|_{\substack{\epsilon = 0}} &= -H_{\hat\theta}^{-1} \nabla L(z, \hat\theta) \\
+  &\eqdef \sI_{\hat{\theta}}(z).
+\end{align*}
 
 
 ## References  {.allowframebreaks}
