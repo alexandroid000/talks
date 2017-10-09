@@ -20,12 +20,6 @@ header-includes:
 ---
 
 
-Robots!
--------
-
-\centering
-![](../figures/a_softer_robot.jpg){width=11cm}\
-
 
 Challenges in Robotics
 ----------------------
@@ -74,13 +68,21 @@ we assume the actions "just work"
 ![](../figures/RRT_graph1.png){height=3cm}\ ![](../figures/baxter.jpg){height=3cm}\
 
 
-Communication Through Action
+Background: Communicating Through Action
 ----------------------------
 
-> -   predictability
-> -   legibility
-> -   explicability
+> -   predictability vs. legibility [^11]
+> -   explicability [^12]
+> -   expressiveness: Amy LaViers RAD Lab [^13]
 
+HRI started in 2006, with 147 attendees, and in 2015 had 364
+attendees
+
+135/834 IROS 2016 papers had "human" in the title or keywords
+
+[^11]: [@dragan2013legibility], Dragan et al 13 HRI
+[^12]: [@zhang2017plan], Zhang et al 17 ICRA
+[^13]: [@bai2016design], Bai, Dahl, LaViers 16 IROS
 
 Approach
 --------
@@ -114,9 +116,6 @@ after observing $(a_1, \ldots, a_t)$ and knowing the goal $G$.
 feasible plans. 
 
 : $a^*$ such that $a^* = \arg\max_{a \in \mathcal{A}} \mathcal{P}_t(a)$
-
-: $a^*$ such that $a^* = \arg\max_{a \in \mathcal{A}} \frac{P(a_1, \ldots, a_T|
-S,G)}{P(a_1, \ldots, a_T)}$
 
 
 How Do Humans Predict What Robots Will Do?
@@ -158,7 +157,7 @@ predictable**.
 
 . . .
 
-Use branch-and-bound algorithm to reduce from factorial to exponential time.
+Use branch-and-bound technique to reduce from factorial to exponential time.
 
 t-Predictability
 ----------------
@@ -205,6 +204,29 @@ to 176 layouts.
 Results
 -------
 
+**Model Validity:** high correlation ($r=0.87$) between theoretical
+predictability and participant accuracy
+
+. . .
+
+All hypotheses (mostly) supported:
+
+**H1:** When showing 1 target, the 1-predictable robot will result in lower
+error than the optimal baseline (similar for 2 targets).
+
+. . .
+
+**H2:** The error rate will be lowest when $t$ equals the number of targets
+shown, $k$.
+
+. . .
+
+**H3:** The percieved performance of the robots will be highest when $t=k$.
+
+
+Results
+-------
+
 ![Error rate and Levenshtein distance for user-predicted paths in online
 experiment. Figure 4 in [@fisac2016generating].](../figures/online_results.jpg)
 
@@ -228,15 +250,27 @@ In-Person Experiments
 ![](../figures/experiment.jpg)
 
 
+
 Results
 -------
 
-> - 1-predictable robot leads to more successful completions
-> - 86% of participants prefer the predictable robot (Likert scale)
+**H1:** The 1-predictable robot will result in more successful trials than the
+optimal baseline.
+
+> 1-predictable robot leads to more successful completions ($z=3.34$,
+> $p<0.001$)
+
+\vspace{-1em}
+
+**H2:** Users will prefer working with the 1-predictable robot.
+
+> 86% of participants prefer the predictable robot
+
+\vspace{-1em}
 
 . . .
 
-![](../figures/tpredict_preferences3.jpg)
+![](../figures/tpredict_preferences3.jpg){width=10cm}
 
 
 Contributions
@@ -244,8 +278,11 @@ Contributions
 
 > - first step toward making predictable *action sequences*, not just
 >   predictable goals
+>       -   very important for safety and comfort!
 > - statistically significant evidence that this planner affects how humans
 >   predict what robots will do
+> - collaboration with psychologists, thorough statistical analysis of
+>   experiments
 
 Limitations
 -----------
@@ -281,9 +318,13 @@ Planning Search* by Ross Knepper and Matt Mason, IJRR 2012
 
 \columnsend
 
-# Thank you! {.standout}
+Thank you!
+-------
+
+\centering
+![](../figures/a_softer_robot.jpg){width=11cm}\
 
 
-## References  {.allowframebreaks}
+## References
 
 \tiny
