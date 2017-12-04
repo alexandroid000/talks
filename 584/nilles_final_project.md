@@ -151,6 +151,28 @@ What We Want
 
 Tools from this class especially help with the last two
 
+
+Reachability Modelling Approach
+-----------------------------
+
+
+** fig of automata **
+
+
+Modelling Transitions
+-----------------
+
+
+** fig of edge bounce **
+
+
+$\theta_{out} = \theta_{edge} + \theta_c$
+
+$v_x := \cos(\theta_{out})$
+$v_y := \sin(\theta_{out})$
+
+
+
 Results
 -------
 

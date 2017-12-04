@@ -13,8 +13,8 @@ fontsize: 12pt
         iii. bookkeeping
 2.  Discussion **(10-15 min)**
     a. "What technologies does your co-op use for decisionmaking,
-    document sharing, and bookkeeping? When do these work well, and when do they
-    fail? Remember, technologies include things like rules for running meetings,
+    document sharing, and bookkeeping? When do these work well, and when are
+    they frustrating? Remember, technologies include things like rules for running meetings,
     written notes, signs, as well as computerized technologies."
     b. This can be either a whole-group or breakout-into-small-groups discussion
     c. Separate discussion for each use case (decisionmaking, document sharing,
@@ -37,7 +37,8 @@ fontsize: 12pt
 4.  Wrap up, contact sharing
     a. will make voluntary mailing list for continuing the discussion, sharing
     new projects, finding collaborators, etc
-    
+
+
 More discussion questions, which we may or may not have time for:
 
 -   Are there "use cases" I am missing? What repetitive, automatable tasks do you

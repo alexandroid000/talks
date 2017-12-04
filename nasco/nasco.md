@@ -6,7 +6,6 @@ bibliography: /home/alli/projects/bounce/paper/refs.bib
 date: \today
 header-includes:
     -   \usetheme[block=fill]{metropolis}
-    -   \usepackage{epstopdf}
     -   \usepackage{jeffe}
     -   \usepackage[font=small]{subcaption}
     -   \usepackage{multimedia}
@@ -49,6 +48,12 @@ What is Technology?
 \includegraphics[width=1.5\textwidth]{../figures/technology.jpg}
 
 
+What is Technology?
+-------------------
+
+> "technology includes all tools, machines, utensils, weapons, instruments,
+> housing, clothing, communicating and transporting devices and the skills by
+> which we produce and use them" -- Read Bain, sociologist
 
 
 Cooperative Technology - What is it?
@@ -64,7 +69,6 @@ Cooperative Technology - What is it?
 > -   filing cabinet
 > -   group messaging apps
 > -   meeting rules / Robert's Rules of Order
-> -   **systems and patterns of interaction, often (but not always) using physical tools**
 
 
 \column{0.5\textwidth}
@@ -75,7 +79,7 @@ Cooperative Technology - What is it?
 \columnsend
 
 
-What to Automate?
+But What About Computers?
 -----------------
 
 Don't want to replace all of these technologies with computers
@@ -86,9 +90,9 @@ But computers are good for some things! (Boring, repetitive things!)
 
 . . .
 
-> - Scheduling, voting (when not all parties can be in the same place)
-> - Document storage, editing
+> - Document storage, group editing
 > - Bookkeeping
+> - Scheduling, voting (when not all parties can be in the same place)
 
 Most Important Takeaway
 -----------------------
@@ -123,7 +127,7 @@ Discussion
 What technologies does your co-op use for **decisionmaking**, **document
 sharing**, and **bookkeeping**?
 
-When do these work well, and when do they fail?
+When do these work well, and when are they frustrating?
 
 \large
 
@@ -169,12 +173,32 @@ def my_program(input):
 
 \columnsend
 
-FOSS Principles
+"Free and Open Source Software" Principles
 ---------------
 
 > "the freedom to use, study, copy, modify, and redistribute computer software"
 
-Case Study: Quickbooks
+. . .
+
+Open source software is continually improved - bugs can be fixed by anyone, not
+just developers working for company
+
+
+Relevant Rochdale Principles
+-------------------
+
+> -   democratic member control
+>     -   requires transparent and equal access to decisionmaking process
+> -   member economic participation
+>     -   requires transparent and equal access to economic process
+> -   autonomy and independence
+>     -   "Co-operatives are autonomous, self-help organizations controlled by
+>         their members. If they enter into agreements with other organizations...
+>         they do so on terms that ensure democratic control by their members and
+>         maintain their co-operative autonomy."
+
+
+Case Study: Quickbooks Online
 ----------------------
 
 From Intuit's Terms of Service:
@@ -187,7 +211,7 @@ will constitute your acceptance of and agreement to such changes."
 . . .
 
 What if Intuit goes out of business? Or decides to double prices? Or their
-servers are hacked and personal info is stolen/deleted?
+servers are hacked and data is stolen/deleted? Users have no recourse.
 
 Tradeoffs
 ---------
@@ -206,23 +230,6 @@ convenience vs. control
 "just call the landlord" vs. self-management
 
 
-Relevant Rochdale Principles
--------------------
-
-> -   democratic member control
->     -   requires transparent and equal access to decisionmaking process
-> -   member economic participation
->     -   requires transparent and equal access to economic process
-> -   autonomy and independence
->     -   "Co-operatives are autonomous, self-help organizations controlled by
->         their members. If they enter into agreements with other organizations...
->         they do so on terms that ensure democratic control by their members and
->         maintain their co-operative autonomy."
-
-. . .
-
-Open source software is continually improved - bugs can be fixed by anyone, not
-just developers working for company
 
 Decentralized Software
 ======================
@@ -262,7 +269,10 @@ Google Docs
 -----------
 
 Each document is "owned" by one Google account. This account can change
-sharing settings, delete the document, etc.
+sharing settings, delete the document, etc. Google can lock people out of docs
+if they violate Terms of Service.
+
+. . .
 
 Best Practices:
 
@@ -278,7 +288,7 @@ in the network. Used for collaborative document editing.
 
 . . .
 
-Created in 2005 for Linux.
+Created in 2005 for Linux. Lots of tutorials online!
 
 . . .
 
@@ -319,15 +329,15 @@ journalism, finance, data management, etc)
 platform.coop
 
 
-Open ledgers
+Open ledgers (blockchains)
 ------------
 
 > -   Everyone tracks all transactions that have ever happened
 > -   Majority of people must agree to approve a transaction
 > -   Basic idea behind bitcoin (though 96% of bitcoin is owned by 4% of the
->     network)
-> -   Ideas could be useful for internal transactions in co-op (or network of
->     co-ops): needs more people working on it!
+>     network - not exactly decentralized)
+> -   Ideas could be useful for tracking internal transactions in co-ops (not
+      just money: hours worked, task assignments, etc)
 
 A Plea
 ------
@@ -336,12 +346,14 @@ A Plea
 
 \large
 
-talk about software - criticize it - do not treat it as fixed
+talk about software - **criticize it** - do not treat it as fixed
 
 . . .
 
 \vspace{2em}
 recruit and support technologically-minded people
+
+(and be patient with them)
 
 . . .
 
@@ -357,7 +369,8 @@ Discussion
 
 \Large
 
-What do we want computers to do for us?
+What do we want computers to do for us? What can "software coordinators" do for
+co-ops?
 
 What are the **obstacles** to changing technologies?
 
