@@ -15,9 +15,10 @@ header-includes:
     -   \usepackage{multimedia}
     -   \usepackage{amsmath}
     -   \usepackage{amssymb}
-    -   \usepackage[font=small]{subcaption}
     -   \usepackage{graphicx}
     -   \usepackage{hyperref}
+    -   \usepackage{tikz}
+    -   \usetikzlibrary{arrows}
     -   \usepackage{xfrac}
     -   \usepackage{jeffe}
     -   \newtheorem{proposition}{\bf Proposition}
@@ -155,22 +156,62 @@ Tools from this class especially help with the last two
 Reachability Modelling Approach
 -----------------------------
 
+\centering
 
-** fig of automata **
+\begin{tikzpicture}[->,>=stealth',auto,node distance=2.5cm,
+  thick,main node/.style={circle,draw,minimum size = 1.7cm, font=\scriptsize}]
+\node[main node] (x0)   [align=center] {$\dot{x} = v_x$\\$\dot{y} =v_y$};
+
+\path[]
+    (x0) edge [loop above,thick] node {$e_1$} (x0)
+    (x0) edge [loop right,thick] node {$e_2$} (x0)
+    (x0) edge [loop left,thick] node {$e_3$} (x0)
+    (x0) edge [loop below,thick] node {$e_4$} (x0);
+
+\end{tikzpicture}
 
 
 Modelling Transitions
 -----------------
 
+\centering
+![](../figures/p1p2bounce.pdf)\
 
-** fig of edge bounce **
 
 
-$\theta_{out} = \theta_{edge} + \theta_c$
+Modelling Transitions
+--------------------
 
-$v_x := \cos(\theta_{out})$
-$v_y := \sin(\theta_{out})$
 
+If robot is colliding with wall, $(x,y) = (x_1, y_1) + s((x_2, y_2) - (x_1,
+y_1))$, and $0 \leq s < 1$
+
+. . .
+
+**Pre:** $\frac{x-x_1}{x_2-x_1} == \frac{y-y_1}{y_2-y_1} \wedge 0 \leq s < 1$
+
+*Note 1: This decides "corner collisions" consistently.*
+
+
+*Note 2: Requires special case for vertical/horizontal edges*
+
+. . .
+
+**Eff:**
+
+$v_x := \cos(\theta_{edge} + \theta_c)$
+
+
+$v_y := \sin(\theta_{edge} + \theta_c)$
+
+. . .
+
+Compute concretely in Haskell, put floating point numbers into SpaceEx...
+Motivation for using dReach?
+
+. . .
+
+Only supports single-valued $\theta_c$ (for now)
 
 
 Results
@@ -199,6 +240,33 @@ Results
 ![](../figures/xml.jpg){width=13cm}\
 
 
+Results of Simulations 
+----------------------
+
+
+When bouncing between parallel sides, SpaceEx finds fixed point within a few
+iterations!
+
+This type of bouncing is geometrically exact: $f_{1,3}(f_{3,1}(x)) = x$ if
+$f_{i,j}$ is the
+mapping from side $e_i$ to side $e_j$.
+
+
+\centering
+
+![](../figures/sq1.gif){width=5.5cm}\ ![](../figures/square_2_bounce.pdf){width=5cm}\ 
+
+
+Results of Simulations - Nonconvergence w/ Asymptotic Stability
+------------------
+
+When periodic orbit is asymptotically stable, SpaceEx does not appear to
+converge (700+ iterations, several minutes, how long to wait?)
+
+\centering
+![](../figures/sq2.gif){width=5.5cm}\ ![](../figures/square_bounce.pdf){width=5cm}\
+
+
 
 Limitations / Future Work
 -----------
@@ -215,6 +283,18 @@ Limitations / Future Work
 > - Next step is to use Haskell XML Toolbox (HXT) to make this less janky
 
 
+More Future Work
+-----------
+
+
+> - Build in support for bounce angle intervals
+> - Limit cycle detection with reachability (if robot starts in interval on
+    edge $i$, show it will not reach the complement of that interval)
+> - Use this as subroutine for synthesis algorithms: given environment, what bounce angles produce
+    paths with certain properties (coverage, limit cycles)?
+> - Modelling / synthesizing strategies over multiple angles (generate multiple
+>   automata and compose)
+> - Multiple robots and collisions (including robots sticking together?)
 
 
 References
