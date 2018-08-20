@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Alli Nilles">
+  <meta name="author" content="Israel Becerra">
+  <meta name="author" content="Steve LaValle">
+  <title>  Periodic Trajectories of Mobile Robots</title>
+  <style type="text/css">code{white-space: pre-wrap;}</style>
+<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
+
+<style>
+  html, .view body { background-color: black; counter-reset: slideidx; }
+  body, .view section { background-color: white; border-radius: 12px }
+  /* A section is a slide. It's size is 800x600, and this will never change */
+  section, .view head > title {
+      /* The font from Google */
+      font-family: 'Oswald', arial, serif;
+      font-size: 30px;
+  }
+
+  .view section:after {
+    counter-increment: slideidx;
+    content: counter(slideidx, decimal-leading-zero);
+    position: absolute; bottom: -80px; right: 100px;
+    color: white;
+  }
+
+  .view head > title {
+    color: white;
+    text-align: center;
+    margin: 1em 0 1em 0;
+  }
+
+  h1, h2 {
+    margin-top: 200px;
+    text-align: center;
+    font-size: 80px;
+  }
+  h3 {
+    margin: 100px 0 50px 100px;
+  }
+
+  ul {
+      margin: 50px 200px;
+  }
+  li > ul {
+      margin: 15px 50px;
+  }
+
+  p {
+    margin: 75px;
+    font-size: 50px;
+  }
+
+  blockquote {
+    height: 100%;
+    background-color: black;
+    color: white;
+    font-size: 60px;
+    padding: 50px;
+  }
+  blockquote:before {
+    content: open-quote;
+  }
+  blockquote:after {
+    content: close-quote;
+  }
+
+  /* Figures are displayed full-page, with the caption
+     on top of the image/video */
+  figure {
+    background-color: black;
+    width: 100%;
+    height: 100%;
+  }
+  figure > * {
+    position: absolute;
+  }
+  figure > img, figure > video {
+    width: 100%; height: 100%;
+  }
+  figcaption {
+    margin: 70px;
+    font-size: 50px;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 40px;
+    text-align: right;
+    background-color: #F3F4F8;
+    border-top: 1px solid #CCC;
+  }
+
+  /* Transition effect */
+  /* Feel free to change the transition effect for original
+     animations. See here:
+     https://developer.mozilla.org/en/CSS/CSS_transitions
+     How to use CSS3 Transitions: */
+  section {
+    -moz-transition: left 400ms linear 0s;
+    -webkit-transition: left 400ms linear 0s;
+    -ms-transition: left 400ms linear 0s;
+    transition: left 400ms linear 0s;
+  }
+  .view section {
+    -moz-transition: none;
+    -webkit-transition: none;
+    -ms-transition: none;
+    transition: none;
+  }
+
+  .view section[aria-selected] {
+    border: 5px red solid;
+  }
+
+  /* Before */
+  section { left: -150%; }
+  /* Now */
+  section[aria-selected] { left: 0; }
+  /* After */
+  section[aria-selected] ~ section { left: +150%; }
+
+  /* Incremental elements */
+
+  /* By default, visible */
+  .incremental > * { opacity: 1; }
+
+  /* The current item */
+  .incremental > *[aria-selected] { opacity: 1; }
+
+  /* The items to-be-selected */
+  .incremental > *[aria-selected] ~ * { opacity: 0; }
+
+  /* The progressbar, at the bottom of the slides, show the global
+     progress of the presentation. */
+  #progress-bar {
+    height: 2px;
+    background: #AAA;
+  }
+</style>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</head>
+<body>
+<section class="title">
+  <h1 class="title">  Periodic Trajectories of Mobile Robots</h1>
+  <footer>
+    <span class="author">Alli Nilles, Israel Becerra, Steve LaValle</span> · 
+  </footer>
+</section>
+<section id="simple-mobile-robots" class="slide level2">
+<h2>Simple Mobile Robots</h2>
+<ul>
+<li>mobile robots are used in a range of applications: vacuuming floors, transporting goods in warehouses, security robots, etc</li>
+<li>we want to minimize onboard computation (less expensive, more energy efficient)</li>
+<li>They can bump into things and be ok!</li>
+<li>How can we use contact with the environment as a strategy or source of information?</li>
+</ul>
+
+<p><img src="figures/robot_brain.jpg" width="226" /><br />
+</p>
+</section>
+<section id="blind-bouncing-robots-1" class="slide level2">
+<h2>Blind, Bouncing Robots <a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></h2>
+<p>Abstract the robot as a point moving in the plane, &quot;bouncing&quot; off the boundary at a fixed angle <span class="math inline"><em>θ</em></span> from the normal:</p>
+<figure>
+<img src="figures/bounce_examples.jpg" alt="A point robot moving in the plane. The top row shows bounces at zero degrees from the normal. The second row shows bounces at 50 degrees clockwise from normal." /><figcaption>A point robot moving in the plane. The top row shows bounces at zero degrees from the normal. The second row shows bounces at 50 degrees clockwise from normal.</figcaption>
+</figure>
+</section>
+<section id="research-questions" class="slide level2">
+<h2>Research Questions</h2>
+<p>Given a constant control strategy, will the robot become &quot;trapped&quot; in a certain part of the environment? Or a certain motion pattern? How can we exploit this?</p>
+<figure>
+<img src="figures/triangle_trap.jpg" alt="In this environment, bouncing at the normal, the robot will become trapped in the area between the purple lines " /><figcaption>In this environment, bouncing at the normal, the robot will become trapped in the area between the purple lines <a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></figcaption>
+</figure>
+</section>
+<section id="ok-but-why" class="slide level2">
+<h2>Ok, but why?</h2>
+<ul>
+<li>platform invariant: just need two primitives
+<ul>
+<li>move straight</li>
+<li>align wrt wall normal</li>
+</ul></li>
+<li>predictable, reliable motion control in structured spaces
+<ul>
+<li>warehouses, offices, need patrolling robots to monitor conditions</li>
+<li>we usually know something about the geometry of these environments ahead of time, and can create geometry-based strategies</li>
+</ul></li>
+</ul>
+<h3 id="but-is-it-physically-realizable">But is it physically realizable?</h3>
+<ul>
+<li>can implement on a roomba with bump and IR prox detector <a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></li>
+<li>&quot;collisions&quot; can be virtual - for example, robot stops when it is collinear with two landmarks, and rotates until one landmark is at a certain heading</li>
+</ul>
+</section>
+<section id="related-work" class="slide level2">
+<h2>Related Work</h2>
+<ul>
+<li>minimal sensing, actuation, computation requirements for mapping, navigating, localizing, patrolling, pursuit evasion <em>(<span class="citation" data-cites="tovar2005gap">@tovar2005gap</span>, <span class="citation" data-cites="bilo2012reconstructing">@bilo2012reconstructing</span>, <span class="citation" data-cites="OkaLav06">@OkaLav06</span>, <span class="citation" data-cites="disser11">@disser11</span>)</em></li>
+<li>specular billiards <em>(<span class="citation" data-cites="billiards">@billiards</span>)</em>, pinball billiards <em>(<span class="citation" data-cites="pinball">@pinball</span>)</em></li>
+<li><strong>aspecular billiards</strong>, microorganism billiards <em>(<span class="citation" data-cites="microorganism2017">@microorganism2017</span>)</em></li>
+</ul>
+<p><embed src="figures/microorgs.pdf" width="377" /><br />
+</p>
+</section>
+<section id="limit-cycles-in-regular-polygons" class="titleslide slide level1"><h1>Limit Cycles In Regular Polygons</h1></section><section id="question" class="slide level2">
+<h2>Question</h2>
+<p>If we can only move in straight lines and align relative to wall normal:</p>
+<blockquote>
+<p>Can we guarantee that a robot <strong>patrols</strong> a space on a periodic path?</p>
+</blockquote>
+<p>Can also phrase as:</p>
+<blockquote>
+<p>What are the conditions on limit cycles in this dynamical system?</p>
+</blockquote>
+</section><section id="discovery-through-simulation" class="slide level2">
+<h2>Discovery Through Simulation</h2>
+<ul>
+<li>Haskell with <em>Diagrams</em> library <span class="citation" data-cites="monoids">[@monoids]</span></li>
+<li>fixed-angle bouncing, relative bouncing (rotate <span class="math inline"><em>θ</em></span> from previous heading), specular bouncing, add noise</li>
+<li>render diagrams from simulations automatically <a href="#fn4" class="footnoteRef" id="fnref4"><sup>4</sup></a></li>
+</ul>
+
+<p><embed src="figures/pent_05rad.pdf" width="113" /><br />
+</p>
+</section><section id="in-regular-polygons" class="slide level2">
+<h2>In Regular Polygons</h2>
+<p>Ignore movement in interior, only track position on boundary when robot collides. Defines a <strong>discrete dynamical system</strong></p>
+<p><br /><span class="math display"><em>x</em><sub><em>n</em> + 1</sub> = <em>f</em>(<em>x</em><sub><em>n</em></sub>)</span><br /></p>
+<p>Given regular polygon, with edge length <span class="math inline">ℓ</span> and internal angle <span class="math inline"><em>ϕ</em></span>, we can define the mapping function</p>
+<p><br /><span class="math display"><em>b</em><sub><em>θ</em></sub> : (0, ℓ)→(0, ℓ)</span><br /></p>
+</section><section id="sequential-edge-bouncing" class="slide level2">
+<h2>Sequential-Edge Bouncing</h2>
+<p>In regular polygons with side length <span class="math inline">ℓ</span> and internal angle <span class="math inline"><em>ϕ</em></span>:</p>
+
+
+<p><embed src="figures/simple_bounce_def.pdf" width="377" /><br />
+</p>
+</section><section id="fixed-point-of-mapping-function-iff-periodic-orbit" class="slide level2">
+<h2>Fixed Point of Mapping Function <span class="math inline">⇔</span> Periodic Orbit</h2>
+
+
+<p><embed src="figures/simple_bounce_def.pdf" /><br />
+</p>
+<p><embed src="figures/pent_05rad.pdf" /><br />
+</p>
+</section><section id="what-is-the-fixed-point" class="slide level2">
+<h2>What is the Fixed Point?</h2>
+
+
+
+<p><embed src="figures/simple_bounce_def.pdf" /><br />
+</p>
+
+
+<p>For clockwise bouncing, reflect across the midpoint of the edge: <span class="math inline">→ℓ−<em>x</em><sub><em>F</em><em>P</em></sub></span></p>
+</section><section id="is-the-fixed-point-unique" class="slide level2">
+<h2>Is the Fixed Point Unique?</h2>
+
+When we check how distances change under the map, we see that
+
+<p>Thus if <span class="math inline">|<em>c</em>(<em>θ</em>)| &lt; 1</span>, then <span class="math inline"><em>b</em><sub><em>θ</em></sub></span> is a contraction mapping, and by the Banach fixed-point theorem, it has a unique fixed point <span class="citation" data-cites="Granas2003">[@Granas2003]</span>.</p>
+</section><section id="bounds-on-theta" class="slide level2">
+<h2>Bounds on <span class="math inline"><em>θ</em></span></h2>
+<p>To get bounds on <span class="math inline"><em>θ</em></span> for guaranteeing periodic trajectories:</p>
+<ul>
+<li>solve <span class="math inline">$|\frac{\cos(\theta)}{\cos(\theta-\phi)}| &lt; 1$</span></li>
+<li>take geometric feasibility into account (for non-regular polygons)</li>
+</ul>
+<p>So now we have a statement for the existence and stability of the fixed points, for counterclockwise bouncing striking each edge of a regular polygon:</p>
+
+</section><section id="confirmation-and-generalization" class="slide level2">
+<h2>Confirmation and Generalization</h2>
+<p>We have shown the case for counterclockwise bounces, on every sequential edge.</p>
+<p>We can also imagine going clockwise, and/or skipping edges:</p>
+
+<p>Mapping function, convergence conditions go through very similarly (see paper)</p>
+</section><section id="simulation-results" class="slide level2">
+<h2>Simulation Results</h2>
+
+</section><section id="nice-properties" class="slide level2">
+<h2>Nice Properties</h2>
+<ul>
+<li>any regular <span class="math inline"><em>n</em></span>-gon</li>
+<li>stable orbits are <strong>independent of starting position</strong></li>
+<li>exponential convergence</li>
+<li>bounds on <span class="math inline"><em>θ</em></span> from <span class="math inline">|<em>c</em>(<em>θ</em>)| &lt; 1</span>: any angle in this range will make similar orbits</li>
+</ul>
+
+
+</section><section id="adding-noise" class="slide level2">
+<h2>Adding Noise</h2>
+<figure>
+<embed src="figures/rand.pdf" /><figcaption>200 bounces with uniformly distributed error added to <span class="math inline"><em>θ</em></span>, <span class="math inline">−0.1</span> rad <span class="math inline">≤<em>ϵ</em> ≤ 0.1</span> rad</figcaption>
+</figure>
+</section><section id="other-polygons" class="slide level2">
+<h2>Other Polygons</h2>
+
+</section><section id="open-problems-future-work" class="slide level2">
+<h2>Open Problems &amp; Future Work</h2>
+<ul>
+<li>How to characterize and exploit non-periodic dynamics?
+<ul>
+<li>Lyapunov exponents suggest chaotic dynamics</li>
+<li>relationship to dispersion: what is the longest unvisited edge interval as the system evolves?</li>
+</ul></li>
+<li>Extensions to non-regular polygons and smooth environments</li>
+<li>Error bounds: model different disturbances to bounce</li>
+<li>Feedback control: counting number of bounces, make walls distinguishable / colored, allow robot to place and/or detect landmarks</li>
+</ul>
+
+
+<p><embed src="figures/cool.pdf" width="132" /><br />
+</p>
+</section>
+<section id="thank-you" class="titleslide slide level1 standout"><h1>Thank you!</h1></section><section id="references" class="slide level2">
+<h2>References</h2>
+
+</section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><span class="citation" data-cites="bounce">[@bounce]</span>, ICRA<a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p><span class="citation" data-cites="bounce">[@bounce]</span>, ICRA<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p><span class="citation" data-cites="LewOKa13">[@LewOKa13]</span><a href="#fnref3">↩</a></p></li>
+<li id="fn4"><p><a href="#fnref4">↩</a></p></li>
+</ol>
+</section>
+<!-- {{{{ dzslides core
+#
+#
+#     __  __  __       .  __   ___  __
+#    |  \  / /__` |    | |  \ |__  /__`
+#    |__/ /_ .__/ |___ | |__/ |___ .__/ core :€
+#
+#
+# The following block of code is not supposed to be edited.
+# But if you want to change the behavior of these slides,
+# feel free to hack it!
+#
+-->
+
+<div id="progress-bar"></div>
+
+<!-- Default Style -->
+<style>
+  * { margin: 0; padding: 0; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+  [role="note"] { display: none; }
+  body {
+    width: 800px; height: 600px;
+    margin-left: -400px; margin-top: -300px;
+    position: absolute; top: 50%; left: 50%;
+    overflow: hidden;
+    display: none;
+  }
+  .view body {
+    position: static;
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    display: inline-block;
+    overflow: visible; overflow-x: hidden;
+    /* undo Dz.onresize */
+    transform: none !important;
+    -moz-transform: none !important;
+    -webkit-transform: none !important;
+    -o-transform: none !important;
+    -ms-transform: none !important;
+  }
+  .view head, .view head > title { display: block }
+  section {
+    position: absolute;
+    pointer-events: none;
+    width: 100%; height: 100%;
+  }
+  .view section {
+    pointer-events: auto;
+    position: static;
+    width: 800px; height: 600px;
+    margin: -150px -200px;
+    float: left;
+
+    transform: scale(.4);
+    -moz-transform: scale(.4);
+    -webkit-transform: scale(.4);
+    -o-transform: scale(.4);
+    -ms-transform: scale(.4);
+  }
+  .view section > * { pointer-events: none; }
+  section[aria-selected] { pointer-events: auto; }
+  html { overflow: hidden; }
+  html.view { overflow: visible; }
+  body.loaded { display: block; }
+  .incremental {visibility: hidden; }
+  .incremental[active] {visibility: visible; }
+  #progress-bar{
+    bottom: 0;
+    position: absolute;
+    -moz-transition: width 400ms linear 0s;
+    -webkit-transition: width 400ms linear 0s;
+    -ms-transition: width 400ms linear 0s;
+    transition: width 400ms linear 0s;
+  }
+  .view #progress-bar {
+    display: none;
+  }
+</style>
+
+<script>
+  var Dz = {
+    remoteWindows: [],
+    idx: -1,
+    step: 0,
+    html: null,
+    slides: null,
+    progressBar : null,
+    params: {
+      autoplay: "1"
+    }
+  };
+
+  Dz.init = function() {
+    document.body.className = "loaded";
+    this.slides = Array.prototype.slice.call($$("body > section"));
+    this.progressBar = $("#progress-bar");
+    this.html = document.body.parentNode;
+    this.setupParams();
+    this.onhashchange();
+    this.setupTouchEvents();
+    this.onresize();
+    this.setupView();
+  }
+
+  Dz.setupParams = function() {
+    var p = window.location.search.substr(1).split('&');
+    p.forEach(function(e, i, a) {
+      var keyVal = e.split('=');
+      Dz.params[keyVal[0]] = decodeURIComponent(keyVal[1]);
+    });
+  // Specific params handling
+    if (!+this.params.autoplay)
+      $$.forEach($$("video"), function(v){ v.controls = true });
+  }
+
+  Dz.onkeydown = function(aEvent) {
+    // Don't intercept keyboard shortcuts
+    if (aEvent.altKey
+      || aEvent.ctrlKey
+      || aEvent.metaKey
+      || aEvent.shiftKey) {
+      return;
+    }
+    if ( aEvent.keyCode == 37 // left arrow
+      || aEvent.keyCode == 38 // up arrow
+      || aEvent.keyCode == 33 // page up
+    ) {
+      aEvent.preventDefault();
+      this.back();
+    }
+    if ( aEvent.keyCode == 39 // right arrow
+      || aEvent.keyCode == 40 // down arrow
+      || aEvent.keyCode == 34 // page down
+    ) {
+      aEvent.preventDefault();
+      this.forward();
+    }
+    if (aEvent.keyCode == 35) { // end
+      aEvent.preventDefault();
+      this.goEnd();
+    }
+    if (aEvent.keyCode == 36) { // home
+      aEvent.preventDefault();
+      this.goStart();
+    }
+    if (aEvent.keyCode == 32) { // space
+      aEvent.preventDefault();
+      this.toggleContent();
+    }
+    if (aEvent.keyCode == 70) { // f
+      aEvent.preventDefault();
+      this.goFullscreen();
+    }
+    if (aEvent.keyCode == 79) { // o
+      aEvent.preventDefault();
+      this.toggleView();
+    }
+  }
+
+  /* Touch Events */
+
+  Dz.setupTouchEvents = function() {
+    var orgX, newX;
+    var tracking = false;
+
+    var db = document.body;
+    db.addEventListener("touchstart", start.bind(this), false);
+    db.addEventListener("touchmove", move.bind(this), false);
+
+    function start(aEvent) {
+      aEvent.preventDefault();
+      tracking = true;
+      orgX = aEvent.changedTouches[0].pageX;
+    }
+
+    function move(aEvent) {
+      if (!tracking) return;
+      newX = aEvent.changedTouches[0].pageX;
+      if (orgX - newX > 100) {
+        tracking = false;
+        this.forward();
+      } else {
+        if (orgX - newX < -100) {
+          tracking = false;
+          this.back();
+        }
+      }
+    }
+  }
+
+  Dz.setupView = function() {
+    document.body.addEventListener("click", function ( e ) {
+      if (!Dz.html.classList.contains("view")) return;
+      if (!e.target || e.target.nodeName != "SECTION") return;
+
+      Dz.html.classList.remove("view");
+      Dz.setCursor(Dz.slides.indexOf(e.target) + 1);
+    }, false);
+  }
+
+  /* Adapt the size of the slides to the window */
+
+  Dz.onresize = function() {
+    var db = document.body;
+    var sx = db.clientWidth / window.innerWidth;
+    var sy = db.clientHeight / window.innerHeight;
+    var transform = "scale(" + (1/Math.max(sx, sy)) + ")";
+
+    db.style.MozTransform = transform;
+    db.style.WebkitTransform = transform;
+    db.style.OTransform = transform;
+    db.style.msTransform = transform;
+    db.style.transform = transform;
+  }
+
+
+  Dz.getNotes = function(aIdx) {
+    var s = $("section:nth-of-type(" + aIdx + ")");
+    var d = s.$("[role='note']");
+    return d ? d.innerHTML : "";
+  }
+
+  Dz.onmessage = function(aEvent) {
+    var argv = aEvent.data.split(" "), argc = argv.length;
+    argv.forEach(function(e, i, a) { a[i] = decodeURIComponent(e) });
+    var win = aEvent.source;
+    if (argv[0] === "REGISTER" && argc === 1) {
+      this.remoteWindows.push(win);
+      this.postMsg(win, "REGISTERED", document.title, this.slides.length);
+      this.postMsg(win, "CURSOR", this.idx + "." + this.step);
+      return;
+    }
+    if (argv[0] === "BACK" && argc === 1)
+      this.back();
+    if (argv[0] === "FORWARD" && argc === 1)
+      this.forward();
+    if (argv[0] === "START" && argc === 1)
+      this.goStart();
+    if (argv[0] === "END" && argc === 1)
+      this.goEnd();
+    if (argv[0] === "TOGGLE_CONTENT" && argc === 1)
+      this.toggleContent();
+    if (argv[0] === "SET_CURSOR" && argc === 2)
+      window.location.hash = "#" + argv[1];
+    if (argv[0] === "GET_CURSOR" && argc === 1)
+      this.postMsg(win, "CURSOR", this.idx + "." + this.step);
+    if (argv[0] === "GET_NOTES" && argc === 1)
+      this.postMsg(win, "NOTES", this.getNotes(this.idx));
+  }
+
+  Dz.toggleContent = function() {
+    // If a Video is present in this new slide, play it.
+    // If a Video is present in the previous slide, stop it.
+    var s = $("section[aria-selected]");
+    if (s) {
+      var video = s.$("video");
+      if (video) {
+        if (video.ended || video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      }
+    }
+  }
+
+  Dz.setCursor = function(aIdx, aStep) {
+    // If the user change the slide number in the URL bar, jump
+    // to this slide.
+    aStep = (aStep != 0 && typeof aStep !== "undefined") ? "." + aStep : ".0";
+    window.location.hash = "#" + aIdx + aStep;
+  }
+
+  Dz.onhashchange = function() {
+    var cursor = window.location.hash.split("#"),
+        newidx = 1,
+        newstep = 0;
+    if (cursor.length == 2) {
+      newidx = ~~cursor[1].split(".")[0];
+      newstep = ~~cursor[1].split(".")[1];
+      if (newstep > Dz.slides[newidx - 1].$$('.incremental > *').length) {
+        newstep = 0;
+        newidx++;
+      }
+    }
+    this.setProgress(newidx, newstep);
+    if (newidx != this.idx) {
+      this.setSlide(newidx);
+    }
+    if (newstep != this.step) {
+      this.setIncremental(newstep);
+    }
+    for (var i = 0; i < this.remoteWindows.length; i++) {
+      this.postMsg(this.remoteWindows[i], "CURSOR", this.idx + "." + this.step);
+    }
+  }
+
+  Dz.back = function() {
+    if (this.idx == 1 && this.step == 0) {
+      return;
+    }
+    if (this.step == 0) {
+      this.setCursor(this.idx - 1,
+                     this.slides[this.idx - 2].$$('.incremental > *').length);
+    } else {
+      this.setCursor(this.idx, this.step - 1);
+    }
+  }
+
+  Dz.forward = function() {
+    if (this.idx >= this.slides.length &&
+        this.step >= this.slides[this.idx - 1].$$('.incremental > *').length) {
+        return;
+    }
+    if (this.step >= this.slides[this.idx - 1].$$('.incremental > *').length) {
+      this.setCursor(this.idx + 1, 0);
+    } else {
+      this.setCursor(this.idx, this.step + 1);
+    }
+  }
+
+  Dz.goStart = function() {
+    this.setCursor(1, 0);
+  }
+
+  Dz.goEnd = function() {
+    var lastIdx = this.slides.length;
+    var lastStep = this.slides[lastIdx - 1].$$('.incremental > *').length;
+    this.setCursor(lastIdx, lastStep);
+  }
+
+  Dz.toggleView = function() {
+    this.html.classList.toggle("view");
+
+    if (this.html.classList.contains("view")) {
+      $("section[aria-selected]").scrollIntoView(true);
+    }
+  }
+
+  Dz.setSlide = function(aIdx) {
+    this.idx = aIdx;
+    var old = $("section[aria-selected]");
+    var next = $("section:nth-of-type("+ this.idx +")");
+    if (old) {
+      old.removeAttribute("aria-selected");
+      var video = old.$("video");
+      if (video) {
+        video.pause();
+      }
+    }
+    if (next) {
+      next.setAttribute("aria-selected", "true");
+      if (this.html.classList.contains("view")) {
+        next.scrollIntoView();
+      }
+      var video = next.$("video");
+      if (video && !!+this.params.autoplay) {
+        video.play();
+      }
+    } else {
+      // That should not happen
+      this.idx = -1;
+      // console.warn("Slide doesn't exist.");
+    }
+  }
+
+  Dz.setIncremental = function(aStep) {
+    this.step = aStep;
+    var old = this.slides[this.idx - 1].$('.incremental > *[aria-selected]');
+    if (old) {
+      old.removeAttribute('aria-selected');
+    }
+    var incrementals = $$('.incremental');
+    if (this.step <= 0) {
+      $$.forEach(incrementals, function(aNode) {
+        aNode.removeAttribute('active');
+      });
+      return;
+    }
+    var next = this.slides[this.idx - 1].$$('.incremental > *')[this.step - 1];
+    if (next) {
+      next.setAttribute('aria-selected', true);
+      next.parentNode.setAttribute('active', true);
+      var found = false;
+      $$.forEach(incrementals, function(aNode) {
+        if (aNode != next.parentNode)
+          if (found)
+            aNode.removeAttribute('active');
+          else
+            aNode.setAttribute('active', true);
+        else
+          found = true;
+      });
+    } else {
+      setCursor(this.idx, 0);
+    }
+    return next;
+  }
+
+  Dz.goFullscreen = function() {
+    var html = $('html'),
+        requestFullscreen = html.requestFullscreen || html.requestFullScreen || html.mozRequestFullScreen || html.webkitRequestFullScreen;
+    if (requestFullscreen) {
+      requestFullscreen.apply(html);
+    }
+  }
+  
+  Dz.setProgress = function(aIdx, aStep) {
+    var slide = $("section:nth-of-type("+ aIdx +")");
+    if (!slide)
+      return;
+    var steps = slide.$$('.incremental > *').length + 1,
+        slideSize = 100 / (this.slides.length - 1),
+        stepSize = slideSize / steps;
+    this.progressBar.style.width = ((aIdx - 1) * slideSize + aStep * stepSize) + '%';
+  }
+  
+  Dz.postMsg = function(aWin, aMsg) { // [arg0, [arg1...]]
+    aMsg = [aMsg];
+    for (var i = 2; i < arguments.length; i++)
+      aMsg.push(encodeURIComponent(arguments[i]));
+    aWin.postMessage(aMsg.join(" "), "*");
+  }
+  
+  function init() {
+    Dz.init();
+    window.onkeydown = Dz.onkeydown.bind(Dz);
+    window.onresize = Dz.onresize.bind(Dz);
+    window.onhashchange = Dz.onhashchange.bind(Dz);
+    window.onmessage = Dz.onmessage.bind(Dz);
+  }
+
+  window.onload = init;
+</script>
+
+
+<script> // Helpers
+  if (!Function.prototype.bind) {
+    Function.prototype.bind = function (oThis) {
+
+      // closest thing possible to the ECMAScript 5 internal IsCallable
+      // function 
+      if (typeof this !== "function")
+      throw new TypeError(
+        "Function.prototype.bind - what is trying to be fBound is not callable"
+      );
+
+      var aArgs = Array.prototype.slice.call(arguments, 1),
+          fToBind = this,
+          fNOP = function () {},
+          fBound = function () {
+            return fToBind.apply( this instanceof fNOP ? this : oThis || window,
+                   aArgs.concat(Array.prototype.slice.call(arguments)));
+          };
+
+      fNOP.prototype = this.prototype;
+      fBound.prototype = new fNOP();
+
+      return fBound;
+    };
+  }
+
+  var $ = (HTMLElement.prototype.$ = function(aQuery) {
+    return this.querySelector(aQuery);
+  }).bind(document);
+
+  var $$ = (HTMLElement.prototype.$$ = function(aQuery) {
+    return this.querySelectorAll(aQuery);
+  }).bind(document);
+
+  $$.forEach = function(nodeList, fun) {
+    Array.prototype.forEach.call(nodeList, fun);
+  }
+
+</script>
+<!-- vim: set fdm=marker: }}} -->
+</body>
+</html>
