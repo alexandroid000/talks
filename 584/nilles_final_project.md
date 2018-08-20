@@ -24,6 +24,14 @@ header-includes:
     -   \newtheorem{proposition}{\bf Proposition}
 ---
 
+Overall Goals
+--------------
+
+> - model a system, related to billiards, which has applications in robotics
+> - become more familiar with reachability analysis and how to state queries in
+   terms of invariants
+> - result: created an interface from an existing simulator for this system to SpaceEx
+
 
 Blind, Bouncing Robots [^1]
 ----------------------
@@ -31,17 +39,24 @@ Blind, Bouncing Robots [^1]
 Model the robot as a point moving **in straight lines** in the plane, "bouncing" off the boundary
 at a **fixed angle** $\theta$ from the normal:
 
+
 ![A point robot moving in the plane. The top row shows bounces at zero degrees
 from the normal. The second row shows bounces at 50 degrees clockwise from
 normal.](../figures/bounce_examples.pdf)
 
-Research Questions
+
+Questions from Robotics
 ------------------
 
--   What kind of tasks are robots with extremely simple control laws capable of
-    performing?
--   Will the robot become "trapped" in a certain part of the environment? Or a
-    certain motion pattern?
+> -   What kind of tasks are robots with extremely simple control laws capable of
+      performing?
+> -   *Localization:* Will the robot become "trapped" in a small part of the environment? Or a
+      low-dimensional motion pattern?
+> -   *Coverage:* How completely and evenly does the robot cover the environment?
+
+
+. . .
+
 
 ![In this environment, bouncing at the normal, the robot will become trapped
 in the area between the purple lines.](../figures/triangle_trap.jpg)
@@ -49,32 +64,19 @@ in the area between the purple lines.](../figures/triangle_trap.jpg)
 [^1]: [@bounce]
 
 
-Research Questions
-------------------
-
-These questions are related:
-
-- if robot will get stuck in small part of state space under a constant control
-  input, can use this for localization
-- if robot will get stuck in a "big" part of state space, can use this for
-  monitoring / coverage tasks
-
 
 Implementation
 --------------
 
 > - Assume we know environment exactly
 > - Can implement on a roomba with bump sensor and IR prox detector [^2]
-> - "Collisions" can be virtual - for example, robot stops when it is collinear
+> - "Collisions" can be virtual - for example, robot w/ camera stops when it is collinear
     with two landmarks, and rotates until one landmark is at a certain heading
 > - Also useful model of very small "robots" or microorganisms [^5], or robots in
     low-bandwith environments
 
 [^2]: [@LewOKa13], IJRR
-[^3]: [@billiards]
-[^4]: [@pinball]
 [^5]: [@microorganism2017]
-[^6]: [@tovar2005gap] [@bilo2012reconstructing] [@OkaLav06] [@disser11]
 
 
 Applications
@@ -87,7 +89,7 @@ Applications
 Discovery Through Simulation
 ----------------------------
 
--   Haskell with *Diagrams* library [@monoids]
+-   Haskell with *Diagrams* library [@yorgey2012monoids]
 -   fixed-angle bouncing, specular bouncing, add noise
 -   render diagrams from simulations automatically [^7]
 
