@@ -6,6 +6,7 @@ INPUT_TYPE=md
 OPTIONS=-t dzslides --template my.dzslides --standalone \
 --mathjax=/home/alli/src/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML \
 --include-in-header=header.txt  --include-in-header=css/include.css
+#--mathjax \
 #HTMLS := $(patsubst %.md,%.html,talk.md)
 MARKDOWN=$(INPUT).md
 HTML=$(MARKDOWN:.md=.html)

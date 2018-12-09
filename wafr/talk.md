@@ -11,12 +11,13 @@ Minimalist Mobile Robots
 A Different Motion Model
 =============
 
-Instead of planning over $(x,y)$ waypoints, what if we tell the robot, "go forward 
-until you can't any more?"
+Consider a point robot moving in a polygonal environment.
+
+Tell the robot, "go forward until you can't any more!"
 
 . . .
 
-Compliance: interactions with environment can reduce sensing/estimation requirements!
+Compliance can reduce sensing and estimation requirements!
 
 . . .
 
@@ -54,6 +55,9 @@ Uncertainty is unavoidable... Plan over **nondeterministic** bounce rules!
 
 Actions are convex open sets $\tilde{\theta} \subseteq (0,\pi)$
 
+**Safe actions**: *Any* action in $\tilde{\theta}$ from *anywhere* on 
+edge $e_i$ will get you to *somewhere* on edge $e_j$.
+
 . . .
 
 
@@ -64,30 +68,28 @@ plan can tolerate (design constraints!)
 Geometry Influences Dynamics
 =====
 
-Actions cause state transitions between intervals on the boundary
-$\partial P$ under a transition function
+Given geometry, we can explicitly analyze state transitions between intervals on
+the boundary $\partial P$ under nondeterministic actions $\tilde{\theta}$:
 
 $f: \partial P \times U \to \partial P$
 
-which is defined by environment geometry.
-
-. . .
-
-**Observation:** $f$ has nicer structure when looking only between pairs of edges
+**Observation:** $f$ is easier to analyze when looking at pairs of mutually
+visible edges.
 
 **Observation:** in a single action, the robot can only transition to visible
-segments of the boundary
+segments of the boundary.
 
-### How can we use geometric structure to reason about all possible trajectories? ###
+
+### Use geometric structure to discretize space of possible trajectories! ###
 
 Our Approach
 ============
 
 
-> 1. partition boundary using "visibility events"
-> 2. create *safe* edge-to-edge transition graph
-> 3. search for paths and cycles (depending on specification)
-> 4. translate paths to strategies
+> 1. Partition boundary using "visibility events"
+> 2. Create *safe* edge-to-edge transition graph
+> 3. Search for paths and cycles (depending on specification)
+> 4. Translate paths to strategies
 
 
 Visibility Decomposition
@@ -99,20 +101,6 @@ Visibility Decomposition
 
 Static obstacles are ok too - same partitioning operation!
 
-
-Safe Actions
-============
-
-
-A **safe action** set from edge $e_i$ to edge $e_j$ in a polygon is
-
-- a convex interval of actions $\tilde{\theta} \subseteq (0, \pi)$ such that
-- $f(s,u) \in e_j$ for any $s \in e_i$ and $u \in \tilde{\theta}$.
-
-. . .
-
-**Any** action from **anywhere** on edge $e_i$ will get you to *somewhere* on
-edge $e_j$.
 
 Safe Bounce Visibility Graph
 ============================
@@ -126,33 +114,35 @@ graph with $O(n^2)$ nodes and $O(n^4)$ edges.
 Properties of Safe Bounce Visibility Graph
 =============================
 
-> - some segments are unreachable under safe actions
+> - Some segments are unreachable under safe actions
 > - **Proposition:**  For every polygon $P$ and the resulting partitioned polygon $P'$ under Algorithm
 1, each edge $e \in P'$ has at least two safe actions which allow
 transitions away from $e$.
 
 ![](images/safe_bvg.png){width=500 class="center"}
 
-. . .
-
-"you can't come back any time you like... but you can always leave"
 
 Example Path Queries
 ===============
 
-For a given polygon:
-
-> - What is the strategy with the maximum allowed uncertainty along a path?
-> - What are the safe connected components / attractors?
+Of all paths from A to B (up to bounded length), which allows the most unreliable robot?
 
 . . .
 
-From a given start set (subset of $\partial P$), what parts of $\partial P$ are
-reachable with:
+From a given start set, what parts of the polygon boundary are reachable under
+uncertainty? How much uncertainty?
 
-> - some nonzero uncertainty in the controller?
-> - given (nonconvex) set of actions?
-> - a constant controller (with uncertainty)?
+. . .
+
+What parts of polygon are reachable under a given set of actions?
+
+. . .
+
+What parts of the polygon are reachable with a constant controller?
+
+. . .
+
+![](images/inserted_two_conv.png){width=700px class="center"}\
 
 
 Safe Stable Cycles
@@ -177,56 +167,54 @@ stable limit cycle.
 Example Cycle Queries
 =============
 
-> - is there a safe cycle which visits edge set $E$ (in a particular order, or not)?
->   - note that safe cycles are "stable," even if they do not have the
+> - Is there a safe cycle which visits edge set $E$ (in a particular order, or not)?
+>   - Note that safe cycles are "stable," even if they do not have the
 >     contraction property for all $s, \theta$.
 
-> - for actions with uncertainty $\pm \epsilon$, is there a reachable cycle which will
+> - For actions with uncertainty $\pm \epsilon$, is there a reachable cycle which will
     shrink the size of the robot's state estimate below $\delta$?
     
 
 Dirty Laundry
 =============
 
-> - Not complete: safe paths exist that we cannot find
+> - Not complete: given a small start set, safe paths exist that we cannot find
 > - We can't actually ignore corners always
->    - Boundary sensing modality matters
->    - Corners can be useful!
-> - Some of these queries have only been executed "on paper"...
 > - Needs experimental validation!
 
 . . .
 
-<div align="center" style="float:left;padding:12px">
+<div align="center" style="float:left;padding:24px">
 <iframe width="300" height="275"
 src="images/robot_vid2.m4v"
 frameborder="0" allowfullscreen>
 </iframe></div>
-<div align="center" style="float:right;padding:12px">
+<div align="center" style="float;padding:24px">
 <iframe width="300" height="250"
 src="images/rotate.mp4"
 frameborder="0" allowfullscreen>
 </iframe></div>
 
+<div align="center" style="float:left">
+<img src="images/Petronics-logo.png" style="width:200px">
+</div>
+
 Future Work
 ===========
 
 > - How to plan over limit cycles? There are exponentially many, but only some
-    are "good" (contracting, admit relatively large error cones, chain together 
+    are "good" (admit relatively large error cones, chain together 
     easily with other limit cycles, etc)
-> - Corner finding / escaping strategies
-> - Code refactor, leading to design of high-level specificiation language
->    - LTL-ish (eventually reach region *A* and stay there forever, stay in region *B* until...)
->    - multirobot propositions: guarantees on robot presence and density
+> - Code refactor, leading to design of high-level specification language
+>    - LTL-ish (eventually reach region *A*... stay in region *B* until...)
+>    - Multirobot context: guarantees on robot presence and density
 
-> - Quantify claims of efficiency (energy use), minimality (information processing)
 > - More concrete applications
->   - mobile robot monitoring conditions in warehouse / greenhouse / office space
->   - fire-detecting drone
->   - micro-scale agents (environment design)
+>   - Mobile robot monitoring conditions in warehouse, greenhouse, office
+>   - Forest fire detecting drones, and other conservation applications
 
 
-Thank you!
+Thank you! Questions?
 ==========
 
 
