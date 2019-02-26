@@ -43,6 +43,7 @@ Combinatorial changes from small perturbations:
 #### First example inspired by Spagnolie, S. E., Wahl, C., Lukasik, J., & Thiffeault, J. L. (2017). Microorganism billiards. Physica D: Nonlinear Phenomena, 341, 33-44. ####
 
 
+
 What About Uncertainty?
 =======================
 
@@ -71,7 +72,7 @@ Geometry Influences Dynamics
 Given geometry, we can explicitly analyze state transitions between intervals on
 the boundary $\partial P$ under nondeterministic actions $\tilde{\theta}$:
 
-$f: \partial P \times U \to \partial P$
+$$f: \partial P \times U \to \partial P$$
 
 **Observation:** $f$ is easier to analyze when looking at pairs of mutually
 visible edges.
@@ -180,6 +181,7 @@ Dirty Laundry
 
 > - Not complete: given a small start set, safe paths exist that we cannot find
 > - We can't actually ignore corners always
+> - Computational geometry in Python...
 > - Needs experimental validation!
 
 . . .
