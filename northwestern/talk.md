@@ -1,25 +1,12 @@
 % Towards Self-Assembly and Collective Manipulation With Extremely Underactuated Robots
 % Alli Nilles, Steve LaValle
-% March 1, 2019
-
-Outline
-=======
-
-
-Outline
--------
-
-1. Background on wild bodies and information spaces
-2. Goals of this project
-3. Tooling developed so far
-4. Preliminary Results
-5. Future Work
+% Justin Wasserman, Austin Born, Chris Horn, John Born
 
 
 My Background
 ----------------
 
-> - 2011-2015: BS in Engineering Physics
+> - 2011-2015: BS in Engineering Physics at Colorado School of Mines
 > - Summer 2014: REU with Dr. Jim Crutchfield at UC Davis
 >   - complexity science, emergent dynamics, information processing of physical
 >     systems
@@ -35,23 +22,30 @@ My Background
 
 > - Fall 2015: started PhD with Steve LaValle
 >    - "minimalism": underactuated / partially observable systems
->    - dynamics and control of minimalist robotic systems (emphasis on synthesis)
->    - interfaces and design tools (with RAD Lab and Dr. Amy LaViers)
+>    - dynamics, control, and comparison of minimalist robotic systems
+> - My focus:
+>   - trajectories of mobile robots
+>   - identifying "robust" properties of minimalist mobile robots
+>   - interfaces and design tools (with RAD Lab, Dr. Amy LaViers)
 
 . . .
 
-![](images/cycles.gif){width=200px} ![](images/weaselballs_movement.gif){width=200px} ![](images/improv_demo.gif){width=300px}
+![](images/cycles.gif){width=200px} ![](images/weaselballs_movement.gif){width=200px} ![](images/improv_demo.gif){width=325px}
 
 
-Guiding Principles of My Research
+Guiding Principles
 ------------------
 
-> - Compliance and dynamics (embedded / embodied computation) can reduce sensing and estimation requirements!
->   - Work with physics, not against it ("carve nature at its joints")
+> - compliance and stabilizing dynamics (embedded / embodied computation) can reduce sensing and estimation requirements!
+>   - work with physics, not against it ("carve nature at its joints")
 
-> - Identify task in information space, then track task-motivated information states, not physical states
+> - identify task in information space, then track task-motivated information states, not physical states
 
-> - Work toward human-centered abstractions
+> - make abstractions and interfaces that let humans recognize and design patterns
+
+
+The Minimal-est Robot?
+======================
 
 
 Wild Bodies
@@ -82,18 +76,29 @@ And we can **track** number of bodies per room, using laser beam placement.
 What are these "useless" robots good for?
 -----------------------------------------------
 
-> - large groups of extremely underactuated robots could be useful for monitoring
-  extreme environments such as space, remote wilderness, ocean
-> - at micro-scale, self-propelling particles act extremely similarly (but are
-  much harder to manufacture and observe)
+> - similar systems could help collect data on extreme environments such as space, remote wilderness, ocean
+> - micro-scale self-propelling particles [^1] [^2]
+>   - similar movement profile
+>   - lots of effort in manufacture and characterization, but control is more
+>     difficult
+>   - our platform could serve as a testbed for control approaches (easier to
+>     manufacture and observe)
 
 . . .
 
-<div align="middle" style="padding:24px">
-<iframe width="300" height="300" class="center"
+<div align="middle" style="padding:12px">
+<iframe width="250" height="250" align="left"
 src="images/janus.mp4"
 frameborder="0" allowfullscreen>
-</iframe></div>
+</iframe>
+<iframe width="250" height="250" align="right"
+src="images/localize.mp4"
+frameborder="0" allowfullscreen>
+</iframe>
+</div>
+
+[^1]: ETH Zurich, Department of Materials YouTube channel
+[^2]: Li, Jinxing, et al. "Self-propelled nanomotors autonomously seek and repair cracks." Nano letters 15.10 (2015): 7077-7085.
 
 
 
@@ -107,16 +112,11 @@ Goals of This Project
 
 . . .
 
-What are the tasks?
+What tasks do we care about?
 
 > - *coverage:* specify ensemble spatial density
 > - *self-assembly:* specify desired distribution of shapes or sizes of assemblies
 > - *manipulation:* move or cluster objects in environment
-
-. . .
-
-Joint work with Justin Wasserman, Austin Born, Chris Horn, John Born
-
 
 
 Weaselball Hub Design
@@ -129,7 +129,7 @@ Weaselball Hub Design
 
 <img src="images/weaselball_design4.jpg" style="float:left;height:250px">
 <img src="images/weaselball_stacked.jpg" style="float:right;height:250px">
-Next step: **controllable detatching** (electro-permanent magnets or
+Next step: **controllable detaching** (electro-permanent magnets or
 shape-memory alloys) 
 
 </div>
@@ -155,14 +155,13 @@ Weaselball Hub Design Space
 . . .
 
 Design Parameter            Effects
----------------             ---------
+---------------             ------
 hub weight                  speed of assembly: heavier hub $\to$ shorter "runs"
 battery power               speed of assembly
 hub weight distribution     motion chirality: spiral around heavy "leg"
 hub geometry                spatial attachment probabilities
-connector magnet strength   probability of spontaneous detatching
+connector magnet strength   probability of spontaneous detaching
 hub-to-hub communication    consensus protocols within assemblies
-
 
 
 
@@ -273,10 +272,12 @@ Thermodynamical Interpretation
 
 **Example 2: Generalized Pressure**
 
-$$ PV = nRT $$
+If we model system as a gas...
+
+$$ PV \propto nT $$
 
 > - volume constant (fixed environment)
-> - n known (from example 1)
+> - n known, or controllable
 > - pressure is force exerted on environmental boundaries (measureable)
 > - "temperature" is a function of the characteristic velocities of the agents
 >    - many, fast agents $\to$ high pressure
@@ -284,74 +285,125 @@ $$ PV = nRT $$
 
 . . .
 
-May be many equivalent system configurations leading to the same effect on
-environment.
+Varied spatial "pressure" leads to manipulation through mechanical interactions
 
-If we can control pressure spatially, this could be a mechanism for collective manipulation.
 
-Open Questions
---------------
+Clustering Experiments
+-----------------------
 
-- What is the minimal onboard state and communication required to recognize the size of the
-  cluster an agent is in?
-- Is this information necessary to design a decentralized controller governing
-  when agents disconnect from each other?
+<div align="middle" style="padding:12px">
+<iframe width="600" height="250" class="center"
+src="images/fast_push.mp4"
+frameborder="0" allowfullscreen>
+</iframe></div>
 
-Other information sources:
+<div align="middle" style="padding:12px">
+<iframe width="600" height="250" class="center"
+src="images/t-push.mp4"
+frameborder="0" allowfullscreen>
+</iframe></div>
 
-- frequency of collisions
-    - local or global
-    - distinguishability of environment and other robots in collision
+Toward Distributed Population Controllers
+-----------------------------------------
 
-Experiments
------------
+Different equilibriums established from different rules for when to "detach".
 
-Well known in "self-organized robotic clustering" literature: agents moving in a
-cluttered environment will push obstacles together into one or a few large
-clusters. Largely independent of agent motion model.
+$$ p(detach | I-state) = \quad ? $$
 
-. . .
+local I-state choices:
 
-Well known in active particle literature: agents will cluster in corners or
-wedges due to boundary interactions.
-
-. . .
-
-Asymmetric gears will rotate preferentially in one direction in an active
-particle bath.
+> - time since last attachment
+> - size of current assembly (requires local comms)
+> - frequency of collisions
+>    - over what time window?
+>    - can we distinguish other robots from the environment?
 
 . . .
 
-For above scenarios:
+For all choices, can tune probability of disconnection and look for phase
+changes / sensitivity of equilibrium.
 
-- Tune probability of disconnection and observe resulting equilibriums
-    - can make this probability a function of assembly size, or not
-- Change geometry of attachment sites (spatial probability of attaching) and observe resulting equilibriums
 
-Remaining Questions / Research Threads
-------------
+Analyzing Dynamics
+------------------
+
+
+**Mean Field Approximation:**
+
+Assume even mixing of agents. Given reaction rates, equilibrium can be found
+easily.
+
+. . .
+
+In the presence of structured environmental interactions, mean field
+approximation becomes less realistic.
+
+. . .
+
+Traditional thermodynamic equilibrium models do not predict "active particle"
+systems well.
+
+. . .
+
+For now, we are relying on stochastic simulations to investigate dynamical behavior 
+and equilibriums.
+
+
+Complex Example
+---------------
+
+<div align="middle" style="padding:24px">
+<iframe width="600" height="500" class="center"
+src="images/wheel.mp4"
+frameborder="0" allowfullscreen>
+</iframe></div>
+
+
+Simulating the Micro with the Macro
+---------------------------
+
+<img src="images/comparator_sensor.jpg" style="float:right;height:250px">
+In both cases, have access to region sensors (chemical comparators or laser
+beams).
+
+. . .
 
 Is "disconnecting" an appropriate control input for micro-scale systems?
 
+> - disconnects in aggregate active particle systems happen mechanically
+> - controlled disconnect: DNA sticky ends + enzymes?!
+
+. . .
+
 How to simulate applied external fields?
 
-How to characterize environment interactions (is a scattering model useful?)
+> - replace weaselballs with controllable robot?
+> - tilt tray?
+> - "skatepark" to simulate smooth potentials?
 
-How to co-design environments with decentralized controllers?
 
+Future Work
+-----------
 
-Macro \longleftrightarrow Micro
----------------------------
+By changing the geometry of attachment sites, we affect the spatial probability of 
+attaching (directed self-assembly). [^3]
 
-> - Can simulate chemical comparators with laser beams
-> - Controlled disconnect: DNA sticky ends + enzymes?!
+[^3]: Bhalla, N., Ipparthi, D., Klemp, E., & Dorigo, M. (2014, September). A geometrical approach to the incompatible substructure problem in parallel self-assembly. In International Conference on Parallel Problem Solving from Nature (pp. 751-760). Springer, Cham.
+
+. . .
+
+Changing geometry of hubs also affects interactions with obstacles (can tune
+"scattering" interaction with wall).
+
+. . .
+
+How to co-design environments with compliant hubs?
 
 
 To Do
 -----
 
 - Add connections to Roderich Gross, Kirstin Petersen, Dylan Shell, etc
-- Add experiment videos: wedge, pushing together boxes
 
 Thank you! Questions?
 ----------

@@ -2,7 +2,6 @@
 <head>
 <meta charset="utf-8">
   <meta name="author" content="Alli Nilles, Steve LaValle" />
-  <meta name="dcterms.date" content="2019-03-01" />
   <title>Towards Self-Assembly and Collective Manipulation With Extremely Underactuated Robots</title>
   <script src="/home/alli/src/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
   <!---
@@ -28,7 +27,9 @@
         color: #777777;
     }
     .date {
+        margin-top: 60px;
         text-align: left;
+        height: 60px;
     }
     .author {
         margin-top: 60px;
@@ -51,6 +52,12 @@
     /* A section is a slide. It's size is 800x600, and this will never change */
     address, blockquote, dl, fieldset, form, h1, h2, h3, h4, h5, h6, hr, ol, p, pre, table, ul, dl {
         padding: 10px 20px 10px 20px;
+    }
+    table {
+        width: 100%;
+    }
+    th {
+        height: 50px;
     }
     blockquote { font-style: italic }
     code {
@@ -195,21 +202,12 @@
 <section class="title">
   <h1 class="title">Towards Self-Assembly and Collective Manipulation With Extremely Underactuated Robots</h1>
   <h2 class="author">Alli Nilles, Steve LaValle</h2>
-  <h3 class="date">March 1, 2019</h3>
+  <h3 class="date">Justin Wasserman, Austin Born, Chris Horn, John Born</h3>
 </section>
-<section id="outline" class="title-slide slide level1"><h1>Outline</h1></section><section id="outline-1" class="slide level2">
-<h2>Outline</h2>
-<ol type="1">
-<li>Background on wild bodies and information spaces</li>
-<li>Goals of this project</li>
-<li>Tooling developed so far</li>
-<li>Preliminary Results</li>
-<li>Future Work</li>
-</ol>
-</section><section id="my-background" class="slide level2">
+<section id="my-background" class="slide level2">
 <h2>My Background</h2>
 <ul class="incremental">
-<li>2011-2015: BS in Engineering Physics</li>
+<li>2011-2015: BS in Engineering Physics at Colorado School of Mines</li>
 <li>Summer 2014: REU with Dr. Jim Crutchfield at UC Davis
 <ul class="incremental">
 <li>complexity science, emergent dynamics, information processing of physical systems</li>
@@ -219,34 +217,42 @@
 <div class="incremental">
 <p><img src="images/ucdavis_robot.jpg" class="center" width="400" /></p>
 </div>
-</section><section id="my-background-1" class="slide level2">
+</section>
+<section id="my-background-1" class="slide level2">
 <h2>My Background</h2>
 <ul class="incremental">
 <li>Fall 2015: started PhD with Steve LaValle
 <ul class="incremental">
 <li>“minimalism”: underactuated / partially observable systems</li>
-<li>dynamics and control of minimalist robotic systems (emphasis on synthesis)</li>
-<li>interfaces and design tools (with RAD Lab and Dr. Amy LaViers)</li>
+<li>dynamics, control, and comparison of minimalist robotic systems</li>
+</ul></li>
+<li>My focus:
+<ul class="incremental">
+<li>trajectories of mobile robots</li>
+<li>identifying “robust” properties of minimalist mobile robots</li>
+<li>interfaces and design tools (with RAD Lab, Dr. Amy LaViers)</li>
 </ul></li>
 </ul>
 <div class="incremental">
-<p><img src="images/cycles.gif" width="200" /> <img src="images/weaselballs_movement.gif" width="200" /> <img src="images/improv_demo.gif" width="300" /></p>
+<p><img src="images/cycles.gif" width="200" /> <img src="images/weaselballs_movement.gif" width="200" /> <img src="images/improv_demo.gif" width="325" /></p>
 </div>
-</section><section id="guiding-principles-of-my-research" class="slide level2">
-<h2>Guiding Principles of My Research</h2>
+</section>
+<section id="guiding-principles" class="slide level2">
+<h2>Guiding Principles</h2>
 <ul class="incremental">
-<li>Compliance and dynamics (embedded / embodied computation) can reduce sensing and estimation requirements!
+<li>compliance and stabilizing dynamics (embedded / embodied computation) can reduce sensing and estimation requirements!
 <ul class="incremental">
-<li>Work with physics, not against it (“carve nature at its joints”)</li>
+<li>work with physics, not against it (“carve nature at its joints”)</li>
 </ul></li>
 </ul>
 <ul class="incremental">
-<li>Identify task in information space, then track task-motivated information states, not physical states</li>
+<li>identify task in information space, then track task-motivated information states, not physical states</li>
 </ul>
 <ul class="incremental">
-<li>Work toward human-centered abstractions</li>
+<li>make abstractions and interfaces that let humans recognize and design patterns</li>
 </ul>
-</section><section id="wild-bodies" class="slide level2">
+</section>
+<section id="the-minimal-est-robot" class="title-slide slide level1"><h1>The Minimal-est Robot?</h1></section><section id="wild-bodies" class="slide level2">
 <h2>Wild Bodies</h2>
 <div data-align="middle" style="padding:24px">
 <iframe width="600" height="500" class="center" src="images/large_weaselballs.mp4" frameborder="0" allowfullscreen>
@@ -263,12 +269,19 @@
 </section><section id="what-are-these-useless-robots-good-for" class="slide level2">
 <h2>What are these “useless” robots good for?</h2>
 <ul class="incremental">
-<li>large groups of extremely underactuated robots could be useful for monitoring extreme environments such as space, remote wilderness, ocean</li>
-<li>at micro-scale, self-propelling particles act extremely similarly (but are much harder to manufacture and observe)</li>
+<li>similar systems could help collect data on extreme environments such as space, remote wilderness, ocean</li>
+<li>micro-scale self-propelling particles <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
+<ul class="incremental">
+<li>similar movement profile</li>
+<li>lots of effort in manufacture and characterization, but control is more difficult</li>
+<li>our platform could serve as a testbed for control approaches (easier to manufacture and observe)</li>
+</ul></li>
 </ul>
 <div class="incremental">
-<div data-align="middle" style="padding:24px">
-<iframe width="300" height="300" class="center" src="images/janus.mp4" frameborder="0" allowfullscreen>
+<div data-align="middle" style="padding:12px">
+<iframe width="250" height="250" align="left" src="images/janus.mp4" frameborder="0" allowfullscreen>
+</iframe>
+<iframe width="250" height="250" align="right" src="images/localize.mp4" frameborder="0" allowfullscreen>
 </iframe>
 </div>
 </div>
@@ -280,21 +293,18 @@
 <li><strong>information spaces and filters</strong> which are useful for scalable system control and monitoring</li>
 </ul>
 <div class="incremental">
-<p>What are the tasks?</p>
+<p>What tasks do we care about?</p>
 <ul class="incremental">
 <li><em>coverage:</em> specify ensemble spatial density</li>
 <li><em>self-assembly:</em> specify desired distribution of shapes or sizes of assemblies</li>
 <li><em>manipulation:</em> move or cluster objects in environment</li>
 </ul>
 </div>
-<div class="incremental">
-<p>Joint work with Justin Wasserman, Austin Born, Chris Horn, John Born</p>
-</div>
 </section><section id="weaselball-hub-design" class="slide level2">
 <h2>Weaselball Hub Design</h2>
 <p><img src="images/weaselball_design_iterations.png" class="center" width="700" /></p>
 <div class="center-text">
-<p><img src="images/weaselball_design4.jpg" style="float:left;height:250px"> <img src="images/weaselball_stacked.jpg" style="float:right;height:250px"> Next step: <strong>controllable detatching</strong> (electro-permanent magnets or shape-memory alloys)</p>
+<p><img src="images/weaselball_design4.jpg" style="float:left;height:250px"> <img src="images/weaselball_stacked.jpg" style="float:right;height:250px"> Next step: <strong>controllable detaching</strong> (electro-permanent magnets or shape-memory alloys)</p>
 </div>
 </section><section id="assembly-example" class="slide level2">
 <h2>Assembly Example</h2>
@@ -311,33 +321,33 @@
 <thead>
 <tr class="header">
 <th>Design Parameter</th>
-<th style="text-align: left;">Effects</th>
+<th>Effects</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>hub weight</td>
-<td style="text-align: left;">speed of assembly: heavier hub <span class="math inline">\(\to\)</span> shorter “runs”</td>
+<td>speed of assembly: heavier hub <span class="math inline">\(\to\)</span> shorter “runs”</td>
 </tr>
 <tr class="even">
 <td>battery power</td>
-<td style="text-align: left;">speed of assembly</td>
+<td>speed of assembly</td>
 </tr>
 <tr class="odd">
 <td>hub weight distribution</td>
-<td style="text-align: left;">motion chirality: spiral around heavy “leg”</td>
+<td>motion chirality: spiral around heavy “leg”</td>
 </tr>
 <tr class="even">
 <td>hub geometry</td>
-<td style="text-align: left;">spatial attachment probabilities</td>
+<td>spatial attachment probabilities</td>
 </tr>
 <tr class="odd">
 <td>connector magnet strength</td>
-<td style="text-align: left;">probability of spontaneous detatching</td>
+<td>probability of spontaneous detaching</td>
 </tr>
 <tr class="even">
 <td>hub-to-hub communication</td>
-<td style="text-align: left;">consensus protocols within assemblies</td>
+<td>consensus protocols within assemblies</td>
 </tr>
 </tbody>
 </table>
@@ -423,10 +433,11 @@ macrostates <span class="math inline">\(\longleftrightarrow\)</span> information
 </section><section id="thermodynamical-interpretation-1" class="slide level2">
 <h2>Thermodynamical Interpretation</h2>
 <p><strong>Example 2: Generalized Pressure</strong></p>
-<p><span class="math display">\[ PV = nRT \]</span></p>
+<p>If we model system as a gas…</p>
+<p><span class="math display">\[ PV \propto nT \]</span></p>
 <ul class="incremental">
 <li>volume constant (fixed environment)</li>
-<li>n known (from example 1)</li>
+<li>n known, or controllable</li>
 <li>pressure is force exerted on environmental boundaries (measureable)</li>
 <li>“temperature” is a function of the characteristic velocities of the agents
 <ul class="incremental">
@@ -435,63 +446,97 @@ macrostates <span class="math inline">\(\longleftrightarrow\)</span> information
 </ul></li>
 </ul>
 <div class="incremental">
-<p>May be many equivalent system configurations leading to the same effect on environment.</p>
-<p>If we can control pressure spatially, this could be a mechanism for collective manipulation.</p>
+<p>Varied spatial “pressure” leads to manipulation through mechanical interactions</p>
 </div>
-</section><section id="open-questions" class="slide level2">
-<h2>Open Questions</h2>
-<ul>
-<li>What is the minimal onboard state and communication required to recognize the size of the cluster an agent is in?</li>
-<li>Is this information necessary to design a decentralized controller governing when agents disconnect from each other?</li>
-</ul>
-<p>Other information sources:</p>
-<ul>
-<li>frequency of collisions
-<ul>
-<li>local or global</li>
-<li>distinguishability of environment and other robots in collision</li>
-</ul></li>
-</ul>
-</section><section id="experiments" class="slide level2">
-<h2>Experiments</h2>
-<p>Well known in “self-organized robotic clustering” literature: agents moving in a cluttered environment will push obstacles together into one or a few large clusters. Largely independent of agent motion model.</p>
-<div class="incremental">
-<p>Well known in active particle literature: agents will cluster in corners or wedges due to boundary interactions.</p>
+</section><section id="clustering-experiments" class="slide level2">
+<h2>Clustering Experiments</h2>
+<div data-align="middle" style="padding:12px">
+<iframe width="600" height="250" class="center" src="images/fast_push.mp4" frameborder="0" allowfullscreen>
+</iframe>
 </div>
-<div class="incremental">
-<p>Asymmetric gears will rotate preferentially in one direction in an active particle bath.</p>
+<div data-align="middle" style="padding:12px">
+<iframe width="600" height="250" class="center" src="images/t-push.mp4" frameborder="0" allowfullscreen>
+</iframe>
 </div>
-<div class="incremental">
-<p>For above scenarios:</p>
-<ul>
-<li>Tune probability of disconnection and observe resulting equilibriums
-<ul>
-<li>can make this probability a function of assembly size, or not</li>
-</ul></li>
-<li>Change geometry of attachment sites (spatial probability of attaching) and observe resulting equilibriums</li>
-</ul>
-</div>
-</section><section id="remaining-questions-research-threads" class="slide level2">
-<h2>Remaining Questions / Research Threads</h2>
-<p>Is “disconnecting” an appropriate control input for micro-scale systems?</p>
-<p>How to simulate applied external fields?</p>
-<p>How to characterize environment interactions (is a scattering model useful?)</p>
-<p>How to co-design environments with decentralized controllers?</p>
-</section><section id="macro-micro" class="slide level2">
-<h2>Macro Micro</h2>
+</section><section id="toward-distributed-population-controllers" class="slide level2">
+<h2>Toward Distributed Population Controllers</h2>
+<p>Different equilibriums established from different rules for when to “detach”.</p>
+<p><span class="math display">\[ p(detach | I-state) = \quad ? \]</span></p>
+<p>local I-state choices:</p>
 <ul class="incremental">
-<li>Can simulate chemical comparators with laser beams</li>
-<li>Controlled disconnect: DNA sticky ends + enzymes?!</li>
+<li>time since last attachment</li>
+<li>size of current assembly (requires local comms)</li>
+<li>frequency of collisions
+<ul class="incremental">
+<li>over what time window?</li>
+<li>can we distinguish other robots from the environment?</li>
+</ul></li>
 </ul>
+<div class="incremental">
+<p>For all choices, can tune probability of disconnection and look for phase changes / sensitivity of equilibrium.</p>
+</div>
+</section><section id="analyzing-dynamics" class="slide level2">
+<h2>Analyzing Dynamics</h2>
+<p><strong>Mean Field Approximation:</strong></p>
+<p>Assume even mixing of agents. Given reaction rates, equilibrium can be found easily.</p>
+<div class="incremental">
+<p>In the presence of structured environmental interactions, mean field approximation becomes less realistic.</p>
+</div>
+<div class="incremental">
+<p>Traditional thermodynamic equilibrium models do not predict “active particle” systems well.</p>
+</div>
+<div class="incremental">
+<p>For now, we are relying on stochastic simulations to investigate dynamical behavior and equilibriums.</p>
+</div>
+</section><section id="complex-example" class="slide level2">
+<h2>Complex Example</h2>
+<div data-align="middle" style="padding:24px">
+<iframe width="600" height="500" class="center" src="images/wheel.mp4" frameborder="0" allowfullscreen>
+</iframe>
+</div>
+</section><section id="simulating-the-micro-with-the-macro" class="slide level2">
+<h2>Simulating the Micro with the Macro</h2>
+<p><img src="images/comparator_sensor.jpg" style="float:right;height:250px"> In both cases, have access to region sensors (chemical comparators or laser beams).</p>
+<div class="incremental">
+<p>Is “disconnecting” an appropriate control input for micro-scale systems?</p>
+<ul class="incremental">
+<li>disconnects in aggregate active particle systems happen mechanically</li>
+<li>controlled disconnect: DNA sticky ends + enzymes?!</li>
+</ul>
+</div>
+<div class="incremental">
+<p>How to simulate applied external fields?</p>
+<ul class="incremental">
+<li>replace weaselballs with controllable robot?</li>
+<li>tilt tray?</li>
+<li>“skatepark” to simulate smooth potentials?</li>
+</ul>
+</div>
+</section><section id="future-work" class="slide level2">
+<h2>Future Work</h2>
+<p>By changing the geometry of attachment sites, we affect the spatial probability of attaching (directed self-assembly). <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<div class="incremental">
+<p>Changing geometry of hubs also affects interactions with obstacles (can tune “scattering” interaction with wall).</p>
+</div>
+<div class="incremental">
+<p>How to co-design environments with compliant hubs?</p>
+</div>
 </section><section id="to-do" class="slide level2">
 <h2>To Do</h2>
 <ul>
 <li>Add connections to Roderich Gross, Kirstin Petersen, Dylan Shell, etc</li>
-<li>Add experiment videos: wedge, pushing together boxes</li>
 </ul>
 </section><section id="thank-you-questions" class="slide level2">
 <h2>Thank you! Questions?</h2>
 <h4 id="presentation-template-from-httpsgithub.competermosmanspresentation-template">Presentation Template from https://github.com/PeterMosmans/presentation-template</h4>
+</section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>ETH Zurich, Department of Materials YouTube channel<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Li, Jinxing, et al. “Self-propelled nanomotors autonomously seek and repair cracks.” Nano letters 15.10 (2015): 7077-7085.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Bhalla, N., Ipparthi, D., Klemp, E., &amp; Dorigo, M. (2014, September). A geometrical approach to the incompatible substructure problem in parallel self-assembly. In International Conference on Parallel Problem Solving from Nature (pp. 751-760). Springer, Cham.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+</ol>
 </section>
 <!-- {{{{ dzslides core
 #

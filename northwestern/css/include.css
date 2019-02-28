@@ -10,7 +10,9 @@
       color: #777777;
   }
   .date {
+      margin-top: 60px;
       text-align: left;
+      height: 60px;
   }
   .author {
       margin-top: 60px;
@@ -33,6 +35,12 @@
   /* A section is a slide. It's size is 800x600, and this will never change */
   address, blockquote, dl, fieldset, form, h1, h2, h3, h4, h5, h6, hr, ol, p, pre, table, ul, dl {
       padding: 10px 20px 10px 20px;
+  }
+  table {
+      width: 100%;
+  }
+  th {
+      height: 50px;
   }
   blockquote { font-style: italic }
   code {
