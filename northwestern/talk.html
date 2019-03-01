@@ -53,11 +53,17 @@
     address, blockquote, dl, fieldset, form, h1, h2, h3, h4, h5, h6, hr, ol, p, pre, table, ul, dl {
         padding: 10px 20px 10px 20px;
     }
+    table, th, td {
+    }
     table {
-        width: 100%;
+        width: 80%;
+        font-size: 24px;
+        border: 2px solid black;
+        border-collapse: collapse;
     }
     th {
         height: 50px;
+        font-size: 24px;
     }
     blockquote { font-style: italic }
     code {
@@ -317,40 +323,7 @@
 <p>| <strong>Hub</strong>: the casing around the weaselball</p>
 <p>| <strong>Agent</strong> or <strong>assembly</strong>: one or more weaselball-hub pairs fixed together</p>
 <div class="incremental">
-<table>
-<thead>
-<tr class="header">
-<th>Design Parameter</th>
-<th>Effects</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>hub weight</td>
-<td>speed of assembly: heavier hub <span class="math inline">\(\to\)</span> shorter “runs”</td>
-</tr>
-<tr class="even">
-<td>battery power</td>
-<td>speed of assembly</td>
-</tr>
-<tr class="odd">
-<td>hub weight distribution</td>
-<td>motion chirality: spiral around heavy “leg”</td>
-</tr>
-<tr class="even">
-<td>hub geometry</td>
-<td>spatial attachment probabilities</td>
-</tr>
-<tr class="odd">
-<td>connector magnet strength</td>
-<td>probability of spontaneous detaching</td>
-</tr>
-<tr class="even">
-<td>hub-to-hub communication</td>
-<td>consensus protocols within assemblies</td>
-</tr>
-</tbody>
-</table>
+<p><img src="images/design_choices.jpg" class="center" width="700" /></p>
 </div>
 </section><section id="gazebo-simulator" class="slide level2">
 <h2>Gazebo Simulator</h2>
@@ -392,21 +365,17 @@
 <li>predict long-term spatial distribution of these agents in any given environment</li>
 </ul>
 </div>
-</section><section id="observed-patterns" class="slide level2">
-<h2>Observed Patterns</h2>
-<p><img src="images/position_heatmap.png" class="center" width="400" /></p>
-<p><img src="images/rotation_distribution.png" class="center" width="400" /></p>
-</section><section id="ok-but-what-about-high-level-control" class="slide level2">
-<h2>Ok, but what about high level control?</h2>
-<p>Insight: self-assembly (and disassembly) and collective manipulation do not have to be independent tasks!</p>
+</section>
+<section id="towards-control" class="title-slide slide level1"><h1>Towards Control</h1></section><section id="control-ensemble-not-individuals" class="slide level2">
+<h2>Control Ensemble, Not Individuals</h2>
+<ul class="incremental">
+<li>By controlling ensemble distributions of shapes and sizes, we can control ensemble dynamics.</li>
+<li>Self-assembly (and disassembly) and collective manipulation do not have to be independent tasks!</li>
+<li>Smaller assemblies are faster, more mobile</li>
+<li>Larger assemblies are less mobile, tend to be chiral, unless synchronized…</li>
+</ul>
 <div class="incremental">
-<p>By controlling ensemble distributions of shapes and sizes, we can control ensemble dynamics.</p>
-</div>
-<div class="incremental">
-<p>Environment interactions guide how and when the robots interact with each other.</p>
-</div>
-<div class="incremental">
-<p>Hmm, this is starting to sound like thermodynamics…</p>
+<p>How to move from attach/detach rules to ensemble distributions? Starting to sound like thermodynamics…</p>
 </div>
 </section><section id="thermodynamical-interpretation" class="slide level2">
 <h2>Thermodynamical Interpretation</h2>
@@ -417,7 +386,7 @@ microstates <span class="math inline">\(\longleftrightarrow\)</span> system conf
 macrostates <span class="math inline">\(\longleftrightarrow\)</span> information states
 </div>
 <div class="incremental">
-<p>In thermodynamics, macrostates are quantities like temperature, pressure, etc. What are some useful macrostates for multirobot systems?</p>
+<p>In thermodynamics, macrostates are quantities like temperature, pressure, etc. What are some useful macrostates for our types of systems?</p>
 </div>
 <div class="incremental">
 <p><strong>Example 1: Counting Components</strong></p>
@@ -448,6 +417,10 @@ macrostates <span class="math inline">\(\longleftrightarrow\)</span> information
 <div class="incremental">
 <p>Varied spatial “pressure” leads to manipulation through mechanical interactions</p>
 </div>
+</section><section id="observed-patterns" class="slide level2">
+<h2>Observed Patterns</h2>
+<p><img src="images/position_heatmap.png" class="center" width="500" /></p>
+<p><img src="images/rotation_distribution.png" class="center" width="500" /></p>
 </section><section id="clustering-experiments" class="slide level2">
 <h2>Clustering Experiments</h2>
 <div data-align="middle" style="padding:12px">
@@ -462,7 +435,7 @@ macrostates <span class="math inline">\(\longleftrightarrow\)</span> information
 <h2>Toward Distributed Population Controllers</h2>
 <p>Different equilibriums established from different rules for when to “detach”.</p>
 <p><span class="math display">\[ p(detach | I-state) = \quad ? \]</span></p>
-<p>local I-state choices:</p>
+<p>onboard I-state choices:</p>
 <ul class="incremental">
 <li>time since last attachment</li>
 <li>size of current assembly (requires local comms)</li>
@@ -472,13 +445,18 @@ macrostates <span class="math inline">\(\longleftrightarrow\)</span> information
 <li>can we distinguish other robots from the environment?</li>
 </ul></li>
 </ul>
-<div class="incremental">
-<p>For all choices, can tune probability of disconnection and look for phase changes / sensitivity of equilibrium.</p>
-</div>
+<p>system I-state choices:</p>
+<ul class="incremental">
+<li>movement of objects (crossing beams)</li>
+<li>“thermometer” or “pressure sensor” on walls or in certain regions</li>
+</ul>
 </section><section id="analyzing-dynamics" class="slide level2">
 <h2>Analyzing Dynamics</h2>
+<p>For all choices, can tune probability of disconnection and look for phase changes / sensitivity of equilibrium.</p>
+<div class="incremental">
 <p><strong>Mean Field Approximation:</strong></p>
-<p>Assume even mixing of agents. Given reaction rates, equilibrium can be found easily.</p>
+<p>Assuming even mixing of agents, and given reaction rates, equilibrium can be found easily.</p>
+</div>
 <div class="incremental">
 <p>In the presence of structured environmental interactions, mean field approximation becomes less realistic.</p>
 </div>
@@ -486,7 +464,7 @@ macrostates <span class="math inline">\(\longleftrightarrow\)</span> information
 <p>Traditional thermodynamic equilibrium models do not predict “active particle” systems well.</p>
 </div>
 <div class="incremental">
-<p>For now, we are relying on stochastic simulations to investigate dynamical behavior and equilibriums.</p>
+<p>For now, we are using stochastic simulations to investigate dynamical behavior and equilibriums, but would like to move toward not tracking or predicting individual agent states at all.</p>
 </div>
 </section><section id="complex-example" class="slide level2">
 <h2>Complex Example</h2>
@@ -512,22 +490,28 @@ macrostates <span class="math inline">\(\longleftrightarrow\)</span> information
 <li>“skatepark” to simulate smooth potentials?</li>
 </ul>
 </div>
-</section><section id="future-work" class="slide level2">
-<h2>Future Work</h2>
-<p>By changing the geometry of attachment sites, we affect the spatial probability of attaching (directed self-assembly). <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+</section><section id="next-steps" class="slide level2">
+<h2>Next Steps</h2>
+<p>Try different information spaces and see which correspond well with different modes of the system.</p>
 <div class="incremental">
-<p>Changing geometry of hubs also affects interactions with obstacles (can tune “scattering” interaction with wall).</p>
-</div>
-<div class="incremental">
-<p>How to co-design environments with compliant hubs?</p>
-</div>
-</section><section id="to-do" class="slide level2">
-<h2>To Do</h2>
+<p>Change hub geometry to affect:</p>
 <ul>
-<li>Add connections to Roderich Gross, Kirstin Petersen, Dylan Shell, etc</li>
+<li>the spatial probability of attaching (directed self-assembly) <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></li>
+<li>“scattering” interactions with walls (leave walls at more specific angle)</li>
 </ul>
+</div>
+<div class="incremental">
+<p>Co-design environment with controllers and sensors?</p>
+</div>
+<div class="incremental">
+<p>Agents can influence environment to guide robot-robot interactions?</p>
+</div>
 </section><section id="thank-you-questions" class="slide level2">
 <h2>Thank you! Questions?</h2>
+<div data-align="middle" style="padding:24px">
+<iframe width="600" height="400" class="center" src="images/collective_formation.mp4" frameborder="0" allowfullscreen>
+</iframe>
+</div>
 <h4 id="presentation-template-from-httpsgithub.competermosmanspresentation-template">Presentation Template from https://github.com/PeterMosmans/presentation-template</h4>
 </section>
 <section class="footnotes">

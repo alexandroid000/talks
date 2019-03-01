@@ -36,11 +36,17 @@
   address, blockquote, dl, fieldset, form, h1, h2, h3, h4, h5, h6, hr, ol, p, pre, table, ul, dl {
       padding: 10px 20px 10px 20px;
   }
+  table, th, td {
+  }
   table {
-      width: 100%;
+      width: 80%;
+      font-size: 24px;
+      border: 2px solid black;
+      border-collapse: collapse;
   }
   th {
       height: 50px;
+      font-size: 24px;
   }
   blockquote { font-style: italic }
   code {

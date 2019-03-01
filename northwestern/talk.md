@@ -154,14 +154,8 @@ Weaselball Hub Design Space
 
 . . .
 
-Design Parameter            Effects
----------------             ------
-hub weight                  speed of assembly: heavier hub $\to$ shorter "runs"
-battery power               speed of assembly
-hub weight distribution     motion chirality: spiral around heavy "leg"
-hub geometry                spatial attachment probabilities
-connector magnet strength   probability of spontaneous detaching
-hub-to-hub communication    consensus protocols within assemblies
+
+![](images/design_choices.jpg){width=700px class="center"}
 
 
 
@@ -217,33 +211,22 @@ Long-term goal:
 - predict long-term spatial distribution of these agents in any given
   environment
 
-
-Observed Patterns
---------
-
-
-![](images/position_heatmap.png){width=400 class="center"}
-
-![](images/rotation_distribution.png){width=400 class="center"}
+Towards Control
+===============
 
 
-Ok, but what about high level control?
---------------------------------------
+Control Ensemble, Not Individuals
+---------------------------------
 
-Insight: self-assembly (and disassembly) and collective manipulation do not have
+> - By controlling ensemble distributions of shapes and sizes, we can control ensemble dynamics.
+> - Self-assembly (and disassembly) and collective manipulation do not have
 to be independent tasks!
+> - Smaller assemblies are faster, more mobile
+> - Larger assemblies are less mobile, tend to be chiral, unless synchronized...
 
 . . .
 
-By controlling ensemble distributions of shapes and sizes, we can control ensemble dynamics.
-
-. . .
-
-Environment interactions guide how and when the robots interact with each other.
-
-. . .
-
-Hmm, this is starting to sound like thermodynamics...
+How to move from attach/detach rules to ensemble distributions? Starting to sound like thermodynamics...
 
 Thermodynamical Interpretation
 ------------------------------
@@ -255,7 +238,7 @@ Thermodynamical Interpretation
 . . .
 
 In thermodynamics, macrostates are quantities like temperature, pressure, etc.
-What are some useful macrostates for multirobot systems?
+What are some useful macrostates for our types of systems?
 
 . . .
 
@@ -288,6 +271,15 @@ $$ PV \propto nT $$
 Varied spatial "pressure" leads to manipulation through mechanical interactions
 
 
+Observed Patterns
+--------
+
+![](images/position_heatmap.png){width=500 class="center"}
+
+![](images/rotation_distribution.png){width=500 class="center"}
+
+
+
 Clustering Experiments
 -----------------------
 
@@ -310,7 +302,7 @@ Different equilibriums established from different rules for when to "detach".
 
 $$ p(detach | I-state) = \quad ? $$
 
-local I-state choices:
+onboard I-state choices:
 
 > - time since last attachment
 > - size of current assembly (requires local comms)
@@ -318,19 +310,24 @@ local I-state choices:
 >    - over what time window?
 >    - can we distinguish other robots from the environment?
 
-. . .
+system I-state choices:
 
-For all choices, can tune probability of disconnection and look for phase
-changes / sensitivity of equilibrium.
+> - movement of objects (crossing beams)
+> - "thermometer" or "pressure sensor" on walls or in certain regions
 
 
 Analyzing Dynamics
 ------------------
 
 
+For all choices, can tune probability of disconnection and look for phase
+changes / sensitivity of equilibrium.
+
+. . .
+
 **Mean Field Approximation:**
 
-Assume even mixing of agents. Given reaction rates, equilibrium can be found
+Assuming even mixing of agents, and given reaction rates, equilibrium can be found
 easily.
 
 . . .
@@ -345,8 +342,9 @@ systems well.
 
 . . .
 
-For now, we are relying on stochastic simulations to investigate dynamical behavior 
-and equilibriums.
+For now, we are using stochastic simulations to investigate dynamical behavior 
+and equilibriums, but would like to move toward not tracking or predicting individual
+agent states at all.
 
 
 Complex Example
@@ -382,33 +380,38 @@ How to simulate applied external fields?
 > - "skatepark" to simulate smooth potentials?
 
 
-Future Work
------------
+Next Steps
+----------
 
-By changing the geometry of attachment sites, we affect the spatial probability of 
-attaching (directed self-assembly). [^3]
+Try different information spaces and see which correspond well with different
+modes of the system.
+
+. . .
+
+Change hub geometry to affect:
+
+- the spatial probability of attaching (directed self-assembly) [^3]
+- "scattering" interactions with walls (leave walls at more specific angle)
 
 [^3]: Bhalla, N., Ipparthi, D., Klemp, E., & Dorigo, M. (2014, September). A geometrical approach to the incompatible substructure problem in parallel self-assembly. In International Conference on Parallel Problem Solving from Nature (pp. 751-760). Springer, Cham.
 
 . . .
 
-Changing geometry of hubs also affects interactions with obstacles (can tune
-"scattering" interaction with wall).
+Co-design environment with controllers and sensors?
 
 . . .
 
-How to co-design environments with compliant hubs?
+Agents can influence environment to guide robot-robot interactions?
 
-
-To Do
------
-
-- Add connections to Roderich Gross, Kirstin Petersen, Dylan Shell, etc
 
 Thank you! Questions?
 ----------
 
-
+<div align="middle" style="padding:24px">
+<iframe width="600" height="400" class="center"
+src="images/collective_formation.mp4"
+frameborder="0" allowfullscreen>
+</iframe></div>
 
 
 #### Presentation Template from https://github.com/PeterMosmans/presentation-template ####
