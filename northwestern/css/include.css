@@ -10,9 +10,9 @@
       color: #777777;
   }
   .date {
-      margin-top: 60px;
+      margin-top: 10px;
       text-align: left;
-      height: 60px;
+      height: 10px;
   }
   .author {
       margin-top: 60px;
@@ -69,7 +69,7 @@
       padding: 120px;
       background-color:#FFFFFF;
       background-image: url(images/sponsors.png);
-      background-size: 450px;
+      background-size: 700px;
       background-position: 10px 10px;
       background-repeat: no-repeat;
   }

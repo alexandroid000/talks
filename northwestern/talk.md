@@ -1,6 +1,6 @@
 % Towards Self-Assembly and Collective Manipulation With Extremely Underactuated Robots
-% Alli Nilles, Steve LaValle
-% Justin Wasserman, Austin Born, Chris Horn, John Born
+% Alli Nilles, Steve LaValle, Justin Wasserman, Austin Born, Chris Horn, John Born
+% March 1, 2019
 
 
 My Background
