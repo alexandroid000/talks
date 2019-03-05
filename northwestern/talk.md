@@ -22,7 +22,8 @@ My Background
 
 > - Fall 2015: started PhD with Steve LaValle
 >    - "minimalism": underactuated / partially observable systems
->    - dynamics, control, and comparison of minimalist robotic systems
+>    - dynamics, control, and comparison
+
 > - My focus:
 >   - trajectories of mobile robots
 >   - identifying "robust" properties of minimalist mobile robots
@@ -154,9 +155,11 @@ Weaselball Hub Design Space
 
 . . .
 
-
 ![](images/design_choices.jpg){width=700px class="center"}
 
+
+Experimental Tooling
+====================
 
 
 Gazebo Simulator
@@ -173,6 +176,26 @@ src="images/collisions.mp4"
 frameborder="0" allowfullscreen>
 </iframe></div>
 
+Environment Effects
+---------------
+
+<div align="middle" style="padding:24px">
+<iframe width="350" height="200"
+src="images/wheel.mp4"
+frameborder="0" allowfullscreen>
+</iframe>
+<iframe width="350" height="200"
+src="images/spikes_gaps.mp4"
+frameborder="0" allowfullscreen>
+</iframe>
+</div>
+
+
+<div align="middle" style="padding:24px">
+<iframe width="250" height="250" class="center"
+src="images/spikes_sticky.mp4"
+frameborder="0" allowfullscreen>
+</iframe>
 
 Trajectory Analysis Library 
 ---------------------------
@@ -274,10 +297,13 @@ Varied spatial "pressure" leads to manipulation through mechanical interactions
 Observed Patterns
 --------
 
-![](images/position_heatmap.png){width=500 class="center"}
+![](images/position_heatmap.png){width=600 class="center"}
 
-![](images/rotation_distribution.png){width=500 class="center"}
 
+Observed Patterns
+--------
+
+![](images/rotation_distribution.png){width=700 class="center"}
 
 
 Clustering Experiments
@@ -310,17 +336,17 @@ onboard I-state choices:
 >    - over what time window?
 >    - can we distinguish other robots from the environment?
 
+. . .
+
 system I-state choices:
 
 > - movement of objects (crossing beams)
 > - "thermometer" or "pressure sensor" on walls or in certain regions
 
-
 Analyzing Dynamics
 ------------------
 
-
-For all choices, can tune probability of disconnection and look for phase
+Once we fix an I-space choice, can tune probability of disconnection and look for phase
 changes / sensitivity of equilibrium.
 
 . . .
@@ -342,42 +368,12 @@ systems well.
 
 . . .
 
-For now, we are using stochastic simulations to investigate dynamical behavior 
+For now, we are observing stochastic simulations to investigate dynamical behavior 
 and equilibriums, but would like to move toward not tracking or predicting individual
 agent states at all.
 
 
-Complex Example
----------------
 
-<div align="middle" style="padding:24px">
-<iframe width="600" height="500" class="center"
-src="images/wheel.mp4"
-frameborder="0" allowfullscreen>
-</iframe></div>
-
-
-Simulating the Micro with the Macro
----------------------------
-
-<img src="images/comparator_sensor.jpg" style="float:right;height:250px">
-In both cases, have access to region sensors (chemical comparators or laser
-beams).
-
-. . .
-
-Is "disconnecting" an appropriate control input for micro-scale systems?
-
-> - disconnects in aggregate active particle systems happen mechanically
-> - controlled disconnect: DNA sticky ends + enzymes?!
-
-. . .
-
-How to simulate applied external fields?
-
-> - replace weaselballs with controllable robot?
-> - tilt tray?
-> - "skatepark" to simulate smooth potentials?
 
 
 Next Steps
@@ -402,6 +398,28 @@ Co-design environment with controllers and sensors?
 . . .
 
 Agents can influence environment to guide robot-robot interactions?
+
+Simulating the Micro with the Macro
+---------------------------
+
+<img src="images/comparator_sensor.jpg" style="float:right;height:250px">
+In both cases, have access to region sensors (chemical comparators or laser
+beams).
+
+. . .
+
+Is "disconnecting" an appropriate control input for micro-scale systems?
+
+> - disconnects in aggregate active particle systems happen mechanically
+> - controlled disconnect: DNA sticky ends + enzymes?!
+
+. . .
+
+How to simulate applied external fields?
+
+> - replace weaselballs with controllable robot?
+> - tilt tray?
+> - "skatepark" to simulate smooth potentials?
 
 
 Thank you! Questions?

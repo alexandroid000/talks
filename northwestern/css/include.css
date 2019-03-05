@@ -59,10 +59,11 @@
   h1, h3, h4, h5 { text-align: center; }
   h1, h2, h3 { margin: 10pt 10pt 5pt 10pt; }
   h1 {
-      margin-top: 20px;
+      margin-top: 250px;
       font-size: 180%;
       background-color: #cbb4de;
-      border-radius: 12px; }
+      border-radius: 24px;
+  }
   h1.title {
       margin-top: 20px;
       font-size: 35px;
@@ -76,6 +77,8 @@
   h2 {
       font-size: 120%;
       text-align: left;
+      background-color: #cbb4de;
+      border-radius: 24px;
   }
   h4 {
       margin: 0px;
