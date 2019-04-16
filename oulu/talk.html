@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+  <meta name="author" content="Alli Nilles" />
+  <meta name="dcterms.date" content="2019-04-17" />
+  <title>Robust Robot Behaviors from Simple Sensing and Motion Primitives</title>
+  <script src="/home/alli/src/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!---
+  
+       (c) 2015, Peter Mosmans - Go Forward
+                                 www.go-forward.net
+  
+                                 peter.mosmans@go-forward.net
+  
+       Licensed under http://creativecommons.org/licenses/by-sa/4.0/
+       Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+  
+  -->
+  <style type="text/css">
+    html { background-color: black; }
+    body { background-color: white; border-radius: 12px; }
+  
+    .author, .date {
+        font-size: 8px
+        padding: 10px 10px 10px;
+        margin: 0px;
+        background-color: #EEEEEE;
+        color: #777777;
+    }
+    .date {
+        margin-top: 10px;
+        text-align: left;
+        height: 10px;
+    }
+    .author {
+        margin-top: 60px;
+        text-align: right;
+        height: 112px;
+    }
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .center-text {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        width: 700px;
+    }
+    a { text-decoration: none; color: #111111; }
+    /* A section is a slide. It's size is 800x600, and this will never change */
+    address, blockquote, dl, fieldset, form, h1, h2, h3, h4, h5, h6, hr, ol, p, pre, table, ul, dl {
+        padding: 10px 20px 10px 20px;
+    }
+    table, th, td {
+    }
+    table {
+        width: 80%;
+        font-size: 24px;
+        border: 2px solid black;
+        border-collapse: collapse;
+    }
+    th {
+        height: 50px;
+        font-size: 24px;
+    }
+    blockquote { font-style: italic }
+    code {
+        white-space: pre;
+        font-size: 17px;
+        background-color: #DDDDDD;
+        border-radius: 5px;
+        display: block;
+    }
+    h1, h3, h4, h5 { text-align: center; }
+    h1, h2, h3 { margin: 10pt 10pt 5pt 10pt; }
+    h1 {
+        margin-top: 250px;
+        font-size: 180%;
+        background-color: #cbb4de;
+        border-radius: 24px;
+    }
+    h1.title {
+        margin-top: 30px;
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: 35px;
+        padding: 120px;
+        background-color:#FFFFFF;
+        background-image: url(images/sponsors.png);
+        background-size: 700px;
+        background-position: 15px 5px;
+        background-repeat: no-repeat;
+    }
+    h2 {
+        font-size: 120%;
+        text-align: left;
+        background-color: #cbb4de;
+        border-radius: 24px;
+    }
+    h4 {
+        margin: 0px;
+        padding: 15px;
+        background-color: #DDDDDD;
+        color: #000000;
+        font-size: 15px;
+    }
+    h5 {
+        margin: 0px;
+        padding: 0px;
+    }
+    li { margin-bottom: 5px; }
+    section {
+        font-family: Arial, serif;
+        font-size: 16pt;
+    }
+    section.titleslide h1 { margin-top: 200px; }
+    td {
+        padding: 5px 40px 5px 5px;
+        border-right: 2px dotted #000000;
+        border-top: 1px solid #000000;
+    }
+    tr { font-size: 70%; }
+    ul, ol { margin: 5px 10px 10px 50px; }
+    q { quotes: "“" "”" "‘" "’"; }
+    /* Figures are displayed full-page, with the caption on
+       top of the image/video */
+    figure {
+        background-color: white;
+        display: block;
+    }
+    figcaption {
+      margin: 70px;
+    }
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 40px;
+      text-align: right;
+      background-color: #F3F4F8;
+      border-top: 1px solid #CCC;
+    }
+    .strike { text-decoration: line-through; }
+    /* Transition effect */
+    /* Feel free to change the transition effect for original
+       animations. See here:
+       https://developer.mozilla.org/en/CSS/CSS_transitions
+       How to use CSS3 Transitions: */
+    /* section {
+        -moz-transition: left 400ms linear 0s;
+        -webkit-transition: left 400ms linear 0s;
+        -ms-transition: left 400ms linear 0s;
+        transition: left 400ms linear 0s;
+    } */
+    /* Before */
+    section { left: -150%; }
+    /* Now */
+    section[aria-selected] { left: 0; }
+    /* After */
+    section[aria-selected] ~ section { left: +150%; }
+  
+    /* Incremental elements */
+  
+    /* By default, visible */
+    .incremental > * { opacity: 1; }
+  
+    /* The current item */
+    .incremental > *[aria-selected] { opacity: 1; }
+  
+    /* The items to-be-selected */
+    .incremental > *[aria-selected] ~ * { opacity: 0.2; }
+  
+    div.sourceCode { overflow-x: auto; }
+  table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+    margin: 0; padding: 0; vertical-align: baseline; border: none; }
+  table.sourceCode { width: 100%; line-height: 100%; }
+  td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+  td.sourceCode { padding-left: 5px; }
+  code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+  code > span.dt { color: #902000; } /* DataType */
+  code > span.dv { color: #40a070; } /* DecVal */
+  code > span.bn { color: #40a070; } /* BaseN */
+  code > span.fl { color: #40a070; } /* Float */
+  code > span.ch { color: #4070a0; } /* Char */
+  code > span.st { color: #4070a0; } /* String */
+  code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+  code > span.ot { color: #007020; } /* Other */
+  code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+  code > span.fu { color: #06287e; } /* Function */
+  code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+  code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  code > span.cn { color: #880000; } /* Constant */
+  code > span.sc { color: #4070a0; } /* SpecialChar */
+  code > span.vs { color: #4070a0; } /* VerbatimString */
+  code > span.ss { color: #bb6688; } /* SpecialString */
+  code > span.im { } /* Import */
+  code > span.va { color: #19177c; } /* Variable */
+  code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+  code > span.op { color: #666666; } /* Operator */
+  code > span.bu { } /* BuiltIn */
+  code > span.ex { } /* Extension */
+  code > span.pp { color: #bc7a00; } /* Preprocessor */
+  code > span.at { color: #7d9029; } /* Attribute */
+  code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+  code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+  code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+  code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<section class="title">
+  <h1 class="title">Robust Robot Behaviors from Simple Sensing and Motion Primitives</h1>
+  <h2 class="author">Alli Nilles</h2>
+  <h3 class="date">17 April 2019</h3>
+</section>
+<section id="robot-preview" class="slide level2">
+<h2>Robot Preview</h2>
+<div class="center-text">
+<p><img src="images/ucdavis_robot.jpg" style="float:left;width:300px"> <img src="images/cycles.gif" style="float:right;width:250px"></p>
+</div>
+<div class="center-text">
+<p><img src="images/weaselballs_movement.gif" style="float:left;width:250px"> <img src="images/improv_demo.gif" style="float:right;width:400px"></p>
+</div>
+</section>
+<section id="from-physics-to-robotics" class="slide level2">
+<h2>From Physics to Robotics</h2>
+<ul>
+<li>2011-2015: degree in Engineering Physics at Colorado School of Mines</li>
+</ul>
+<p><img src="images/golden.jpg" class="center" width="400" /></p>
+<div class="incremental">
+<ul class="incremental">
+<li>Summer 2014: Research with Dr. Jim Crutchfield at UC Davis</li>
+<li>Questions raised:
+<ul class="incremental">
+<li>What should be in the robot’s “brain”?</li>
+<li>Can we automatically partition sensor histories into states that are “good” at predicting future events?</li>
+<li>How does environment structure impact the design/learning of the robot’s internal representation?</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="from-physics-to-robotics-1" class="slide level2">
+<h2>From Physics to Robotics</h2>
+<ul class="incremental">
+<li>Fall 2015: met Steve LaValle, started PhD</li>
+<li>In his past life, he worked on <em>minimalism</em> and other interesting questions in robotics</li>
+</ul>
+<p><img src="images/illinois.gif" width="200" /> <img src="images/cats.jpg" width="200" /> <img src="images/flowers.jpg" width="300" /></p>
+</section>
+<section id="minimalist-mobile-robots" class="slide level2">
+<h2>Minimalist Mobile Robots</h2>
+<p><img src="images/robot_spectrum.jpg" class="center" width="750" /><br />
+</p>
+</section>
+<section id="guiding-principles" class="slide level2">
+<h2>Guiding Principles</h2>
+<ul class="incremental">
+<li>compliance and stabilizing dynamics (embedded / embodied computation) can reduce sensing and estimation requirements!
+<ul class="incremental">
+<li>work with physics, not against it (“carve nature at its joints”)</li>
+</ul></li>
+</ul>
+<ul class="incremental">
+<li>identify task in information space, then track task-motivated information states, not necessarily physical states</li>
+</ul>
+</section>
+<section id="a-specific-example" class="title-slide slide level1"><h1>A Specific Example</h1></section><section id="inspiration" class="slide level2">
+<h2>Inspiration</h2>
+<p>Source: Nicholas Valera, YouTube <a href="https://www.youtube.com/watch?v=D_7LZawC-Dw" class="uri">https://www.youtube.com/watch?v=D_7LZawC-Dw</a></p>
+<div data-align="middle" style="padding:12px">
+<iframe width="600" height="500" class="center" src="images/roomba.mp4" frameborder="0" allowfullscreen>
+</iframe>
+</div>
+</section><section id="motion-model" class="slide level2">
+<h2>Motion Model</h2>
+<p>Consider a point robot moving in a polygonal environment.</p>
+<p>Ignore motion in interior of polygon (assume, for now, robot can move in straight lines).</p>
+<p>Robot can detect when it encounters a boundary.</p>
+<p><img src="images/bounce_examples.jpg" width="700" /></p>
+<p><strong>Bounce rule:</strong> determines action <span class="math inline">\(u \in (0, \pi)\)</span> at boundary.</p>
+<p><strong>Goal:</strong> Plan over strategies of sequential <strong>bounce rules</strong>.</p>
+</section><section id="questions" class="slide level2">
+<h2>Questions</h2>
+<ul class="incremental">
+<li>How far can the robot get with just one bounce rule (or two, or three…)?</li>
+<li>How robust are these strategies to uncertainty?</li>
+<li>What is the effect of environment geometry? What environments are easy to navigate with this type of motion and what environments are hard?</li>
+</ul>
+</section><section id="interesting-baseline-behaviors" class="slide level2">
+<h2>Interesting Baseline Behaviors</h2>
+<p>Iterating the same rule can cause cycles and trapping regions:</p>
+<p><img src="images/twoconv.gif" class="center" width="300" /></p>
+<div class="incremental">
+<p>Combinatorial changes from small perturbations:</p>
+<p><img src="images/plane.gif" class="center" width="300" /></p>
+<h4 id="first-example-inspired-by-spagnolie-s.-e.-wahl-c.-lukasik-j.-thiffeault-j.-l.-2017.-microorganism-billiards.-physica-d-nonlinear-phenomena-341-33-44.">First example inspired by Spagnolie, S. E., Wahl, C., Lukasik, J., &amp; Thiffeault, J. L. (2017). Microorganism billiards. Physica D: Nonlinear Phenomena, 341, 33-44.</h4>
+</div>
+</section><section id="what-about-uncertainty" class="slide level2">
+<h2>What About Uncertainty?</h2>
+<p><img src="images/bounce_example_nondet.jpg" class="center" width="400" /></p>
+<p>Uncertainty is unavoidable… Plan over <strong>nondeterministic</strong> bounce rules!</p>
+<div class="incremental">
+<p>Actions are convex open sets <span class="math inline">\(\tilde{\theta} \subseteq (0,\pi)\)</span></p>
+<p><strong>Safe actions</strong>: <em>Any</em> action in <span class="math inline">\(\tilde{\theta}\)</span> from <em>anywhere</em> on edge <span class="math inline">\(e_i\)</span> will get you to <em>somewhere</em> on edge <span class="math inline">\(e_j\)</span>.</p>
+</div>
+<div class="incremental">
+<p><strong>Goal:</strong> along with plan, output a characterization of how much uncertainty the plan can tolerate (design constraints!)</p>
+</div>
+</section><section id="geometry-influences-dynamics" class="slide level2">
+<h2>Geometry Influences Dynamics</h2>
+<p>Given geometry, we can explicitly analyze state transitions between intervals on the boundary <span class="math inline">\(\partial P\)</span> under nondeterministic actions <span class="math inline">\(\tilde{\theta}\)</span>:</p>
+<p><span class="math display">\[f: \partial P \times U \to \partial P\]</span></p>
+<div class="incremental">
+<p><strong>Observation:</strong> <span class="math inline">\(f\)</span> is easier to analyze when looking at pairs of mutually visible edges.</p>
+</div>
+<div class="incremental">
+<p><strong>Observation:</strong> in a single action, the robot can only transition to visible segments of the boundary.</p>
+<h3 id="use-geometric-structure-to-discretize-space-of-possible-trajectories">Use geometric structure to discretize space of possible trajectories!</h3>
+</div>
+</section><section id="our-approach" class="slide level2">
+<h2>Our Approach</h2>
+<ol class="incremental" type="1">
+<li>Partition boundary using “visibility events”</li>
+<li>Create <em>safe</em> edge-to-edge transition graph</li>
+<li>Search for safe paths and cycles (depending on task)</li>
+<li>Translate paths to strategies</li>
+</ol>
+<div class="incremental">
+<p>For more, see our WAFR paper…</p>
+<p>A Visibility-Based Approach to Computing Nondeterministic Bouncing Strategies. A. Q. Nilles, Y. Ren, I. Becerra, S. M. LaValle. In the 13th Annual Workshop on the Algorithmic Foundations of Robotics, 2018.</p>
+</div>
+</section><section id="next-steps" class="slide level2">
+<h2>Next Steps</h2>
+<ul class="incremental">
+<li>Characterize how stabilization from cycles interacts with uncertainty
+<ul class="incremental">
+<li>stable and unstable manifolds for constant bounce strategies</li>
+</ul></li>
+</ul>
+<div class="incremental">
+<ul class="incremental">
+<li>Different model choices: curved paths, higher dimensions</li>
+<li>Localization with simple sensors (laser beams)</li>
+</ul>
+</div>
+</section><section id="next-steps-1" class="slide level2">
+<h2>Next Steps</h2>
+<ul class="incremental">
+<li>Finding best places to augment environment with new obstacles or sensors</li>
+<li>Software toolbox for designing mobile robot trajectories
+<ul class="incremental">
+<li>Goal: educational game and/or interactive design tool</li>
+</ul></li>
+</ul>
+<div class="incremental">
+<p><img src="images/Domjot_table.jpg" class="center" width="500" /></p>
+</div>
+</section>
+<section id="an-even-more-minimal-robot" class="title-slide slide level1"><h1>An Even More Minimal Robot?</h1></section><section id="wild-bodies" class="slide level2">
+<h2>Wild Bodies</h2>
+<div data-align="middle" style="padding:24px">
+<iframe width="600" height="500" class="center" src="images/large_weaselballs.mp4" frameborder="0" allowfullscreen>
+</iframe>
+</div>
+</section><section id="information-spaces-for-wild-bodies" class="slide level2">
+<h2>Information Spaces for Wild Bodies</h2>
+<p><img src="images/ispace_example.jpg" class="center" width="700" /></p>
+<div class="incremental">
+<p>We can <strong>control</strong> density of bodies on a per-room basis, using environment design. <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>And we can <strong>track</strong> number of bodies per room, using laser beam placement. <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+</div>
+</section><section id="what-are-these-uncontrollable-robots-good-for" class="slide level2">
+<h2>What are these “uncontrollable” robots good for?</h2>
+<ul class="incremental">
+<li>data collection in extreme environments such as space, remote wilderness, ocean</li>
+<li>micro-scale robots for biological experiments and medical applications
+<ul class="incremental">
+<li>“active Brownian” and “Janus” particles can propel themselves!</li>
+</ul></li>
+</ul>
+<div class="incremental">
+<p>Our platform could serve as a testbed for control approaches (easier to manufacture and observe than micro-scale particles)</p>
+</div>
+</section><section id="examples" class="slide level2">
+<h2>Examples</h2>
+<div data-align="middle" style="padding:24px">
+<iframe width="600" height="500" class="center" src="images/vids_smaller.mp4" frameborder="0" allowfullscreen>
+</iframe>
+</div>
+</section><section id="goals-of-this-project" class="slide level2">
+<h2>Goals of This Project</h2>
+<ul class="incremental">
+<li><strong>hardware</strong> platform for experiments on control of active particle systems</li>
+<li><strong>software</strong> library for trajectory analysis and system design</li>
+<li><strong>representations and filters</strong> which are useful for scalable system control and monitoring</li>
+</ul>
+<div class="incremental">
+<p>What tasks do we care about?</p>
+<ul class="incremental">
+<li><em>coverage:</em> specify ensemble spatial density</li>
+<li><em>self-assembly:</em> specify desired distribution of shapes or sizes of assemblies</li>
+<li><em>rendezvous:</em> all robots meet somewhere, to share state, etc</li>
+<li><em>manipulation:</em> move or cluster objects in environment</li>
+</ul>
+</div>
+</section><section id="weaselball-hub-design" class="slide level2">
+<h2>Weaselball Hub Design</h2>
+<p><img src="images/weaselballs.jpg" class="center" width="700" /></p>
+<p><img src="images/weaselball_stacked.jpg" class="center" width="250" /></p>
+</section><section id="particle-simulator" class="slide level2">
+<h2>Particle Simulator</h2>
+<div data-align="middle" style="padding:24px">
+<iframe width="350" height="350" src="images/collisions.mp4" frameborder="0" allowfullscreen>
+</iframe>
+<iframe width="350" height="350" src="images/ren9_1.mp4" frameborder="0" allowfullscreen>
+</iframe>
+</div>
+</section><section id="control-ensemble-not-individuals" class="slide level2">
+<h2>Control Ensemble, Not Individuals</h2>
+<ul class="incremental">
+<li>By controlling ensemble distributions of shapes and sizes, we can control ensemble dynamics.</li>
+<li>Self-assembly (and disassembly) and collective manipulation do not have to be independent tasks!</li>
+<li>Smaller assemblies are faster, more mobile</li>
+<li>Larger assemblies are less mobile, tend to be chiral, unless synchronized…</li>
+</ul>
+<div class="incremental">
+<p>How to move from attach/detach rules to ensemble distributions? Starting to sound like thermodynamics…</p>
+</div>
+</section><section id="information-states-of-assembly" class="slide level2">
+<h2>Information States of Assembly</h2>
+<p><strong>Example 1: Counting Components</strong></p>
+<ul>
+<li>sensor:
+<ul>
+<li><span class="math inline">\(y = 1\)</span> if a connection event happens</li>
+<li><span class="math inline">\(y = -1\)</span> if a disconnection event happens</li>
+</ul></li>
+<li><span class="math inline">\(\sum_i y_i = N\)</span>, the number of disconnected components at stage <span class="math inline">\(i\)</span></li>
+</ul>
+</section><section id="information-states-of-assembly-1" class="slide level2">
+<h2>Information States of Assembly</h2>
+<p><strong>Example 2: “Pressure”</strong></p>
+<p><span class="math display">\[ PV \propto nT \]</span></p>
+<ul class="incremental">
+<li>volume constant (fixed environment)</li>
+<li>n known, or controllable</li>
+<li>pressure is force exerted on environmental boundaries (what sensors would we need?)</li>
+<li>“temperature” is a function of the characteristic velocities of the agents
+<ul class="incremental">
+<li>many, fast agents <span class="math inline">\(\to\)</span> high pressure</li>
+<li>fewer, slow agents <span class="math inline">\(\to\)</span> low pressure</li>
+</ul></li>
+</ul>
+<div class="incremental">
+<p>Varied spatial “pressure” leads to manipulation through mechanical interactions</p>
+</div>
+</section><section id="toward-distributed-population-controllers" class="slide level2">
+<h2>Toward Distributed Population Controllers</h2>
+<p>Different equilibriums established from different rules for when to “detach”.</p>
+<p><span class="math display">\[ p(detach | I-state) = \quad ? \]</span></p>
+<p>onboard I-state choices:</p>
+<ul class="incremental">
+<li>time since last attachment</li>
+<li>size of current assembly (requires local comms)</li>
+<li>frequency of collisions
+<ul class="incremental">
+<li>over what time window?</li>
+<li>can we distinguish other robots from the environment?</li>
+</ul></li>
+</ul>
+<div class="incremental">
+<p>system I-state choices:</p>
+<ul class="incremental">
+<li>movement of objects (crossing beams)</li>
+<li>“thermometer” or “pressure sensor” on walls or in certain regions</li>
+</ul>
+</div>
+</section><section id="next-steps-2" class="slide level2">
+<h2>Next Steps</h2>
+<p>Try different information spaces and see which correspond well with different modes of the system.</p>
+<div class="incremental">
+<p>Change hub geometry to affect:</p>
+<ul>
+<li>the spatial probability of attaching (directed self-assembly) <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></li>
+<li>“scattering” interactions with walls (leave walls at more specific angle)</li>
+</ul>
+</div>
+<div class="incremental">
+<p>Co-design environment with controllers and sensors?</p>
+</div>
+<div class="incremental">
+<p>Agents can influence environment to guide robot-robot interactions (stigmergy)?</p>
+</div>
+</section>
+<section id="programming-underactuated-robots" class="title-slide slide level1"><h1>Programming Underactuated Robots</h1></section><section id="most-robot-programming-looks-like-this" class="slide level2">
+<h2>Most Robot Programming Looks Like This</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">    pub <span class="op">=</span> rospy.Publisher(<span class="st">&#39;turtle1/cmd_vel&#39;</span>,Twist)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    rospy.init_node(<span class="st">&#39;publisher_node&#39;</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">    loop_rate <span class="op">=</span> rospy.Rate(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="cf">while</span> <span class="kw">not</span> rospy.is_shutdown():</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">        vel<span class="op">=</span>Twist()</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">        vel.linear.x <span class="op">=</span> <span class="fl">1.0</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">        vel.angular.z <span class="op">=</span> <span class="fl">1.0</span></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">        pub.publish(vel)</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">        loop_rate.sleep()</a></code></pre></div>
+<p><img src="images/turtle.png" class="center" width="300" /></p>
+</section><section id="programming-patterns-for-music" class="slide level2">
+<h2>Programming Patterns for Music</h2>
+<p><img src="images/algorave.jpg" class="center" width="600" /></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1">perk drums</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">pp <span class="op">-&gt;</span>         <span class="op">|</span>z   v     z v   z   v     z v   <span class="op">|</span>(<span class="dv">1</span><span class="op">~</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">2</span><span class="op">^</span><span class="dv">8</span><span class="op">^</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">I know it breaks your heart</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">Moved to the city <span class="kw">in</span> a broke<span class="op">-</span>down car</a></code></pre></div>
+<p> </p>
+</section><section id="principles-for-usability" class="slide level2">
+<h2>Principles for Usability</h2>
+<ul class="incremental">
+<li><em>Closeness of mapping</em>: “Ideally, the problem entities in the user’s task domain could be mapped directly onto task-specific program entities, and operations on those problem entities would likewise be mapped directly onto program operations” <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></li>
+<li><em>Diffuseness</em>: How many symbols or graphic entities are required to express a meaning?</li>
+<li><em>Error-proneness</em>: Does the design of the notation induce “careless mistakes”?</li>
+<li><em>Hard mental operations</em>: Are there places where the user needs to resort to fingers or pencilled annotation to keep track of what’s happening?</li>
+<li><em>Progressive evaluation</em>: Can a partially-complete program be executed to obtain feedback on “How am I doing”?</li>
+</ul>
+</section><section id="initial-prototype" class="slide level2">
+<h2>Initial Prototype</h2>
+<p>From</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">    pub <span class="op">=</span> rospy.Publisher(<span class="st">&#39;turtle1/cmd_vel&#39;</span>,Twist)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">    rospy.init_node(<span class="st">&#39;publisher_node&#39;</span>)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">    loop_rate <span class="op">=</span> rospy.Rate(<span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">    <span class="cf">while</span> <span class="kw">not</span> rospy.is_shutdown():</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">        vel<span class="op">=</span>Twist()</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">        vel.linear.x <span class="op">=</span> <span class="fl">1.0</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">        vel.angular.z <span class="op">=</span> <span class="fl">1.0</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">        pub.publish(vel)</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">        loop_rate.sleep()</a></code></pre></div>
+<p>to</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" data-line-number="1">turtle1 $ forward <span class="op">||</span> left</a></code></pre></div>
+</section><section id="keep-number-of-operators-small" class="slide level2">
+<h2>Keep Number of Operators Small</h2>
+<p>Motion Primitives:</p>
+<pre><code>rest  
+forward 
+left  
+halfleft
+right 
+halfright </code></pre>
+<p>Combinators:</p>
+<pre><code>movement $\rightarrow$ &amp; prim 
+         $|$ &amp; movement movement 
+         $|$ &amp; [movement] 
+         $|$ &amp; (movement) 
+         $|$ &amp; movement $||$ movement  
+         $|$ &amp; transformer movement </code></pre>
+<p>Transformers:</p>
+<pre><code>transformer $\rightarrow$ &amp; reverse 
+  $|$ &amp; retrograde 
+  $|$ &amp; repeat n 
+  $|$ &amp; reflect ax 
+  
+exp $\rightarrow$ &amp; rs \$ movement 
+    $|$ &amp; var $=$ movement</code></pre>
+</section><section id="next-steps-3" class="slide level2">
+<h2>Next Steps</h2>
+</section><section id="conclusion" class="slide level2">
+<h2>Conclusion</h2>
+</section><section id="thank-you-questions" class="slide level2">
+<h2>Thank you! Questions?</h2>
+<h4 id="presentation-template-from-httpsgithub.competermosmanspresentation-template">Presentation Template from https://github.com/PeterMosmans/presentation-template</h4>
+</section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Stochastic modeling, control, and evaluation of wild bodies. D. E. Gierl, L. Bobadilla, O. Sanhcez, and S. M. LaValle. In IEEE International Conference on Robotics and Automation, 2014.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Counting moving bodies using sparse sensor beams. L. E. Erickson, J. Yu, Y. Huang, and S. M. LaValle. IEEE Transactions on Automation Science and Engineering, 10(4):853–861, 2014.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Bhalla, N., Ipparthi, D., Klemp, E., &amp; Dorigo, M. (2014, September). A geometrical approach to the incompatible substructure problem in parallel self-assembly. In International Conference on Parallel Problem Solving from Nature (pp. 751-760). Springer, Cham.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>Green, T. R. G.; Petre, M. (1996). “Usability analysis of visual programming environments: A ‘cognitive dimensions’ framework”. Journal of Visual Languages and Computing. 7: 131–174. CiteSeerX 10.1.1.22.1477. doi:10.1006/jvlc.1996.0009<a href="#fnref4" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+<!-- {{{{ dzslides core
+#
+#
+#     __  __  __       .  __   ___  __
+#    |  \  / /__` |    | |  \ |__  /__`
+#    |__/ /_ .__/ |___ | |__/ |___ .__/ core :€
+#
+#
+# The following block of code is not supposed to be edited.
+# But if you want to change the behavior of these slides,
+# feel free to hack it!
+#
+-->
+
+<div id="progress-bar"></div>
+
+<!-- Default Style -->
+<style>
+  * { margin: 0; padding: 0; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+  [role="note"] { display: none; }
+  body {
+    width: 800px; height: 600px;
+    margin-left: -400px; margin-top: -300px;
+    position: absolute; top: 50%; left: 50%;
+    overflow: hidden;
+    display: none;
+  }
+  .view body {
+    position: static;
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    display: inline-block;
+    overflow: visible; overflow-x: hidden;
+    /* undo Dz.onresize */
+    transform: none !important;
+    -moz-transform: none !important;
+    -webkit-transform: none !important;
+    -o-transform: none !important;
+    -ms-transform: none !important;
+  }
+  .view head, .view head > title { display: block }
+  section {
+    position: absolute;
+    pointer-events: none;
+    width: 100%; height: 100%;
+  }
+  .view section {
+    pointer-events: auto;
+    position: static;
+    width: 800px; height: 600px;
+    margin: -150px -200px;
+    float: left;
+
+    transform: scale(.4);
+    -moz-transform: scale(.4);
+    -webkit-transform: scale(.4);
+    -o-transform: scale(.4);
+    -ms-transform: scale(.4);
+  }
+  .view section > * { pointer-events: none; }
+  section[aria-selected] { pointer-events: auto; }
+  html { overflow: hidden; }
+  html.view { overflow: visible; }
+  body.loaded { display: block; }
+  .incremental {visibility: hidden; }
+  .incremental[active] {visibility: visible; }
+  #progress-bar{
+    bottom: 0;
+    position: absolute;
+    -moz-transition: width 400ms linear 0s;
+    -webkit-transition: width 400ms linear 0s;
+    -ms-transition: width 400ms linear 0s;
+    transition: width 400ms linear 0s;
+  }
+  .view #progress-bar {
+    display: none;
+  }
+</style>
+
+<script>
+  var Dz = {
+    remoteWindows: [],
+    idx: -1,
+    step: 0,
+    html: null,
+    slides: null,
+    progressBar : null,
+    params: {
+      autoplay: "1"
+    }
+  };
+
+  Dz.init = function() {
+    document.body.className = "loaded";
+    this.slides = Array.prototype.slice.call($$("body > section"));
+    this.progressBar = $("#progress-bar");
+    this.html = document.body.parentNode;
+    this.setupParams();
+    this.onhashchange();
+    this.setupTouchEvents();
+    this.onresize();
+    this.setupView();
+  }
+
+  Dz.setupParams = function() {
+    var p = window.location.search.substr(1).split('&');
+    p.forEach(function(e, i, a) {
+      var keyVal = e.split('=');
+      Dz.params[keyVal[0]] = decodeURIComponent(keyVal[1]);
+    });
+  // Specific params handling
+    if (!+this.params.autoplay)
+      $$.forEach($$("video"), function(v){ v.controls = true });
+  }
+
+  Dz.onkeydown = function(aEvent) {
+    // Don't intercept keyboard shortcuts
+    if (aEvent.altKey
+      || aEvent.ctrlKey
+      || aEvent.metaKey
+      || aEvent.shiftKey) {
+      return;
+    }
+    if ( aEvent.keyCode == 37 // left arrow
+      || aEvent.keyCode == 38 // up arrow
+      || aEvent.keyCode == 33 // page up
+    ) {
+      aEvent.preventDefault();
+      this.back();
+    }
+    if ( aEvent.keyCode == 39 // right arrow
+      || aEvent.keyCode == 40 // down arrow
+      || aEvent.keyCode == 34 // page down
+    ) {
+      aEvent.preventDefault();
+      this.forward();
+    }
+    if (aEvent.keyCode == 35) { // end
+      aEvent.preventDefault();
+      this.goEnd();
+    }
+    if (aEvent.keyCode == 36) { // home
+      aEvent.preventDefault();
+      this.goStart();
+    }
+    if (aEvent.keyCode == 32) { // space
+      aEvent.preventDefault();
+      this.toggleContent();
+    }
+    if (aEvent.keyCode == 70) { // f
+      aEvent.preventDefault();
+      this.goFullscreen();
+    }
+    if (aEvent.keyCode == 79) { // o
+      aEvent.preventDefault();
+      this.toggleView();
+    }
+  }
+
+  /* Touch Events */
+
+  Dz.setupTouchEvents = function() {
+    var orgX, newX;
+    var tracking = false;
+
+    var db = document.body;
+    db.addEventListener("touchstart", start.bind(this), false);
+    db.addEventListener("touchmove", move.bind(this), false);
+
+    function start(aEvent) {
+      aEvent.preventDefault();
+      tracking = true;
+      orgX = aEvent.changedTouches[0].pageX;
+    }
+
+    function move(aEvent) {
+      if (!tracking) return;
+      newX = aEvent.changedTouches[0].pageX;
+      if (orgX - newX > 100) {
+        tracking = false;
+        this.forward();
+      } else {
+        if (orgX - newX < -100) {
+          tracking = false;
+          this.back();
+        }
+      }
+    }
+  }
+
+  Dz.setupView = function() {
+    document.body.addEventListener("click", function ( e ) {
+      if (!Dz.html.classList.contains("view")) return;
+      if (!e.target || e.target.nodeName != "SECTION") return;
+
+      Dz.html.classList.remove("view");
+      Dz.setCursor(Dz.slides.indexOf(e.target) + 1);
+    }, false);
+  }
+
+  /* Adapt the size of the slides to the window */
+
+  Dz.onresize = function() {
+    var db = document.body;
+    var sx = db.clientWidth / window.innerWidth;
+    var sy = db.clientHeight / window.innerHeight;
+    var transform = "scale(" + (1/Math.max(sx, sy)) + ")";
+
+    db.style.MozTransform = transform;
+    db.style.WebkitTransform = transform;
+    db.style.OTransform = transform;
+    db.style.msTransform = transform;
+    db.style.transform = transform;
+  }
+
+
+  Dz.getNotes = function(aIdx) {
+    var s = $("section:nth-of-type(" + aIdx + ")");
+    var d = s.$("[role='note']");
+    return d ? d.innerHTML : "";
+  }
+
+  Dz.onmessage = function(aEvent) {
+    var argv = aEvent.data.split(" "), argc = argv.length;
+    argv.forEach(function(e, i, a) { a[i] = decodeURIComponent(e) });
+    var win = aEvent.source;
+    if (argv[0] === "REGISTER" && argc === 1) {
+      this.remoteWindows.push(win);
+      this.postMsg(win, "REGISTERED", document.title, this.slides.length);
+      this.postMsg(win, "CURSOR", this.idx + "." + this.step);
+      return;
+    }
+    if (argv[0] === "BACK" && argc === 1)
+      this.back();
+    if (argv[0] === "FORWARD" && argc === 1)
+      this.forward();
+    if (argv[0] === "START" && argc === 1)
+      this.goStart();
+    if (argv[0] === "END" && argc === 1)
+      this.goEnd();
+    if (argv[0] === "TOGGLE_CONTENT" && argc === 1)
+      this.toggleContent();
+    if (argv[0] === "SET_CURSOR" && argc === 2)
+      window.location.hash = "#" + argv[1];
+    if (argv[0] === "GET_CURSOR" && argc === 1)
+      this.postMsg(win, "CURSOR", this.idx + "." + this.step);
+    if (argv[0] === "GET_NOTES" && argc === 1)
+      this.postMsg(win, "NOTES", this.getNotes(this.idx));
+  }
+
+  Dz.toggleContent = function() {
+    // If a Video is present in this new slide, play it.
+    // If a Video is present in the previous slide, stop it.
+    var s = $("section[aria-selected]");
+    if (s) {
+      var video = s.$("video");
+      if (video) {
+        if (video.ended || video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      }
+    }
+  }
+
+  Dz.setCursor = function(aIdx, aStep) {
+    // If the user change the slide number in the URL bar, jump
+    // to this slide.
+    aStep = (aStep != 0 && typeof aStep !== "undefined") ? "." + aStep : ".0";
+    window.location.hash = "#" + aIdx + aStep;
+  }
+
+  Dz.onhashchange = function() {
+    var cursor = window.location.hash.split("#"),
+        newidx = 1,
+        newstep = 0;
+    if (cursor.length == 2) {
+      newidx = ~~cursor[1].split(".")[0];
+      newstep = ~~cursor[1].split(".")[1];
+      if (newstep > Dz.slides[newidx - 1].$$('.incremental > *').length) {
+        newstep = 0;
+        newidx++;
+      }
+    }
+    this.setProgress(newidx, newstep);
+    if (newidx != this.idx) {
+      this.setSlide(newidx);
+    }
+    if (newstep != this.step) {
+      this.setIncremental(newstep);
+    }
+    for (var i = 0; i < this.remoteWindows.length; i++) {
+      this.postMsg(this.remoteWindows[i], "CURSOR", this.idx + "." + this.step);
+    }
+  }
+
+  Dz.back = function() {
+    if (this.idx == 1 && this.step == 0) {
+      return;
+    }
+    if (this.step == 0) {
+      this.setCursor(this.idx - 1,
+                     this.slides[this.idx - 2].$$('.incremental > *').length);
+    } else {
+      this.setCursor(this.idx, this.step - 1);
+    }
+  }
+
+  Dz.forward = function() {
+    if (this.idx >= this.slides.length &&
+        this.step >= this.slides[this.idx - 1].$$('.incremental > *').length) {
+        return;
+    }
+    if (this.step >= this.slides[this.idx - 1].$$('.incremental > *').length) {
+      this.setCursor(this.idx + 1, 0);
+    } else {
+      this.setCursor(this.idx, this.step + 1);
+    }
+  }
+
+  Dz.goStart = function() {
+    this.setCursor(1, 0);
+  }
+
+  Dz.goEnd = function() {
+    var lastIdx = this.slides.length;
+    var lastStep = this.slides[lastIdx - 1].$$('.incremental > *').length;
+    this.setCursor(lastIdx, lastStep);
+  }
+
+  Dz.toggleView = function() {
+    this.html.classList.toggle("view");
+
+    if (this.html.classList.contains("view")) {
+      $("section[aria-selected]").scrollIntoView(true);
+    }
+  }
+
+  Dz.setSlide = function(aIdx) {
+    this.idx = aIdx;
+    var old = $("section[aria-selected]");
+    var next = $("section:nth-of-type("+ this.idx +")");
+    if (old) {
+      old.removeAttribute("aria-selected");
+      var video = old.$("video");
+      if (video) {
+        video.pause();
+      }
+    }
+    if (next) {
+      next.setAttribute("aria-selected", "true");
+      if (this.html.classList.contains("view")) {
+        next.scrollIntoView();
+      }
+      var video = next.$("video");
+      if (video && !!+this.params.autoplay) {
+        video.play();
+      }
+    } else {
+      // That should not happen
+      this.idx = -1;
+      // console.warn("Slide doesn't exist.");
+    }
+  }
+
+  Dz.setIncremental = function(aStep) {
+    this.step = aStep;
+    var old = this.slides[this.idx - 1].$('.incremental > *[aria-selected]');
+    if (old) {
+      old.removeAttribute('aria-selected');
+    }
+    var incrementals = $$('.incremental');
+    if (this.step <= 0) {
+      $$.forEach(incrementals, function(aNode) {
+        aNode.removeAttribute('active');
+      });
+      return;
+    }
+    var next = this.slides[this.idx - 1].$$('.incremental > *')[this.step - 1];
+    if (next) {
+      next.setAttribute('aria-selected', true);
+      next.parentNode.setAttribute('active', true);
+      var found = false;
+      $$.forEach(incrementals, function(aNode) {
+        if (aNode != next.parentNode)
+          if (found)
+            aNode.removeAttribute('active');
+          else
+            aNode.setAttribute('active', true);
+        else
+          found = true;
+      });
+    } else {
+      setCursor(this.idx, 0);
+    }
+    return next;
+  }
+
+  Dz.goFullscreen = function() {
+    var html = $('html'),
+        requestFullscreen = html.requestFullscreen || html.requestFullScreen || html.mozRequestFullScreen || html.webkitRequestFullScreen;
+    if (requestFullscreen) {
+      requestFullscreen.apply(html);
+    }
+  }
+  
+  Dz.setProgress = function(aIdx, aStep) {
+    var slide = $("section:nth-of-type("+ aIdx +")");
+    if (!slide)
+      return;
+    var steps = slide.$$('.incremental > *').length + 1,
+        slideSize = 100 / (this.slides.length - 1),
+        stepSize = slideSize / steps;
+    this.progressBar.style.width = ((aIdx - 1) * slideSize + aStep * stepSize) + '%';
+  }
+  
+  Dz.postMsg = function(aWin, aMsg) { // [arg0, [arg1...]]
+    aMsg = [aMsg];
+    for (var i = 2; i < arguments.length; i++)
+      aMsg.push(encodeURIComponent(arguments[i]));
+    aWin.postMessage(aMsg.join(" "), "*");
+  }
+  
+  function init() {
+    Dz.init();
+    window.onkeydown = Dz.onkeydown.bind(Dz);
+    window.onresize = Dz.onresize.bind(Dz);
+    window.onhashchange = Dz.onhashchange.bind(Dz);
+    window.onmessage = Dz.onmessage.bind(Dz);
+  }
+
+  window.onload = init;
+</script>
+
+
+<script> // Helpers
+  if (!Function.prototype.bind) {
+    Function.prototype.bind = function (oThis) {
+
+      // closest thing possible to the ECMAScript 5 internal IsCallable
+      // function 
+      if (typeof this !== "function")
+      throw new TypeError(
+        "Function.prototype.bind - what is trying to be fBound is not callable"
+      );
+
+      var aArgs = Array.prototype.slice.call(arguments, 1),
+          fToBind = this,
+          fNOP = function () {},
+          fBound = function () {
+            return fToBind.apply( this instanceof fNOP ? this : oThis || window,
+                   aArgs.concat(Array.prototype.slice.call(arguments)));
+          };
+
+      fNOP.prototype = this.prototype;
+      fBound.prototype = new fNOP();
+
+      return fBound;
+    };
+  }
+
+  var $ = (HTMLElement.prototype.$ = function(aQuery) {
+    return this.querySelector(aQuery);
+  }).bind(document);
+
+  var $$ = (HTMLElement.prototype.$$ = function(aQuery) {
+    return this.querySelectorAll(aQuery);
+  }).bind(document);
+
+  $$.forEach = function(nodeList, fun) {
+    Array.prototype.forEach.call(nodeList, fun);
+  }
+
+</script>
+<!-- vim: set fdm=marker: }}} -->
+</body>
+</html>
