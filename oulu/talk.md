@@ -1,53 +1,43 @@
-% Robust Robot Behaviors from Simple Sensing and Motion Primitives
-% Alli Nilles
-% 17 April 2019
+% Robust Robot Behaviors <br>from Simple Sensing and Motion Primitives
+% Alli Nilles<br>17 April 2019
 
 
-Robot Preview
--------------
-
-<div class="center-text"> 
-
-<img src="images/ucdavis_robot.jpg" style="float:left;width:300px">
-<img src="images/cycles.gif" style="float:right;width:250px">
-
-</div>
-
-<div class="center-text"> 
-
-<img src="images/weaselballs_movement.gif" style="float:left;width:250px">
-<img src="images/improv_demo.gif" style="float:right;width:400px">
-
-</div>
-
+My Background
+=============
 
 From Physics to Robotics
 ------------------------
 
 
-- 2011-2015: degree in Engineering Physics at Colorado School of Mines
+- 2011-2015: degree in Engineering Physics at Colorado School of Mines, Golden,
+  CO
 
-![](images/golden.jpg){width=400px class="center"}
+![](images/golden.jpg){width=400px} ![](images/ucdavis_robot.jpg){width=300px}
 
 . . .
 
-> - Summer 2014: Research with Dr. Jim Crutchfield at UC Davis
-> - Questions raised:
->   - What should be in the robot's "brain"?
->   - Can we automatically partition sensor histories into states that are "good"
-      at predicting future events?
->   - How does environment structure impact the design/learning of the robot's internal
-      representation?
+> - Summer 2014: Research with Dr. Jim Crutchfield at UC Davis (Complexity Science Center)
+> - What should be in the robot's "brain"?
+> - Can we automatically partition sensor histories into states that are "good"
+    at predicting future events?
+> - How does environment structure relate to the structure of the robot's internal
+    representation?
 
 From Physics to Robotics
 -------------
 
-> - Fall 2015: met Steve LaValle, started PhD
-> - In his past life, he worked on *minimalism* and other interesting questions
-    in robotics
+- Fall 2015: started PhD in Champaign-Urbana with Steve LaValle
 
-![](images/illinois.gif){width=200px} ![](images/cats.jpg){width=200px} ![](images/flowers.jpg){width=300px}
+. . .
 
+![](images/flowers.jpg){height=300px} ![](images/cats.jpg){height=300px} ![](images/garden.jpg){height=300px}
+
+. . .
+
+In Steve's past life, he worked on *minimalism* in robotics
+
+(among many other things)
+ 
 
 Minimalist Mobile Robots
 ------------------------
@@ -55,18 +45,6 @@ Minimalist Mobile Robots
 
 ![](images/robot_spectrum.jpg){width=750px class="center"}\
 
-
-Guiding Principles
-------------------
-
-> - compliance and stabilizing dynamics (embedded / embodied computation) can reduce sensing and estimation requirements!
->   - work with physics, not against it ("carve nature at its joints")
-
-> - identify task in information space, then track task-motivated information states, not
-    necessarily physical states
-
-A Specific Example
-==================
 
 Inspiration
 -----------
@@ -81,6 +59,55 @@ frameborder="0" allowfullscreen>
 </iframe></div>
 
 
+How to Reason about Minimalist Robots?
+------------------
+
+If we don't get very much information from our sensors, we must reason about
+sets of possible physical states...
+
+. . .
+
+**History information space**: all possible sequences of sensor observations
+
+. . .
+
+**Derived information states**: partitions of history information space
+corresponding to useful robot states
+
+. . .
+
+A **plan** maps information states to actions the robot should take.
+
+. . .
+
+### "carve nature at its joints" -- Plato, allegedly ###
+
+My Projects
+-----------
+
+Main questions:
+
+1. How to design robust behaviors using minimal sensors and actuators?
+2. What parts of the behavior design process can be formalized and automated?
+
+. . .
+
+Three case studies:
+
+1. Bouncing robots
+2. Wild bodies
+3. Live coding of robot motion
+
+<div class="center-text"> 
+
+<img src="images/cycles.gif" style="float:left;height:160px"> 
+<img src="images/weaselballs_movement.gif" style="float:center;height:160px"> 
+<img src="images/improv_demo.gif" style="float:right;height:175px">
+
+</div>
+
+Bouncing Robots
+===============
 
 Motion Model
 ------------
@@ -88,10 +115,17 @@ Motion Model
 
 Consider a point robot moving in a polygonal environment.
 
+. . .
+
 Ignore motion in interior of polygon (assume, for now, robot can move in
 straight lines).
 
-Robot can detect when it encounters a boundary.
+. . .
+
+Robot can detect when it encounters a boundary, and can control rotation at the
+boundary.
+
+. . .
 
 ![](images/bounce_examples.jpg){width=700px}
 
@@ -102,14 +136,12 @@ Robot can detect when it encounters a boundary.
 Questions
 ---------
 
-> - How far can the robot get with just one bounce rule (or two, or three...)?
-> - How robust are these strategies to uncertainty?
-> - What is the effect of environment geometry? What environments are
-    easy to navigate with this type of motion and what environments are hard?
+> - Where can the robot go with just one bounce rule (or two, or three...)?
+> - How can we make strategies robust to uncertainty?
+> - What environment geometries are easy to navigate with this type of motion and what environments are hard?
 
 Interesting Baseline Behaviors
 ------------------------------
-
 
 Iterating the same rule can cause cycles and trapping regions:
 
@@ -125,6 +157,12 @@ Combinatorial changes from small perturbations:
 #### First example inspired by Spagnolie, S. E., Wahl, C., Lukasik, J., & Thiffeault, J. L. (2017). Microorganism billiards. Physica D: Nonlinear Phenomena, 341, 33-44. ####
 
 
+Understanding Cycles
+--------------------
+
+![](images/overview_simulations.jpg){width=450px class="center"}
+
+Periodic Trajectories of Mobile Robots. A. Q. Nilles, I. Becerra, and S. M. LaValle. In IEEE Conference on Intelligent Robots and Systems (IROS), 2017.
 
 What About Uncertainty?
 -----------------------
@@ -151,20 +189,25 @@ plan can tolerate (design constraints!)
 Geometry Influences Dynamics
 ----------------------------
 
-Given geometry, we can explicitly analyze state transitions between intervals on
+We can write down transition function between intervals on
 the boundary $\partial P$ under nondeterministic actions $\tilde{\theta}$:
 
 $$f: \partial P \times U \to \partial P$$
 
 . . .
 
-**Observation:** $f$ is easier to analyze when looking at pairs of mutually
-visible edges.
+**Observation:** $f$ is linear in position between pairs of mutually
+straight edges.
 
 . . .
 
 **Observation:** in a single action, the robot can only transition to visible
 segments of the boundary.
+
+. . .
+
+**Observation:** some state-action pairs are *contracting*, causing stable limit
+cycles.
 
 
 ### Use geometric structure to discretize space of possible trajectories! ###
@@ -176,38 +219,46 @@ Our Approach
 
 > 1. Partition boundary using "visibility events"
 > 2. Create *safe* edge-to-edge transition graph
-> 3. Search for safe paths and cycles (depending on task)
+> 3. Search for safe paths (navigation) and cycles (patrolling)
 > 4. Translate paths to strategies
 
 . . .
 
-For more, see our WAFR paper...
+For more, see our paper...
 
 A Visibility-Based Approach to Computing Nondeterministic Bouncing Strategies. A. Q. Nilles, Y. Ren, I. Becerra, S. M. LaValle. In the 13th Annual Workshop on the Algorithmic Foundations of Robotics, 2018.
 
+What Can Do Now
+----------------------
 
-Next Steps
-----------
-
-> - Characterize how stabilization from cycles interacts with uncertainty
->   - stable and unstable manifolds for constant bounce strategies
+1. Check if a stable limit cycle exists for a given sequence of polygon edges.
+2. Generate safe strategies between a start and goal region in any polygon.
 
 . . .
 
-> - Different model choices: curved paths, higher dimensions
-> - Localization with simple sensors (laser beams)
+### What we don't understand: ###
+
+1. How to generate strategies that use stabilizing dynamics for navigation?
+2. How to efficiently search through space of all limit cycles?
+3. How to efficiently characterize reachable sets / limiting distributions?
+
+![](images/uncertainty_bounce.png){width=300px class="center"}
+
 
 Next Steps
 ----------
 
-
-> - Finding best places to augment environment with new obstacles or sensors
-> - Software toolbox for designing mobile robot trajectories
->   - Goal: educational game and/or interactive design tool
+> - Different model choices: curved paths, higher dimensions
+> - Localization with simple sensors (laser beams)
+> - Coverage with sampling sensors or cameras
+> - Computational toolbox:
+>   - stable and unstable manifolds for constant bounce strategies
+>   - design tool: augment environment, robot?
 
 . . .
 
 ![](images/Domjot_table.jpg){width=500px class="center"}
+
 
 
 An Even More Minimal Robot?
@@ -245,7 +296,7 @@ What are these "uncontrollable" robots good for?
 -----------------------------------------------
 
 > - data collection in extreme environments such as space, remote wilderness, ocean
-> - micro-scale robots for biological experiments and medical applications
+> - micro-scale robots for biological experiments and medical applications [^3] [^4]
 >   - "active Brownian" and "Janus" particles can propel themselves!
 
 . . .
@@ -269,7 +320,7 @@ frameborder="0" allowfullscreen>
 
 
 
-Goals of This Project
+Components of This Project
 -----
 
 > - **hardware** platform for experiments on control of active particle systems
@@ -287,8 +338,8 @@ What tasks do we care about?
 > - *manipulation:* move or cluster objects in environment
 
 
-Weaselball Hub Design
----------------------
+Hub Design
+----------
 
 ![](images/weaselballs.jpg){width=700px class="center"}
 
@@ -323,7 +374,7 @@ to be independent tasks!
 
 . . .
 
-How to move from attach/detach rules to ensemble distributions? Starting to sound like thermodynamics...
+How to control ensemble from individual attach/detach rules?
 
 Information States of Assembly
 ------------------------------
@@ -331,10 +382,11 @@ Information States of Assembly
 
 **Example 1: Counting Components** 
 
-- sensor: 
-   - $y = 1$ if a connection event happens
-   - $y = -1$ if a disconnection event happens
-- $\sum_i y_i = N$, the number of disconnected components at stage $i$
+> - sensor: 
+>    - $y = 1$ if a connection event happens
+>    - $y = -1$ if a disconnection event happens
+
+> - $\sum_i y_i = N$, the number of disconnected components at stage $i$
 
 
 Information States of Assembly
@@ -347,7 +399,7 @@ $$ PV \propto nT $$
 
 > - volume constant (fixed environment)
 > - n known, or controllable
-> - pressure is force exerted on environmental boundaries (what sensors would we need?)
+> - pressure is force exerted on environmental boundaries
 > - "temperature" is a function of the characteristic velocities of the agents
 >    - many, fast agents $\to$ high pressure
 >    - fewer, slow agents $\to$ low pressure
@@ -361,9 +413,9 @@ Toward Distributed Population Controllers
 
 Different equilibriums established from different rules for when to "detach".
 
-$$ p(detach | I-state) = \quad ? $$
+$$ p(detach | Istate) = \quad ? $$
 
-onboard I-state choices:
+onboard information state choices:
 
 > - time since last attachment
 > - size of current assembly (requires local comms)
@@ -373,7 +425,7 @@ onboard I-state choices:
 
 . . .
 
-system I-state choices:
+system information state choices:
 
 > - movement of objects (crossing beams)
 > - "thermometer" or "pressure sensor" on walls or in certain regions
@@ -382,25 +434,21 @@ system I-state choices:
 Next Steps
 ----------
 
-Try different information spaces and see which correspond well with different
-modes of the system.
+> 1. Try different information spaces and see which correspond well with different modes of the system.
+> 2. Change hub geometry to affect:
+>     a. the spatial probability of attaching (directed self-assembly) [^5]
+>     b. "scattering" interactions with walls (leave walls at more specific angle)
 
-. . .
-
-Change hub geometry to affect:
-
-- the spatial probability of attaching (directed self-assembly) [^5]
-- "scattering" interactions with walls (leave walls at more specific angle)
+> 3. Design environment; funnels, asymmetries
+> 4. Agents can influence environment to guide robot-robot interactions (stigmergy)? 
 
 [^5]: Bhalla, N., Ipparthi, D., Klemp, E., & Dorigo, M. (2014, September). A geometrical approach to the incompatible substructure problem in parallel self-assembly. In International Conference on Parallel Problem Solving from Nature (pp. 751-760). Springer, Cham.
 
 . . .
 
-Co-design environment with controllers and sensors?
+### Goal: find strategies that are robust to small differences in dynamics ###
 
-. . .
-
-Agents can influence environment to guide robot-robot interactions (stigmergy)? 
+### Rely more on coarse partition of agent behaviors (fast, slow, chirality, boundary interactions, etc) than on high-fidelity dynamical models ###
 
 
 Programming Underactuated Robots
@@ -458,6 +506,31 @@ obtain feedback on "How am I doing"?
 
 [^6]: Green, T. R. G.; Petre, M. (1996). "Usability analysis of visual programming environments: A 'cognitive dimensions' framework". Journal of Visual Languages and Computing. 7: 131–174. CiteSeerX 10.1.1.22.1477. doi:10.1006/jvlc.1996.0009
 
+
+
+Design Decisions
+------------------------------
+
+> - small set of motion primitives
+> - small set of algebraic combinators (parallel, series composition)
+> - small set of transformers (reverse, retrograde, repeat, reflect)
+> - variable assignment
+> - relative, not absolute, timing
+
+. . .
+
+### Operators are not tied to a specific platform ###
+
+### Learn how to make patterns, not how to program a specific robot ###
+
+### Usability vs. Expressivity vs. Performance ###
+
+Live Coding
+-----------
+
+![](images/flowchart.png){width=700px class="center"}
+
+
 Initial Prototype
 -----------------
 
@@ -482,55 +555,94 @@ to
 turtle1 $ forward || left
 ```
 
+Demo
+----
 
-Keep Number of Operators Small
-------------------------------
+<div align="middle" style="padding:12px">
+<iframe width="700" height="600" class="center"
+src="images/improv_demo.mp4"
+frameborder="0" allowfullscreen>
+</iframe></div>
 
-Motion Primitives:
+How to Measure Usability?
+-------------------------
 
-```
-rest  
-forward 
-left  
-halfleft
-right 
-halfright 
-```
+1. I think that I would like to use this system frequently.
+1. I found the system unnecessarily complex.
+1. I thought the system was easy to use.
+1. I think that I would need the support of a technical person to be able to use this system.
+1. I found the various functions in this system were well integrated.
+1. I thought there was too much inconsistency in this system.
+1. I would imagine that most people would learn to use this system very quickly.
+1. I found the system very cumbersome to use.
+1. I felt very confident using the system.
+1. I needed to learn a lot of things before I could get going with this system.
 
-Combinators:
+. . .
 
-```
-movement $\rightarrow$ & prim 
-         $|$ & movement movement 
-         $|$ & [movement] 
-         $|$ & (movement) 
-         $|$ & movement $||$ movement  
-         $|$ & transformer movement 
-```
-
-Transformers:
-
-```
-transformer $\rightarrow$ & reverse 
-  $|$ & retrograde 
-  $|$ & repeat n 
-  $|$ & reflect ax 
-  
-exp $\rightarrow$ & rs \$ movement 
-    $|$ & var $=$ movement
-```
+Also measure creativity (number of attempts) during free time!
 
 Next Steps
 ----------
 
+> - extend to "weirder" robots: underactuated, nonholonomic
+> - add sensors and **until** construct
+> - add aesthetic choices (drone show)
+> - integrate with a model checker to give feedback on feasibility of commands
+> - add game mode where user is trying to complete a specific task (follow path
+    through complex environment), compare directly with ROS Python API
 
 Conclusion
--------
+==========
 
+It's a Great Time to be an Academic Roboticist
+------------------------------------
+
+
+![](images/sponsors_icra.png){width=750px class="center"}
+
+
+Questions Remain About Safety and Robustness
+--------------------------------------------
+
+> - Design complexity is increasing exponentially
+> - Lots of work in robotics on automated hardware design, but not many people are
+    attacking the problem of how to design sensing and information processing
+    systems
+> - The robot body and its sensing requirements are **inextricably** linked
+
+. . .
+
+Sensor failures lead to tragedy...
+
+What's Missing?
+---------------
+
+> 1. Deep understanding of how to characterize failure modes and validate systems
+> 2. Computer-aided design of sensing and information processing systems
+> 3. Usability and human comfort
+> 4. Sustainability
+
+. . .
+
+How to make approaches and models from minimalist robotic systems relevant to
+industrial systems?
+
+. . .
+
+Answer needs sociologists, politicians, regulators, economists, and
+roboticists... As well as pressure from the public to prioritize safety over
+fast deployment.
 
 
 Thank you! Questions?
 ----------
+
+![](images/comic.png){width=450px class="center"}
+
+
+Acknowledgements: Samara Ren, Justin Wasserman, Austin Born, Chris Horn, John
+Born, Chase Gladish, Jordan Parker, Dr. Amy LaViers, Dr. Yuliy Baryshnikov, Dr. Mattox Beckman, Dr. Steven M. LaValle
 
 
 #### Presentation Template from https://github.com/PeterMosmans/presentation-template ####
