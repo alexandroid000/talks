@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <head>
 <meta charset="utf-8">
-  <meta name="author" content="Alli Nilles" />
-  <meta name="dcterms.date" content="2019-04-17" />
-  <title>Robust Robot Behaviors from Simple Sensing and Motion Primitives</title>
+  <meta name="author" content="Alli Nilles 17 April 2019" />
+  <title>Robust Robot Behaviors  from Simple Sensing and Motion Primitives</title>
   <script src="/home/alli/src/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
   <!---
   
@@ -28,7 +27,7 @@
         color: #777777;
     }
     .date {
-        margin-top: 10px;
+        margin-top: 100px;
         text-align: left;
         height: 10px;
     }
@@ -212,83 +211,101 @@
 </head>
 <body>
 <section class="title">
-  <h1 class="title">Robust Robot Behaviors from Simple Sensing and Motion Primitives</h1>
-  <h2 class="author">Alli Nilles</h2>
-  <h3 class="date">17 April 2019</h3>
+  <h1 class="title">Robust Robot Behaviors <br>from Simple Sensing and Motion Primitives</h1>
+  <h2 class="author">Alli Nilles<br>17 April 2019</h2>
+  <h3 class="date"></h3>
 </section>
-<section id="robot-preview" class="slide level2">
-<h2>Robot Preview</h2>
-<div class="center-text">
-<p><img src="images/ucdavis_robot.jpg" style="float:left;width:300px"> <img src="images/cycles.gif" style="float:right;width:250px"></p>
-</div>
-<div class="center-text">
-<p><img src="images/weaselballs_movement.gif" style="float:left;width:250px"> <img src="images/improv_demo.gif" style="float:right;width:400px"></p>
-</div>
-</section>
-<section id="from-physics-to-robotics" class="slide level2">
+<section id="my-background" class="title-slide slide level1"><h1>My Background</h1></section><section id="from-physics-to-robotics" class="slide level2">
 <h2>From Physics to Robotics</h2>
 <ul>
-<li>2011-2015: degree in Engineering Physics at Colorado School of Mines</li>
+<li>2011-2015: degree in Engineering Physics at Colorado School of Mines, Golden, CO</li>
 </ul>
-<p><img src="images/golden.jpg" class="center" width="400" /></p>
+<p><img src="images/golden.jpg" width="400" /> <img src="images/ucdavis_robot.jpg" width="300" /></p>
 <div class="incremental">
 <ul class="incremental">
-<li>Summer 2014: Research with Dr. Jim Crutchfield at UC Davis</li>
-<li>Questions raised:
-<ul class="incremental">
+<li>Summer 2014: Research with Dr. Jim Crutchfield at UC Davis (Complexity Science Center)</li>
 <li>What should be in the robot’s “brain”?</li>
 <li>Can we automatically partition sensor histories into states that are “good” at predicting future events?</li>
-<li>How does environment structure impact the design/learning of the robot’s internal representation?</li>
-</ul></li>
+<li>How does environment structure relate to the structure of the robot’s internal representation?</li>
 </ul>
 </div>
-</section>
-<section id="from-physics-to-robotics-1" class="slide level2">
+</section><section id="from-physics-to-robotics-1" class="slide level2">
 <h2>From Physics to Robotics</h2>
-<ul class="incremental">
-<li>Fall 2015: met Steve LaValle, started PhD</li>
-<li>In his past life, he worked on <em>minimalism</em> and other interesting questions in robotics</li>
+<ul>
+<li>Fall 2015: started PhD in Champaign-Urbana with Steve LaValle</li>
 </ul>
-<p><img src="images/illinois.gif" width="200" /> <img src="images/cats.jpg" width="200" /> <img src="images/flowers.jpg" width="300" /></p>
-</section>
-<section id="minimalist-mobile-robots" class="slide level2">
+<div class="incremental">
+<p><img src="images/flowers.jpg" height="300" /> <img src="images/cats.jpg" height="300" /> <img src="images/garden.jpg" height="300" /></p>
+</div>
+<div class="incremental">
+<p>In Steve’s past life, he worked on <em>minimalism</em> in robotics</p>
+<p>(among many other things)</p>
+</div>
+</section><section id="minimalist-mobile-robots" class="slide level2">
 <h2>Minimalist Mobile Robots</h2>
 <p><img src="images/robot_spectrum.jpg" class="center" width="750" /><br />
 </p>
-</section>
-<section id="guiding-principles" class="slide level2">
-<h2>Guiding Principles</h2>
-<ul class="incremental">
-<li>compliance and stabilizing dynamics (embedded / embodied computation) can reduce sensing and estimation requirements!
-<ul class="incremental">
-<li>work with physics, not against it (“carve nature at its joints”)</li>
-</ul></li>
-</ul>
-<ul class="incremental">
-<li>identify task in information space, then track task-motivated information states, not necessarily physical states</li>
-</ul>
-</section>
-<section id="a-specific-example" class="title-slide slide level1"><h1>A Specific Example</h1></section><section id="inspiration" class="slide level2">
+</section><section id="inspiration" class="slide level2">
 <h2>Inspiration</h2>
 <p>Source: Nicholas Valera, YouTube <a href="https://www.youtube.com/watch?v=D_7LZawC-Dw" class="uri">https://www.youtube.com/watch?v=D_7LZawC-Dw</a></p>
 <div data-align="middle" style="padding:12px">
 <iframe width="600" height="500" class="center" src="images/roomba.mp4" frameborder="0" allowfullscreen>
 </iframe>
 </div>
-</section><section id="motion-model" class="slide level2">
+</section><section id="how-to-reason-about-minimalist-robots" class="slide level2">
+<h2>How to Reason about Minimalist Robots?</h2>
+<p>If we don’t get very much information from our sensors, we must reason about sets of possible physical states…</p>
+<div class="incremental">
+<p><strong>History information space</strong>: all possible sequences of sensor observations</p>
+</div>
+<div class="incremental">
+<p><strong>Derived information states</strong>: partitions of history information space corresponding to useful robot states</p>
+</div>
+<div class="incremental">
+<p>A <strong>plan</strong> maps information states to actions the robot should take.</p>
+</div>
+<div class="incremental">
+<h3 id="carve-nature-at-its-joints-plato-allegedly">“carve nature at its joints” – Plato, allegedly</h3>
+</div>
+</section><section id="my-projects" class="slide level2">
+<h2>My Projects</h2>
+<p>Main questions:</p>
+<ol type="1">
+<li>How to design robust behaviors using minimal sensors and actuators?</li>
+<li>What parts of the behavior design process can be formalized and automated?</li>
+</ol>
+<div class="incremental">
+<p>Three case studies:</p>
+<ol type="1">
+<li>Bouncing robots</li>
+<li>Wild bodies</li>
+<li>Live coding of robot motion</li>
+</ol>
+<div class="center-text">
+<p><img src="images/cycles.gif" style="float:left;height:160px"> <img src="images/weaselballs_movement.gif" style="float:center;height:160px"> <img src="images/improv_demo.gif" style="float:right;height:175px"></p>
+</div>
+</div>
+</section>
+<section id="bouncing-robots" class="title-slide slide level1"><h1>Bouncing Robots</h1></section><section id="motion-model" class="slide level2">
 <h2>Motion Model</h2>
 <p>Consider a point robot moving in a polygonal environment.</p>
+<div class="incremental">
 <p>Ignore motion in interior of polygon (assume, for now, robot can move in straight lines).</p>
-<p>Robot can detect when it encounters a boundary.</p>
+</div>
+<div class="incremental">
+<p>Robot can detect when it encounters a boundary, and can control rotation at the boundary.</p>
+</div>
+<div class="incremental">
 <p><img src="images/bounce_examples.jpg" width="700" /></p>
 <p><strong>Bounce rule:</strong> determines action <span class="math inline">\(u \in (0, \pi)\)</span> at boundary.</p>
 <p><strong>Goal:</strong> Plan over strategies of sequential <strong>bounce rules</strong>.</p>
+</div>
 </section><section id="questions" class="slide level2">
 <h2>Questions</h2>
 <ul class="incremental">
-<li>How far can the robot get with just one bounce rule (or two, or three…)?</li>
-<li>How robust are these strategies to uncertainty?</li>
-<li>What is the effect of environment geometry? What environments are easy to navigate with this type of motion and what environments are hard?</li>
+<li>Where can the robot go with just one bounce rule (or two, or three…)?</li>
+<li>How can we make strategies robust to uncertainty?</li>
+<li>What environment geometries are easy to navigate with this type of motion and what environments are hard?</li>
 </ul>
 </section><section id="interesting-baseline-behaviors" class="slide level2">
 <h2>Interesting Baseline Behaviors</h2>
@@ -299,6 +316,10 @@
 <p><img src="images/plane.gif" class="center" width="300" /></p>
 <h4 id="first-example-inspired-by-spagnolie-s.-e.-wahl-c.-lukasik-j.-thiffeault-j.-l.-2017.-microorganism-billiards.-physica-d-nonlinear-phenomena-341-33-44.">First example inspired by Spagnolie, S. E., Wahl, C., Lukasik, J., &amp; Thiffeault, J. L. (2017). Microorganism billiards. Physica D: Nonlinear Phenomena, 341, 33-44.</h4>
 </div>
+</section><section id="understanding-cycles" class="slide level2">
+<h2>Understanding Cycles</h2>
+<p><img src="images/overview_simulations.jpg" class="center" width="450" /></p>
+<p>Periodic Trajectories of Mobile Robots. A. Q. Nilles, I. Becerra, and S. M. LaValle. In IEEE Conference on Intelligent Robots and Systems (IROS), 2017.</p>
 </section><section id="what-about-uncertainty" class="slide level2">
 <h2>What About Uncertainty?</h2>
 <p><img src="images/bounce_example_nondet.jpg" class="center" width="400" /></p>
@@ -312,13 +333,16 @@
 </div>
 </section><section id="geometry-influences-dynamics" class="slide level2">
 <h2>Geometry Influences Dynamics</h2>
-<p>Given geometry, we can explicitly analyze state transitions between intervals on the boundary <span class="math inline">\(\partial P\)</span> under nondeterministic actions <span class="math inline">\(\tilde{\theta}\)</span>:</p>
+<p>We can write down transition function between intervals on the boundary <span class="math inline">\(\partial P\)</span> under nondeterministic actions <span class="math inline">\(\tilde{\theta}\)</span>:</p>
 <p><span class="math display">\[f: \partial P \times U \to \partial P\]</span></p>
 <div class="incremental">
-<p><strong>Observation:</strong> <span class="math inline">\(f\)</span> is easier to analyze when looking at pairs of mutually visible edges.</p>
+<p><strong>Observation:</strong> <span class="math inline">\(f\)</span> is linear in position between pairs of mutually straight edges.</p>
 </div>
 <div class="incremental">
 <p><strong>Observation:</strong> in a single action, the robot can only transition to visible segments of the boundary.</p>
+</div>
+<div class="incremental">
+<p><strong>Observation:</strong> some state-action pairs are <em>contracting</em>, causing stable limit cycles.</p>
 <h3 id="use-geometric-structure-to-discretize-space-of-possible-trajectories">Use geometric structure to discretize space of possible trajectories!</h3>
 </div>
 </section><section id="our-approach" class="slide level2">
@@ -326,34 +350,38 @@
 <ol class="incremental" type="1">
 <li>Partition boundary using “visibility events”</li>
 <li>Create <em>safe</em> edge-to-edge transition graph</li>
-<li>Search for safe paths and cycles (depending on task)</li>
+<li>Search for safe paths (navigation) and cycles (patrolling)</li>
 <li>Translate paths to strategies</li>
 </ol>
 <div class="incremental">
-<p>For more, see our WAFR paper…</p>
+<p>For more, see our paper…</p>
 <p>A Visibility-Based Approach to Computing Nondeterministic Bouncing Strategies. A. Q. Nilles, Y. Ren, I. Becerra, S. M. LaValle. In the 13th Annual Workshop on the Algorithmic Foundations of Robotics, 2018.</p>
+</div>
+</section><section id="what-can-do-now" class="slide level2">
+<h2>What Can Do Now</h2>
+<ol type="1">
+<li>Check if a stable limit cycle exists for a given sequence of polygon edges.</li>
+<li>Generate safe strategies between a start and goal region in any polygon.</li>
+</ol>
+<div class="incremental">
+<h3 id="what-we-dont-understand">What we don’t understand:</h3>
+<ol type="1">
+<li>How to generate strategies that use stabilizing dynamics for navigation?</li>
+<li>How to efficiently search through space of all limit cycles?</li>
+<li>How to efficiently characterize reachable sets / limiting distributions?</li>
+</ol>
+<p><img src="images/uncertainty_bounce.png" class="center" width="300" /></p>
 </div>
 </section><section id="next-steps" class="slide level2">
 <h2>Next Steps</h2>
 <ul class="incremental">
-<li>Characterize how stabilization from cycles interacts with uncertainty
-<ul class="incremental">
-<li>stable and unstable manifolds for constant bounce strategies</li>
-</ul></li>
-</ul>
-<div class="incremental">
-<ul class="incremental">
 <li>Different model choices: curved paths, higher dimensions</li>
 <li>Localization with simple sensors (laser beams)</li>
-</ul>
-</div>
-</section><section id="next-steps-1" class="slide level2">
-<h2>Next Steps</h2>
+<li>Coverage with sampling sensors or cameras</li>
+<li>Computational toolbox:
 <ul class="incremental">
-<li>Finding best places to augment environment with new obstacles or sensors</li>
-<li>Software toolbox for designing mobile robot trajectories
-<ul class="incremental">
-<li>Goal: educational game and/or interactive design tool</li>
+<li>stable and unstable manifolds for constant bounce strategies</li>
+<li>design tool: augment environment, robot?</li>
 </ul></li>
 </ul>
 <div class="incremental">
@@ -377,7 +405,7 @@
 <h2>What are these “uncontrollable” robots good for?</h2>
 <ul class="incremental">
 <li>data collection in extreme environments such as space, remote wilderness, ocean</li>
-<li>micro-scale robots for biological experiments and medical applications
+<li>micro-scale robots for biological experiments and medical applications <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>
 <ul class="incremental">
 <li>“active Brownian” and “Janus” particles can propel themselves!</li>
 </ul></li>
@@ -391,8 +419,8 @@
 <iframe width="600" height="500" class="center" src="images/vids_smaller.mp4" frameborder="0" allowfullscreen>
 </iframe>
 </div>
-</section><section id="goals-of-this-project" class="slide level2">
-<h2>Goals of This Project</h2>
+</section><section id="components-of-this-project" class="slide level2">
+<h2>Components of This Project</h2>
 <ul class="incremental">
 <li><strong>hardware</strong> platform for experiments on control of active particle systems</li>
 <li><strong>software</strong> library for trajectory analysis and system design</li>
@@ -407,8 +435,8 @@
 <li><em>manipulation:</em> move or cluster objects in environment</li>
 </ul>
 </div>
-</section><section id="weaselball-hub-design" class="slide level2">
-<h2>Weaselball Hub Design</h2>
+</section><section id="hub-design" class="slide level2">
+<h2>Hub Design</h2>
 <p><img src="images/weaselballs.jpg" class="center" width="700" /></p>
 <p><img src="images/weaselball_stacked.jpg" class="center" width="250" /></p>
 </section><section id="particle-simulator" class="slide level2">
@@ -428,17 +456,19 @@
 <li>Larger assemblies are less mobile, tend to be chiral, unless synchronized…</li>
 </ul>
 <div class="incremental">
-<p>How to move from attach/detach rules to ensemble distributions? Starting to sound like thermodynamics…</p>
+<p>How to control ensemble from individual attach/detach rules?</p>
 </div>
 </section><section id="information-states-of-assembly" class="slide level2">
 <h2>Information States of Assembly</h2>
 <p><strong>Example 1: Counting Components</strong></p>
-<ul>
+<ul class="incremental">
 <li>sensor:
-<ul>
+<ul class="incremental">
 <li><span class="math inline">\(y = 1\)</span> if a connection event happens</li>
 <li><span class="math inline">\(y = -1\)</span> if a disconnection event happens</li>
 </ul></li>
+</ul>
+<ul class="incremental">
 <li><span class="math inline">\(\sum_i y_i = N\)</span>, the number of disconnected components at stage <span class="math inline">\(i\)</span></li>
 </ul>
 </section><section id="information-states-of-assembly-1" class="slide level2">
@@ -448,7 +478,7 @@
 <ul class="incremental">
 <li>volume constant (fixed environment)</li>
 <li>n known, or controllable</li>
-<li>pressure is force exerted on environmental boundaries (what sensors would we need?)</li>
+<li>pressure is force exerted on environmental boundaries</li>
 <li>“temperature” is a function of the characteristic velocities of the agents
 <ul class="incremental">
 <li>many, fast agents <span class="math inline">\(\to\)</span> high pressure</li>
@@ -461,8 +491,8 @@
 </section><section id="toward-distributed-population-controllers" class="slide level2">
 <h2>Toward Distributed Population Controllers</h2>
 <p>Different equilibriums established from different rules for when to “detach”.</p>
-<p><span class="math display">\[ p(detach | I-state) = \quad ? \]</span></p>
-<p>onboard I-state choices:</p>
+<p><span class="math display">\[ p(detach | Istate) = \quad ? \]</span></p>
+<p>onboard information state choices:</p>
 <ul class="incremental">
 <li>time since last attachment</li>
 <li>size of current assembly (requires local comms)</li>
@@ -473,27 +503,29 @@
 </ul></li>
 </ul>
 <div class="incremental">
-<p>system I-state choices:</p>
+<p>system information state choices:</p>
 <ul class="incremental">
 <li>movement of objects (crossing beams)</li>
 <li>“thermometer” or “pressure sensor” on walls or in certain regions</li>
 </ul>
 </div>
-</section><section id="next-steps-2" class="slide level2">
+</section><section id="next-steps-1" class="slide level2">
 <h2>Next Steps</h2>
-<p>Try different information spaces and see which correspond well with different modes of the system.</p>
-<div class="incremental">
-<p>Change hub geometry to affect:</p>
-<ul>
-<li>the spatial probability of attaching (directed self-assembly) <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></li>
+<ol class="incremental" type="1">
+<li>Try different information spaces and see which correspond well with different modes of the system.</li>
+<li>Change hub geometry to affect:
+<ol class="incremental" type="a">
+<li>the spatial probability of attaching (directed self-assembly) <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></li>
 <li>“scattering” interactions with walls (leave walls at more specific angle)</li>
-</ul>
-</div>
+</ol></li>
+</ol>
+<ol class="incremental" start="3" type="1">
+<li>Design environment; funnels, asymmetries</li>
+<li>Agents can influence environment to guide robot-robot interactions (stigmergy)?</li>
+</ol>
 <div class="incremental">
-<p>Co-design environment with controllers and sensors?</p>
-</div>
-<div class="incremental">
-<p>Agents can influence environment to guide robot-robot interactions (stigmergy)?</p>
+<h3 id="goal-find-strategies-that-are-robust-to-small-differences-in-dynamics">Goal: find strategies that are robust to small differences in dynamics</h3>
+<h3 id="rely-more-on-coarse-partition-of-agent-behaviors-fast-slow-chirality-boundary-interactions-etc-than-on-high-fidelity-dynamical-models">Rely more on coarse partition of agent behaviors (fast, slow, chirality, boundary interactions, etc) than on high-fidelity dynamical models</h3>
 </div>
 </section>
 <section id="programming-underactuated-robots" class="title-slide slide level1"><h1>Programming Underactuated Robots</h1></section><section id="most-robot-programming-looks-like-this" class="slide level2">
@@ -521,12 +553,29 @@
 </section><section id="principles-for-usability" class="slide level2">
 <h2>Principles for Usability</h2>
 <ul class="incremental">
-<li><em>Closeness of mapping</em>: “Ideally, the problem entities in the user’s task domain could be mapped directly onto task-specific program entities, and operations on those problem entities would likewise be mapped directly onto program operations” <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></li>
+<li><em>Closeness of mapping</em>: “Ideally, the problem entities in the user’s task domain could be mapped directly onto task-specific program entities, and operations on those problem entities would likewise be mapped directly onto program operations” <a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></li>
 <li><em>Diffuseness</em>: How many symbols or graphic entities are required to express a meaning?</li>
 <li><em>Error-proneness</em>: Does the design of the notation induce “careless mistakes”?</li>
 <li><em>Hard mental operations</em>: Are there places where the user needs to resort to fingers or pencilled annotation to keep track of what’s happening?</li>
 <li><em>Progressive evaluation</em>: Can a partially-complete program be executed to obtain feedback on “How am I doing”?</li>
 </ul>
+</section><section id="design-decisions" class="slide level2">
+<h2>Design Decisions</h2>
+<ul class="incremental">
+<li>small set of motion primitives</li>
+<li>small set of algebraic combinators (parallel, series composition)</li>
+<li>small set of transformers (reverse, retrograde, repeat, reflect)</li>
+<li>variable assignment</li>
+<li>relative, not absolute, timing</li>
+</ul>
+<div class="incremental">
+<h3 id="operators-are-not-tied-to-a-specific-platform">Operators are not tied to a specific platform</h3>
+<h3 id="learn-how-to-make-patterns-not-how-to-program-a-specific-robot">Learn how to make patterns, not how to program a specific robot</h3>
+<h3 id="usability-vs.expressivity-vs.performance">Usability vs. Expressivity vs. Performance</h3>
+</div>
+</section><section id="live-coding" class="slide level2">
+<h2>Live Coding</h2>
+<p><img src="images/flowchart.png" class="center" width="700" /></p>
 </section><section id="initial-prototype" class="slide level2">
 <h2>Initial Prototype</h2>
 <p>From</p>
@@ -542,36 +591,70 @@
 <a class="sourceLine" id="cb3-10" data-line-number="10">        loop_rate.sleep()</a></code></pre></div>
 <p>to</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" data-line-number="1">turtle1 $ forward <span class="op">||</span> left</a></code></pre></div>
-</section><section id="keep-number-of-operators-small" class="slide level2">
-<h2>Keep Number of Operators Small</h2>
-<p>Motion Primitives:</p>
-<pre><code>rest  
-forward 
-left  
-halfleft
-right 
-halfright </code></pre>
-<p>Combinators:</p>
-<pre><code>movement $\rightarrow$ &amp; prim 
-         $|$ &amp; movement movement 
-         $|$ &amp; [movement] 
-         $|$ &amp; (movement) 
-         $|$ &amp; movement $||$ movement  
-         $|$ &amp; transformer movement </code></pre>
-<p>Transformers:</p>
-<pre><code>transformer $\rightarrow$ &amp; reverse 
-  $|$ &amp; retrograde 
-  $|$ &amp; repeat n 
-  $|$ &amp; reflect ax 
-  
-exp $\rightarrow$ &amp; rs \$ movement 
-    $|$ &amp; var $=$ movement</code></pre>
-</section><section id="next-steps-3" class="slide level2">
+</section><section id="demo" class="slide level2">
+<h2>Demo</h2>
+<div data-align="middle" style="padding:12px">
+<iframe width="700" height="600" class="center" src="images/improv_demo.mp4" frameborder="0" allowfullscreen>
+</iframe>
+</div>
+</section><section id="how-to-measure-usability" class="slide level2">
+<h2>How to Measure Usability?</h2>
+<ol type="1">
+<li>I think that I would like to use this system frequently.</li>
+<li>I found the system unnecessarily complex.</li>
+<li>I thought the system was easy to use.</li>
+<li>I think that I would need the support of a technical person to be able to use this system.</li>
+<li>I found the various functions in this system were well integrated.</li>
+<li>I thought there was too much inconsistency in this system.</li>
+<li>I would imagine that most people would learn to use this system very quickly.</li>
+<li>I found the system very cumbersome to use.</li>
+<li>I felt very confident using the system.</li>
+<li>I needed to learn a lot of things before I could get going with this system.</li>
+</ol>
+<div class="incremental">
+<p>Also measure creativity (number of attempts) during free time!</p>
+</div>
+</section><section id="next-steps-2" class="slide level2">
 <h2>Next Steps</h2>
-</section><section id="conclusion" class="slide level2">
-<h2>Conclusion</h2>
+<ul class="incremental">
+<li>extend to “weirder” robots: underactuated, nonholonomic</li>
+<li>add sensors and <strong>until</strong> construct</li>
+<li>add aesthetic choices (drone show)</li>
+<li>integrate with a model checker to give feedback on feasibility of commands</li>
+<li>add game mode where user is trying to complete a specific task (follow path through complex environment), compare directly with ROS Python API</li>
+</ul>
+</section>
+<section id="conclusion" class="title-slide slide level1"><h1>Conclusion</h1></section><section id="its-a-great-time-to-be-an-academic-roboticist" class="slide level2">
+<h2>It’s a Great Time to be an Academic Roboticist</h2>
+<p><img src="images/sponsors_icra.png" class="center" width="750" /></p>
+</section><section id="questions-remain-about-safety-and-robustness" class="slide level2">
+<h2>Questions Remain About Safety and Robustness</h2>
+<ul class="incremental">
+<li>Design complexity is increasing exponentially</li>
+<li>Lots of work in robotics on automated hardware design, but not many people are attacking the problem of how to design sensing and information processing systems</li>
+<li>The robot body and its sensing requirements are <strong>inextricably</strong> linked</li>
+</ul>
+<div class="incremental">
+<p>Sensor failures lead to tragedy…</p>
+</div>
+</section><section id="whats-missing" class="slide level2">
+<h2>What’s Missing?</h2>
+<ol class="incremental" type="1">
+<li>Deep understanding of how to characterize failure modes and validate systems</li>
+<li>Computer-aided design of sensing and information processing systems</li>
+<li>Usability and human comfort</li>
+<li>Sustainability</li>
+</ol>
+<div class="incremental">
+<p>How to make approaches and models from minimalist robotic systems relevant to industrial systems?</p>
+</div>
+<div class="incremental">
+<p>Answer needs sociologists, politicians, regulators, economists, and roboticists… As well as pressure from the public to prioritize safety over fast deployment.</p>
+</div>
 </section><section id="thank-you-questions" class="slide level2">
 <h2>Thank you! Questions?</h2>
+<p><img src="images/comic.png" class="center" width="450" /></p>
+<p>Acknowledgements: Samara Ren, Justin Wasserman, Austin Born, Chris Horn, John Born, Chase Gladish, Jordan Parker, Dr. Amy LaViers, Dr. Yuliy Baryshnikov, Dr. Mattox Beckman, Dr. Steven M. LaValle</p>
 <h4 id="presentation-template-from-httpsgithub.competermosmanspresentation-template">Presentation Template from https://github.com/PeterMosmans/presentation-template</h4>
 </section>
 <section class="footnotes">
@@ -579,8 +662,10 @@ exp $\rightarrow$ &amp; rs \$ movement
 <ol>
 <li id="fn1"><p>Stochastic modeling, control, and evaluation of wild bodies. D. E. Gierl, L. Bobadilla, O. Sanhcez, and S. M. LaValle. In IEEE International Conference on Robotics and Automation, 2014.<a href="#fnref1" class="footnote-back">↩</a></p></li>
 <li id="fn2"><p>Counting moving bodies using sparse sensor beams. L. E. Erickson, J. Yu, Y. Huang, and S. M. LaValle. IEEE Transactions on Automation Science and Engineering, 10(4):853–861, 2014.<a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>Bhalla, N., Ipparthi, D., Klemp, E., &amp; Dorigo, M. (2014, September). A geometrical approach to the incompatible substructure problem in parallel self-assembly. In International Conference on Parallel Problem Solving from Nature (pp. 751-760). Springer, Cham.<a href="#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>Green, T. R. G.; Petre, M. (1996). “Usability analysis of visual programming environments: A ‘cognitive dimensions’ framework”. Journal of Visual Languages and Computing. 7: 131–174. CiteSeerX 10.1.1.22.1477. doi:10.1006/jvlc.1996.0009<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>ETH Zurich, Department of Materials YouTube channel<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>Li, Jinxing, et al. “Self-propelled nanomotors autonomously seek and repair cracks.” Nano letters 15.10 (2015): 7077-7085.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>Bhalla, N., Ipparthi, D., Klemp, E., &amp; Dorigo, M. (2014, September). A geometrical approach to the incompatible substructure problem in parallel self-assembly. In International Conference on Parallel Problem Solving from Nature (pp. 751-760). Springer, Cham.<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p>Green, T. R. G.; Petre, M. (1996). “Usability analysis of visual programming environments: A ‘cognitive dimensions’ framework”. Journal of Visual Languages and Computing. 7: 131–174. CiteSeerX 10.1.1.22.1477. doi:10.1006/jvlc.1996.0009<a href="#fnref6" class="footnote-back">↩</a></p></li>
 </ol>
 </section>
 <!-- {{{{ dzslides core
