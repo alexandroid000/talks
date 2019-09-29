@@ -16,9 +16,16 @@
   
   -->
   <style type="text/css">
-    html { background-color: black; }
-    body { background-color: white; border-radius: 12px; }
-  
+    html { background-color: black; font-size: 12px; }
+    body {
+      background-color: white;
+      border-radius: 12px;
+      height: 450px; }
+      .view section {
+      height: 450px;
+      margin: -140px -200px;
+      transform: scale(.3);
+    }
     .author, .date {
         font-size: 8px
         padding: 10px 10px 10px;
@@ -36,6 +43,15 @@
         display: block;
         margin-left: auto;
         margin-right: auto;
+    }
+    .column {
+        float: left;
+        width: 50%;
+    }
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
     }
     a { text-decoration: none; color: #111111; }
     /* A section is a slide. It's size is 800x600, and this will never change */
@@ -208,8 +224,8 @@ Modern Robotics Chapter 4</div></h2>
 </p>
 </div>
 </section>
-<section id="beginning-assumptions" class="slide level1">
-<h1>Beginning Assumptions</h1>
+<section id="assumptions" class="slide level1">
+<h1>Assumptions</h1>
 <ul class="incremental">
 <li>Our robot is a kinematic chain, made of rigid <em>links</em> connected by movable <em>joints</em></li>
 <li>No branches or loops (will discuss later)</li>
@@ -218,6 +234,106 @@ Modern Robotics Chapter 4</div></h2>
 <div class="incremental">
 <p><img src="images/1DOFjoints.jpg" class="center" width="520" /><br />
 </p>
+</div>
+</section>
+<section id="review-on-screw-motions" class="slide level1">
+<h1>Review on Screw Motions</h1>
+<p><img src="images/screw.jpg" class="center" width="600" /><br />
+</p>
+</section>
+<section id="review-on-screw-motions-1" class="slide level1">
+<h1>Review on Screw Motions</h1>
+<p>Definition 3.24 from Modern Robotics: a <strong>screw axis</strong> <span class="math inline">\(\mathcal{S}\)</span> is written as</p>
+<p><span class="math display">\[
+\mathcal{S} = \begin{bmatrix} \omega \\ v \end{bmatrix} \in \mathbb{R}^6
+\]</span> where either</p>
+<ul class="incremental">
+<li><span class="math inline">\(\lvert \lvert \omega \rvert \rvert = 1\)</span>
+<ul class="incremental">
+<li>where <span class="math inline">\(v = -\omega \times q + h\omega\)</span>, where <span class="math inline">\(q\)</span> is a point on the axis of the screw and <span class="math inline">\(h\)</span> is the pitch of the screw (<span class="math inline">\(h=0\)</span> for a pure rotation about the screw axis). OR</li>
+</ul></li>
+</ul>
+<ul class="incremental">
+<li><span class="math inline">\(\lvert \lvert \omega \rvert \rvert = 0\)</span> and <span class="math inline">\(\lvert \lvert v \rvert \rvert = 1\)</span>
+<ul class="incremental">
+<li>where the pitch of the screw is infinite and the motion is a translation along the axis defined by <span class="math inline">\(v\)</span>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="screw-motions-as-matrix-exponential" class="slide level1">
+<h1>Screw Motions as Matrix Exponential</h1>
+<p>The screw axis <span class="math inline">\(\mathcal{S}\)</span> can be expressed in matrix form as</p>
+<p><span class="math display">\[
+[\mathcal{S}_i] = \begin{bmatrix}
+[\omega_i] &amp; v \\
+0 &amp; 0
+\end{bmatrix} \in se(3)
+\]</span></p>
+<p>where <span class="math inline">\([ \ldots ]\)</span> is the skew symmetric form.</p>
+<div class="incremental">
+<p>To express a <strong>screw motion</strong> given a screw axis, we use the matrix exponential</p>
+<p><span class="math display">\[
+e^{\left[\mathcal{S}\right] \theta} \in SE(3)
+\]</span></p>
+</div>
+</section>
+<section id="but-why" class="slide level1">
+<h1>But why?!?</h1>
+<ul class="incremental">
+<li>Outside the scope of this course…</li>
+<li>“The exponential map is a map from the Lie algebra of a Lie group to the group itself”</li>
+</ul>
+<div class="incremental">
+<p>You can think of the Lie algebra as related to a tangent space, so a screw vector gives us a description of instantaneous tangent motion, and the exponential function “integrates” this motion over a displacement <span class="math inline">\(\theta\)</span>.</p>
+</div>
+</section>
+<section id="actual-form-of-matrix-exponential" class="slide level1">
+<h1>Actual Form of Matrix Exponential</h1>
+<p><img src="images/expansion.jpg" class="center" width="600" /><br />
+</p>
+<p><img src="images/explicit1.jpg" class="center" width="700" /><br />
+</p>
+<p><img src="images/explicit2.jpg" class="center" width="400" /><br />
+</p>
+</section>
+<section id="modelling-robot-joints-as-screw-motions" class="slide level1">
+<h1>Modelling Robot Joints as Screw Motions</h1>
+<p><span class="math inline">\(\mathcal{S} = \begin{bmatrix} \omega \\ v \end{bmatrix} \in \mathbb{R}^6\)</span></p>
+<p>case 1:</p>
+<div class="row">
+<div class="column" style="width:70%;">
+<ul class="incremental">
+<li><span class="math inline">\(\lvert \lvert \omega \rvert \rvert = 1\)</span>
+<ul class="incremental">
+<li>where <span class="math inline">\(v = -\omega \times q + h\omega\)</span>, where <span class="math inline">\(q\)</span> is a point on the axis of the screw and <span class="math inline">\(h\)</span> is the pitch of the screw <strong>(<span class="math inline">\(h=0\)</span> for a pure rotation about the screw axis)</strong>.</li>
+<li>So for revolute joints, <span class="math inline">\(\omega\)</span> is axis of rotation and <span class="math inline">\(v = -\omega \times q\)</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="column" style="width:30%;">
+<p><img src="images/revolute.gif" class="center" width="200" /><br />
+</p>
+</div>
+</div>
+</section>
+<section id="modelling-robot-joints-as-screw-motions-1" class="slide level1">
+<h1>Modelling Robot Joints as Screw Motions</h1>
+<p><span class="math inline">\(\mathcal{S} = \begin{bmatrix} \omega \\ v \end{bmatrix} \in \mathbb{R}^6\)</span></p>
+<p>case 2:</p>
+<div class="row">
+<div class="column" style="width:70%;">
+<ul class="incremental">
+<li><span class="math inline">\(\lvert \lvert \omega \rvert \rvert = 0\)</span> and <span class="math inline">\(\lvert \lvert v \rvert \rvert = 1\)</span>
+<ul class="incremental">
+<li>where the pitch of the screw is infinite and the motion is a translation along the axis defined by <span class="math inline">\(v\)</span>.</li>
+<li><strong>prismatic joints</strong> defined by axis of movement <span class="math inline">\(v\)</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="column" style="width:30%;">
+<p><img src="images/prismatic.gif" class="center" width="300" /><br />
+</p>
+</div>
 </div>
 </section>
 <section id="product-of-exponentials-formula" class="slide level1">
@@ -238,33 +354,16 @@ Modern Robotics Chapter 4</div></h2>
 </section>
 <section id="product-of-exponentials-formula-1" class="slide level1">
 <h1>Product of Exponentials Formula</h1>
-<p>For each joint <span class="math inline">\(i\)</span>, define the <em>screw axis</em> as a unit vector <span class="math inline">\(\omega_i\)</span> pointing along the axis of rotation in the base frame, as well as a displacement term <span class="math inline">\(v_i\)</span> equal to the distance from the origin of the base frame.</p>
-<p><span class="math display">\[ \mathcal{S}_i = \begin{bmatrix} \omega_i \\ v_i \end{bmatrix} \]</span></p>
+<p>For each joint <span class="math inline">\(i\)</span>, define the screw axis.</p>
 <div class="incremental">
-<p><strong>Note:</strong> this is a screw <em>axis</em>, not a screw <em>motion</em>.</p>
-</div>
-</section>
-<section id="product-of-exponentials-formula-2" class="slide level1">
-<h1>Product of Exponentials Formula</h1>
-<p>The screw axis <span class="math inline">\(\mathcal{S}_i\)</span> can be expressed in matrix form as</p>
-<p><span class="math display">\[
-[\mathcal{S}_i] = \begin{bmatrix}
-[\omega_i] &amp; v \\
-0 &amp; 0
-\end{bmatrix}
-\]</span></p>
-<p>where <span class="math inline">\([ \ldots ]\)</span> is the skew symmetric form.</p>
-<div class="incremental">
-<p><strong>Reminder:</strong> Given arbitrary <span class="math inline">\((R,p) \in SE(3)\)</span>, we can find a screw axis <span class="math inline">\(\mathcal{S} = (\omega, v)\)</span> and a scalar <span class="math inline">\(\theta\)</span> such that</p>
-<p><span class="math display">\[
-e^{[\mathcal{S}]\theta} = \begin{bmatrix}
-R &amp; p \\
-0 &amp; 1
-\end{bmatrix}
-\]</span></p>
+<p>For each motion of a joint, define the screw motion.</p>
 </div>
 <div class="incremental">
 <p>This form composes nicely through multiplication, giving us the <strong>Product of Exponentials (PoE)</strong> formula!</p>
+<p><span class="math display">\[
+T(\theta) = e^{[\mathcal{S_1}]\theta_1} \ldots
+e^{[\mathcal{S_{n-1}}]\theta_{n-1}} e^{[\mathcal{S_{n}}]\theta_{n}} M
+\]</span></p>
 </div>
 </section>
 <section id="a-side-note-on-representations" class="slide level1">
@@ -283,18 +382,38 @@ R &amp; p \\
 <p>With screw motions, we have only two reference frames (the base and the end effector), and then each joint screw motion is defined in the base frame.</p>
 </div>
 </section>
-<section id="simple-example" class="slide level1">
-<h1>Simple Example</h1>
+<section id="example-1" class="slide level1">
+<h1>Example 1</h1>
 <p><img src="images/3Rchain.jpg" class="center" width="700" /><br />
 </p>
 </section>
-<section id="video" class="slide level1">
-<h1>Video</h1>
-<div data-align="center" style="float:left;padding:24px">
-<iframe width="300" height="275" src="images/robot_vid2.m4v" frameborder="0" allowfullscreen>
-</iframe>
+<section id="example-1-1" class="slide level1">
+<h1>Example 1</h1>
+<p><span class="math display">\[
+M = \begin{bmatrix}
+1 &amp; 0 &amp; 0 &amp; L_1 + L_2 + L_3 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span></p>
+<p>All axes:</p>
+<p><span class="math inline">\(\omega_i = (0,0,1)\)</span></p>
+<div class="incremental">
+<p>For each joint:</p>
 </div>
-<h4 id="presentation-template-from-httpsgithub.competermosmanspresentation-template">Presentation Template from https://github.com/PeterMosmans/presentation-template</h4>
+<div class="incremental">
+<p><span class="math inline">\(v_1 = (0,0,0)\)</span></p>
+</div>
+<div class="incremental">
+<p><span class="math inline">\(v_2 = (0,-L,0)\)</span></p>
+</div>
+<div class="incremental">
+<p><span class="math inline">\(v_3 = (0,-(L_1 + L_2),0)\)</span></p>
+</div>
+</section>
+<section id="example-2" class="slide level1">
+<h1>Example 2</h1>
 </section>
 <!-- {{{{ dzslides core
 #

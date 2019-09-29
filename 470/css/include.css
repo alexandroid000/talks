@@ -1,7 +1,14 @@
 <style type="text/css">
-  html { background-color: black; }
-  body { background-color: white; border-radius: 12px; }
-
+  html { background-color: black; font-size: 12px; }
+  body {
+    background-color: white;
+    border-radius: 12px;
+    height: 450px; }
+    .view section {
+    height: 450px;
+    margin: -140px -200px;
+    transform: scale(.3);
+  }
   .author, .date {
       font-size: 8px
       padding: 10px 10px 10px;
@@ -19,6 +26,15 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
+  }
+  .column {
+      float: left;
+      width: 50%;
+  }
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
   }
   a { text-decoration: none; color: #111111; }
   /* A section is a slide. It's size is 800x600, and this will never change */
