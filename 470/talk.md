@@ -8,6 +8,16 @@ date: October 1, 2019
 aspectratio: 169
 ...
 
+
+Admin
+=============================
+
+> - I am not KDC!
+> - Homework 4 should be demonstrated individually to your TA in lab this week
+or next. Next week is the last week of Lab 3.
+> - Homework 5 is due this Friday.
+> - Lab 2 is due this week.
+
 What is "Forward Kinematics"?
 =============================
 
@@ -91,6 +101,7 @@ $$
 e^{\left[\mathcal{S}\right] \theta} \in SE(3)
 $$
 
+
 But why?!?
 ==========
 
@@ -112,6 +123,8 @@ Actual Form of Matrix Exponential
 
 
 ![](images/expansion.jpg){width=600px class="center"}\
+
+. . .
 
 ![](images/explicit1.jpg){width=700px class="center"}\
 
@@ -146,9 +159,6 @@ case 1:
 </div>
 </div>
 
-
-      
-       
        
 Modelling Robot Joints as Screw Motions
 ======
@@ -174,14 +184,19 @@ case 2:
 </div>
 </div>
 
-
-Product of Exponentials Formula
+Product of Exponentials Approach
 ===============================
+
+![](images/3Rchain.jpg){width=700px class="center"}\
+
 
 **Key Idea:** Model each joint as applying a screw motion to all links beyond
 it.
 
-. . .
+
+Product of Exponentials Approach
+===============================
+
 
 Let each joint $i$ have an associated parameter $\theta_i$ that defines its
 configuration (rotation angle for revolute joints, translation amount for
@@ -216,6 +231,117 @@ T(\theta) = e^{[\mathcal{S_1}]\theta_1} \ldots
 e^{[\mathcal{S_{n-1}}]\theta_{n-1}} e^{[\mathcal{S_{n}}]\theta_{n}} M
 $$
 
+Visualizing the Formula
+=======================
+
+![](images/PoE_visual.jpg){width=700px class="center"}\
+
+
+Example 1
+=========
+
+
+![](images/3Rchain.jpg){width=700px class="center"}\
+
+
+
+Example 1
+=========
+
+$$
+M = \begin{bmatrix}
+1 & 0 & 0 & L_1 + L_2 + L_3 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+\end{bmatrix}
+$$
+
+. . .
+
+All axes:
+
+$\omega_i = (0,0,1)$
+
+. . .
+
+For each joint:
+
+. . .
+
+$v_1 = (0,0,0)$
+
+. . .
+
+$v_2 = (0,-L,0)$
+
+. . .
+
+$v_3 = (0,-(L_1 + L_2),0)$
+
+
+
+Example 1
+=========
+
+Form $e^{[\mathcal{S_i}] \theta}$ for each joint:
+
+$$
+e^{[\mathcal{S_i}] \theta} = \begin{bmatrix} 
+e^{[\omega_i] \theta} & (I \theta + (1 - \cos(\theta) [\omega_i] + (\theta -
+\sin(\theta) [\omega_i]^2) v_i \\
+0 & 1
+\end{bmatrix}
+$$
+
+And compose with $M$
+
+$$
+T(\theta) = e^{[\mathcal{S_1}]\theta_1}
+e^{[\mathcal{S_{2}}]\theta_{2}} e^{[\mathcal{S_{3}}]\theta_{3}} M
+$$
+
+Example 2
+=========
+
+![](images/example2.jpg){width=600px class="center"}\
+
+Example 2
+=========
+
+First find $M$:
+
+$$
+M = \begin{bmatrix}
+0 & 0 & 1 & L_1 \\
+0 & 1 & 0 & 0 \\
+-1 & 0 & 1 & -L_2 \\
+0 & 0 & 0 & 1 \\
+\end{bmatrix}
+$$
+
+. . .
+
+For joint 1: $\omega_1 = (0,0,1) \qquad v_1 = (0,0,0)$
+
+. . .
+
+For joint 2: $\omega_2 = (0, -1, 0) \qquad q_2 = (L_1, 0, 0) \qquad v_2 = (0, 0, -L_1)$
+
+. . .
+
+For joint 3: $\omega_3 = (1, 0, 0) \qquad q_3 = (0, 0, -L_2) \qquad v_3 = (0, -L_2, 0)$
+
+Next Time
+=========
+
+> - Product of exponentials in the end-effector frame
+> - Modelling robots in the **Universal Robot Description Format**
+> - Different kinds of joints
+> - What if my robot isn't a kinematic chain??
+
+
+![](images/Pantograph_animation.gif){width=400px class="center"}\
 
 A Side Note on Representations
 ===============================
@@ -244,53 +370,4 @@ link must be defined.
 
 With screw motions, we have only two reference frames (the base and the end
 effector), and then each joint screw motion is defined in the base frame.
-
-
-
-Example 1
-=========
-
-
-![](images/3Rchain.jpg){width=700px class="center"}\
-
-
-
-Example 1
-=========
-
-$$
-M = \begin{bmatrix}
-1 & 0 & 0 & L_1 + L_2 + L_3 \\
-0 & 1 & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1 \\
-\end{bmatrix}
-$$
-
-
-All axes:
-
-$\omega_i = (0,0,1)$
-
-. . .
-
-For each joint:
-
-. . .
-
-$v_1 = (0,0,0)$
-
-. . .
-
-$v_2 = (0,-L,0)$
-
-. . .
-
-$v_3 = (0,-(L_1 + L_2),0)$
-
-Example 2
-=========
-
-
-
 

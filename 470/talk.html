@@ -213,6 +213,15 @@
 Modern Robotics Chapter 4</div></h2>
   <h3 class="date">October 1, 2019</h3>
 </section>
+<section id="admin" class="slide level1">
+<h1>Admin</h1>
+<ul class="incremental">
+<li>I am not KDC!</li>
+<li>Homework 4 should be demonstrated individually to your TA in lab this week or next. Next week is the last week of Lab 3.</li>
+<li>Homework 5 is due this Friday.</li>
+<li>Lab 2 is due this week.</li>
+</ul>
+</section>
 <section id="what-is-forward-kinematics" class="slide level1">
 <h1>What is “Forward Kinematics”?</h1>
 <p><strong>Kinematics</strong>: a branch of <em>classical mechanics</em> that describes motion of bodies without considering forces. AKA “the geometry of motion”</p>
@@ -291,10 +300,12 @@ e^{\left[\mathcal{S}\right] \theta} \in SE(3)
 <h1>Actual Form of Matrix Exponential</h1>
 <p><img src="images/expansion.jpg" class="center" width="600" /><br />
 </p>
+<div class="incremental">
 <p><img src="images/explicit1.jpg" class="center" width="700" /><br />
 </p>
 <p><img src="images/explicit2.jpg" class="center" width="400" /><br />
 </p>
+</div>
 </section>
 <section id="modelling-robot-joints-as-screw-motions" class="slide level1">
 <h1>Modelling Robot Joints as Screw Motions</h1>
@@ -336,12 +347,15 @@ e^{\left[\mathcal{S}\right] \theta} \in SE(3)
 </div>
 </div>
 </section>
-<section id="product-of-exponentials-formula" class="slide level1">
-<h1>Product of Exponentials Formula</h1>
+<section id="product-of-exponentials-approach" class="slide level1">
+<h1>Product of Exponentials Approach</h1>
+<p><img src="images/3Rchain.jpg" class="center" width="700" /><br />
+</p>
 <p><strong>Key Idea:</strong> Model each joint as applying a screw motion to all links beyond it.</p>
-<div class="incremental">
+</section>
+<section id="product-of-exponentials-approach-1" class="slide level1">
+<h1>Product of Exponentials Approach</h1>
 <p>Let each joint <span class="math inline">\(i\)</span> have an associated parameter <span class="math inline">\(\theta_i\)</span> that defines its configuration (rotation angle for revolute joints, translation amount for prismatic).</p>
-</div>
 <div class="incremental">
 <p>Initialization:</p>
 <ul class="incremental">
@@ -352,7 +366,7 @@ e^{\left[\mathcal{S}\right] \theta} \in SE(3)
 </ul>
 </div>
 </section>
-<section id="product-of-exponentials-formula-1" class="slide level1">
+<section id="product-of-exponentials-formula" class="slide level1">
 <h1>Product of Exponentials Formula</h1>
 <p>For each joint <span class="math inline">\(i\)</span>, define the screw axis.</p>
 <div class="incremental">
@@ -366,21 +380,10 @@ e^{[\mathcal{S_{n-1}}]\theta_{n-1}} e^{[\mathcal{S_{n}}]\theta_{n}} M
 \]</span></p>
 </div>
 </section>
-<section id="a-side-note-on-representations" class="slide level1">
-<h1>A Side Note on Representations</h1>
-<p>So this fancy screw motion matrix exponential is just another way to write down homogenous transformations in three dimensions!</p>
-<div class="incremental">
-<p>Our usual homogenous transformation matrices can also be used for forward kinematics (this is usually called the Denavit-Hartenberg (DH) representation).</p>
-</div>
-<div class="incremental">
-<p>But screw motions are a more <em>natural</em> model for the kinds of robots we are discussing.</p>
-</div>
-<div class="incremental">
-<p>With DH parameterization, we define a frame for each link in the frame of the previous link. So to compute the position of the end effector, a frame for each link must be defined.</p>
-</div>
-<div class="incremental">
-<p>With screw motions, we have only two reference frames (the base and the end effector), and then each joint screw motion is defined in the base frame.</p>
-</div>
+<section id="visualizing-the-formula" class="slide level1">
+<h1>Visualizing the Formula</h1>
+<p><img src="images/PoE_visual.jpg" class="center" width="700" /><br />
+</p>
 </section>
 <section id="example-1" class="slide level1">
 <h1>Example 1</h1>
@@ -397,8 +400,10 @@ M = \begin{bmatrix}
 0 &amp; 0 &amp; 0 &amp; 1 \\
 \end{bmatrix}
 \]</span></p>
+<div class="incremental">
 <p>All axes:</p>
 <p><span class="math inline">\(\omega_i = (0,0,1)\)</span></p>
+</div>
 <div class="incremental">
 <p>For each joint:</p>
 </div>
@@ -412,8 +417,74 @@ M = \begin{bmatrix}
 <p><span class="math inline">\(v_3 = (0,-(L_1 + L_2),0)\)</span></p>
 </div>
 </section>
+<section id="example-1-2" class="slide level1">
+<h1>Example 1</h1>
+<p>Form <span class="math inline">\(e^{[\mathcal{S_i}] \theta}\)</span> for each joint:</p>
+<p><span class="math display">\[
+e^{[\mathcal{S_i}] \theta} = \begin{bmatrix} 
+e^{[\omega_i] \theta} &amp; (I \theta + (1 - \cos(\theta) [\omega_i] + (\theta -
+\sin(\theta) [\omega_i]^2) v_i \\
+0 &amp; 1
+\end{bmatrix}
+\]</span></p>
+<p>And compose with <span class="math inline">\(M\)</span></p>
+<p><span class="math display">\[
+T(\theta) = e^{[\mathcal{S_1}]\theta_1}
+e^{[\mathcal{S_{2}}]\theta_{2}} e^{[\mathcal{S_{3}}]\theta_{3}} M
+\]</span></p>
+</section>
 <section id="example-2" class="slide level1">
 <h1>Example 2</h1>
+<p><img src="images/example2.jpg" class="center" width="600" /><br />
+</p>
+</section>
+<section id="example-2-1" class="slide level1">
+<h1>Example 2</h1>
+<p>First find <span class="math inline">\(M\)</span>:</p>
+<p><span class="math display">\[
+M = \begin{bmatrix}
+0 &amp; 0 &amp; 1 &amp; L_1 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+-1 &amp; 0 &amp; 1 &amp; -L_2 \\
+0 &amp; 0 &amp; 0 &amp; 1 \\
+\end{bmatrix}
+\]</span></p>
+<div class="incremental">
+<p>For joint 1: <span class="math inline">\(\omega_1 = (0,0,1) \qquad v_1 = (0,0,0)\)</span></p>
+</div>
+<div class="incremental">
+<p>For joint 2: <span class="math inline">\(\omega_2 = (0, -1, 0) \qquad q_2 = (L_1, 0, 0) \qquad v_2 = (0, 0, -L_1)\)</span></p>
+</div>
+<div class="incremental">
+<p>For joint 3: <span class="math inline">\(\omega_3 = (1, 0, 0) \qquad q_3 = (0, 0, -L_2) \qquad v_3 = (0, -L_2, 0)\)</span></p>
+</div>
+</section>
+<section id="next-time" class="slide level1">
+<h1>Next Time</h1>
+<ul class="incremental">
+<li>Product of exponentials in the end-effector frame</li>
+<li>Modelling robots in the <strong>Universal Robot Description Format</strong></li>
+<li>Different kinds of joints</li>
+<li>What if my robot isn’t a kinematic chain??</li>
+</ul>
+<p><img src="images/Pantograph_animation.gif" class="center" width="400" /><br />
+</p>
+</section>
+<section id="a-side-note-on-representations" class="slide level1">
+<h1>A Side Note on Representations</h1>
+<p>So this fancy screw motion matrix exponential is just another way to write down homogenous transformations in three dimensions!</p>
+<div class="incremental">
+<p>Our usual homogenous transformation matrices can also be used for forward kinematics (this is usually called the Denavit-Hartenberg (DH) representation).</p>
+</div>
+<div class="incremental">
+<p>But screw motions are a more <em>natural</em> model for the kinds of robots we are discussing.</p>
+</div>
+<div class="incremental">
+<p>With DH parameterization, we define a frame for each link in the frame of the previous link. So to compute the position of the end effector, a frame for each link must be defined.</p>
+</div>
+<div class="incremental">
+<p>With screw motions, we have only two reference frames (the base and the end effector), and then each joint screw motion is defined in the base frame.</p>
+</div>
 </section>
 <!-- {{{{ dzslides core
 #
