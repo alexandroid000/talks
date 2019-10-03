@@ -477,8 +477,172 @@ e^P M = M e^{M^{-1} P M}
 <p><img src="images/universal.jpg" class="center" width="300" /><br />
 </p>
 </section>
-<section id="wow" class="slide level1">
-<h1>Wow!</h1>
+<section id="what-does-it-look-like" class="slide level1">
+<h1>What Does it Look Like?</h1>
+<div class="row">
+<div class="column" style="width:50%;">
+<p><img src="images/model.png" class="center" width="350" /><br />
+</p>
+</div>
+<div class="column" style="width:50%;">
+<pre><code>&lt;robot name=&quot;pr2&quot;&gt;
+  &lt;link&gt; ... &lt;/link&gt;
+  &lt;link&gt; ... &lt;/link&gt;
+  &lt;link&gt; ... &lt;/link&gt;
+
+  &lt;joint&gt;  ....  &lt;/joint&gt;
+  &lt;joint&gt;  ....  &lt;/joint&gt;
+  &lt;joint&gt;  ....  &lt;/joint&gt;
+&lt;/robot&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="links" class="slide level1">
+<h1>Links</h1>
+<p><img src="images/link.png" class="center" width="450" /><br />
+</p>
+</section>
+<section id="links-1" class="slide level1">
+<h1>Links</h1>
+<ul>
+<li>inertial</li>
+</ul>
+<pre><code>&lt;inertial&gt;
+ &lt;origin xyz=&quot;0 0 0.5&quot; rpy=&quot;0 0 0&quot;/&gt;
+ &lt;mass value=&quot;1&quot;/&gt;
+ &lt;inertia ixx=&quot;100&quot;  ixy=&quot;0&quot;  ixz=&quot;0&quot; iyy=&quot;100&quot; iyz=&quot;0&quot; izz=&quot;100&quot; /&gt;
+&lt;/inertial&gt;</code></pre>
+<div class="incremental">
+<ul>
+<li>visual</li>
+</ul>
+<pre><code>&lt;origin xyz=&quot;0 0 0&quot; rpy=&quot;0 0 0&quot; /&gt;
+&lt;geometry&gt;
+    &lt;box size=&quot;1 1 1&quot; /&gt;
+&lt;/geometry&gt;
+&lt;material name=&quot;Cyan&quot;&gt;
+    &lt;color rgba=&quot;0 1.0 1.0 1.0&quot;/&gt;
+&lt;/material&gt;</code></pre>
+</div>
+</section>
+<section id="links-2" class="slide level1">
+<h1>Links</h1>
+<ul>
+<li>collision</li>
+</ul>
+<pre><code>&lt;origin xyz=&quot;0 0 0&quot; rpy=&quot;0 0 0&quot;/&gt;
+&lt;geometry&gt;
+    &lt;cylinder radius=&quot;1&quot; length=&quot;0.5&quot;/&gt;
+&lt;/geometry&gt;
+&lt;/collision&gt;</code></pre>
+<p><img src="images/link.png" class="center" width="450" /><br />
+</p>
+</section>
+<section id="joints" class="slide level1">
+<h1>Joints</h1>
+<p>Required elements:</p>
+<ul class="incremental">
+<li>origin</li>
+<li>parent</li>
+<li>child</li>
+</ul>
+<div class="incremental">
+<p>Optional elements:</p>
+<ul class="incremental">
+<li>axis</li>
+<li>calibration</li>
+<li>dynamics</li>
+<li>limits</li>
+<li>safety controller</li>
+</ul>
+</div>
+</section>
+<section id="what-cannot-be-modelled" class="slide level1">
+<h1>What Cannot Be Modelled?</h1>
+<ul>
+<li>closed kinematic chains</li>
+<li>flexible structures</li>
+</ul>
+<p><img src="images/soft.gif" class="center" width="450" /><br />
+</p>
+</section>
+<section id="challenges" class="slide level1">
+<h1>Challenges</h1>
+<p>XML is not very readable or writeable by humans</p>
+<div class="row">
+<div class="column" style="width:50%;">
+<p>XML:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode xml"><code class="sourceCode xml"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">&lt;launch&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>    <span class="kw">&lt;arg</span><span class="ot"> name=</span><span class="st">&quot;world&quot;</span><span class="ot"> default=</span><span class="st">&quot;simple_world&quot;</span><span class="kw">/&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="kw">&lt;arg</span><span class="ot"> name=</span><span class="st">&quot;init_pos_x&quot;</span><span class="ot"> default=</span><span class="st">&quot;0.0&quot;</span><span class="kw">/&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>    <span class="kw">&lt;arg</span><span class="ot"> name=</span><span class="st">&quot;init_pos_y&quot;</span><span class="ot"> default=</span><span class="st">&quot;0.0&quot;</span><span class="kw">/&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>    <span class="kw">&lt;node</span><span class="ot"> pkg=</span><span class="st">&quot;gazebo_ros&quot;</span><span class="ot"> type=</span><span class="st">&quot;spawn_model&quot;</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="ot">        name=</span><span class="st">&quot;spawn_robot&quot;</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="ot">        respawn=</span><span class="st">&quot;false&quot;</span><span class="ot"> output=</span><span class="st">&quot;screen&quot;</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="ot">        args=</span><span class="st">&quot;-param robot_description</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="st">        -urdf</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="st">        -x $(arg init_pos_x)</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="st">        -y $(arg init_pos_y)</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="st">        -z $(arg init_pos_z)</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="st">        -model youbot&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>    <span class="kw">&lt;/node&gt;</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="kw">&lt;/launch&gt;</span></span></code></pre></div>
+</div>
+<div class="column" style="width:50%;">
+<p>YAML:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw">-</span><span class="at"> </span><span class="fu">world</span><span class="kw">:</span><span class="at"> simple_world</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">-</span><span class="at"> </span><span class="fu">init_pos_x</span><span class="kw">:</span><span class="at"> </span><span class="ot">&amp;init_pos_x</span><span class="at"> 0.0</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="kw">-</span><span class="at"> </span><span class="fu">init_pos_y</span><span class="kw">:</span><span class="at"> </span><span class="ot">&amp;init_pos_x</span><span class="at"> 0.0</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="kw">-</span><span class="at"> </span><span class="fu">node</span><span class="kw">:</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">pkg</span><span class="kw">:</span><span class="at"> gazebo_ros</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">type</span><span class="kw">:</span><span class="at"> spawn_model</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> spawn_robot</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">respawn</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">output</span><span class="kw">:</span><span class="at"> screen</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">args</span><span class="kw">:</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a><span class="at">        </span><span class="kw">-</span><span class="at"> param robot_description</span></span>
+<span id="cb6-13"><a href="#cb6-13"></a><span class="at">        </span><span class="kw">-</span><span class="at"> urdf</span></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="at">        </span><span class="kw">-</span><span class="at"> x *arg init_pos_x</span></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="at">        </span><span class="kw">-</span><span class="at"> y *init_pos_y</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="at">        </span><span class="kw">-</span><span class="at"> z *arg init_pos_z</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="at">        </span><span class="kw">-</span><span class="at"> model youbot</span></span></code></pre></div>
+</div>
+</div>
+</section>
+<section id="workarounds" class="slide level1">
+<h1>Workarounds</h1>
+<div class="row">
+<div class="column" style="width:50%;">
+<p><img src="images/generator.jpg" class="center" width="300" /><br />
+</p>
+<p><a href = "http://www.mymodelrobot.appspot.com/5629499534213120">Online URDF editor</a></p>
+</div>
+<div class="column" style="width:50%;">
+<p><img src="images/solidworks.png" class="center" width="300" /><br />
+</p>
+<p>SolidWorks plugin</p>
+</div>
+</div>
+</section>
+<section id="active-developments-in-robot-programming" class="slide level1">
+<h1>Active Developments in Robot Programming</h1>
+<ul class="incremental">
+<li>Live coding / interactive interfaces</li>
+<li>Readability (python &gt;&gt;&gt; c++)</li>
+<li>Formal guarantees
+<ul class="incremental">
+<li>strict types</li>
+<li>dimensional analysis</li>
+<li>probabilistic programming</li>
+<li>logical specifications &amp; synthesis</li>
+</ul></li>
+</ul>
+</section>
+<section id="trade-offs" class="slide level1">
+<h1>Trade-offs</h1>
+<p><img src="images/venn-blank.png" class="center" width="500" /><br />
+</p>
 </section>
 <!-- {{{{ dzslides core
 #

@@ -329,7 +329,208 @@ URDF
 
 ![](images/universal.jpg){width=300px class="center"}\
 
-Wow!
+What Does it Look Like?
 ====
 
 
+<div class="row">
+<div class="column" width="50%">
+
+![](images/model.png){width=350px class="center"}\
+
+
+</div>
+<div class="column" width="50%">
+
+```
+<robot name="pr2">
+  <link> ... </link>
+  <link> ... </link>
+  <link> ... </link>
+
+  <joint>  ....  </joint>
+  <joint>  ....  </joint>
+  <joint>  ....  </joint>
+</robot>
+```
+
+</div>
+</div>
+
+
+Links
+=====
+
+![](images/link.png){width=450px class="center"}\
+
+Links
+=====
+
+- inertial
+
+```
+<inertial>
+ <origin xyz="0 0 0.5" rpy="0 0 0"/>
+ <mass value="1"/>
+ <inertia ixx="100"  ixy="0"  ixz="0" iyy="100" iyz="0" izz="100" />
+</inertial>
+```
+
+. . .
+
+- visual
+
+```
+<origin xyz="0 0 0" rpy="0 0 0" />
+<geometry>
+    <box size="1 1 1" />
+</geometry>
+<material name="Cyan">
+    <color rgba="0 1.0 1.0 1.0"/>
+</material>
+```
+
+Links
+=====
+
+- collision
+
+
+```
+<origin xyz="0 0 0" rpy="0 0 0"/>
+<geometry>
+    <cylinder radius="1" length="0.5"/>
+</geometry>
+</collision>
+```
+
+
+![](images/link.png){width=450px class="center"}\
+
+
+Joints
+======
+
+Required elements:
+
+> - origin
+> - parent
+> - child
+
+. . .
+
+Optional elements:
+
+> - axis
+> - calibration
+> - dynamics
+> - limits
+> - safety controller
+
+What Cannot Be Modelled?
+========================
+
+- closed kinematic chains
+- flexible structures
+
+![](images/soft.gif){width=450px class="center"}\
+
+
+Challenges
+==========
+
+XML is not very readable or writeable by humans
+
+<div class="row">
+<div class="column" width="50%">
+
+XML:
+
+```xml
+<launch>
+    <arg name="world" default="simple_world"/>
+    <arg name="init_pos_x" default="0.0"/>
+    <arg name="init_pos_y" default="0.0"/>
+	<node pkg="gazebo_ros" type="spawn_model"
+		name="spawn_robot"
+		respawn="false" output="screen"
+		args="-param robot_description
+        -urdf
+        -x $(arg init_pos_x)
+        -y $(arg init_pos_y)
+        -z $(arg init_pos_z)
+        -model youbot">
+    </node>
+</launch>
+```
+
+</div>
+<div class="column" width="50%">
+
+YAML:
+
+```yaml
+
+- world: simple_world
+- init_pos_x: &init_pos_x 0.0
+- init_pos_y: &init_pos_x 0.0
+- node:
+	- pkg: gazebo_ros
+	- type: spawn_model
+	- name: spawn_robot
+	- respawn: false
+	- output: screen
+	- args:
+		- param robot_description
+        - urdf
+        - x *arg init_pos_x
+        - y *init_pos_y
+        - z *arg init_pos_z
+        - model youbot
+
+```
+
+</div>
+</div>
+
+
+Workarounds
+===========
+
+
+<div class="row">
+<div class="column" width="50%">
+
+![](images/generator.jpg){width=300px class="center"}\
+
+<a href = "http://www.mymodelrobot.appspot.com/5629499534213120">Online URDF
+editor</a>
+
+</div>
+<div class="column" width="50%">
+
+![](images/solidworks.png){width=300px class="center"}\
+
+SolidWorks plugin
+
+</div>
+</div>
+
+
+Active Developments in Robot Programming
+========================================
+
+> - Live coding / interactive interfaces
+> - Readability (python >>> c++)
+> - Formal guarantees
+>   - strict types
+>   - dimensional analysis
+>   - probabilistic programming
+>   - logical specifications & synthesis
+
+
+Trade-offs
+==========
+
+
+![](images/venn-blank.png){width=500px class="center"}\
