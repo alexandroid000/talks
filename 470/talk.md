@@ -343,31 +343,3 @@ Next Time
 
 ![](images/Pantograph_animation.gif){width=400px class="center"}\
 
-A Side Note on Representations
-===============================
-
-So this fancy screw motion matrix exponential is just another way to write down
-homogenous transformations in three dimensions!
-
-. . .
-
-Our usual homogenous transformation matrices can also be used for forward
-kinematics (this is usually called the Denavit-Hartenberg (DH) representation).
-
-. . .
-
-
-But screw motions are a more *natural* model for the kinds of robots we are
-discussing.
-
-. . .
-
-With DH parameterization, we define a frame for each link in the frame of the
-previous link. So to compute the position of the end effector, a frame for each
-link must be defined.
-
-. . .
-
-With screw motions, we have only two reference frames (the base and the end
-effector), and then each joint screw motion is defined in the base frame.
-

@@ -44,6 +44,13 @@
         margin-left: auto;
         margin-right: auto;
     }
+    .centerv {
+        min-height:10em;
+        display: table-cell;
+        vertical-align: middle;
+        margin-left: auto;
+        margin-right: auto;
+    }
     .column {
         float: left;
         width: 50%;
@@ -469,22 +476,6 @@ M = \begin{bmatrix}
 </ul>
 <p><img src="images/Pantograph_animation.gif" class="center" width="400" /><br />
 </p>
-</section>
-<section id="a-side-note-on-representations" class="slide level1">
-<h1>A Side Note on Representations</h1>
-<p>So this fancy screw motion matrix exponential is just another way to write down homogenous transformations in three dimensions!</p>
-<div class="incremental">
-<p>Our usual homogenous transformation matrices can also be used for forward kinematics (this is usually called the Denavit-Hartenberg (DH) representation).</p>
-</div>
-<div class="incremental">
-<p>But screw motions are a more <em>natural</em> model for the kinds of robots we are discussing.</p>
-</div>
-<div class="incremental">
-<p>With DH parameterization, we define a frame for each link in the frame of the previous link. So to compute the position of the end effector, a frame for each link must be defined.</p>
-</div>
-<div class="incremental">
-<p>With screw motions, we have only two reference frames (the base and the end effector), and then each joint screw motion is defined in the base frame.</p>
-</div>
 </section>
 <!-- {{{{ dzslides core
 #
