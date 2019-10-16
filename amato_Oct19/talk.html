@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+  <meta name="dcterms.date" content="2019-10-15" />
+  <title>Planning over Simple Boundary Interactions</title>
+  <script src="/home/alli/src/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <!---
+  
+       (c) 2015, Peter Mosmans - Go Forward
+                                 www.go-forward.net
+  
+                                 peter.mosmans@go-forward.net
+  
+       Licensed under http://creativecommons.org/licenses/by-sa/4.0/
+       Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+  
+  -->
+  <style type="text/css">
+    html { background-color: black; font-size: 12px; }
+    body {
+      background-color: white;
+      border-radius: 12px;
+      height: 450px; }
+      .view section {
+      height: 450px;
+      margin: -140px -200px;
+      transform: scale(.3);
+    }
+    .author, .date {
+        font-size: 8px
+        padding: 10px 10px 10px 10px;
+        margin: 0px;
+        text-align: center;
+        background-color: #EEEEEE;
+        color: #777777;
+    }
+    .author {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 10px 10px 10px 10px;
+        height: 100px;
+    }
+    .center {
+        display: block;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .column {
+        float: left;
+        width: 50%;
+    }
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    a { text-decoration: none; color: #111111; }
+    /* A section is a slide. It's size is 800x600, and this will never change */
+    address, blockquote, dl, fieldset, form, h1, h2, h3, h4, h5, h6, hr, ol, p, pre, table, ul, dl {
+        padding: 10px 20px 10px 20px;
+    }
+    blockquote { font-style: italic }
+    code {
+        white-space: pre;
+        font-size: 17px;
+        background-color: #DDDDDD;
+        border-radius: 5px;
+        display: block;
+    }
+    h1, h3, h4, h5 { text-align: center; }
+    h1, h2, h3 { margin: 10pt 10pt 5pt 10pt; }
+    h1 {
+        margin-top: 230px;
+        font-size: 230%;
+        background-color: #cdb0d9;
+        border-radius: 12px; }
+    h1.title {
+        margin-top: 20px;
+        font-size: 35px;
+        padding: 60px;
+        background-color:#FFFFFF;
+        background-size: 250px;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+    }
+    h1.subtitle {
+        margin-top: 20px;
+        font-size: 35px;
+        padding: 60px;
+        background-color:#FFFFFF;
+        background-size: 60px;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+    }
+    h2 {
+        font-size: 140%;
+        text-align: left;
+    }
+    h4 {
+        margin: 0px;
+        padding: 15px;
+        background-color: #EEEEEE;
+        color: #777777;
+        font-size: 15px;
+    }
+    h5 {
+        margin: 0px;
+        padding: 0px;
+    }
+    li { margin-bottom: 5px; }
+    section {
+        font-family: Arial, serif;
+        font-size: 16pt;
+    }
+    section.titleslide h1 { margin-top: 200px; }
+    td {
+        padding: 5px 40px 5px 5px;
+        border-right: 2px dotted #000000;
+        border-top: 1px solid #000000;
+    }
+    tr { font-size: 70%; }
+    ul, ol { margin: 5px 10px 10px 50px; }
+    q { quotes: "“" "”" "‘" "’"; }
+    /* Figures are displayed full-page, with the caption on
+       top of the image/video */
+    figure {
+        background-color: white;
+        display: block;
+    }
+    figcaption {
+      margin: 70px;
+    }
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 40px;
+      text-align: right;
+      background-color: #F3F4F8;
+      border-top: 1px solid #CCC;
+    }
+    .strike { text-decoration: line-through; }
+    /* Transition effect */
+    /* Feel free to change the transition effect for original
+       animations. See here:
+       https://developer.mozilla.org/en/CSS/CSS_transitions
+       How to use CSS3 Transitions: */
+    /* section {
+        -moz-transition: left 400ms linear 0s;
+        -webkit-transition: left 400ms linear 0s;
+        -ms-transition: left 400ms linear 0s;
+        transition: left 400ms linear 0s;
+    } */
+    /* Before */
+    section { left: -150%; }
+    /* Now */
+    section[aria-selected] { left: 0; }
+    /* After */
+    section[aria-selected] ~ section { left: +150%; }
+  
+    /* Incremental elements */
+  
+    /* By default, visible */
+    .incremental > * { opacity: 1; }
+  
+    /* The current item */
+    .incremental > *[aria-selected] { opacity: 1; }
+  
+    /* The items to-be-selected */
+    .incremental > *[aria-selected] ~ * { opacity: 0.2; }
+  
+    div.sourceCode { overflow-x: auto; }
+  table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+    margin: 0; padding: 0; vertical-align: baseline; border: none; }
+  table.sourceCode { width: 100%; line-height: 100%; }
+  td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+  td.sourceCode { padding-left: 5px; }
+  code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+  code > span.dt { color: #902000; } /* DataType */
+  code > span.dv { color: #40a070; } /* DecVal */
+  code > span.bn { color: #40a070; } /* BaseN */
+  code > span.fl { color: #40a070; } /* Float */
+  code > span.ch { color: #4070a0; } /* Char */
+  code > span.st { color: #4070a0; } /* String */
+  code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+  code > span.ot { color: #007020; } /* Other */
+  code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+  code > span.fu { color: #06287e; } /* Function */
+  code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+  code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  code > span.cn { color: #880000; } /* Constant */
+  code > span.sc { color: #4070a0; } /* SpecialChar */
+  code > span.vs { color: #4070a0; } /* VerbatimString */
+  code > span.ss { color: #bb6688; } /* SpecialString */
+  code > span.im { } /* Import */
+  code > span.va { color: #19177c; } /* Variable */
+  code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+  code > span.op { color: #666666; } /* Operator */
+  code > span.bu { } /* BuiltIn */
+  code > span.ex { } /* Extension */
+  code > span.pp { color: #bc7a00; } /* Preprocessor */
+  code > span.at { color: #7d9029; } /* Attribute */
+  code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+  code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+  code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+  code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<section class="title">
+  <h1 class="title">Planning over Simple Boundary Interactions</h1>
+  <h2 class="author"><div class="line-block">Alli Nilles<br />
+Amato Group Meeting</div></h2>
+  <h3 class="date">October 15, 2019</h3>
+</section>
+<section id="outline" class="slide level2">
+<h2>Outline</h2>
+<ul>
+<li>Background:
+<ul>
+<li>minimalism, geometric planning, compliance</li>
+<li>planning over boundary interactions for minimal mobile robots</li>
+</ul></li>
+<li>Motivation and Goals</li>
+<li>Model Definition</li>
+<li>A Robust Geometric Planner</li>
+<li>Future Work and Side Projects</li>
+</ul>
+</section>
+<section id="background" class="title-slide slide level1"><h1>Background</h1></section><section id="collisions-for-robots-are-usually-bad" class="slide level2">
+<h2>Collisions for robots are usually bad…</h2>
+<p><img src="images/crash.gif" class="center" width="600" /></p>
+</section><section id="but-theyre-ok-sometimes" class="slide level2">
+<h2>But they’re ok sometimes!</h2>
+<p><img src="images/roomba.gif" class="center" width="600" /></p>
+</section><section id="lessons-from-manipulation" class="slide level2">
+<h2>Lessons from Manipulation</h2>
+<div data-align="center" style="float;padding:24px">
+<iframe width="600" height="400" src="images/grasping_matt_mason.mp4" frameborder="0" allowfullscreen>
+</iframe>
+</div>
+<p>Dr. Matt Mason, CMU</p>
+</section><section id="lessons-from-manipulation-1" class="slide level2">
+<h2>Lessons from Manipulation</h2>
+<p><strong>Compliance</strong>: work <em>with</em> geometry. Can be passive mechanical compliance, or active compliance in planning/control.</p>
+<p><img src="images/fine-motion.jpg" class="center" width="350" /><br />
+</p>
+<p>T. Lozano-Perez, M. Mason, R. H. Taylor, “Automatic synthesis of fine-motion strategies for robots.” IJRR, 1984.</p>
+</section><section id="lessons-from-manipulation-2" class="slide level2">
+<h2>Lessons from Manipulation</h2>
+<p><strong>Minimalism</strong></p>
+<ul class="incremental">
+<li>Manipulation doesn’t require much or any sensing.
+<ul class="incremental">
+<li>“Orienting Polygonal Parts Without Sensors,” K. Goldberg (PhD Thesis), 1993</li>
+</ul></li>
+</ul>
+<div class="incremental">
+<ul class="incremental">
+<li>Manipulation doesn’t require complex hands, or lots of fingers, and plans can be computed quickly.
+<ul class="incremental">
+<li>H. Bunis and E. Rimon, “Toward Grasping Against the Environment: Locking Polygonal Objects Against a Wall Using Two-Finger Robot Hands”, IEEE RAL, 2019.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="what-about-mobile-robots" class="title-slide slide level1"><h1>What about Mobile Robots?</h1></section><section id="minimalism-in-mobile-robotics" class="slide level2">
+<h2>Minimalism in Mobile Robotics</h2>
+<p><img src="images/robot_spectrum.jpg" class="center" width="750" /><br />
+</p>
+</section><section id="minimalist-boundary-interactions" class="slide level2">
+<h2>Minimalist Boundary Interactions</h2>
+<p><img src="images/bitbots.jpg" class="center" width="380" /><br />
+</p>
+<p>“<strong>Mapping</strong> and <strong>pursuit-evasion</strong> strategies for a simple wall-following robot.” M. Katsev, A. Yershova, B. Tovar, R. Ghrist, and S. M. LaValle. IEEE Transactions on Robotics, 2011.</p>
+</section><section id="minimalist-boundary-interactions-1" class="slide level2">
+<h2>Minimalist Boundary Interactions</h2>
+<p><img src="images/okane-bounce.jpg" class="center" width="550" /><br />
+</p>
+<p>“Planning for provably <strong>reliable navigation</strong> using an unreliable, nearly sensorless robot.” J. S. Lewis, J. M. O’Kane. International Journal of Robotics Research, 2013.</p>
+</section><section id="bouncing-robots" class="slide level2">
+<h2>Bouncing Robots</h2>
+<p>Iterating the same boundary interaction can cause cycles and trapping regions:</p>
+<p><img src="images/twoconv.gif" class="center" width="300" /></p>
+<p>Combinatorial changes from small perturbations:</p>
+<p><img src="images/plane.gif" class="center" width="300" /></p>
+<h4 id="first-example-inspired-by-spagnolie-s.-e.-wahl-c.-lukasik-j.-thiffeault-j.-l.-2017.-microorganism-billiards.-physica-d-nonlinear-phenomena-341-33-44.">First example inspired by Spagnolie, S. E., Wahl, C., Lukasik, J., &amp; Thiffeault, J. L. (2017). Microorganism billiards. Physica D: Nonlinear Phenomena, 341, 33-44.</h4>
+</section><section id="questions" class="slide level2">
+<h2>Questions</h2>
+<div class="center">
+<p>How to represent boundary interactions (including uncertainty)?</p>
+</div>
+<div class="incremental">
+<div class="center">
+<p>How to plan over boundary interactions efficiently?</p>
+</div>
+</div>
+<div class="incremental">
+<div class="center">
+<p>Can we leverage geometry of our workspace?</p>
+</div>
+</div>
+<div class="incremental">
+<div class="center">
+<p>What kinds of tasks can these robots complete, and how to specify?</p>
+</div>
+</div>
+</section>
+<section id="model-definition" class="title-slide slide level1"><h1>Model Definition</h1></section><section id="modelling-assumptions" class="slide level2">
+<h2>Modelling Assumptions</h2>
+<ul class="incremental">
+<li>Robot position modelled as a <em>point</em> in a <em>polygonal environment</em> (possibly with polygonal obstacles).</li>
+<li>Robots move in <em>straight lines</em> until they encounter a boundary.</li>
+<li>Plans are executed in <em>event-based</em> way; action <span class="math inline">\(u_k\)</span> taken at stage <span class="math inline">\(k\)</span>, the <span class="math inline">\(k\)</span>th time the robot encounters a boundary.</li>
+<li>We know the exact map of the environment at planning time.</li>
+</ul>
+</section><section id="defining-boundary-interactions" class="slide level2">
+<h2>Defining Boundary Interactions</h2>
+<p><img src="images/bounce_examples.jpg" width="700" /></p>
+<div class="incremental">
+<p><strong>Bounce rule:</strong> determines action <span class="math inline">\(u \in (0, \pi)\)</span> at boundary.</p>
+<p><strong>Goal:</strong> Planner produces sequence of <strong>bounce rules</strong>.</p>
+</div>
+</section><section id="modelling-uncertainty" class="slide level2">
+<h2>Modelling Uncertainty</h2>
+<p><img src="images/bounce_example_nondet.png" class="center" width="400" /></p>
+<p>Uncertainty is unavoidable… Plan over <strong>nondeterministic</strong> bounce rules!</p>
+<div class="incremental">
+<p>What kinds of error and nondeterminism does this include?</p>
+</div>
+</section><section id="defining-safe-actions" class="slide level2">
+<h2>Defining Safe Actions</h2>
+<p><strong>Safe actions</strong>: Given two edges in the environment polygon <span class="math inline">\(e_i\)</span> and <span class="math inline">\(e_j\)</span>, an interval of actions <span class="math inline">\(\tilde{u}_{i,j} \subseteq (0, \pi)\)</span> is <em>safe</em> iff any action <span class="math inline">\(u \in \tilde{u}_{i,j}\)</span> executed from any point in <span class="math inline">\(e_i\)</span> will cause the robot to transition to a point in <span class="math inline">\(e_j\)</span> in one stage.</p>
+<div class="incremental">
+<p><strong>Observation:</strong> in a single action, the robot can only transition to visible segments of the boundary.</p>
+</div>
+</section><section id="geometry-influences-dynamics" class="slide level2">
+<h2>Geometry Influences Dynamics</h2>
+<p>Given geometry, parameterize points on outer boundary and obstacles.</p>
+<p>We can explicitly compute a functional form for state transitions between points on the boundary <span class="math inline">\(\partial P\)</span>:</p>
+<p><span class="math display">\[f: \partial P \times U \to \partial P\]</span></p>
+<div class="incremental">
+<p><strong>Observation:</strong> <span class="math inline">\(f\)</span> is easier to analyze when looking at pairs of mutually visible edges.</p>
+<h3 id="use-visibility-structure-to-discretize-space-of-possible-trajectories">Use visibility structure to discretize space of possible trajectories!</h3>
+</div>
+</section><section id="geometry-influences-dynamics-1" class="slide level2">
+<h2>Geometry Influences Dynamics</h2>
+<p><img src="images/contract.png" class="center" width="600" /><br />
+</p>
+<p><span class="math inline">\(f\)</span> is a <em>contraction mapping</em> iff <span class="math inline">\(|\frac{f(x, \theta) - f(y,\theta)}{x-y} | &lt; 1\)</span></p>
+<div class="incremental">
+<p>Can be used to reduce uncertainty!</p>
+</div>
+</section><section id="reducing-uncertainty-through-geometry" class="slide level2">
+<h2>Reducing Uncertainty Through Geometry</h2>
+<p><img src="images/bounce_preimages.png" class="center" width="600" /><br />
+</p>
+</section><section id="how-to-implement" class="slide level2">
+<h2>How to Implement?</h2>
+<ul class="incremental">
+<li>iRobot Create with bump sensors and side-facing range sensor: “rotate-to-parallel”</li>
+<li>uniquely identifiable laser “trip wires”</li>
+<li>geo-fencing with GPS or visible boundaries</li>
+<li>overhead observation and deformable robots</li>
+</ul>
+</section>
+<section id="creating-a-planner" class="title-slide slide level1"><h1>Creating a Planner</h1></section><section id="our-approach" class="slide level2">
+<h2>Our Approach</h2>
+<p><strong>Planning Problem:</strong> Given start and goal points on the boundary of the polygonal environment, create a sequence of safe nondeterministic actions that takes the robot from the start point to an interval containing the goal.</p>
+<ol class="incremental" type="1">
+<li>Partition boundary using “visibility events”</li>
+<li>Create <em>safe</em> edge-to-edge transition graph between segments on boundary</li>
+<li>Search for paths and cycles (depending on specification)</li>
+<li>Translate paths to strategies</li>
+</ol>
+</section><section id="visibility-decomposition" class="slide level2">
+<h2>Visibility Decomposition</h2>
+<p><img src="images/new_partial_local_sequence.png" class="center" width="550" /><br />
+</p>
+<div class="incremental">
+<p>Equivalence relation on points along boundary with respect to what edges of original polygon they can “see”. Static obstacles use same partitioning operation!</p>
+</div>
+</section><section id="forming-the-safe-bounce-visibility-graph" class="slide level2">
+<h2>Forming the Safe Bounce Visibility Graph</h2>
+<p><img src="images/safe_bvg.png" class="center" width="750" /></p>
+<p><strong>Nodes</strong>: Edges of <em>partitioned</em> polygon.</p>
+<p><strong>Edges</strong>: Directed. Present if safe action exists between edge <span class="math inline">\(e_i\)</span> and edge <span class="math inline">\(e_j\)</span>. Edge holds data on safe angle interval.</p>
+<div class="incremental">
+<p>Algorithm 1 of WAFR paper: polygon with <span class="math inline">\(n\)</span> vertices will produce bounce visibility graph with <span class="math inline">\(O(n^2)\)</span> nodes and <span class="math inline">\(O(n^4)\)</span> edges.</p>
+</div>
+</section><section id="searching-the-safe-bounce-visibility-graph" class="slide level2">
+<h2>Searching the Safe Bounce Visibility Graph</h2>
+<p>Can use different search algorithms for different specification types.</p>
+<div class="incremental">
+<p>If we want to give our robot a constant control input, can use breadth-first search with constraint intersection.</p>
+</div>
+<div class="incremental">
+<p>If we want to bound the maximum distance travelled by the robot, can use Dijkstra’s algorithm.</p>
+</div>
+<div class="incremental">
+<p>In all cases, along with a plan, we also get a characterization of how much uncertainty the plan can tolerate (design constraints!)</p>
+</div>
+</section><section id="other-example-queries" class="slide level2">
+<h2>Other Example Queries</h2>
+<p>Of all paths from A to B (up to bounded length), which allows the most unreliable robot?</p>
+<div class="incremental">
+<p>From a given start set, what parts of the polygon boundary are reachable?</p>
+</div>
+<div class="incremental">
+<p>Given a finite set of actions, what parts of the boundary are reachable?</p>
+</div>
+<div class="incremental">
+<p>What parts of the polygon are reachable with a constant controller?</p>
+</div>
+<div class="incremental">
+<p><img src="images/inserted_two_conv.png" class="center" width="700" /><br />
+</p>
+</div>
+</section>
+<section id="actively-reducing-uncertainty" class="title-slide slide level1"><h1>Actively Reducing Uncertainty</h1></section><section id="stable-cycles" class="slide level2">
+<h2>Stable Cycles</h2>
+<div class="row">
+<div class="column" style="width:50%;">
+<p><img src="images/cycles.gif" class="center" style="float:left;padding:12px" width="250" /><br />
+</p>
+</div>
+<div class="column" style="width:50%;">
+<p><img src="images/bigc.gif" class="center" style="float:right;padding:12px" width="350" /><br />
+</p>
+</div>
+</div>
+<div class="incremental">
+<p>To write down a transition function for an entire cycle, compose individual transition functions until the composition is a return map.</p>
+</div>
+<div class="incremental">
+<p>A cycle is <strong>stable</strong> when this return map is a <em>contraction mapping</em>: two points under the mapping become closer together.</p>
+</div>
+<div class="incremental">
+<p><strong>Proposition:</strong> For all start points on the boundary of all polygons, a constant fixed-angle controller exists which will cause the robot’s trajectory to enter a stable limit cycle.</p>
+</div>
+</section><section id="safe-cycles" class="slide level2">
+<h2>Safe Cycles</h2>
+<p><strong>Safe cycle:</strong> a cycle in the safe bounce visibility graph. May or may not have stabilizing property.</p>
+<div class="incremental">
+<p><strong>Safe stable cycles:</strong> Given a constant action interval at each stage, we can bound the worst-case uncertainty in robot position if each transition is a contraction mapping in all cases.</p>
+</div>
+<div class="incremental">
+<h3 id="example-cycle-queries">Example Cycle Queries</h3>
+<ul class="incremental">
+<li>Is there a safe cycle which visits edge set <span class="math inline">\(E\)</span> (in a particular order, or not)?</li>
+<li>For actions with uncertainty <span class="math inline">\(\pm \epsilon\)</span>, is there a reachable cycle which will shrink the size of the robot’s state estimate below <span class="math inline">\(\delta\)</span>?</li>
+</ul>
+</div>
+</section><section id="summary" class="slide level2">
+<h2>Summary</h2>
+<p>We have developed a geometric planner that includes dynamical information and allows for optimization with respect to uncertainty in position and actuation.</p>
+<div class="incremental">
+<p>So far, all planning is done under nondeterminstic, “worst case” assumptions.</p>
+</div>
+<div class="incremental">
+<p>Not complete: “splitting” state into two different segments is not allowed. This means not all nondeterministic actions are explored.</p>
+</div>
+</section>
+<section id="future-work-and-side-projects" class="title-slide slide level1"><h1>Future Work and Side Projects</h1></section><section id="goal-1-sensor-feedback-and-planning-in-information-space" class="slide level2">
+<h2>Goal 1: Sensor Feedback and Planning in Information Space</h2>
+<p>We’ve been assuming the robot has a counter and knows the current stage. What if we instead assume that the robot has a set of constant controllers and can only switch as a function of sensor feedback?</p>
+<div class="incremental">
+<p>Imagine adding “laser beams” to the system: lines that emit a signal when they are crossed by a robot.</p>
+<ul class="incremental">
+<li>if beams are already placed, and robot doesn’t know where it starts, how can it maximally shrink uncertainty in location?</li>
+<li>if we’re given <span class="math inline">\(k\)</span> beams, where to place to aid localization?</li>
+</ul>
+</div>
+</section><section id="goal-2-improving-the-planner" class="slide level2">
+<h2>Goal 2: Improving the Planner</h2>
+<ul>
+<li>Include probabilistic information
+<ul>
+<li>Assume we’re given probability distribution of actual <span class="math inline">\(\theta\)</span> given a control input</li>
+<li>Bayesian updates while searching graph</li>
+</ul></li>
+</ul>
+<div class="incremental">
+<ul>
+<li>Better interface and specification language
+<ul>
+<li>visualizations of coverage, trapping regions, etc</li>
+<li>Stretch goal: LTL specifications and plan synthesis
+<ul>
+<li>“eventually reach region <em>A</em>…”</li>
+<li>“stay in region <em>B</em> until…”</li>
+</ul></li>
+<li>How to specify patterns in space and time?</li>
+</ul></li>
+</ul>
+</div>
+</section><section id="side-project-on-interfaces" class="slide level2">
+<h2>Side Project on Interfaces</h2>
+<div data-align="center" style="float;padding:24px">
+<iframe width="600" height="400" src="images/improv_demo.mp4" frameborder="0" allowfullscreen>
+</iframe>
+</div>
+<p>with Dr. Amy LaViers. Choreographers and movement observers have lots of technologies for specifying movement!</p>
+</section><section id="goal-3-minimalism-for-underactuated-multi-robot-systems" class="slide level2">
+<h2>Goal 3: Minimalism for Underactuated Multi-Robot Systems</h2>
+<p>Traditional planning techniques don’t scale well to multi-robot systems.</p>
+<div class="incremental">
+<p>Can giving up precise control of individual robots actually help us?</p>
+</div>
+<div class="incremental">
+<ul class="incremental">
+<li>Mayya, Siddharth, Pietro Pierpaoli, Girish Nair, and Magnus Egerstedt. <strong>Localization in densely packed swarms using interrobot collisions as a sensing modality.</strong> IEEE Transactions on Robotics (2018).</li>
+<li>Gauci, Melvin, Jianing Chen, Wei Li, Tony J. Dodd, and Roderich Groß. <strong>Self-organized aggregation without computation.</strong> IJRR (2014).</li>
+<li>Becker, Aaron, Golnaz Habibi, Justin Werfel, Michael Rubenstein, and James McLurkin. <strong>Massive uniform manipulation: Controlling large populations of simple robots with a common input signal.</strong> IROS (2013).</li>
+</ul>
+</div>
+</section><section id="micro-scale-inspired-applications" class="slide level2">
+<h2>Micro-Scale Inspired Applications</h2>
+<p><img src="images/swimmers.png" class="center" width="400" /><br />
+</p>
+<p>C. Bechinger, R. Leonardo, H. Löwen, C. Reichhardt, G. Volpe, and G. Volpe. <strong>Active particles in complex and crowded environments.</strong> Reviews of Modern Physics, (2016).</p>
+</section><section id="micro-scale-inspired-applications-1" class="slide level2">
+<h2>Micro-Scale Inspired Applications</h2>
+<p><img src="images/cilia.jpg" class="center" width="500" /></p>
+<p>V. Kantsler, J. Dunkel, M. Polin, and R. Goldstein. <strong>Ciliary contact interactions dominate surface scattering of swimming eukaryotes.</strong> PNAS (2013).</p>
+</section><section id="micro-scale-inspired-applications-2" class="slide level2">
+<h2>Micro-Scale Inspired Applications</h2>
+<div data-align="center" style="float;padding:24px">
+<iframe width="600" height="400" src="images/large_weaselballs.mp4" frameborder="0" allowfullscreen>
+</iframe>
+</div>
+</section><section id="micro-scale-inspired-applications-3" class="slide level2">
+<h2>Micro-Scale Inspired Applications</h2>
+<div data-align="center" style="float;padding:24px">
+<iframe width="600" height="400" src="images/4B-tl.mp4" frameborder="0" allowfullscreen>
+</iframe>
+</div>
+</section><section id="micro-scale-inspired-applications-4" class="slide level2">
+<h2>Micro-Scale Inspired Applications</h2>
+<div data-align="center" style="float;padding:24px">
+<iframe width="400" height="275" src="images/gear.mp4" frameborder="0" allowfullscreen>
+</iframe>
+</div>
+<p>Understanding spatial density and boundary interactions is key step toward manipulation!</p>
+</section><section id="micro-scale-inspired-applications-5" class="slide level2">
+<h2>Micro-Scale Inspired Applications</h2>
+<p>Research questions:</p>
+<ul class="incremental">
+<li>Can introducing agents with controllable boundary interactions into a collection of Brownian agents induce currents? Under what conditions?</li>
+<li>If the bouncing robots are able to produce a signal that the Brownian agents can respond to (EM field alignment, chemotaxis), can we cluster and/or sort the Brownian agents?</li>
+<li>What is the role of environment geometry in group dynamics? How do we design environments for sorting and otherwise studying microswimmers?</li>
+</ul>
+</section><section id="conclusion" class="slide level2">
+<h2>Conclusion</h2>
+<ul class="incremental">
+<li>“Bouncing robot” model is cool and applies to a wide range of physical systems!</li>
+<li>Compliance and minimalism are cool principles and still useful!</li>
+<li>Lots of “low hanging fruit” left to work on, especially when looking at sensor models / information spaces / low-complexity controllers.</li>
+</ul>
+</section>
+<section id="thank-you" class="title-slide slide level1"><h1>Thank you!</h1></section>
+<!-- {{{{ dzslides core
+#
+#
+#     __  __  __       .  __   ___  __
+#    |  \  / /__` |    | |  \ |__  /__`
+#    |__/ /_ .__/ |___ | |__/ |___ .__/ core :€
+#
+#
+# The following block of code is not supposed to be edited.
+# But if you want to change the behavior of these slides,
+# feel free to hack it!
+#
+-->
+
+<div id="progress-bar"></div>
+
+<!-- Default Style -->
+<style>
+  * { margin: 0; padding: 0; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+  [role="note"] { display: none; }
+  body {
+    width: 800px; height: 600px;
+    margin-left: -400px; margin-top: -300px;
+    position: absolute; top: 50%; left: 50%;
+    overflow: hidden;
+    display: none;
+  }
+  .view body {
+    position: static;
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    display: inline-block;
+    overflow: visible; overflow-x: hidden;
+    /* undo Dz.onresize */
+    transform: none !important;
+    -moz-transform: none !important;
+    -webkit-transform: none !important;
+    -o-transform: none !important;
+    -ms-transform: none !important;
+  }
+  .view head, .view head > title { display: block }
+  section {
+    position: absolute;
+    pointer-events: none;
+    width: 100%; height: 100%;
+  }
+  .view section {
+    pointer-events: auto;
+    position: static;
+    width: 800px; height: 600px;
+    margin: -150px -200px;
+    float: left;
+
+    transform: scale(.4);
+    -moz-transform: scale(.4);
+    -webkit-transform: scale(.4);
+    -o-transform: scale(.4);
+    -ms-transform: scale(.4);
+  }
+  .view section > * { pointer-events: none; }
+  section[aria-selected] { pointer-events: auto; }
+  html { overflow: hidden; }
+  html.view { overflow: visible; }
+  body.loaded { display: block; }
+  .incremental {visibility: hidden; }
+  .incremental[active] {visibility: visible; }
+  #progress-bar{
+    bottom: 0;
+    position: absolute;
+    -moz-transition: width 400ms linear 0s;
+    -webkit-transition: width 400ms linear 0s;
+    -ms-transition: width 400ms linear 0s;
+    transition: width 400ms linear 0s;
+  }
+  .view #progress-bar {
+    display: none;
+  }
+</style>
+
+<script>
+  var Dz = {
+    remoteWindows: [],
+    idx: -1,
+    step: 0,
+    html: null,
+    slides: null,
+    progressBar : null,
+    params: {
+      autoplay: "1"
+    }
+  };
+
+  Dz.init = function() {
+    document.body.className = "loaded";
+    this.slides = Array.prototype.slice.call($$("body > section"));
+    this.progressBar = $("#progress-bar");
+    this.html = document.body.parentNode;
+    this.setupParams();
+    this.onhashchange();
+    this.setupTouchEvents();
+    this.onresize();
+    this.setupView();
+  }
+
+  Dz.setupParams = function() {
+    var p = window.location.search.substr(1).split('&');
+    p.forEach(function(e, i, a) {
+      var keyVal = e.split('=');
+      Dz.params[keyVal[0]] = decodeURIComponent(keyVal[1]);
+    });
+  // Specific params handling
+    if (!+this.params.autoplay)
+      $$.forEach($$("video"), function(v){ v.controls = true });
+  }
+
+  Dz.onkeydown = function(aEvent) {
+    // Don't intercept keyboard shortcuts
+    if (aEvent.altKey
+      || aEvent.ctrlKey
+      || aEvent.metaKey
+      || aEvent.shiftKey) {
+      return;
+    }
+    if ( aEvent.keyCode == 37 // left arrow
+      || aEvent.keyCode == 38 // up arrow
+      || aEvent.keyCode == 33 // page up
+    ) {
+      aEvent.preventDefault();
+      this.back();
+    }
+    if ( aEvent.keyCode == 39 // right arrow
+      || aEvent.keyCode == 40 // down arrow
+      || aEvent.keyCode == 34 // page down
+    ) {
+      aEvent.preventDefault();
+      this.forward();
+    }
+    if (aEvent.keyCode == 35) { // end
+      aEvent.preventDefault();
+      this.goEnd();
+    }
+    if (aEvent.keyCode == 36) { // home
+      aEvent.preventDefault();
+      this.goStart();
+    }
+    if (aEvent.keyCode == 32) { // space
+      aEvent.preventDefault();
+      this.toggleContent();
+    }
+    if (aEvent.keyCode == 70) { // f
+      aEvent.preventDefault();
+      this.goFullscreen();
+    }
+    if (aEvent.keyCode == 79) { // o
+      aEvent.preventDefault();
+      this.toggleView();
+    }
+  }
+
+  /* Touch Events */
+
+  Dz.setupTouchEvents = function() {
+    var orgX, newX;
+    var tracking = false;
+
+    var db = document.body;
+    db.addEventListener("touchstart", start.bind(this), false);
+    db.addEventListener("touchmove", move.bind(this), false);
+
+    function start(aEvent) {
+      aEvent.preventDefault();
+      tracking = true;
+      orgX = aEvent.changedTouches[0].pageX;
+    }
+
+    function move(aEvent) {
+      if (!tracking) return;
+      newX = aEvent.changedTouches[0].pageX;
+      if (orgX - newX > 100) {
+        tracking = false;
+        this.forward();
+      } else {
+        if (orgX - newX < -100) {
+          tracking = false;
+          this.back();
+        }
+      }
+    }
+  }
+
+  Dz.setupView = function() {
+    document.body.addEventListener("click", function ( e ) {
+      if (!Dz.html.classList.contains("view")) return;
+      if (!e.target || e.target.nodeName != "SECTION") return;
+
+      Dz.html.classList.remove("view");
+      Dz.setCursor(Dz.slides.indexOf(e.target) + 1);
+    }, false);
+  }
+
+  /* Adapt the size of the slides to the window */
+
+  Dz.onresize = function() {
+    var db = document.body;
+    var sx = db.clientWidth / window.innerWidth;
+    var sy = db.clientHeight / window.innerHeight;
+    var transform = "scale(" + (1/Math.max(sx, sy)) + ")";
+
+    db.style.MozTransform = transform;
+    db.style.WebkitTransform = transform;
+    db.style.OTransform = transform;
+    db.style.msTransform = transform;
+    db.style.transform = transform;
+  }
+
+
+  Dz.getNotes = function(aIdx) {
+    var s = $("section:nth-of-type(" + aIdx + ")");
+    var d = s.$("[role='note']");
+    return d ? d.innerHTML : "";
+  }
+
+  Dz.onmessage = function(aEvent) {
+    var argv = aEvent.data.split(" "), argc = argv.length;
+    argv.forEach(function(e, i, a) { a[i] = decodeURIComponent(e) });
+    var win = aEvent.source;
+    if (argv[0] === "REGISTER" && argc === 1) {
+      this.remoteWindows.push(win);
+      this.postMsg(win, "REGISTERED", document.title, this.slides.length);
+      this.postMsg(win, "CURSOR", this.idx + "." + this.step);
+      return;
+    }
+    if (argv[0] === "BACK" && argc === 1)
+      this.back();
+    if (argv[0] === "FORWARD" && argc === 1)
+      this.forward();
+    if (argv[0] === "START" && argc === 1)
+      this.goStart();
+    if (argv[0] === "END" && argc === 1)
+      this.goEnd();
+    if (argv[0] === "TOGGLE_CONTENT" && argc === 1)
+      this.toggleContent();
+    if (argv[0] === "SET_CURSOR" && argc === 2)
+      window.location.hash = "#" + argv[1];
+    if (argv[0] === "GET_CURSOR" && argc === 1)
+      this.postMsg(win, "CURSOR", this.idx + "." + this.step);
+    if (argv[0] === "GET_NOTES" && argc === 1)
+      this.postMsg(win, "NOTES", this.getNotes(this.idx));
+  }
+
+  Dz.toggleContent = function() {
+    // If a Video is present in this new slide, play it.
+    // If a Video is present in the previous slide, stop it.
+    var s = $("section[aria-selected]");
+    if (s) {
+      var video = s.$("video");
+      if (video) {
+        if (video.ended || video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      }
+    }
+  }
+
+  Dz.setCursor = function(aIdx, aStep) {
+    // If the user change the slide number in the URL bar, jump
+    // to this slide.
+    aStep = (aStep != 0 && typeof aStep !== "undefined") ? "." + aStep : ".0";
+    window.location.hash = "#" + aIdx + aStep;
+  }
+
+  Dz.onhashchange = function() {
+    var cursor = window.location.hash.split("#"),
+        newidx = 1,
+        newstep = 0;
+    if (cursor.length == 2) {
+      newidx = ~~cursor[1].split(".")[0];
+      newstep = ~~cursor[1].split(".")[1];
+      if (newstep > Dz.slides[newidx - 1].$$('.incremental > *').length) {
+        newstep = 0;
+        newidx++;
+      }
+    }
+    this.setProgress(newidx, newstep);
+    if (newidx != this.idx) {
+      this.setSlide(newidx);
+    }
+    if (newstep != this.step) {
+      this.setIncremental(newstep);
+    }
+    for (var i = 0; i < this.remoteWindows.length; i++) {
+      this.postMsg(this.remoteWindows[i], "CURSOR", this.idx + "." + this.step);
+    }
+  }
+
+  Dz.back = function() {
+    if (this.idx == 1 && this.step == 0) {
+      return;
+    }
+    if (this.step == 0) {
+      this.setCursor(this.idx - 1,
+                     this.slides[this.idx - 2].$$('.incremental > *').length);
+    } else {
+      this.setCursor(this.idx, this.step - 1);
+    }
+  }
+
+  Dz.forward = function() {
+    if (this.idx >= this.slides.length &&
+        this.step >= this.slides[this.idx - 1].$$('.incremental > *').length) {
+        return;
+    }
+    if (this.step >= this.slides[this.idx - 1].$$('.incremental > *').length) {
+      this.setCursor(this.idx + 1, 0);
+    } else {
+      this.setCursor(this.idx, this.step + 1);
+    }
+  }
+
+  Dz.goStart = function() {
+    this.setCursor(1, 0);
+  }
+
+  Dz.goEnd = function() {
+    var lastIdx = this.slides.length;
+    var lastStep = this.slides[lastIdx - 1].$$('.incremental > *').length;
+    this.setCursor(lastIdx, lastStep);
+  }
+
+  Dz.toggleView = function() {
+    this.html.classList.toggle("view");
+
+    if (this.html.classList.contains("view")) {
+      $("section[aria-selected]").scrollIntoView(true);
+    }
+  }
+
+  Dz.setSlide = function(aIdx) {
+    this.idx = aIdx;
+    var old = $("section[aria-selected]");
+    var next = $("section:nth-of-type("+ this.idx +")");
+    if (old) {
+      old.removeAttribute("aria-selected");
+      var video = old.$("video");
+      if (video) {
+        video.pause();
+      }
+    }
+    if (next) {
+      next.setAttribute("aria-selected", "true");
+      if (this.html.classList.contains("view")) {
+        next.scrollIntoView();
+      }
+      var video = next.$("video");
+      if (video && !!+this.params.autoplay) {
+        video.play();
+      }
+    } else {
+      // That should not happen
+      this.idx = -1;
+      // console.warn("Slide doesn't exist.");
+    }
+  }
+
+  Dz.setIncremental = function(aStep) {
+    this.step = aStep;
+    var old = this.slides[this.idx - 1].$('.incremental > *[aria-selected]');
+    if (old) {
+      old.removeAttribute('aria-selected');
+    }
+    var incrementals = $$('.incremental');
+    if (this.step <= 0) {
+      $$.forEach(incrementals, function(aNode) {
+        aNode.removeAttribute('active');
+      });
+      return;
+    }
+    var next = this.slides[this.idx - 1].$$('.incremental > *')[this.step - 1];
+    if (next) {
+      next.setAttribute('aria-selected', true);
+      next.parentNode.setAttribute('active', true);
+      var found = false;
+      $$.forEach(incrementals, function(aNode) {
+        if (aNode != next.parentNode)
+          if (found)
+            aNode.removeAttribute('active');
+          else
+            aNode.setAttribute('active', true);
+        else
+          found = true;
+      });
+    } else {
+      setCursor(this.idx, 0);
+    }
+    return next;
+  }
+
+  Dz.goFullscreen = function() {
+    var html = $('html'),
+        requestFullscreen = html.requestFullscreen || html.requestFullScreen || html.mozRequestFullScreen || html.webkitRequestFullScreen;
+    if (requestFullscreen) {
+      requestFullscreen.apply(html);
+    }
+  }
+  
+  Dz.setProgress = function(aIdx, aStep) {
+    var slide = $("section:nth-of-type("+ aIdx +")");
+    if (!slide)
+      return;
+    var steps = slide.$$('.incremental > *').length + 1,
+        slideSize = 100 / (this.slides.length - 1),
+        stepSize = slideSize / steps;
+    this.progressBar.style.width = ((aIdx - 1) * slideSize + aStep * stepSize) + '%';
+  }
+  
+  Dz.postMsg = function(aWin, aMsg) { // [arg0, [arg1...]]
+    aMsg = [aMsg];
+    for (var i = 2; i < arguments.length; i++)
+      aMsg.push(encodeURIComponent(arguments[i]));
+    aWin.postMessage(aMsg.join(" "), "*");
+  }
+  
+  function init() {
+    Dz.init();
+    window.onkeydown = Dz.onkeydown.bind(Dz);
+    window.onresize = Dz.onresize.bind(Dz);
+    window.onhashchange = Dz.onhashchange.bind(Dz);
+    window.onmessage = Dz.onmessage.bind(Dz);
+  }
+
+  window.onload = init;
+</script>
+
+
+<script> // Helpers
+  if (!Function.prototype.bind) {
+    Function.prototype.bind = function (oThis) {
+
+      // closest thing possible to the ECMAScript 5 internal IsCallable
+      // function 
+      if (typeof this !== "function")
+      throw new TypeError(
+        "Function.prototype.bind - what is trying to be fBound is not callable"
+      );
+
+      var aArgs = Array.prototype.slice.call(arguments, 1),
+          fToBind = this,
+          fNOP = function () {},
+          fBound = function () {
+            return fToBind.apply( this instanceof fNOP ? this : oThis || window,
+                   aArgs.concat(Array.prototype.slice.call(arguments)));
+          };
+
+      fNOP.prototype = this.prototype;
+      fBound.prototype = new fNOP();
+
+      return fBound;
+    };
+  }
+
+  var $ = (HTMLElement.prototype.$ = function(aQuery) {
+    return this.querySelector(aQuery);
+  }).bind(document);
+
+  var $$ = (HTMLElement.prototype.$$ = function(aQuery) {
+    return this.querySelectorAll(aQuery);
+  }).bind(document);
+
+  $$.forEach = function(nodeList, fun) {
+    Array.prototype.forEach.call(nodeList, fun);
+  }
+
+</script>
+<!-- vim: set fdm=marker: }}} -->
+</body>
+</html>
