@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <head>
 <meta charset="utf-8">
-  <meta name="dcterms.date" content="2019-10-15" />
-  <title>Planning over Simple Boundary Interactions</title>
+  <meta name="dcterms.date" content="2020-02-26" />
+  <title>Design of Boundary Interactions for Minimalist Mobile Robots</title>
   <script src="/home/alli/src/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
   <!---
 
@@ -31,7 +31,7 @@
         margin: 0px;
         text-align: center;
         background-color: #EEEEEE;
-        color: #777777;
+        color: #838383;
     }
     .author {
         margin-top: 10px;
@@ -70,7 +70,7 @@
     h1, h3, h4, h5 { text-align: center; }
     h1, h2, h3 { margin: 10pt 10pt 5pt 10pt; }
     h1 {
-        margin-top: 230px;
+        margin-top: 150px;
         font-size: 230%;
         background-color: #cdb0d9;
         border-radius: 12px; }
@@ -208,115 +208,171 @@
 </head>
 <body>
 <section class="title">
-  <h1 class="title">Planning over Simple Boundary Interactions</h1>
+  <h1 class="title">Design of Boundary Interactions for Minimalist Mobile Robots</h1>
   <h2 class="author"><div class="line-block">Alli Nilles<br />
-Amato Group Meeting</div></h2>
-  <h3 class="date">October 15, 2019</h3>
+Thesis Proposal</div></h2>
+  <h3 class="date">February 26, 2020</h3>
 </section>
 <section id="outline" class="slide level2">
 <h2>Outline</h2>
-<ul>
-<li>Background:
-<ul>
-<li>minimalism, geometric planning, compliance</li>
-<li>planning over boundary interactions for minimal mobile robots</li>
-</ul></li>
-<li>Motivation and Goals</li>
-<li>Model Definition</li>
-<li>A Robust Geometric Planner</li>
-<li>Future Work and Side Projects</li>
+<ul class="incremental">
+<li>Context and Related Work</li>
+<li>Model Definitions</li>
+<li>Examples of Dynamical Properties</li>
+<li>Control, Planning, and Tasks</li>
+<li>Remaining Thesis Work</li>
+<li>Possible Extensions</li>
 </ul>
 </section>
-<section id="background" class="title-slide slide level1"><h1>Background</h1></section>
-<section id="collisions-for-robots-are-usually-bad" class="slide level2">
-<h2>Collisions for robots are usually bad…</h2>
-<p><img src="images/crash.gif" class="center" width="600" /></p>
+<section id="context" class="title-slide slide level1">
+<h1>Context</h1>
+
 </section>
-<section id="but-theyre-ok-sometimes" class="slide level2">
-<h2>But they’re ok sometimes!</h2>
-<p><img src="images/roomba.gif" class="center" width="600" /></p>
+<section id="environment-boundaries-can-be-useful" class="slide level2">
+<h2>Environment Boundaries Can Be Useful!</h2>
+<p><img src="images/roomba.gif" class="center" height="300" /></p>
 </section>
-<section id="lessons-from-manipulation" class="slide level2">
-<h2>Lessons from Manipulation</h2>
-<div data-align="center" style="float;padding:24px">
-<iframe width="600" height="400" src="images/grasping_matt_mason.mp4" frameborder="0" allowfullscreen>
-</iframe>
-</div>
-<p>Dr. Matt Mason, CMU</p>
-</section>
-<section id="lessons-from-manipulation-1" class="slide level2">
-<h2>Lessons from Manipulation</h2>
-<p><strong>Compliance</strong>: work <em>with</em> geometry. Can be passive mechanical compliance, or active compliance in planning/control.</p>
-<p><img src="images/fine-motion.jpg" class="center" width="350" /><br />
-</p>
-<p>T. Lozano-Perez, M. Mason, R. H. Taylor, “Automatic synthesis of fine-motion strategies for robots.” IJRR, 1984.</p>
-</section>
-<section id="lessons-from-manipulation-2" class="slide level2">
-<h2>Lessons from Manipulation</h2>
-<p><strong>Minimalism</strong></p>
+<section id="some-definitions" class="slide level2">
+<h2>Some Definitions</h2>
 <ul class="incremental">
-<li>Manipulation doesn’t require much or any sensing.
+<li><em>contact</em>: state of physical touching</li>
+<li><em>collision</em>: contact; with more implied mechanical interaction (friction, sliding, etc)</li>
+<li><em>boundary interaction</em>: umbrella term; “what does the robot do when it reaches a boundary in its environment?”
 <ul class="incremental">
-<li>“Orienting Polygonal Parts Without Sensors,” K. Goldberg (PhD Thesis), 1993</li>
+<li>can be physical model (i.e., reflection law)</li>
+<li>can be a distribution over trajectories, data-driven</li>
 </ul></li>
 </ul>
 <div class="incremental">
-<ul class="incremental">
-<li>Manipulation doesn’t require complex hands, or lots of fingers, and plans can be computed quickly.
-<ul class="incremental">
-<li>H. Bunis and E. Rimon, “Toward Grasping Against the Environment: Locking Polygonal Objects Against a Wall Using Two-Finger Robot Hands”, IEEE RAL, 2019.</li>
-</ul></li>
-</ul>
+<p><font size="2">Jeffrey Aguilar, Tingnan Zhang, Feifei Qian, Mark Kingsbury, Benjamin McInroe, Nicole Mazouchova, Chen Li, Ryan Maladen, Chaohui Gong, Matt Travers, Ross L. Hatton, Howie Choset, Paul B. Umbanhowar, Daniel I. Goldman, “A review on locomotion robophysics: the study of movement at the intersection of robotics, soft matter and dynamical systems.” <a
+href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></font></p>
 </div>
 </section>
-<section id="what-about-mobile-robots" class="title-slide slide level1"><h1>What about Mobile Robots?</h1></section>
-<section id="minimalism-in-mobile-robotics" class="slide level2">
-<h2>Minimalism in Mobile Robotics</h2>
+<section id="minimalism-and-compliance" class="slide level2">
+<h2>Minimalism and Compliance</h2>
+<p><img src="images/grasp.gif" class="center" width="450" /><br />
+</p>
+<p><font size="2">Dr. Matt Mason, CMU</font></p>
+</section>
+<section id="minimalism-and-compliance-1" class="slide level2">
+<h2>Minimalism and Compliance</h2>
+<p><strong>Compliance</strong>: work <em>with</em> geometry. Can be passive mechanical compliance, or active compliance in planning/control.</p>
+<div class="row">
+<div class="column" style="width:60%;">
+<p><img src="images/fine-motion.jpg" class="center" width="300" /><br />
+</p>
+</div>
+<div class="column" style="width:40%;">
+<p><font size="2">T. Lozano-Perez, M. Mason, R. H. Taylor, “Automatic synthesis of fine-motion strategies for robots.” IJRR, 1984.</font></p>
+</div>
+</div>
+</section>
+<section id="planning-and-control" class="slide level2">
+<h2>Planning and Control</h2>
+<ul class="incremental">
+<li><em>compliance</em>:</li>
+<li><em>conformance</em>:</li>
+<li><em>preimage</em>:</li>
+<li><em>funnel</em>:</li>
+</ul>
+</section>
+<section class="slide level2">
+
 <p><img src="images/robot_spectrum.jpg" class="center" width="750" /><br />
 </p>
 </section>
 <section id="minimalist-boundary-interactions" class="slide level2">
 <h2>Minimalist Boundary Interactions</h2>
-<p><img src="images/bitbots.jpg" class="center" width="380" /><br />
+<div class="row">
+<div class="column" style="width:50%;">
+<p><img src="images/bitbots.jpg" class="center" width="350" /><br />
 </p>
-<p>“<strong>Mapping</strong> and <strong>pursuit-evasion</strong> strategies for a simple wall-following robot.” M. Katsev, A. Yershova, B. Tovar, R. Ghrist, and S. M. LaValle. IEEE Transactions on Robotics, 2011.</p>
+</div>
+<div class="column" style="width:50%;">
+<ul>
+<li>Localization<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+<li>Mapping<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
+<li>Navigation<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></li>
+<li>Coverage<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></li>
+<li>Pursuit-evasion<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></li>
+</ul>
+</div>
+</div>
 </section>
 <section id="minimalist-boundary-interactions-1" class="slide level2">
 <h2>Minimalist Boundary Interactions</h2>
-<p><img src="images/okane-bounce.jpg" class="center" width="550" /><br />
+<div class="row">
+<div class="column" style="width:50%;">
+<p><img src="images/okane_unreliable.gif" class="center" height="300" /><br />
 </p>
-<p>“Planning for provably <strong>reliable navigation</strong> using an unreliable, nearly sensorless robot.” J. S. Lewis, J. M. O’Kane. International Journal of Robotics Research, 2013.</p>
+</div>
+<div class="column" style="width:50%;">
+<p>Lewis, J. S., &amp; O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.</p>
+</div>
+</div>
 </section>
 <section id="bouncing-robots" class="slide level2">
 <h2>Bouncing Robots</h2>
+<div class="row">
+<div class="column" style="width:50%;">
 <p>Iterating the same boundary interaction can cause cycles and trapping regions:</p>
 <p><img src="images/twoconv.gif" class="center" width="300" /></p>
+</div>
+<div class="column" style="width:50%;">
 <p>Combinatorial changes from small perturbations:</p>
 <p><img src="images/plane.gif" class="center" width="300" /></p>
-<h4 id="first-example-inspired-by-spagnolie-s.-e.-wahl-c.-lukasik-j.-thiffeault-j.-l.-2017.-microorganism-billiards.-physica-d-nonlinear-phenomena-341-33-44.">First example inspired by Spagnolie, S. E., Wahl, C., Lukasik, J., &amp; Thiffeault, J. L. (2017). Microorganism billiards. Physica D: Nonlinear Phenomena, 341, 33-44.</h4>
+</div>
+</div>
+<h4 id="left-example-inspired-by-spagnolie-s.-e.-wahl-c.-lukasik-j.-thiffeault-j.-l.-2017.-microorganism-billiards.-physica-d-nonlinear-phenomena-341-33-44.">Left example inspired by Spagnolie, S. E., Wahl, C., Lukasik, J., &amp; Thiffeault, J. L. (2017). Microorganism billiards. Physica D: Nonlinear Phenomena, 341, 33-44.</h4>
+</section>
+<section id="micro-robots" class="slide level2">
+<h2>Micro-Robots</h2>
+<div class="row">
+<div class="column" style="width:40%;">
+<p><img src="images/reorient.gif" class="center" width="300" /></p>
+<p><font size="3"></p>
+<p>C. Bechinger, et. al. <strong>Active particles in complex and crowded environments.</strong> Reviews of Modern Physics, 2016.</p>
+<p>Kantsler, V., et. al. <strong>Ciliary contact interactions dominate surface scattering of swimming eukaryotes.</strong> PNAS, 2013.</p>
+</font>
+</div>
+<div class="column" style="width:60%;">
+<p><img src="images/swimmers.png" class="center" width="400" /><br />
+</p>
+</div>
+</div>
+</section>
+<section id="goal-1-robust-predictable-movement-primitives" class="slide level2">
+<h2>Goal 1: Robust, Predictable Movement Primitives</h2>
+<p><img src="images/flow.png" class="center" width="500" /><br />
+</p>
+</section>
+<section id="goal-2-motion-planning-and-tasks" class="slide level2">
+<h2>Goal 2: Motion Planning and Tasks</h2>
+</section>
+<section id="goal-3-design-interfaces" class="slide level2">
+<h2>Goal 3: Design Interfaces</h2>
 </section>
 <section id="questions" class="slide level2">
 <h2>Questions</h2>
 <div class="center">
-<p>How to represent boundary interactions (including uncertainty)?</p>
+<p>What tasks can these robots complete?</p>
 </div>
 <div class="incremental">
 <div class="center">
-<p>How to plan over boundary interactions efficiently?</p>
-</div>
-</div>
-<div class="incremental">
-<div class="center">
-<p>Can we leverage geometry of our workspace?</p>
+<p>Can we find minimal requirements on sensing, actuation, control, memory?</p>
 </div>
 </div>
 <div class="incremental">
 <div class="center">
-<p>What kinds of tasks can these robots complete, and how to specify?</p>
+<p>Given that the feasible design space is large and complex, how to best represent, concretize, and automate the design process?</p>
 </div>
 </div>
 </section>
-<section id="model-definition" class="title-slide slide level1"><h1>Model Definition</h1></section>
+
+<section id="model-definitions" class="title-slide slide level1">
+<h1>Model Definitions</h1>
+
+</section>
 <section id="modelling-assumptions" class="slide level2">
 <h2>Modelling Assumptions</h2>
 <ul class="incremental">
@@ -382,7 +438,11 @@ Amato Group Meeting</div></h2>
 <li>overhead observation and deformable robots</li>
 </ul>
 </section>
-<section id="creating-a-planner" class="title-slide slide level1"><h1>Creating a Planner</h1></section>
+
+<section id="creating-a-planner" class="title-slide slide level1">
+<h1>Creating a Planner</h1>
+
+</section>
 <section id="our-approach" class="slide level2">
 <h2>Our Approach</h2>
 <p><strong>Planning Problem:</strong> Given start and goal points on the boundary of the polygonal environment, create a sequence of safe nondeterministic actions that takes the robot from the start point to an interval containing the goal.</p>
@@ -440,7 +500,11 @@ Amato Group Meeting</div></h2>
 </p>
 </div>
 </section>
-<section id="actively-reducing-uncertainty" class="title-slide slide level1"><h1>Actively Reducing Uncertainty</h1></section>
+
+<section id="actively-reducing-uncertainty" class="title-slide slide level1">
+<h1>Actively Reducing Uncertainty</h1>
+
+</section>
 <section id="stable-cycles" class="slide level2">
 <h2>Stable Cycles</h2>
 <div class="row">
@@ -487,7 +551,11 @@ Amato Group Meeting</div></h2>
 <p>Not complete: “splitting” state into two different segments is not allowed. This means not all nondeterministic actions are explored.</p>
 </div>
 </section>
-<section id="future-work-and-side-projects" class="title-slide slide level1"><h1>Future Work and Side Projects</h1></section>
+
+<section id="future-work-and-side-projects" class="title-slide slide level1">
+<h1>Future Work and Side Projects</h1>
+
+</section>
 <section id="goal-1-sensor-feedback-and-planning-in-information-space" class="slide level2">
 <h2>Goal 1: Sensor Feedback and Planning in Information Space</h2>
 <p>We’ve been assuming the robot has a counter and knows the current stage. What if we instead assume that the robot has a set of constant controllers and can only switch as a function of sensor feedback?</p>
@@ -595,7 +663,24 @@ Amato Group Meeting</div></h2>
 <li>Lots of “low hanging fruit” left to work on, especially when looking at sensor models / information spaces / low-complexity controllers.</li>
 </ul>
 </section>
-<section id="thank-you" class="title-slide slide level1"><h1>Thank you!</h1></section>
+
+<section id="thank-you" class="title-slide slide level1">
+<h1>Thank you!</h1>
+
+</section>
+
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>O’Kane, J. M., &amp; LaValle, S. M. Localization with limited sensing. IEEE Transactions on Robotics, 2007.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>M. Katsev, A. Yershova, B. Tovar, R. Ghrist, and S. M. LaValle. IEEE Transactions on Robotics, 2011.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Tovar, B., Murrieta-Cid, R., &amp; LaValle, S. M. Distance-optimal navigation in an unknown environment without sensing distances. IEEE Transactions on Robotics, 2007.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4" role="doc-endnote"><p>Tovar, B., Murrieta-Cid, R., &amp; LaValle, S. M. Distance-optimal navigation in an unknown environment without sensing distances. IEEE Transactions on Robotics, 2007.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>Lewis, J. S., &amp; O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6" role="doc-endnote"><p>Lewis, J. S., &amp; O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7" role="doc-endnote"><p>M. Katsev, A. Yershova, B. Tovar, R. Ghrist, and S. M. LaValle. IEEE Transactions on Robotics, 2011.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 <!-- {{{{ dzslides core
 #
 #
@@ -617,9 +702,11 @@ Amato Group Meeting</div></h2>
   * { margin: 0; padding: 0; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
   [role="note"] { display: none; }
   body {
-    width: 800px; height: 400px;
-    margin-left: -400px; margin-top: -300px;
-    position: absolute; top: 50%; left: 50%;
+    width: 800px;
+    height: 450px;
+    margin-left: -400px; margin-top: -225px;
+    position: absolute;
+    top: 50%; left: 50%;
     overflow: hidden;
     display: none;
   }
@@ -645,7 +732,7 @@ Amato Group Meeting</div></h2>
   .view section {
     pointer-events: auto;
     position: static;
-    width: 800px; height: 400px;
+    width: 800px; height: 450px;
     margin: -150px -200px;
     float: left;
 

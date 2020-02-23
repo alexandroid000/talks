@@ -1,5 +1,5 @@
 # standard input file and extension
-INPUT=talk
+INPUT=11-lecture
 INPUT_TYPE=md
 
 

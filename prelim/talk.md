@@ -1,120 +1,208 @@
 ---
-title: Planning over Simple Boundary Interactions
+title: Design of Boundary Interactions for Minimalist Mobile Robots
 author: |
     | Alli Nilles 
-    | Amato Group Meeting
-date: October 15, 2019
+    | Thesis Proposal
+date: February 26, 2020
 aspectratio: 169
+bibliography: thesisrefs.bib
+csl: ieee.csl
 ...
+
 
 Outline
 -------
 
-- Background:
-    - minimalism, geometric planning, compliance
-    - planning over boundary interactions for minimal mobile robots
-- Motivation and Goals
-- Model Definition
-- A Robust Geometric Planner
-- Future Work and Side Projects
+> - Context and Related Work
+> - Model Definitions
+> - Examples of Dynamical Properties
+> - Control, Planning, and Tasks
+> - Remaining Thesis Work
+> - Possible Extensions
 
-Background
-==========
+Context
+=======
 
-
-Collisions for robots are usually bad...
+Environment Boundaries Can Be Useful!
 ---------------------------------------
 
-
-![](images/crash.gif){width="600px" class="center"}
-
-
-But they're ok sometimes!
--------------------------
+![](images/roomba.gif){height="300px" class="center"}
 
 
-![](images/roomba.gif){width="600px" class="center"}
+
+Some Definitions
+----------------
+
+> - *contact*: state of physical touching
+> - *collision*: contact; with more implied mechanical interaction (friction,
+sliding, etc)
+> - *boundary interaction*: umbrella term; "what does the robot do when it reaches
+a boundary in its environment?"
+>   - can be physical model (i.e., reflection law)
+>   - can be a distribution over trajectories, data-driven
+
+. . .
+
+<font size="2">Jeffrey Aguilar, Tingnan Zhang, Feifei Qian, Mark Kingsbury, Benjamin McInroe, Nicole Mazouchova, Chen Li, Ryan Maladen, Chaohui Gong, Matt Travers, Ross L. Hatton, Howie Choset, Paul B. Umbanhowar, Daniel I. Goldman, 
+"A review on locomotion robophysics: the study of movement at the intersection of robotics, soft matter and dynamical
+systems."
+<a
+href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></font>
 
 
-Lessons from Manipulation
--------------------------
+Minimalism and Compliance
+-----------------
 
-<div align="center" style="float;padding:24px">
-<iframe width="600" height="400"
-src="images/grasping_matt_mason.mp4"
-frameborder="0" allowfullscreen>
-</iframe></div>
-
-Dr. Matt Mason, CMU
+![](images/grasp.gif){width=450px class="center"}\
 
 
-Lessons from Manipulation
+<font size="2">Dr. Matt Mason, CMU</font>
+
+
+Minimalism and Compliance
 -------------------------
 
 **Compliance**: work *with* geometry. Can be passive mechanical compliance, or active compliance in
 planning/control.
 
-![](images/fine-motion.jpg){width=350px class="center"}\
 
-T. Lozano-Perez, M. Mason, R. H. Taylor, "Automatic synthesis of fine-motion strategies for robots." IJRR, 1984.
+<div class="row">
+<div class="column" width="60%">
 
+![](images/fine-motion.jpg){width=300px class="center"}\
 
-Lessons from Manipulation
--------------------------
+</div>
+<div class="column" width="40%">
 
-**Minimalism**
+<font size="2">T. Lozano-Perez, M. Mason, R. H. Taylor, "Automatic synthesis of fine-motion strategies for robots." IJRR,
+1984.</font>
 
-> - Manipulation doesn't require much or any sensing.
->   - "Orienting Polygonal Parts Without Sensors," K. Goldberg (PhD Thesis), 1993
-
-. . .
-
-> - Manipulation doesn't require complex hands, or lots of fingers, and plans
-can be computed quickly.
->   - H. Bunis and E. Rimon, “Toward Grasping Against the Environment: Locking Polygonal Objects Against a Wall Using Two-Finger Robot Hands”, IEEE RAL,  2019.
+</div>
+</div>
 
 
-What about Mobile Robots?
-=========================
+Planning and Control
+--------------------
 
-Minimalism in Mobile Robotics
+> - *compliance*:
+> - *conformance*:
+> - *preimage*:
+> - *funnel*:
+
+
 -----------------------------
 
 ![](images/robot_spectrum.jpg){width=750px class="center"}\
 
 
-Minimalist Boundary Interactions
------------------------------
-
-
-![](images/bitbots.jpg){width=380px class="center"}\
-
-
-
-"**Mapping** and **pursuit-evasion** strategies for a simple wall-following robot." M. Katsev, A. Yershova, B. Tovar, R. Ghrist, and S. M. LaValle. IEEE Transactions on Robotics, 2011.
-
 
 Minimalist Boundary Interactions
 -----------------------------
 
-![](images/okane-bounce.jpg){width=550px class="center"}\
+<div class="row">
+<div class="column" width="50%">
+
+![](images/bitbots.jpg){width=350px class="center"}\
 
 
-"Planning for provably **reliable navigation** using an unreliable, nearly sensorless robot." J. S. Lewis, J. M. O'Kane.  International Journal of Robotics Research, 2013. 
+</div>
+<div class="column" width="50%">
+
+
+- Localization [^1]
+- Mapping [^2][^3]
+- Navigation [^3][^4]
+- Coverage [^4]
+- Pursuit-evasion [^2]
+
+[^1]: O'Kane, J. M., & LaValle, S. M. Localization with limited sensing. IEEE Transactions on Robotics, 2007.
+[^2]: M. Katsev, A. Yershova, B. Tovar, R. Ghrist, and S. M. LaValle. IEEE Transactions on Robotics, 2011.
+[^3]: Tovar, B., Murrieta-Cid, R., & LaValle, S. M. Distance-optimal navigation in an unknown environment without sensing distances. IEEE Transactions on Robotics, 2007.
+[^4]: Lewis, J. S., & O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.
+
+</div>
+</div>
+
+
+
+Minimalist Boundary Interactions
+-----------------------------
+
+<div class="row">
+<div class="column" width="50%">
+
+![](images/okane_unreliable.gif){height=300px class="center"}\
+
+</div>
+<div class="column" width="50%">
+
+Lewis, J. S., & O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.
+
+</div>
+</div>
 
 
 Bouncing Robots
 ---------------
 
+<div class="row">
+<div class="column" width="50%">
+
 Iterating the same boundary interaction can cause cycles and trapping regions:
 
 ![](images/twoconv.gif){width=300px class="center"}
+
+
+</div>
+<div class="column" width="50%">
 
 Combinatorial changes from small perturbations:
 
 ![](images/plane.gif){width=300px class="center"}
 
-#### First example inspired by Spagnolie, S. E., Wahl, C., Lukasik, J., & Thiffeault, J. L. (2017). Microorganism billiards. Physica D: Nonlinear Phenomena, 341, 33-44. ####
+</div>
+</div>
+
+#### Left example inspired by Spagnolie, S. E., Wahl, C., Lukasik, J., & Thiffeault, J. L. (2017). Microorganism billiards. Physica D: Nonlinear Phenomena, 341, 33-44. ####
+
+
+Micro-Robots
+------------
+
+<div class="row">
+<div class="column" width="40%">
+
+![](images/reorient.gif){width=300px class="center"}
+
+<font size="3"> 
+
+C. Bechinger, et. al. **Active particles in complex and crowded environments.** Reviews of Modern Physics, 2016.
+
+Kantsler, V., et. al. **Ciliary contact interactions dominate surface scattering of swimming
+eukaryotes.** PNAS, 2013.
+
+</font></div>
+<div class="column" width="60%">
+
+![](images/swimmers.png){width=400px class="center"}\
+
+</div>
+</div>
+
+Goal 1: Robust, Predictable Movement Primitives
+-----
+
+
+![](images/flow.png){width=500px class="center"}\
+
+
+Goal 2: Motion Planning and Tasks
+---------------------------------
+
+
+Goal 3: Design Interfaces
+-------------------------
+
 
 
 Questions
@@ -122,7 +210,7 @@ Questions
 
 <div class="center">
 
-How to represent boundary interactions (including uncertainty)?
+What tasks can these robots complete? 
 
 </div>
 
@@ -130,7 +218,7 @@ How to represent boundary interactions (including uncertainty)?
 
 <div class="center">
 
-How to plan over boundary interactions efficiently?
+Can we find minimal requirements on sensing, actuation, control, memory?
 
 </div>
 
@@ -138,19 +226,12 @@ How to plan over boundary interactions efficiently?
 
 <div class="center">
 
-Can we leverage geometry of our workspace?
+Given that the feasible design space is large and complex, how to best represent,
+concretize, and automate the design process?
 
 </div>
 
-. . .
-
-<div class="center">
-
-What kinds of tasks can these robots complete, and how to specify?
-
-</div>
-
-Model Definition
+Model Definitions
 ====
 
 
@@ -271,6 +352,7 @@ interval containing the goal.
 
 Visibility Decomposition
 ------------------------
+
 
 
 ![](images/new_partial_local_sequence.png){width=550px class="center"}\
