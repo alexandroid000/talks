@@ -224,62 +224,81 @@ Thesis Proposal</div></h2>
 <li>Possible Extensions</li>
 </ul>
 </section>
+<section id="my-goals" class="slide level2">
+<h2>My Goals</h2>
+<ul class="incremental">
+<li>Get feedback on what parts of my research are especially cool and how to pitch them</li>
+<li>Get feedback on what parts are especially weak and need to be completed to make it thesis-level work</li>
+</ul>
+</section>
 <section id="context" class="title-slide slide level1">
 <h1>Context</h1>
 
 </section>
-<section id="environment-boundaries-can-be-useful" class="slide level2">
-<h2>Environment Boundaries Can Be Useful!</h2>
+<section id="robotics-is-changing" class="slide level2">
+<h2>Robotics is Changing</h2>
+<p><img src="images/weird_robots.png" class="center" height="300" /></p>
+</section>
+<section id="new-technologies-new-priorities" class="slide level2">
+<h2>New Technologies, New Priorities</h2>
+<ul class="incremental">
+<li>New materials make rigid-body, collision-avoidance approaches less necessary.</li>
+<li>More remote and extreme environments (including very small scales) require new hardware and software approaches.
+<ul class="incremental">
+<li>Need more robustness to uncertainty in sensing, actuation</li>
+<li>Simple, even purely reactive strategies can be easier to implement and get guarantees on behavior</li>
+</ul></li>
+</ul>
+</section>
+<section id="environment-boundaries-can-be-useful-in-the-face-of-uncertainty" class="slide level2">
+<h2>Environment Boundaries Can Be Useful in the Face of Uncertainty!</h2>
 <p><img src="images/roomba.gif" class="center" height="300" /></p>
 </section>
-<section id="some-definitions" class="slide level2">
-<h2>Some Definitions</h2>
+<section id="lessons-from-manipulation" class="slide level2">
+<h2>Lessons from Manipulation</h2>
+<div class="row">
+<div class="column" style="width:60%;">
+<p><img src="images/grasp.gif" class="center" width="350" /><br />
+</p>
+</div>
+<div class="column" style="width:40%;">
+<ul class="incremental">
+<li>Intelligent use of constraints / contact can enable robust robot behaviors</li>
+<li>Lots of work in this area: Mason, Goldberg, Erdmann, Lozano-Pérez, etc.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="related-concepts" class="slide level2">
+<h2>Related Concepts</h2>
+<ul class="incremental">
+<li><em>compliance</em>: motion that works even when encountering unknown system constraints. Can be passive (ex: gripper design), or active (ex: force feedback).</li>
+<li><em>conformance</em>: planning under uncertainty in initial state or effects of actions</li>
+<li><em>belief space planning</em>: planning over probability distributions on possible states</li>
+<li><em>information space planning</em>: planning over derived information states</li>
+<li><em>preimage</em>: set of states that reach a goal under a given action</li>
+<li><em>funnel</em>: outer bound of reachable set for a given trajectory</li>
+</ul>
+<div class="incremental">
+<p>How can we leverage boundary interactions to make robust motion strategies and plans for mobile robots?</p>
+</div>
+</section>
+<section id="definitions" class="slide level2">
+<h2>Definitions</h2>
 <ul class="incremental">
 <li><em>contact</em>: state of physical touching</li>
 <li><em>collision</em>: contact; with more implied mechanical interaction (friction, sliding, etc)</li>
 <li><em>boundary interaction</em>: umbrella term; “what does the robot do when it reaches a boundary in its environment?”
 <ul class="incremental">
-<li>can be physical model (i.e., reflection law)</li>
+<li>can be an analytic model (i.e., reflection law)</li>
 <li>can be a distribution over trajectories, data-driven</li>
+<li>boundaries can be walls, laser beams, GPS boundaries, etc</li>
 </ul></li>
 </ul>
 <div class="incremental">
 <p><font size="2">Jeffrey Aguilar, Tingnan Zhang, Feifei Qian, Mark Kingsbury, Benjamin McInroe, Nicole Mazouchova, Chen Li, Ryan Maladen, Chaohui Gong, Matt Travers, Ross L. Hatton, Howie Choset, Paul B. Umbanhowar, Daniel I. Goldman, “A review on locomotion robophysics: the study of movement at the intersection of robotics, soft matter and dynamical systems.” <a
 href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></font></p>
 </div>
-</section>
-<section id="minimalism-and-compliance" class="slide level2">
-<h2>Minimalism and Compliance</h2>
-<p><img src="images/grasp.gif" class="center" width="450" /><br />
-</p>
-<p><font size="2">Dr. Matt Mason, CMU</font></p>
-</section>
-<section id="minimalism-and-compliance-1" class="slide level2">
-<h2>Minimalism and Compliance</h2>
-<p><strong>Compliance</strong>: work <em>with</em> geometry. Can be passive mechanical compliance, or active compliance in planning/control.</p>
-<div class="row">
-<div class="column" style="width:60%;">
-<p><img src="images/fine-motion.jpg" class="center" width="300" /><br />
-</p>
-</div>
-<div class="column" style="width:40%;">
-<p><font size="2">T. Lozano-Perez, M. Mason, R. H. Taylor, “Automatic synthesis of fine-motion strategies for robots.” IJRR, 1984.</font></p>
-</div>
-</div>
-</section>
-<section id="planning-and-control" class="slide level2">
-<h2>Planning and Control</h2>
-<ul class="incremental">
-<li><em>compliance</em>:</li>
-<li><em>conformance</em>:</li>
-<li><em>preimage</em>:</li>
-<li><em>funnel</em>:</li>
-</ul>
-</section>
-<section class="slide level2">
-
-<p><img src="images/robot_spectrum.jpg" class="center" width="750" /><br />
-</p>
 </section>
 <section id="minimalist-boundary-interactions" class="slide level2">
 <h2>Minimalist Boundary Interactions</h2>
@@ -311,20 +330,6 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 </div>
 </div>
 </section>
-<section id="bouncing-robots" class="slide level2">
-<h2>Bouncing Robots</h2>
-<div class="row">
-<div class="column" style="width:50%;">
-<p>Iterating the same boundary interaction can cause cycles and trapping regions:</p>
-<p><img src="images/twoconv.gif" class="center" width="300" /></p>
-</div>
-<div class="column" style="width:50%;">
-<p>Combinatorial changes from small perturbations:</p>
-<p><img src="images/plane.gif" class="center" width="300" /></p>
-</div>
-</div>
-<h4 id="left-example-inspired-by-spagnolie-s.-e.-wahl-c.-lukasik-j.-thiffeault-j.-l.-2017.-microorganism-billiards.-physica-d-nonlinear-phenomena-341-33-44.">Left example inspired by Spagnolie, S. E., Wahl, C., Lukasik, J., &amp; Thiffeault, J. L. (2017). Microorganism billiards. Physica D: Nonlinear Phenomena, 341, 33-44.</h4>
-</section>
 <section id="micro-robots" class="slide level2">
 <h2>Micro-Robots</h2>
 <div class="row">
@@ -341,36 +346,63 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 </div>
 </div>
 </section>
+<section id="micro-scale-inspired-applications" class="slide level2">
+<h2>Micro-Scale Inspired Applications</h2>
+<p><img src="images/gear.gif" class="center" width="250" /><br />
+</p>
+<p>Need to understand and control spatial density and boundary interactions for manipulation!</p>
+</section>
+<section id="bouncing-robots" class="slide level2">
+<h2>Bouncing Robots</h2>
+<div class="row">
+<div class="column" style="width:50%;">
+<p>Iterating the same boundary interaction can cause cycles and trapping regions:</p>
+<p><img src="images/twoconv.gif" class="center" width="300" /></p>
+</div>
+<div class="column" style="width:50%;">
+<p>Combinatorial changes from small perturbations:</p>
+<p><img src="images/plane.gif" class="center" width="300" /></p>
+</div>
+</div>
+<h4 id="left-example-inspired-by-spagnolie-s.-e.-wahl-c.-lukasik-j.-thiffeault-j.-l.-2017.-microorganism-billiards.-physica-d-nonlinear-phenomena-341-33-44.">Left example inspired by Spagnolie, S. E., Wahl, C., Lukasik, J., &amp; Thiffeault, J. L. (2017). Microorganism billiards. Physica D: Nonlinear Phenomena, 341, 33-44.</h4>
+</section>
+<section id="wild-bodies" class="slide level2">
+<h2>Wild Bodies</h2>
+</section>
+
+<section id="research-goals" class="title-slide slide level1">
+<h1>Research Goals</h1>
+
+</section>
 <section id="goal-1-robust-predictable-movement-primitives" class="slide level2">
 <h2>Goal 1: Robust, Predictable Movement Primitives</h2>
 <p><img src="images/flow.png" class="center" width="500" /><br />
 </p>
+<div class="center">
+
+</div>
 </section>
 <section id="goal-2-motion-planning-and-tasks" class="slide level2">
 <h2>Goal 2: Motion Planning and Tasks</h2>
-</section>
-<section id="goal-3-design-interfaces" class="slide level2">
-<h2>Goal 3: Design Interfaces</h2>
-</section>
-<section id="questions" class="slide level2">
-<h2>Questions</h2>
 <div class="center">
 <p>What tasks can these robots complete?</p>
 </div>
-<div class="incremental">
 <div class="center">
 <p>Can we find minimal requirements on sensing, actuation, control, memory?</p>
 </div>
-</div>
-<div class="incremental">
+</section>
+<section id="goal-3-algorithms-and-interfaces-for-design-and-control" class="slide level2">
+<h2>Goal 3: Algorithms and Interfaces for Design and Control</h2>
 <div class="center">
-<p>Given that the feasible design space is large and complex, how to best represent, concretize, and automate the design process?</p>
+<p>We would like to more formally understand the trade-offs between sensing, actuation, computation, and memory.</p>
 </div>
+<div class="center">
+<p>Given a large, well-characterized space of robot designs, how can automated tools aid the design and verification process?</p>
 </div>
 </section>
 
-<section id="model-definitions" class="title-slide slide level1">
-<h1>Model Definitions</h1>
+<section id="results-bouncing-robots" class="title-slide slide level1">
+<h1>Results: Bouncing Robots</h1>
 
 </section>
 <section id="modelling-assumptions" class="slide level2">
@@ -378,17 +410,11 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 <ul class="incremental">
 <li>Robot position modelled as a <em>point</em> in a <em>polygonal environment</em> (possibly with polygonal obstacles).</li>
 <li>Robots move in <em>straight lines</em> until they encounter a boundary.</li>
-<li>Plans are executed in <em>event-based</em> way; action <span class="math inline">\(u_k\)</span> taken at stage <span class="math inline">\(k\)</span>, the <span class="math inline">\(k\)</span>th time the robot encounters a boundary.</li>
-<li>We know the exact map of the environment at planning time.</li>
 </ul>
 </section>
 <section id="defining-boundary-interactions" class="slide level2">
 <h2>Defining Boundary Interactions</h2>
 <p><img src="images/bounce_examples.jpg" width="700" /></p>
-<div class="incremental">
-<p><strong>Bounce rule:</strong> determines action <span class="math inline">\(u \in (0, \pi)\)</span> at boundary.</p>
-<p><strong>Goal:</strong> Planner produces sequence of <strong>bounce rules</strong>.</p>
-</div>
 </section>
 <section id="modelling-uncertainty" class="slide level2">
 <h2>Modelling Uncertainty</h2>
@@ -398,12 +424,14 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 <p>What kinds of error and nondeterminism does this include?</p>
 </div>
 </section>
-<section id="defining-safe-actions" class="slide level2">
-<h2>Defining Safe Actions</h2>
-<p><strong>Safe actions</strong>: Given two edges in the environment polygon <span class="math inline">\(e_i\)</span> and <span class="math inline">\(e_j\)</span>, an interval of actions <span class="math inline">\(\tilde{u}_{i,j} \subseteq (0, \pi)\)</span> is <em>safe</em> iff any action <span class="math inline">\(u \in \tilde{u}_{i,j}\)</span> executed from any point in <span class="math inline">\(e_i\)</span> will cause the robot to transition to a point in <span class="math inline">\(e_j\)</span> in one stage.</p>
-<div class="incremental">
-<p><strong>Observation:</strong> in a single action, the robot can only transition to visible segments of the boundary.</p>
-</div>
+<section id="how-to-implement" class="slide level2">
+<h2>How to Implement?</h2>
+<ul class="incremental">
+<li>iRobot Create with bump sensors and side-facing range sensor: “rotate-to-parallel”</li>
+<li>uniquely identifiable laser “trip wires”</li>
+<li>geo-fencing with GPS or visible boundaries</li>
+<li>overhead observation and deformable robots</li>
+</ul>
 </section>
 <section id="geometry-influences-dynamics" class="slide level2">
 <h2>Geometry Influences Dynamics</h2>
@@ -429,22 +457,35 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 <p><img src="images/bounce_preimages.png" class="center" width="600" /><br />
 </p>
 </section>
-<section id="how-to-implement" class="slide level2">
-<h2>How to Implement?</h2>
-<ul class="incremental">
-<li>iRobot Create with bump sensors and side-facing range sensor: “rotate-to-parallel”</li>
-<li>uniquely identifiable laser “trip wires”</li>
-<li>geo-fencing with GPS or visible boundaries</li>
-<li>overhead observation and deformable robots</li>
-</ul>
+<section id="stable-cycles" class="slide level2">
+<h2>Stable Cycles</h2>
+<div class="row">
+<div class="column" style="width:50%;">
+<p><img src="images/cycles.gif" class="center" style="float:left;padding:12px" width="250" /><br />
+</p>
+</div>
+<div class="column" style="width:50%;">
+<p><img src="images/bigc.gif" class="center" style="float:right;padding:12px" width="350" /><br />
+</p>
+</div>
+</div>
+<div class="incremental">
+<p>To write down a transition function for an entire cycle, compose individual transition functions until the composition is a return map.</p>
+</div>
+<div class="incremental">
+<p>A cycle is <strong>stable</strong> when this return map is a <em>contraction mapping</em>: two points under the mapping become closer together.</p>
+</div>
+<div class="incremental">
+<p><strong>Proposition:</strong> For all start points on the boundary of all polygons, a constant fixed-angle controller exists which will cause the robot’s trajectory to enter a stable limit cycle.</p>
+</div>
 </section>
 
-<section id="creating-a-planner" class="title-slide slide level1">
-<h1>Creating a Planner</h1>
+<section id="planning-for-bouncing-robots" class="title-slide slide level1">
+<h1>Planning for Bouncing Robots</h1>
 
 </section>
-<section id="our-approach" class="slide level2">
-<h2>Our Approach</h2>
+<section id="approach" class="slide level2">
+<h2>Approach</h2>
 <p><strong>Planning Problem:</strong> Given start and goal points on the boundary of the polygonal environment, create a sequence of safe nondeterministic actions that takes the robot from the start point to an interval containing the goal.</p>
 <ol class="incremental" type="1">
 <li>Partition boundary using “visibility events”</li>
@@ -452,6 +493,22 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 <li>Search for paths and cycles (depending on specification)</li>
 <li>Translate paths to strategies</li>
 </ol>
+</section>
+<section id="nondeterministic-planning" class="slide level2">
+<h2>Nondeterministic Planning</h2>
+<ul class="incremental">
+<li>Plans are <em>event-based</em>.</li>
+<li>We know the exact map of the environment at planning time.</li>
+</ul>
+<p><strong>Bounce rule:</strong> determines action <span class="math inline">\(u \in (0, \pi)\)</span> at boundary.</p>
+<p><strong>Goal:</strong> Planner produces sequence of <strong>bounce rules</strong>.</p>
+</section>
+<section id="defining-safe-actions" class="slide level2">
+<h2>Defining Safe Actions</h2>
+<p><strong>Safe actions</strong>: Given two edges in the environment polygon <span class="math inline">\(e_i\)</span> and <span class="math inline">\(e_j\)</span>, an interval of actions <span class="math inline">\(\tilde{u}_{i,j} \subseteq (0, \pi)\)</span> is <em>safe</em> iff any action <span class="math inline">\(u \in \tilde{u}_{i,j}\)</span> executed from any point in <span class="math inline">\(e_i\)</span> will cause the robot to transition to a point in <span class="math inline">\(e_j\)</span> in one stage.</p>
+<div class="incremental">
+<p><strong>Observation:</strong> in a single action, the robot can only transition to visible segments of the boundary.</p>
+</div>
 </section>
 <section id="visibility-decomposition" class="slide level2">
 <h2>Visibility Decomposition</h2>
@@ -501,31 +558,9 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 </div>
 </section>
 
-<section id="actively-reducing-uncertainty" class="title-slide slide level1">
-<h1>Actively Reducing Uncertainty</h1>
+<section id="applications-tasks-and-interfaces" class="title-slide slide level1">
+<h1>Applications, Tasks, and Interfaces</h1>
 
-</section>
-<section id="stable-cycles" class="slide level2">
-<h2>Stable Cycles</h2>
-<div class="row">
-<div class="column" style="width:50%;">
-<p><img src="images/cycles.gif" class="center" style="float:left;padding:12px" width="250" /><br />
-</p>
-</div>
-<div class="column" style="width:50%;">
-<p><img src="images/bigc.gif" class="center" style="float:right;padding:12px" width="350" /><br />
-</p>
-</div>
-</div>
-<div class="incremental">
-<p>To write down a transition function for an entire cycle, compose individual transition functions until the composition is a return map.</p>
-</div>
-<div class="incremental">
-<p>A cycle is <strong>stable</strong> when this return map is a <em>contraction mapping</em>: two points under the mapping become closer together.</p>
-</div>
-<div class="incremental">
-<p><strong>Proposition:</strong> For all start points on the boundary of all polygons, a constant fixed-angle controller exists which will cause the robot’s trajectory to enter a stable limit cycle.</p>
-</div>
 </section>
 <section id="safe-cycles" class="slide level2">
 <h2>Safe Cycles</h2>
@@ -541,20 +576,11 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 </ul>
 </div>
 </section>
-<section id="summary" class="slide level2">
-<h2>Summary</h2>
-<p>We have developed a geometric planner that includes dynamical information and allows for optimization with respect to uncertainty in position and actuation.</p>
-<div class="incremental">
-<p>So far, all planning is done under nondeterminstic, “worst case” assumptions.</p>
-</div>
-<div class="incremental">
-<p>Not complete: “splitting” state into two different segments is not allowed. This means not all nondeterministic actions are explored.</p>
-</div>
+<section id="manipulation-wafr-2020" class="slide level2">
+<h2>Manipulation (WAFR 2020)</h2>
 </section>
-
-<section id="future-work-and-side-projects" class="title-slide slide level1">
-<h1>Future Work and Side Projects</h1>
-
+<section id="remaining-goals-and-approach" class="slide level2">
+<h2>Remaining Goals and Approach</h2>
 </section>
 <section id="goal-1-sensor-feedback-and-planning-in-information-space" class="slide level2">
 <h2>Goal 1: Sensor Feedback and Planning in Information Space</h2>
@@ -581,18 +607,17 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 <li>Better interface and specification language
 <ul>
 <li>visualizations of coverage, trapping regions, etc</li>
-<li>Stretch goal: LTL specifications and plan synthesis
+<li>LTL specifications and plan synthesis
 <ul>
 <li>“eventually reach region <em>A</em>…”</li>
 <li>“stay in region <em>B</em> until…”</li>
 </ul></li>
-<li>How to specify patterns in space and time?</li>
 </ul></li>
 </ul>
 </div>
 </section>
-<section id="side-project-on-interfaces" class="slide level2">
-<h2>Side Project on Interfaces</h2>
+<section id="interfaces-and-design" class="slide level2">
+<h2>Interfaces and Design</h2>
 <div data-align="center" style="float;padding:24px">
 <iframe width="600" height="400" src="images/improv_demo.mp4" frameborder="0" allowfullscreen>
 </iframe>
@@ -613,40 +638,14 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 </ul>
 </div>
 </section>
-<section id="micro-scale-inspired-applications" class="slide level2">
-<h2>Micro-Scale Inspired Applications</h2>
-<p><img src="images/swimmers.png" class="center" width="400" /><br />
-</p>
-<p>C. Bechinger, R. Leonardo, H. Löwen, C. Reichhardt, G. Volpe, and G. Volpe. <strong>Active particles in complex and crowded environments.</strong> Reviews of Modern Physics, (2016).</p>
-</section>
 <section id="micro-scale-inspired-applications-1" class="slide level2">
-<h2>Micro-Scale Inspired Applications</h2>
-<p><img src="images/cilia.jpg" class="center" width="500" /></p>
-<p>V. Kantsler, J. Dunkel, M. Polin, and R. Goldstein. <strong>Ciliary contact interactions dominate surface scattering of swimming eukaryotes.</strong> PNAS (2013).</p>
-</section>
-<section id="micro-scale-inspired-applications-2" class="slide level2">
-<h2>Micro-Scale Inspired Applications</h2>
-<div data-align="center" style="float;padding:24px">
-<iframe width="600" height="400" src="images/large_weaselballs.mp4" frameborder="0" allowfullscreen>
-</iframe>
-</div>
-</section>
-<section id="micro-scale-inspired-applications-3" class="slide level2">
 <h2>Micro-Scale Inspired Applications</h2>
 <div data-align="center" style="float;padding:24px">
 <iframe width="600" height="400" src="images/4B-tl.mp4" frameborder="0" allowfullscreen>
 </iframe>
 </div>
 </section>
-<section id="micro-scale-inspired-applications-4" class="slide level2">
-<h2>Micro-Scale Inspired Applications</h2>
-<div data-align="center" style="float;padding:24px">
-<iframe width="400" height="275" src="images/gear.mp4" frameborder="0" allowfullscreen>
-</iframe>
-</div>
-<p>Understanding spatial density and boundary interactions is key step toward manipulation!</p>
-</section>
-<section id="micro-scale-inspired-applications-5" class="slide level2">
+<section id="micro-scale-inspired-applications-2" class="slide level2">
 <h2>Micro-Scale Inspired Applications</h2>
 <p>Research questions:</p>
 <ul class="incremental">
@@ -654,6 +653,16 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 <li>If the bouncing robots are able to produce a signal that the Brownian agents can respond to (EM field alignment, chemotaxis), can we cluster and/or sort the Brownian agents?</li>
 <li>What is the role of environment geometry in group dynamics? How do we design environments for sorting and otherwise studying microswimmers?</li>
 </ul>
+</section>
+<section id="summary" class="slide level2">
+<h2>Summary</h2>
+<p>We have developed a geometric planner that includes dynamical information and allows for optimization with respect to uncertainty in position and actuation.</p>
+<div class="incremental">
+<p>So far, all planning is done under nondeterminstic, “worst case” assumptions.</p>
+</div>
+<div class="incremental">
+<p>Not complete: “splitting” state into two different segments is not allowed. This means not all nondeterministic actions are explored.</p>
+</div>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>

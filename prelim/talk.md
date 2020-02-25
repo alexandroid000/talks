@@ -20,26 +20,88 @@ Outline
 > - Remaining Thesis Work
 > - Possible Extensions
 
+
+My Goals
+--------
+
+> - Get feedback on what parts of my research are especially cool and how to
+pitch them
+> - Get feedback on what parts are especially weak and need to be completed to
+make it thesis-level work
+
+
 Context
 =======
 
-Environment Boundaries Can Be Useful!
+
+Robotics is Changing
+--------------------
+
+![](images/weird_robots.png){height="300px" class="center"}
+
+
+New Technologies, New Priorities
+--------------------------------
+
+> - New materials make rigid-body, collision-avoidance approaches less necessary.
+> - More remote and extreme environments (including very small scales) require
+new hardware and software approaches.
+>   - Need more robustness to uncertainty in sensing, actuation
+>   - Simple, even purely reactive strategies can be easier to implement and get guarantees on behavior
+
+
+Environment Boundaries Can Be Useful in the Face of Uncertainty!
 ---------------------------------------
 
 ![](images/roomba.gif){height="300px" class="center"}
 
 
+Lessons from Manipulation
+-------------------------
 
-Some Definitions
+<div class="row">
+<div class="column" width="60%">
+
+![](images/grasp.gif){width=350px class="center"}\
+
+</div>
+<div class="column" width="40%">
+
+
+> - Intelligent use of constraints / contact can enable robust robot behaviors
+> - Lots of work in this area: Mason, Goldberg, Erdmann, Lozano-Pérez, etc.
+
+
+</div>
+</div>
+
+
+Related Concepts
 ----------------
+
+> - *compliance*: motion that works even when encountering unknown system constraints. Can be passive (ex: gripper design), or active (ex: force feedback).
+> - *conformance*: planning under uncertainty in initial state or effects of actions
+> - *belief space planning*: planning over probability distributions on possible states
+> - *information space planning*: planning over derived information states
+> - *preimage*: set of states that reach a goal under a given action
+> - *funnel*: outer bound of reachable set for a given trajectory
+
+. . .
+
+How can we leverage boundary interactions to make  robust motion strategies and plans for mobile robots?
+
+
+Definitions
+-----------
 
 > - *contact*: state of physical touching
 > - *collision*: contact; with more implied mechanical interaction (friction,
 sliding, etc)
 > - *boundary interaction*: umbrella term; "what does the robot do when it reaches
 a boundary in its environment?"
->   - can be physical model (i.e., reflection law)
+>   - can be an analytic model (i.e., reflection law)
 >   - can be a distribution over trajectories, data-driven
+>   - boundaries can be walls, laser beams, GPS boundaries, etc
 
 . . .
 
@@ -48,52 +110,6 @@ a boundary in its environment?"
 systems."
 <a
 href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></font>
-
-
-Minimalism and Compliance
------------------
-
-![](images/grasp.gif){width=450px class="center"}\
-
-
-<font size="2">Dr. Matt Mason, CMU</font>
-
-
-Minimalism and Compliance
--------------------------
-
-**Compliance**: work *with* geometry. Can be passive mechanical compliance, or active compliance in
-planning/control.
-
-
-<div class="row">
-<div class="column" width="60%">
-
-![](images/fine-motion.jpg){width=300px class="center"}\
-
-</div>
-<div class="column" width="40%">
-
-<font size="2">T. Lozano-Perez, M. Mason, R. H. Taylor, "Automatic synthesis of fine-motion strategies for robots." IJRR,
-1984.</font>
-
-</div>
-</div>
-
-
-Planning and Control
---------------------
-
-> - *compliance*:
-> - *conformance*:
-> - *preimage*:
-> - *funnel*:
-
-
------------------------------
-
-![](images/robot_spectrum.jpg){width=750px class="center"}\
-
 
 
 Minimalist Boundary Interactions
@@ -124,7 +140,6 @@ Minimalist Boundary Interactions
 </div>
 
 
-
 Minimalist Boundary Interactions
 -----------------------------
 
@@ -140,6 +155,39 @@ Lewis, J. S., & O’Kane, J. M. Planning for provably reliable navigation using 
 
 </div>
 </div>
+
+
+Micro-Robots
+------------
+
+<div class="row">
+<div class="column" width="40%">
+
+![](images/reorient.gif){width=300px class="center"}
+
+<font size="3"> 
+
+C. Bechinger, et. al. **Active particles in complex and crowded environments.** Reviews of Modern Physics, 2016.
+
+Kantsler, V., et. al. **Ciliary contact interactions dominate surface scattering of swimming
+eukaryotes.** PNAS, 2013.
+
+</font></div>
+<div class="column" width="60%">
+
+![](images/swimmers.png){width=400px class="center"}\
+
+</div>
+</div>
+
+
+Micro-Scale Inspired Applications
+-----------------------------------------
+
+![](images/gear.gif){width=250px class="center"}\
+
+Need to understand and control spatial density and boundary interactions for
+manipulation!
 
 
 Bouncing Robots
@@ -166,28 +214,14 @@ Combinatorial changes from small perturbations:
 #### Left example inspired by Spagnolie, S. E., Wahl, C., Lukasik, J., & Thiffeault, J. L. (2017). Microorganism billiards. Physica D: Nonlinear Phenomena, 341, 33-44. ####
 
 
-Micro-Robots
-------------
+Wild Bodies
+-----------
 
-<div class="row">
-<div class="column" width="40%">
 
-![](images/reorient.gif){width=300px class="center"}
 
-<font size="3"> 
 
-C. Bechinger, et. al. **Active particles in complex and crowded environments.** Reviews of Modern Physics, 2016.
-
-Kantsler, V., et. al. **Ciliary contact interactions dominate surface scattering of swimming
-eukaryotes.** PNAS, 2013.
-
-</font></div>
-<div class="column" width="60%">
-
-![](images/swimmers.png){width=400px class="center"}\
-
-</div>
-</div>
+Research Goals
+==============
 
 Goal 1: Robust, Predictable Movement Primitives
 -----
@@ -196,44 +230,43 @@ Goal 1: Robust, Predictable Movement Primitives
 ![](images/flow.png){width=500px class="center"}\
 
 
+<div class="center">
+</div>
+
+
 Goal 2: Motion Planning and Tasks
 ---------------------------------
 
 
-Goal 3: Design Interfaces
+<div class="center">
+What tasks can these robots complete? 
+</div>
+
+
+
+<div class="center">
+Can we find minimal requirements on sensing, actuation, control, memory?
+</div>
+
+
+
+Goal 3: Algorithms and Interfaces for Design and Control
 -------------------------
 
-
-
-Questions
----------
-
 <div class="center">
-
-What tasks can these robots complete? 
-
+We would like to more formally understand the trade-offs between sensing,
+actuation, computation, and memory.
 </div>
 
-. . .
 
 <div class="center">
-
-Can we find minimal requirements on sensing, actuation, control, memory?
-
+Given a large, well-characterized space of robot designs, how can automated
+tools aid the design and verification process?
 </div>
 
-. . .
 
-<div class="center">
-
-Given that the feasible design space is large and complex, how to best represent,
-concretize, and automate the design process?
-
-</div>
-
-Model Definitions
-====
-
+Results: Bouncing Robots
+=======
 
 Modelling Assumptions
 ---------------------
@@ -241,11 +274,6 @@ Modelling Assumptions
 > - Robot position modelled as a *point* in a *polygonal environment* (possibly with polygonal
 obstacles).
 > - Robots move in *straight lines* until they encounter a boundary.
-> - Plans are executed in *event-based* way; action $u_k$ taken at stage $k$,
-the $k$th time the robot encounters a boundary.
-> - We know the exact map of the environment at planning time.
-
-
 
 Defining Boundary Interactions
 ------------------------------
@@ -253,11 +281,6 @@ Defining Boundary Interactions
 
 ![](images/bounce_examples.jpg){width=700px}
 
-. . .
-
-**Bounce rule:** determines action $u \in (0, \pi)$ at boundary.
-
-**Goal:** Planner produces sequence of **bounce rules**.
 
 
 Modelling Uncertainty
@@ -272,18 +295,15 @@ Uncertainty is unavoidable... Plan over **nondeterministic** bounce rules!
 
 What kinds of error and nondeterminism does this include?
 
-Defining Safe Actions
----------------------
+How to Implement?
+-----------------
 
-**Safe actions**: Given two edges in the environment polygon $e_i$ and $e_j$, an interval 
-of actions $\tilde{u}_{i,j} \subseteq (0, \pi)$ is *safe* iff any action $u \in
-\tilde{u}_{i,j}$ executed from any point in $e_i$ will cause the robot to transition
-to a point in $e_j$ in one stage.
+> - iRobot Create with bump sensors and side-facing range sensor:
+  "rotate-to-parallel"
+> - uniquely identifiable laser "trip wires"
+> - geo-fencing with GPS or visible boundaries
+> - overhead observation and deformable robots
 
-. . .
-
-**Observation:** in a single action, the robot can only transition to visible
-segments of the boundary.
 
 
 Geometry Influences Dynamics
@@ -321,20 +341,46 @@ Reducing Uncertainty Through Geometry
 
 ![](images/bounce_preimages.png){width=600px class="center"}\
 
-How to Implement?
------------------
 
-> - iRobot Create with bump sensors and side-facing range sensor:
-  "rotate-to-parallel"
-> - uniquely identifiable laser "trip wires"
-> - geo-fencing with GPS or visible boundaries
-> - overhead observation and deformable robots
+Stable Cycles
+------------------
 
-Creating a Planner
+<div class="row">
+<div class="column" width="50%">
+
+![](images/cycles.gif){width=250 style="float:left;padding:12px" class="center"}\
+
+
+</div>
+<div class="column" width="50%">
+
+![](images/bigc.gif){width=350 style="float:right;padding:12px" class="center"}\
+
+</div>
+</div>
+
+. . .
+
+To write down a transition function for an entire cycle, compose individual
+transition functions until the composition is a return map.
+
+. . .
+
+A cycle is **stable** when this return map is a
+*contraction mapping*: two points under the mapping become closer together.
+
+. . .
+
+**Proposition:** For all start points on the boundary of all polygons, a constant
+fixed-angle controller exists which will cause the robot's trajectory to enter a
+stable limit cycle.
+
+
+Planning for Bouncing Robots
 ==================
 
 
-Our Approach
+Approach
 ------------
 
 
@@ -349,11 +395,36 @@ interval containing the goal.
 > 3. Search for paths and cycles (depending on specification)
 > 4. Translate paths to strategies
 
+Nondeterministic Planning
+-------------------------
+
+
+> - Plans are *event-based*.
+> - We know the exact map of the environment at planning time.
+
+
+**Bounce rule:** determines action $u \in (0, \pi)$ at boundary.
+
+**Goal:** Planner produces sequence of **bounce rules**.
+
+
+Defining Safe Actions
+---------------------
+
+**Safe actions**: Given two edges in the environment polygon $e_i$ and $e_j$, an interval 
+of actions $\tilde{u}_{i,j} \subseteq (0, \pi)$ is *safe* iff any action $u \in
+\tilde{u}_{i,j}$ executed from any point in $e_i$ will cause the robot to transition
+to a point in $e_j$ in one stage.
+
+. . .
+
+**Observation:** in a single action, the robot can only transition to visible
+segments of the boundary.
+
+
 
 Visibility Decomposition
 ------------------------
-
-
 
 ![](images/new_partial_local_sequence.png){width=550px class="center"}\
 
@@ -425,42 +496,9 @@ What parts of the polygon are reachable with a constant controller?
 ![](images/inserted_two_conv.png){width=700px class="center"}\
 
 
-Actively Reducing Uncertainty
+Applications, Tasks, and Interfaces
 ==================
 
-
-Stable Cycles
-------------------
-
-<div class="row">
-<div class="column" width="50%">
-
-![](images/cycles.gif){width=250 style="float:left;padding:12px" class="center"}\
-
-
-</div>
-<div class="column" width="50%">
-
-![](images/bigc.gif){width=350 style="float:right;padding:12px" class="center"}\
-
-</div>
-</div>
-
-. . .
-
-To write down a transition function for an entire cycle, compose individual
-transition functions until the composition is a return map.
-
-. . .
-
-A cycle is **stable** when this return map is a
-*contraction mapping*: two points under the mapping become closer together.
-
-. . .
-
-**Proposition:** For all start points on the boundary of all polygons, a constant
-fixed-angle controller exists which will cause the robot's trajectory to enter a
-stable limit cycle.
 
 Safe Cycles
 -----------
@@ -482,24 +520,12 @@ cases.
 > - For actions with uncertainty $\pm \epsilon$, is there a reachable cycle which will
     shrink the size of the robot's state estimate below $\delta$?
 
-Summary
--------
+Manipulation (WAFR 2020)
+------------
 
-We have developed a geometric planner that includes dynamical information and
-allows for optimization with respect to uncertainty in position and actuation.
 
-. . .
-
-So far, all planning is done under nondeterminstic, "worst case" assumptions.
-
-. . .
-
-Not complete: "splitting" state into two different segments is not
-allowed. This means not all nondeterministic actions are explored.
-
-Future Work and Side Projects
-===============
-
+Remaining Goals and Approach
+----------------------------
 
 Goal 1: Sensor Feedback and Planning in Information Space
 ---------------------------------------------------------
@@ -529,13 +555,12 @@ Goal 2: Improving the Planner
 
 - Better interface and specification language
   - visualizations of coverage, trapping regions, etc
-  - Stretch goal: LTL specifications and plan synthesis
+  - LTL specifications and plan synthesis
     - "eventually reach region *A*..."
     - "stay in region *B* until..."
-  - How to specify patterns in space and time?
 
-Side Project on Interfaces
---------------------------
+Interfaces and Design
+---------------------
 
 <div align="center" style="float;padding:24px">
 <iframe width="600" height="400"
@@ -561,34 +586,8 @@ Can giving up precise control of individual robots actually help us?
 > - Gauci, Melvin, Jianing Chen, Wei Li, Tony J. Dodd, and Roderich Groß. **Self-organized aggregation without computation.** IJRR (2014).
 > - Becker, Aaron, Golnaz Habibi, Justin Werfel, Michael Rubenstein, and James McLurkin. **Massive uniform manipulation: Controlling large populations of simple robots with a common input signal.** IROS (2013).
 
-Micro-Scale Inspired Applications
---------------------------------
-
-![](images/swimmers.png){width=400px class="center"}\
 
 
-C. Bechinger, R. Leonardo, H. Löwen, C. Reichhardt, G. Volpe, and G. Volpe.
-**Active particles in complex and crowded environments.** Reviews of Modern Physics,
-(2016).
-
-
-Micro-Scale Inspired Applications
------------------------------------------------------
-
-
-![](images/cilia.jpg){width=500px class="center"}
-
-V. Kantsler, J. Dunkel, M. Polin, and R. Goldstein. **Ciliary contact interactions dominate surface scattering of swimming eukaryotes.** PNAS (2013).
-
-
-Micro-Scale Inspired Applications
------------------------------------------
-
-<div align="center" style="float;padding:24px">
-<iframe width="600" height="400"
-src="images/large_weaselballs.mp4"
-frameborder="0" allowfullscreen>
-</iframe></div>
 
 Micro-Scale Inspired Applications
 -----------------------------------------
@@ -599,18 +598,6 @@ src="images/4B-tl.mp4"
 frameborder="0" allowfullscreen>
 </iframe></div>
 
-
-Micro-Scale Inspired Applications
------------------------------------------
-
-<div align="center" style="float;padding:24px">
-<iframe width="400" height="275"
-src="images/gear.mp4"
-frameborder="0" allowfullscreen>
-</iframe></div>
-
-Understanding spatial density and boundary interactions is key step toward
-manipulation!
 
 
 Micro-Scale Inspired Applications
@@ -624,6 +611,23 @@ collection of Brownian agents induce currents? Under what conditions?
 can respond to (EM field alignment, chemotaxis), can we cluster and/or sort the Brownian agents?
 > - What is the role of environment geometry in group dynamics? How do we design
 environments for sorting and otherwise studying microswimmers?
+
+
+Summary
+-------
+
+We have developed a geometric planner that includes dynamical information and
+allows for optimization with respect to uncertainty in position and actuation.
+
+. . .
+
+So far, all planning is done under nondeterminstic, "worst case" assumptions.
+
+. . .
+
+Not complete: "splitting" state into two different segments is not
+allowed. This means not all nondeterministic actions are explored.
+
 
 Conclusion
 ----------
