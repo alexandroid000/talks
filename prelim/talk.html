@@ -30,8 +30,8 @@
         padding: 10px 10px 10px 10px;
         margin: 0px;
         text-align: center;
-        background-color: #EEEEEE;
-        color: #838383;
+        background-color: #aa99ae;
+        color: #ffffff;
     }
     .author {
         margin-top: 10px;
@@ -72,7 +72,7 @@
     h1 {
         margin-top: 150px;
         font-size: 230%;
-        background-color: #cdb0d9;
+        background-color: #aa99ae;
         border-radius: 12px; }
     h1.title {
         margin-top: 20px;
@@ -217,26 +217,19 @@ Thesis Proposal</div></h2>
 <h2>Outline</h2>
 <ul class="incremental">
 <li>Context and Related Work</li>
-<li>Model Definitions</li>
-<li>Examples of Dynamical Properties</li>
-<li>Control, Planning, and Tasks</li>
+<li>Results: Models</li>
+<li>Results: Dynamical Properties</li>
+<li>Results: Control, Planning, and Tasks</li>
 <li>Remaining Thesis Work</li>
 <li>Possible Extensions</li>
-</ul>
-</section>
-<section id="my-goals" class="slide level2">
-<h2>My Goals</h2>
-<ul class="incremental">
-<li>Get feedback on what parts of my research are especially cool and how to pitch them</li>
-<li>Get feedback on what parts are especially weak and need to be completed to make it thesis-level work</li>
 </ul>
 </section>
 <section id="context" class="title-slide slide level1">
 <h1>Context</h1>
 
 </section>
-<section id="robotics-is-changing" class="slide level2">
-<h2>Robotics is Changing</h2>
+<section id="new-frontiers-in-robotics" class="slide level2">
+<h2>New Frontiers in Robotics</h2>
 <p><img src="images/weird_robots.png" class="center" height="300" /></p>
 </section>
 <section id="new-technologies-new-priorities" class="slide level2">
@@ -264,30 +257,30 @@ Thesis Proposal</div></h2>
 <div class="column" style="width:40%;">
 <ul class="incremental">
 <li>Intelligent use of constraints / contact can enable robust robot behaviors</li>
-<li>Lots of work in this area: Mason, Goldberg, Erdmann, Lozano-Pérez, etc.</li>
+<li>Mason, Goldberg, Erdmann, Lozano-Pérez, etc.</li>
 </ul>
 </div>
 </div>
 </section>
-<section id="related-concepts" class="slide level2">
-<h2>Related Concepts</h2>
+<section id="important-concepts" class="slide level2">
+<h2>Important Concepts</h2>
 <ul class="incremental">
-<li><em>compliance</em>: motion that works even when encountering unknown system constraints. Can be passive (ex: gripper design), or active (ex: force feedback).</li>
-<li><em>conformance</em>: planning under uncertainty in initial state or effects of actions</li>
-<li><em>belief space planning</em>: planning over probability distributions on possible states</li>
-<li><em>information space planning</em>: planning over derived information states</li>
 <li><em>preimage</em>: set of states that reach a goal under a given action</li>
 <li><em>funnel</em>: outer bound of reachable set for a given trajectory</li>
+<li><em>compliance</em>: motion designed to handle unknown system constraints. Can be passive (ex: gripper design), or active (ex: force feedback).</li>
+<li><em>conformance</em>: planning under uncertainty in initial state or actions</li>
+<li><em>belief space planning</em>: planning over distributions on possible states</li>
+<li><em>information space planning</em>: planning over derived information states</li>
 </ul>
 <div class="incremental">
-<p>How can we leverage boundary interactions to make robust motion strategies and plans for mobile robots?</p>
+<p>How can we leverage boundary interactions to make motion strategies and plans for mobile robots that can handle intrinsic uncertainty?</p>
 </div>
 </section>
 <section id="definitions" class="slide level2">
 <h2>Definitions</h2>
 <ul class="incremental">
 <li><em>contact</em>: state of physical touching</li>
-<li><em>collision</em>: contact; with more implied mechanical interaction (friction, sliding, etc)</li>
+<li><em>collision</em>: contact with implied mechanical interaction (friction, sliding, etc)</li>
 <li><em>boundary interaction</em>: umbrella term; “what does the robot do when it reaches a boundary in its environment?”
 <ul class="incremental">
 <li>can be an analytic model (i.e., reflection law)</li>
@@ -296,9 +289,13 @@ Thesis Proposal</div></h2>
 </ul></li>
 </ul>
 <div class="incremental">
-<p><font size="2">Jeffrey Aguilar, Tingnan Zhang, Feifei Qian, Mark Kingsbury, Benjamin McInroe, Nicole Mazouchova, Chen Li, Ryan Maladen, Chaohui Gong, Matt Travers, Ross L. Hatton, Howie Choset, Paul B. Umbanhowar, Daniel I. Goldman, “A review on locomotion robophysics: the study of movement at the intersection of robotics, soft matter and dynamical systems.” <a
-href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></font></p>
+<h4 id="jeffrey-aguilar-tingnan-zhang-feifei-qian-mark-kingsbury-benjamin-mcinroe-nicole-mazouchova-chen-li-ryan-maladen-chaohui-gong-matt-travers-ross-l.-hatton-howie-choset-paul-b.-umbanhowar-daniel-i.-goldman-a-review-on-locomotion-robophysics-the-study-of-movement-at-the-intersection-of-robotics-soft-matter-and-dynamical-systems.">Jeffrey Aguilar, Tingnan Zhang, Feifei Qian, Mark Kingsbury, Benjamin McInroe, Nicole Mazouchova, Chen Li, Ryan Maladen, Chaohui Gong, Matt Travers, Ross L. Hatton, Howie Choset, Paul B. Umbanhowar, Daniel I. Goldman, “A review on locomotion robophysics: the study of movement at the intersection of robotics, soft matter and dynamical systems.”</h4>
 </div>
+</section>
+
+<section id="related-work" class="title-slide slide level1">
+<h1>Related Work</h1>
+
 </section>
 <section id="minimalist-boundary-interactions" class="slide level2">
 <h2>Minimalist Boundary Interactions</h2>
@@ -309,26 +306,27 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 </div>
 <div class="column" style="width:50%;">
 <ul>
-<li>Localization<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
-<li>Mapping<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
-<li>Navigation<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></li>
-<li>Coverage<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></li>
-<li>Pursuit-evasion<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a></li>
+<li><strong>Localization</strong> with limited sensing (O’Kane, LaValle 2007)</li>
+<li>Localization using limit cycles (Alam, Bobadilla, Shell 2017)</li>
+<li><strong>Mapping</strong> (Bitbots, LaValle et. al. 2011)</li>
+<li><strong>Navigation</strong> (Tovar, Murrieta-Cit, LaValle 2007) (Lewis, O’Kane 2013)</li>
+<li><strong>Coverage</strong> (Lewis, O’Kane 2013)</li>
+<li><strong>Pursuit-evasion</strong> (Bitbots)</li>
 </ul>
 </div>
 </div>
 </section>
 <section id="minimalist-boundary-interactions-1" class="slide level2">
 <h2>Minimalist Boundary Interactions</h2>
-<div class="row">
-<div class="column" style="width:50%;">
-<p><img src="images/okane_unreliable.gif" class="center" height="300" /><br />
+<p><img src="images/okane_unreliable.gif" class="center" height="270" /><br />
 </p>
-</div>
-<div class="column" style="width:50%;">
-<p>Lewis, J. S., &amp; O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.</p>
-</div>
-</div>
+<h4 id="lewis-j.-s.-okane-j.-m.-planning-for-provably-reliable-navigation-using-an-unreliable-nearly-sensorless-robot.-the-international-journal-of-robotics-research-2013.">Lewis, J. S., &amp; O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.</h4>
+</section>
+<section id="wild-bodies" class="slide level2">
+<h2>Wild Bodies</h2>
+<p><img src="images/weaselballs-gates.gif" class="center" width="400" /><br />
+</p>
+<h4 id="bobadilla-l.-sanchez-o.-czarnowski-j.-gossman-k.-lavalle-s.-m.-2012.-controlling-wild-bodies-using-linear-temporal-logic.-in-robotics-science-and-systems.">Bobadilla, L., Sanchez, O., Czarnowski, J., Gossman, K., &amp; LaValle, S. M. (2012). Controlling wild bodies using linear temporal logic. In Robotics: Science and Systems.</h4>
 </section>
 <section id="micro-robots" class="slide level2">
 <h2>Micro-Robots</h2>
@@ -346,12 +344,6 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 </div>
 </div>
 </section>
-<section id="micro-scale-inspired-applications" class="slide level2">
-<h2>Micro-Scale Inspired Applications</h2>
-<p><img src="images/gear.gif" class="center" width="250" /><br />
-</p>
-<p>Need to understand and control spatial density and boundary interactions for manipulation!</p>
-</section>
 <section id="bouncing-robots" class="slide level2">
 <h2>Bouncing Robots</h2>
 <div class="row">
@@ -364,10 +356,8 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 <p><img src="images/plane.gif" class="center" width="300" /></p>
 </div>
 </div>
-<h4 id="left-example-inspired-by-spagnolie-s.-e.-wahl-c.-lukasik-j.-thiffeault-j.-l.-2017.-microorganism-billiards.-physica-d-nonlinear-phenomena-341-33-44.">Left example inspired by Spagnolie, S. E., Wahl, C., Lukasik, J., &amp; Thiffeault, J. L. (2017). Microorganism billiards. Physica D: Nonlinear Phenomena, 341, 33-44.</h4>
-</section>
-<section id="wild-bodies" class="slide level2">
-<h2>Wild Bodies</h2>
+<h4 id="toward-the-design-and-analysis-of-blind-bouncing-robots.-l.-h.-erickson-and-s.-m.-lavalle.-icra-2013">Toward the design and analysis of blind, bouncing robots. L. H. Erickson and S. M. LaValle. ICRA, 2013</h4>
+<h4 id="left-example-inspired-by-thiffeault-et.-al.-microorganism-billiards.-physica-d-nonlinear-phenomena-2017">Left example inspired by Thiffeault, et. al. Microorganism billiards. Physica D: Nonlinear Phenomena, 2017</h4>
 </section>
 
 <section id="research-goals" class="title-slide slide level1">
@@ -382,22 +372,31 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 
 </div>
 </section>
-<section id="goal-2-motion-planning-and-tasks" class="slide level2">
-<h2>Goal 2: Motion Planning and Tasks</h2>
+<section id="goal-2-planning-and-tasks" class="slide level2">
+<h2>Goal 2: Planning and Tasks</h2>
+<div class="center">
+<p>How to get from start to goal? With minimal control complexity? How much uncertainty can a plan tolerate?</p>
+</div>
+<div class="incremental">
 <div class="center">
 <p>What tasks can these robots complete?</p>
 </div>
-<div class="center">
-<p>Can we find minimal requirements on sensing, actuation, control, memory?</p>
 </div>
 </section>
-<section id="goal-3-algorithms-and-interfaces-for-design-and-control" class="slide level2">
-<h2>Goal 3: Algorithms and Interfaces for Design and Control</h2>
+<section id="goal-3-tools-for-system-design-and-analysis" class="slide level2">
+<h2>Goal 3: Tools for System Design and Analysis</h2>
 <div class="center">
-<p>We would like to more formally understand the trade-offs between sensing, actuation, computation, and memory.</p>
+<p>Can we find minimal requirements on sensing, actuation, control, memory for a given task?</p>
 </div>
+<div class="incremental">
+<div class="center">
+<p>Can we more formally understand the trade-offs between sensing, actuation, computation, and memory?</p>
+</div>
+</div>
+<div class="incremental">
 <div class="center">
 <p>Given a large, well-characterized space of robot designs, how can automated tools aid the design and verification process?</p>
+</div>
 </div>
 </section>
 
@@ -407,14 +406,11 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 </section>
 <section id="modelling-assumptions" class="slide level2">
 <h2>Modelling Assumptions</h2>
-<ul class="incremental">
+<ul>
 <li>Robot position modelled as a <em>point</em> in a <em>polygonal environment</em> (possibly with polygonal obstacles).</li>
 <li>Robots move in <em>straight lines</em> until they encounter a boundary.</li>
 </ul>
-</section>
-<section id="defining-boundary-interactions" class="slide level2">
-<h2>Defining Boundary Interactions</h2>
-<p><img src="images/bounce_examples.jpg" width="700" /></p>
+<p><img src="images/bounce_examples.jpg" class="center" width="700" /></p>
 </section>
 <section id="modelling-uncertainty" class="slide level2">
 <h2>Modelling Uncertainty</h2>
@@ -427,134 +423,132 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 <section id="how-to-implement" class="slide level2">
 <h2>How to Implement?</h2>
 <ul class="incremental">
-<li>iRobot Create with bump sensors and side-facing range sensor: “rotate-to-parallel”</li>
-<li>uniquely identifiable laser “trip wires”</li>
-<li>geo-fencing with GPS or visible boundaries</li>
-<li>overhead observation and deformable robots</li>
+<li>differential drive with bump sensors and side-facing range sensor (“rotate-to-parallel”)</li>
+<li>virtual boundaries (laser beams, GPS, visible boundaries, etc)</li>
+<li>contact sensor and mechanical alignment of robot body (“rotate-until-free”)</li>
 </ul>
+<div class="incremental">
+<p><img src="images/reorient.gif" class="center" width="300" /></p>
+</div>
 </section>
 <section id="geometry-influences-dynamics" class="slide level2">
 <h2>Geometry Influences Dynamics</h2>
 <p>Given geometry, parameterize points on outer boundary and obstacles.</p>
-<p>We can explicitly compute a functional form for state transitions between points on the boundary <span class="math inline">\(\partial P\)</span>:</p>
-<p><span class="math display">\[f: \partial P \times U \to \partial P\]</span></p>
-<div class="incremental">
-<p><strong>Observation:</strong> <span class="math inline">\(f\)</span> is easier to analyze when looking at pairs of mutually visible edges.</p>
-<h3 id="use-visibility-structure-to-discretize-space-of-possible-trajectories">Use visibility structure to discretize space of possible trajectories!</h3>
-</div>
+<p>We can explicitly compute transition function <span class="math inline">\(f\)</span> between points on the boundary.</p>
+<p><img src="images/contraction_map_cond.png" class="center" width="350" /><br />
+</p>
 </section>
 <section id="geometry-influences-dynamics-1" class="slide level2">
 <h2>Geometry Influences Dynamics</h2>
-<p><img src="images/contract.png" class="center" width="600" /><br />
-</p>
 <p><span class="math inline">\(f\)</span> is a <em>contraction mapping</em> iff <span class="math inline">\(|\frac{f(x, \theta) - f(y,\theta)}{x-y} | &lt; 1\)</span></p>
 <div class="incremental">
+<p>For two mutually visible straight-line segments, this quantity (the <em>contraction coefficient</em>) is independent of <span class="math inline">\(x, y\)</span> and depends only on <span class="math inline">\(\theta\)</span> and the internal angle <span class="math inline">\(\phi\)</span> between the segments.</p>
+</div>
+<div class="incremental">
 <p>Can be used to reduce uncertainty!</p>
+<p><img src="images/bounce_images.gif" class="center" width="150" /><br />
+</p>
 </div>
 </section>
-<section id="reducing-uncertainty-through-geometry" class="slide level2">
-<h2>Reducing Uncertainty Through Geometry</h2>
-<p><img src="images/bounce_preimages.png" class="center" width="600" /><br />
-</p>
-</section>
-<section id="stable-cycles" class="slide level2">
-<h2>Stable Cycles</h2>
+<section id="limit-cycles" class="slide level2">
+<h2>Limit Cycles</h2>
 <div class="row">
-<div class="column" style="width:50%;">
-<p><img src="images/cycles.gif" class="center" style="float:left;padding:12px" width="250" /><br />
+<div class="column" style="width:35%;">
+<p><img src="images/cycles.gif" class="center" width="250" /><br />
 </p>
 </div>
-<div class="column" style="width:50%;">
-<p><img src="images/bigc.gif" class="center" style="float:right;padding:12px" width="350" /><br />
-</p>
-</div>
-</div>
-<div class="incremental">
+<div class="column" style="width:65%;">
 <p>To write down a transition function for an entire cycle, compose individual transition functions until the composition is a return map.</p>
-</div>
-<div class="incremental">
 <p>A cycle is <strong>stable</strong> when this return map is a <em>contraction mapping</em>: two points under the mapping become closer together.</p>
-</div>
-<div class="incremental">
 <p><strong>Proposition:</strong> For all start points on the boundary of all polygons, a constant fixed-angle controller exists which will cause the robot’s trajectory to enter a stable limit cycle.</p>
+</div>
 </div>
 </section>
 
-<section id="planning-for-bouncing-robots" class="title-slide slide level1">
-<h1>Planning for Bouncing Robots</h1>
+<section id="results-nondeterministic-planning" class="title-slide slide level1">
+<h1>Results: Nondeterministic Planning</h1>
 
 </section>
 <section id="approach" class="slide level2">
 <h2>Approach</h2>
-<p><strong>Planning Problem:</strong> Given start and goal points on the boundary of the polygonal environment, create a sequence of safe nondeterministic actions that takes the robot from the start point to an interval containing the goal.</p>
+<p><strong>Planning Problem:</strong> Given start and goal sets on the boundary of the polygonal environment, create a sequence of safe nondeterministic actions that takes the robot from any point in the start set to some point in the goal set.</p>
 <ol class="incremental" type="1">
 <li>Partition boundary using “visibility events”</li>
-<li>Create <em>safe</em> edge-to-edge transition graph between segments on boundary</li>
+<li>Create <em>safe edge-to-edge transition graph</em> using boundary segments</li>
 <li>Search for paths and cycles (depending on specification)</li>
 <li>Translate paths to strategies</li>
 </ol>
 </section>
 <section id="nondeterministic-planning" class="slide level2">
 <h2>Nondeterministic Planning</h2>
-<ul class="incremental">
-<li>Plans are <em>event-based</em>.</li>
-<li>We know the exact map of the environment at planning time.</li>
-</ul>
-<p><strong>Bounce rule:</strong> determines action <span class="math inline">\(u \in (0, \pi)\)</span> at boundary.</p>
-<p><strong>Goal:</strong> Planner produces sequence of <strong>bounce rules</strong>.</p>
-</section>
-<section id="defining-safe-actions" class="slide level2">
-<h2>Defining Safe Actions</h2>
-<p><strong>Safe actions</strong>: Given two edges in the environment polygon <span class="math inline">\(e_i\)</span> and <span class="math inline">\(e_j\)</span>, an interval of actions <span class="math inline">\(\tilde{u}_{i,j} \subseteq (0, \pi)\)</span> is <em>safe</em> iff any action <span class="math inline">\(u \in \tilde{u}_{i,j}\)</span> executed from any point in <span class="math inline">\(e_i\)</span> will cause the robot to transition to a point in <span class="math inline">\(e_j\)</span> in one stage.</p>
+<p>We know the exact map of the environment at planning time.</p>
 <div class="incremental">
-<p><strong>Observation:</strong> in a single action, the robot can only transition to visible segments of the boundary.</p>
+<p><strong>Bounce rule:</strong> action to take at boundary, convex subset <span class="math inline">\(u \subseteq (0, \pi)\)</span>.</p>
+</div>
+<div class="incremental">
+<p>Planner produces sequence of <strong>bounce rules</strong>.</p>
 </div>
 </section>
 <section id="visibility-decomposition" class="slide level2">
 <h2>Visibility Decomposition</h2>
-<p><img src="images/new_partial_local_sequence.png" class="center" width="550" /><br />
+<p>Equivalence relation on points along boundary with respect to what edges of original polygon they can “see”.</p>
+<p><img src="images/new_partial_local_sequence.png" class="center" width="400" /><br />
 </p>
+</section>
+<section id="defining-safe-actions" class="slide level2">
+<h2>Defining Safe Actions</h2>
+<p><strong>Safe actions</strong>: Given two edges (<span class="math inline">\(e_{start}\)</span> and <span class="math inline">\(e_{goal}\)</span>) in the environment polygon, an interval of bounce angles is <strong>safe</strong> iff:</p>
 <div class="incremental">
-<p>Equivalence relation on points along boundary with respect to what edges of original polygon they can “see”. Static obstacles use same partitioning operation!</p>
+<p>any action in the interval,</p>
+</div>
+<div class="incremental">
+<p>executed from any point on <span class="math inline">\(e_{start}\)</span>,</p>
+</div>
+<div class="incremental">
+<p>will cause the robot to transition to some point on <span class="math inline">\(e_{goal}\)</span>.</p>
 </div>
 </section>
 <section id="forming-the-safe-bounce-visibility-graph" class="slide level2">
 <h2>Forming the Safe Bounce Visibility Graph</h2>
-<p><img src="images/safe_bvg.png" class="center" width="750" /></p>
 <p><strong>Nodes</strong>: Edges of <em>partitioned</em> polygon.</p>
 <p><strong>Edges</strong>: Directed. Present if safe action exists between edge <span class="math inline">\(e_i\)</span> and edge <span class="math inline">\(e_j\)</span>. Edge holds data on safe angle interval.</p>
 <div class="incremental">
-<p>Algorithm 1 of WAFR paper: polygon with <span class="math inline">\(n\)</span> vertices will produce bounce visibility graph with <span class="math inline">\(O(n^2)\)</span> nodes and <span class="math inline">\(O(n^4)\)</span> edges.</p>
+<p>Algorithm 1 of WAFR 2018 paper: polygon with <span class="math inline">\(n\)</span> vertices will produce bounce visibility graph with <span class="math inline">\(O(n^2)\)</span> nodes and <span class="math inline">\(O(n^4)\)</span> edges.</p>
 </div>
 </section>
-<section id="searching-the-safe-bounce-visibility-graph" class="slide level2">
-<h2>Searching the Safe Bounce Visibility Graph</h2>
-<p>Can use different search algorithms for different specification types.</p>
-<div class="incremental">
+<section id="forming-the-safe-bounce-visibility-graph-1" class="slide level2">
+<h2>Forming the Safe Bounce Visibility Graph</h2>
+<p><img src="images/safe_bvg.png" class="center" width="750" /></p>
+</section>
+<section id="examples-of-search-queries" class="slide level2">
+<h2>Examples of Search Queries</h2>
 <p>If we want to give our robot a constant control input, can use breadth-first search with constraint intersection.</p>
+<p><img src="images/inserted_two_conv.png" class="center" width="700" /><br />
+</p>
+</section>
+<section id="examples-of-search-queries-1" class="slide level2">
+<h2>Examples of Search Queries</h2>
+<p>We can search while bounding the maximum distance travelled by the robot by labelling each edge with the maximum distance travelled by any transition represented by that edge.</p>
+<div class="incremental">
+<p>Can search for only contracting paths, or keep the total state expansion/contraction under a bounded amount.</p>
 </div>
 <div class="incremental">
-<p>If we want to bound the maximum distance travelled by the robot, can use Dijkstra’s algorithm.</p>
+<p>Of all paths from A to B (up to bounded length), which allows the most unreliable robot?</p>
 </div>
 <div class="incremental">
 <p>In all cases, along with a plan, we also get a characterization of how much uncertainty the plan can tolerate (design constraints!)</p>
 </div>
 </section>
-<section id="other-example-queries" class="slide level2">
-<h2>Other Example Queries</h2>
-<p>Of all paths from A to B (up to bounded length), which allows the most unreliable robot?</p>
+<section id="completeness-and-correctness" class="slide level2">
+<h2>Completeness and Correctness</h2>
+<p>This is an exact planner, so all found solutions are correct, and it will not return any infeasible plans.</p>
 <div class="incremental">
-<p>From a given start set, what parts of the polygon boundary are reachable?</p>
-</div>
-<div class="incremental">
-<p>Given a finite set of actions, what parts of the boundary are reachable?</p>
-</div>
-<div class="incremental">
-<p>What parts of the polygon are reachable with a constant controller?</p>
-</div>
-<div class="incremental">
-<p><img src="images/inserted_two_conv.png" class="center" width="700" /><br />
-</p>
+<p>However, it is <strong>not</strong> complete, for three reasons:</p>
+<ul class="incremental">
+<li>currently does not take into account knowledge about initial conditions</li>
+<li>does not allow state splitting during the search (robot state is maintained as one contiguous set of points along the environment boundary)</li>
+<li>does not take into account how some state transitions reduce uncertainty</li>
+</ul>
 </div>
 </section>
 
@@ -562,133 +556,161 @@ href="https://arxiv.org/abs/1602.04712">https://arxiv.org/abs/1602.04712</a></fo
 <h1>Applications, Tasks, and Interfaces</h1>
 
 </section>
-<section id="safe-cycles" class="slide level2">
-<h2>Safe Cycles</h2>
-<p><strong>Safe cycle:</strong> a cycle in the safe bounce visibility graph. May or may not have stabilizing property.</p>
-<div class="incremental">
-<p><strong>Safe stable cycles:</strong> Given a constant action interval at each stage, we can bound the worst-case uncertainty in robot position if each transition is a contraction mapping in all cases.</p>
+<section id="directed-self-assembly-and-manipulation" class="slide level2">
+<h2>Directed Self-Assembly and Manipulation</h2>
+<div class="row">
+<div class="column" style="width:50%;">
+<p><img src="images/gear.gif" class="center" width="200" /></p>
 </div>
-<div class="incremental">
-<h3 id="example-cycle-queries">Example Cycle Queries</h3>
-<ul class="incremental">
-<li>Is there a safe cycle which visits edge set <span class="math inline">\(E\)</span> (in a particular order, or not)?</li>
-<li>For actions with uncertainty <span class="math inline">\(\pm \epsilon\)</span>, is there a reachable cycle which will shrink the size of the robot’s state estimate below <span class="math inline">\(\delta\)</span>?</li>
-</ul>
+<div class="column" style="width:50%;">
+<p><img src="images/ratchet.jpg" class="center" width="400" /></p>
 </div>
+</div>
+<h4 id="di-leonardo-roberto-et-al.-bacterial-ratchet-motors.-proceedings-of-the-national-academy-of-sciences-2010">Di Leonardo, Roberto, et al. “Bacterial ratchet motors.” Proceedings of the National Academy of Sciences (2010)</h4>
+<h4 id="klavins-eric.-programmable-self-assembly.-ieee-control-systems-magazine-27-2007.">Klavins, Eric. “Programmable self-assembly.” IEEE Control Systems Magazine 27, 2007.</h4>
+</section>
+<section id="weaselball-hub-design" class="slide level2">
+<h2>Weaselball Hub Design</h2>
+<div class="center-text">
+<p><img src="images/weaselball_design_iterations.png" style="float:left;height:150px"> <img src="images/weaselball_design4.jpg" style="float:right;height:150px"></p>
+</div>
+<div class="row">
+<div class="column" style="width:60%;">
+<p>Next step: <strong>controllable detaching</strong> (electro-permanent magnets or shape-memory alloys)</p>
+</div>
+<div class="column" style="width:40%;">
+<p><img src="images/weaselball_stacked.jpg" class="center" height="200" /></p>
+</div>
+</div>
+</section>
+<section id="assembly-example" class="slide level2">
+<h2>Assembly Example</h2>
+<p><img src="images/collective_formation.gif" class="center" height="200" /></p>
+<h4 id="nilles-a.-wasserman-j.-born-a.-horn-c.-born-j.-lavalle-s.-m.-2019-august.-a-hardware-and-software-testbed-for-underactuated-self-assembling-robots.-in-2019-international-symposium-on-multi-robot-and-multi-agent-systems-mrs-pp.-7-9.-ieee.">Nilles, A., Wasserman, J., Born, A., Horn, C., Born, J., &amp; LaValle, S. M. (2019, August). A Hardware and Software Testbed for Underactuated Self-Assembling Robots. In 2019 International Symposium on Multi-Robot and Multi-Agent Systems (MRS) (pp. 7-9). IEEE.</h4>
+</section>
+<section id="key-research-insights-and-questions" class="slide level2">
+<h2>Key Research Insights and Questions</h2>
+<ol type="1">
+<li>Control of macro states (“pressure”, “temperature”) could enable manipulation and other useful tasks.</li>
+<li>Robot-robot interactions affect these macro-states.</li>
+<li>Robot-boundary interactions affect these macro-states.</li>
+<li>How to tune and design these interactions?</li>
+</ol>
+<h4 id="mayya-siddharth-gennaro-notomista-dylan-shell-seth-hutchinson-and-magnus-egerstedt.-non-uniform-robot-densities-in-vibration-driven-swarms-using-phase-separation-theory.-iros-2019.">Mayya, Siddharth, Gennaro Notomista, Dylan Shell, Seth Hutchinson, and Magnus Egerstedt. “Non-uniform robot densities in vibration driven swarms using phase separation theory.” IROS, 2019.</h4>
 </section>
 <section id="manipulation-wafr-2020" class="slide level2">
 <h2>Manipulation (WAFR 2020)</h2>
+<p><img src="images/environment_and_triangles.png" class="center" width="600" /></p>
 </section>
-<section id="remaining-goals-and-approach" class="slide level2">
-<h2>Remaining Goals and Approach</h2>
+<section id="manipulation-wafr-2020-1" class="slide level2">
+<h2>Manipulation (WAFR 2020)</h2>
+<p><img src="images/FSMs.png" class="center" width="600" /></p>
 </section>
-<section id="goal-1-sensor-feedback-and-planning-in-information-space" class="slide level2">
-<h2>Goal 1: Sensor Feedback and Planning in Information Space</h2>
-<p>We’ve been assuming the robot has a counter and knows the current stage. What if we instead assume that the robot has a set of constant controllers and can only switch as a function of sensor feedback?</p>
-<div class="incremental">
-<p>Imagine adding “laser beams” to the system: lines that emit a signal when they are crossed by a robot.</p>
+<section id="interesting-takeaways" class="slide level2">
+<h2>Interesting Takeaways</h2>
 <ul class="incremental">
-<li>if beams are already placed, and robot doesn’t know where it starts, how can it maximally shrink uncertainty in location?</li>
-<li>if we’re given <span class="math inline">\(k\)</span> beams, where to place to aid localization?</li>
+<li>movement primitives lend themselves well to abstraction</li>
+<li>given information history, three types of state estimation:
+<ul class="incremental">
+<li>what states could I have started in to create this information history?</li>
+<li>what states could I currently be in?</li>
+<li>what states could I reach in the future (with a given controller)?</li>
+</ul></li>
 </ul>
-</div>
 </section>
-<section id="goal-2-improving-the-planner" class="slide level2">
-<h2>Goal 2: Improving the Planner</h2>
-<ul>
-<li>Include probabilistic information
-<ul>
-<li>Assume we’re given probability distribution of actual <span class="math inline">\(\theta\)</span> given a control input</li>
-<li>Bayesian updates while searching graph</li>
-</ul></li>
-</ul>
-<div class="incremental">
-<ul>
-<li>Better interface and specification language
-<ul>
-<li>visualizations of coverage, trapping regions, etc</li>
-<li>LTL specifications and plan synthesis
-<ul>
-<li>“eventually reach region <em>A</em>…”</li>
-<li>“stay in region <em>B</em> until…”</li>
-</ul></li>
-</ul></li>
-</ul>
-</div>
+<section id="corralling" class="slide level2">
+<h2>Corralling</h2>
+<p><img src="images/corralling.gif" class="center" width="400" /></p>
 </section>
 <section id="interfaces-and-design" class="slide level2">
 <h2>Interfaces and Design</h2>
+<p><img src="images/visualizer.jpg" class="center" width="600" /></p>
+</section>
+<section id="interfaces-and-design-1" class="slide level2">
+<h2>Interfaces and Design</h2>
 <div data-align="center" style="float;padding:24px">
-<iframe width="600" height="400" src="images/improv_demo.mp4" frameborder="0" allowfullscreen>
+<iframe width="600" height="250" src="images/improv_demo.mp4" frameborder="0" allowfullscreen>
 </iframe>
 </div>
-<p>with Dr. Amy LaViers. Choreographers and movement observers have lots of technologies for specifying movement!</p>
+<p>with Dr. Amy LaViers. Choreographers and movement observers have lots of technologies for specifying movement! Published MOCO 2018.</p>
 </section>
-<section id="goal-3-minimalism-for-underactuated-multi-robot-systems" class="slide level2">
-<h2>Goal 3: Minimalism for Underactuated Multi-Robot Systems</h2>
-<p>Traditional planning techniques don’t scale well to multi-robot systems.</p>
-<div class="incremental">
-<p>Can giving up precise control of individual robots actually help us?</p>
-</div>
-<div class="incremental">
-<ul class="incremental">
-<li>Mayya, Siddharth, Pietro Pierpaoli, Girish Nair, and Magnus Egerstedt. <strong>Localization in densely packed swarms using interrobot collisions as a sensing modality.</strong> IEEE Transactions on Robotics (2018).</li>
-<li>Gauci, Melvin, Jianing Chen, Wei Li, Tony J. Dodd, and Roderich Groß. <strong>Self-organized aggregation without computation.</strong> IJRR (2014).</li>
-<li>Becker, Aaron, Golnaz Habibi, Justin Werfel, Michael Rubenstein, and James McLurkin. <strong>Massive uniform manipulation: Controlling large populations of simple robots with a common input signal.</strong> IROS (2013).</li>
-</ul>
-</div>
+
+<section id="remaining-goals-and-approach" class="title-slide slide level1">
+<h1>Remaining Goals and Approach</h1>
+
 </section>
-<section id="micro-scale-inspired-applications-1" class="slide level2">
-<h2>Micro-Scale Inspired Applications</h2>
-<div data-align="center" style="float;padding:24px">
-<iframe width="600" height="400" src="images/4B-tl.mp4" frameborder="0" allowfullscreen>
-</iframe>
+<section id="main-goal-the-bouncing-robot-design-game" class="slide level2">
+<h2>Main Goal: “The Bouncing Robot Design Game”</h2>
+<div class="row">
+<div class="column" style="width:50%;">
+<p>Combine and extend work so far into an interactive tool for designing bouncing robot systems.</p>
+<p>Space of possible systems designs is large!</p>
+<p>I see this as a first step toward a CAD tool for micro-robotic assembly systems.</p>
+</div>
+<div class="column" style="width:50%;">
+<p><img src="images/design_short.png" class="center" width="300" /><br />
+</p>
+</div>
 </div>
 </section>
-<section id="micro-scale-inspired-applications-2" class="slide level2">
-<h2>Micro-Scale Inspired Applications</h2>
-<p>Research questions:</p>
-<ul class="incremental">
-<li>Can introducing agents with controllable boundary interactions into a collection of Brownian agents induce currents? Under what conditions?</li>
-<li>If the bouncing robots are able to produce a signal that the Brownian agents can respond to (EM field alignment, chemotaxis), can we cluster and/or sort the Brownian agents?</li>
-<li>What is the role of environment geometry in group dynamics? How do we design environments for sorting and otherwise studying microswimmers?</li>
+<section id="features-of-design-tool" class="slide level2">
+<h2>Features of Design Tool</h2>
+<p>Interface:</p>
+<ul>
+<li>More visualizations, such as coverage, sample trajectories for plans, trapping regions, etc.</li>
+<li>Interactive placement of sensors, geometry, gates, etc.</li>
+<li>“Toolbox” of low-level controllers (ex: bounce rules and initial conditions needed to create cycle in selected region)</li>
 </ul>
 </section>
-<section id="summary" class="slide level2">
-<h2>Summary</h2>
-<p>We have developed a geometric planner that includes dynamical information and allows for optimization with respect to uncertainty in position and actuation.</p>
+<section id="system-sensor-placement" class="slide level2">
+<h2>System Sensor Placement</h2>
+<p>Proposed first sensors:</p>
+<ul class="incremental">
+<li>colored “laser beams” that emit a signal when they are crossed by a robot</li>
+<li>chemical comparators and globally switchable chemical “sources”</li>
+</ul>
 <div class="incremental">
-<p>So far, all planning is done under nondeterminstic, “worst case” assumptions.</p>
+<p>Most useful sensors are ones with computable spatial preimages, because they induce a natural environment discretization.</p>
 </div>
+</section>
+<section id="sub-goal-1-sensor-feedback-and-planning-in-information-space" class="slide level2">
+<h2>Sub-Goal 1: Sensor Feedback and Planning in Information Space</h2>
+<p>Given user-defined regions within the environment (target regions), we want to be able to design <em>flows</em>: collective robot movement patterns that achieve a goal.</p>
+<p>Goal could be really any function over the system state… try to maximize “points” in the game.</p>
+<p>For some goals, like visiting some regions in a particular order, we may be able to synthesize controllers.</p>
+</section>
+<section id="sub-goal-2-abstractions-on-dynamics" class="slide level2">
+<h2>Sub-Goal 2: Abstractions on Dynamics</h2>
+<p>Given initial conditions and a controller:</p>
+<ul class="incremental">
+<li>visualize and bound persistent states, using contraction properties</li>
+<li>analyze ergodicity for coverage applications (fit Mixture of Gaussians?)</li>
+</ul>
 <div class="incremental">
-<p>Not complete: “splitting” state into two different segments is not allowed. This means not all nondeterministic actions are explored.</p>
+<p>Both of these could be done over forward simulations of the nondeterministic dynamical system. Also plan to continue work on analytical characterizations of the dynamical systems.</p>
+</div>
+</section>
+<section id="stretch-goal" class="slide level2">
+<h2>Stretch goal</h2>
+<p>LTL specifications and plan synthesis</p>
+<div class="incremental">
+<p>“eventually reach region <em>A</em>…”</p>
+<p>“stay in region <em>B</em> until…”</p>
 </div>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
-<ul class="incremental">
+<ul>
 <li>“Bouncing robot” model is cool and applies to a wide range of physical systems!</li>
 <li>Compliance and minimalism are cool principles and still useful!</li>
-<li>Lots of “low hanging fruit” left to work on, especially when looking at sensor models / information spaces / low-complexity controllers.</li>
+<li>Lots of very cool problems to work on, especially when looking at sensor models / information spaces / low-complexity controllers.</li>
 </ul>
+<p><img src="images/cycles.gif" class="center" width="200" /></p>
 </section>
 
 <section id="thank-you" class="title-slide slide level1">
 <h1>Thank you!</h1>
 
-</section>
-
-<section class="footnotes" role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1" role="doc-endnote"><p>O’Kane, J. M., &amp; LaValle, S. M. Localization with limited sensing. IEEE Transactions on Robotics, 2007.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>M. Katsev, A. Yershova, B. Tovar, R. Ghrist, and S. M. LaValle. IEEE Transactions on Robotics, 2011.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>Tovar, B., Murrieta-Cid, R., &amp; LaValle, S. M. Distance-optimal navigation in an unknown environment without sensing distances. IEEE Transactions on Robotics, 2007.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>Tovar, B., Murrieta-Cid, R., &amp; LaValle, S. M. Distance-optimal navigation in an unknown environment without sensing distances. IEEE Transactions on Robotics, 2007.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>Lewis, J. S., &amp; O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6" role="doc-endnote"><p>Lewis, J. S., &amp; O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7" role="doc-endnote"><p>M. Katsev, A. Yershova, B. Tovar, R. Ghrist, and S. M. LaValle. IEEE Transactions on Robotics, 2011.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
 </section>
 <!-- {{{{ dzslides core
 #
