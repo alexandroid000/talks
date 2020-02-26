@@ -656,10 +656,11 @@ Thesis Proposal</div></h2>
 <section id="features-of-design-tool" class="slide level2">
 <h2>Features of Design Tool</h2>
 <p>Interface:</p>
-<ul>
+<ul class="incremental">
 <li>More visualizations, such as coverage, sample trajectories for plans, trapping regions, etc.</li>
 <li>Interactive placement of sensors, geometry, gates, etc.</li>
 <li>“Toolbox” of low-level controllers (ex: bounce rules and initial conditions needed to create cycle in selected region)</li>
+<li>User iteratively builds hierarchical controller.</li>
 </ul>
 </section>
 <section id="system-sensor-placement" class="slide level2">
@@ -670,24 +671,29 @@ Thesis Proposal</div></h2>
 <li>chemical comparators and globally switchable chemical “sources”</li>
 </ul>
 <div class="incremental">
-<p>Most useful sensors are ones with computable spatial preimages, because they induce a natural environment discretization.</p>
+<p>Most useful sensors are ones with computable spatial preimages, because they induce a natural environment discretization. Can compare and optimize wrt planner discretization.</p>
 </div>
 </section>
-<section id="sub-goal-1-sensor-feedback-and-planning-in-information-space" class="slide level2">
-<h2>Sub-Goal 1: Sensor Feedback and Planning in Information Space</h2>
-<p>Given user-defined regions within the environment (target regions), we want to be able to design <em>flows</em>: collective robot movement patterns that achieve a goal.</p>
-<p>Goal could be really any function over the system state… try to maximize “points” in the game.</p>
-<p>For some goals, like visiting some regions in a particular order, we may be able to synthesize controllers.</p>
+<section id="planning-in-information-space" class="slide level2">
+<h2>Planning in Information Space</h2>
+<p>Given user-defined regions within the environment (target regions), we want to be able to design <em>flows</em>: collective robot movement patterns that achieve a task.</p>
+<div class="incremental">
+<p>For some tasks, like ones that require visiting some regions in a particular order, we can use the existing planner to automatically compute solutions.</p>
+</div>
+<div class="incremental">
+<p>User and program work together to create controller.</p>
+</div>
 </section>
-<section id="sub-goal-2-abstractions-on-dynamics" class="slide level2">
-<h2>Sub-Goal 2: Abstractions on Dynamics</h2>
+<section id="abstractions-on-dynamics" class="slide level2">
+<h2>Abstractions on Dynamics</h2>
 <p>Given initial conditions and a controller:</p>
 <ul class="incremental">
 <li>visualize and bound persistent states, using contraction properties</li>
-<li>analyze ergodicity for coverage applications (fit Mixture of Gaussians?)</li>
+<li>analyze ergodicity for coverage applications?</li>
 </ul>
 <div class="incremental">
-<p>Both of these could be done over forward simulations of the nondeterministic dynamical system. Also plan to continue work on analytical characterizations of the dynamical systems.</p>
+<p>Both of these could be “data-driven” over forward simulations of the nondeterministic dynamical system. Also plan to continue work on analytical characterizations of the dynamical systems.</p>
+<p><img src="images/pent_chaos.png" class="center" width="130" /></p>
 </div>
 </section>
 <section id="stretch-goal" class="slide level2">

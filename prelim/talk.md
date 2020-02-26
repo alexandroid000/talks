@@ -605,7 +605,6 @@ Main Goal: "The Bouncing Robot Design Game"
 -------------------------------------------
 
 
-
 <div class="row">
 <div class="column" width="50%">
 
@@ -632,11 +631,12 @@ Features of Design Tool
 
 Interface:
 
-- More visualizations, such as coverage, sample trajectories for plans, 
+> - More visualizations, such as coverage, sample trajectories for plans, 
   trapping regions, etc.
-- Interactive placement of sensors, geometry, gates, etc.
-- "Toolbox" of low-level controllers (ex: bounce rules and initial conditions
+> - Interactive placement of sensors, geometry, gates, etc.
+> - "Toolbox" of low-level controllers (ex: bounce rules and initial conditions
 needed to create cycle in selected region)
+> - User iteratively builds hierarchical controller.
 
 System Sensor Placement
 -----------------------
@@ -649,36 +649,43 @@ Proposed first sensors:
 . . .
 
 Most useful sensors are ones with computable spatial preimages, because they 
-induce a natural environment discretization.
+induce a natural environment discretization. Can compare and optimize wrt
+planner discretization.
 
 
-Sub-Goal 1: Sensor Feedback and Planning in Information Space
----------------------------------------------------------
+Planning in Information Space
+-----------------------------
 
 Given user-defined regions within the environment (target regions), we want to
 be able to design *flows*: collective robot movement patterns that achieve a
-goal.
+task.
 
-Goal could be really any function over the system state... try to maximize 
-"points" in the game.
+. . .
 
-For some goals, like visiting some regions in a particular order, we may be able
-to synthesize controllers.
+For some tasks, like ones that require visiting some regions in a particular order, we can use the
+existing planner to automatically compute solutions.
+
+. . .
 
 
-Sub-Goal 2: Abstractions on Dynamics
-------------------------------------
+User and program work together to create controller.
+
+
+Abstractions on Dynamics
+------------------------
 
 Given initial conditions and a controller:
 
 > - visualize and bound persistent states, using contraction properties
-> - analyze ergodicity for coverage applications (fit Mixture of Gaussians?)
+> - analyze ergodicity for coverage applications?
 
 . . .
 
-Both of these could be done over forward simulations of the nondeterministic
+Both of these could be "data-driven" over forward simulations of the nondeterministic
 dynamical system. Also plan to continue work on analytical characterizations of
 the dynamical systems.
+
+![](images/pent_chaos.png){class="center" width=130px}
 
 
 Stretch goal

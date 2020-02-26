@@ -13,8 +13,8 @@
       padding: 10px 10px 10px 10px;
       margin: 0px;
       text-align: center;
-      background-color: #EEEEEE;
-      color: #777777;
+      background-color: #aa99ae;
+      color: #ffffff;
   }
   .author {
       margin-top: 10px;
@@ -53,9 +53,9 @@
   h1, h3, h4, h5 { text-align: center; }
   h1, h2, h3 { margin: 10pt 10pt 5pt 10pt; }
   h1 {
-      margin-top: 230px;
+      margin-top: 150px;
       font-size: 230%;
-      background-color: #cdb0d9;
+      background-color: #aa99ae;
       border-radius: 12px; }
   h1.title {
       margin-top: 20px;
