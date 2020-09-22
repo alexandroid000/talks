@@ -5,6 +5,8 @@ author: |
     | Thesis Proposal
 date: February 26, 2020
 aspectratio: 169
+self-contained: true
+resource-path: ["/home/alli/common/figs","."]
 bibliography: thesisrefs.bib
 csl: ieee.csl
 ...
@@ -44,7 +46,7 @@ new hardware and software approaches.
 Environment Boundaries Can Be Useful in the Face of Uncertainty!
 ---------------------------------------
 
-![](images/roomba.gif){height="300px" class="center"}
+![](roomba.gif){height="300px" class="center"}
 
 
 Lessons from Manipulation
@@ -53,7 +55,7 @@ Lessons from Manipulation
 <div class="row">
 <div class="column" width="60%">
 
-![](images/grasp.gif){width=350px class="center"}\
+![](grasp.gif){width=350px class="center"}\
 
 </div>
 <div class="column" width="40%">
@@ -108,7 +110,7 @@ Minimalist Boundary Interactions
 <div class="row">
 <div class="column" width="50%">
 
-![](images/bitbots.jpg){width=350px class="center"}\
+![](bitbots.jpg){width=350px class="center"}\
 
 
 </div>
@@ -135,7 +137,7 @@ Minimalist Boundary Interactions
 -----------------------------
 
 
-![](images/okane_unreliable.gif){height=270px class="center"}\
+![](okane_unreliable.gif){height=270px class="center"}\
 
 
 #### Lewis, J. S., & O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.
@@ -143,7 +145,7 @@ Minimalist Boundary Interactions
 Wild Bodies
 -----------
 
-![](images/weaselballs-gates.gif){width=400px class="center"}\
+![](weaselballs-gates.gif){width=400px class="center"}\
 
 ####  Bobadilla, L., Sanchez, O., Czarnowski, J., Gossman, K., & LaValle, S. M. (2012). Controlling wild bodies using linear temporal logic. In Robotics: Science and Systems.
 
@@ -154,7 +156,7 @@ Micro-Robots
 <div class="row">
 <div class="column" width="40%">
 
-![](images/reorient.gif){width=300px class="center"}
+![](reorient.gif){width=300px class="center"}
 
 <font size="3"> 
 
@@ -166,7 +168,7 @@ eukaryotes.** PNAS, 2013.
 </font></div>
 <div class="column" width="60%">
 
-![](images/swimmers.png){width=400px class="center"}\
+![](swimmers.png){width=400px class="center"}\
 
 </div>
 </div>
@@ -181,7 +183,7 @@ Bouncing Robots
 
 Iterating the same boundary interaction can cause cycles and trapping regions:
 
-![](images/twoconv.gif){width=300px class="center"}
+![](twoconv.gif){width=300px class="center"}
 
 
 </div>
@@ -189,7 +191,7 @@ Iterating the same boundary interaction can cause cycles and trapping regions:
 
 Combinatorial changes from small perturbations:
 
-![](images/plane.gif){width=300px class="center"}
+![](plane.gif){width=300px class="center"}
 
 </div>
 </div>
@@ -207,7 +209,7 @@ Goal 1: Robust, Predictable Movement Primitives
 -----
 
 
-![](images/flow.png){width=500px class="center"}\
+![](flow.png){width=500px class="center"}\
 
 
 <div class="center">
@@ -263,7 +265,7 @@ obstacles).
 - Robots move in *straight lines* until they encounter a boundary.
 
 
-![](images/bounce_examples.jpg){width=700px class="center"}
+![](bounce_examples.jpg){width=700px class="center"}
 
 
 
@@ -271,7 +273,7 @@ Modelling Uncertainty
 ---------------------
 
 
-![](images/bounce_example_nondet.png){width=400px class="center"}
+![](bounce_example_nondet.png){width=400px class="center"}
 
 Uncertainty is unavoidable... Plan over **nondeterministic** bounce rules!
 
@@ -288,7 +290,7 @@ How to Implement?
 
 . . .
 
-![](images/reorient.gif){width=300px class="center"}
+![](reorient.gif){width=300px class="center"}
 
 
 Geometry Influences Dynamics
@@ -299,7 +301,7 @@ Given geometry, parameterize points on outer boundary and obstacles.
 We can explicitly compute transition function $f$ between points on
 the boundary.
 
-![](images/contraction_map_cond.png){width=350px class="center"}\
+![](contraction_map_cond.png){width=350px class="center"}\
 
 
 Geometry Influences Dynamics
@@ -318,7 +320,7 @@ internal angle $\phi$ between the segments.
 Can be used to reduce uncertainty!
 
 
-![](images/bounce_images.gif){width=150px class="center"}\
+![](bounce_images.gif){width=150px class="center"}\
 
 
 
@@ -328,7 +330,7 @@ Limit Cycles
 <div class="row">
 <div class="column" width="35%">
 
-![](images/cycles.gif){width=250 class="center"}\
+![](cycles.gif){width=250 class="center"}\
 
 
 </div>
@@ -390,7 +392,7 @@ Visibility Decomposition
 Equivalence relation on points along boundary with respect to what edges of
 original polygon they can "see".
 
-![](images/new_partial_local_sequence.png){width=400px class="center"}\
+![](new_partial_local_sequence.png){width=400px class="center"}\
 
 
 Defining Safe Actions
@@ -430,7 +432,7 @@ Forming the Safe Bounce Visibility Graph
 ----------------------------
 
 
-![](images/safe_bvg.png){width=750 class="center"}
+![](safe_bvg.png){width=750 class="center"}
 
 
 Examples of Search Queries
@@ -439,7 +441,7 @@ Examples of Search Queries
 If we want to give our robot a constant control input, can use breadth-first search with constraint
 intersection.
 
-![](images/inserted_two_conv.png){width=700px class="center"}\
+![](inserted_two_conv.png){width=700px class="center"}\
 
 Examples of Search Queries
 --------------------
@@ -489,12 +491,12 @@ Directed Self-Assembly and Manipulation
 <div class="row">
 <div class="column" width="50%">
 
-![](images/gear.gif){class="center" width=200px}
+![](gear.gif){class="center" width=200px}
 
 </div>
 <div class="column" width="50%">
 
-![](images/ratchet.jpg){class="center" width=400px}
+![](ratchet.jpg){class="center" width=400px}
 
 
 </div>
@@ -510,8 +512,8 @@ Weaselball Hub Design
 
 <div class="center-text"> 
 
-<img src="images/weaselball_design_iterations.png" style="float:left;height:150px">
-<img src="images/weaselball_design4.jpg" style="float:right;height:150px">
+<img src="weaselball_design_iterations.png" style="float:left;height:150px">
+<img src="weaselball_design4.jpg" style="float:right;height:150px">
 
 </div>
 
@@ -525,7 +527,7 @@ shape-memory alloys)
 </div>
 <div class="column" width="40%">
 
-![](images/weaselball_stacked.jpg){class="center" height=200px}
+![](weaselball_stacked.jpg){class="center" height=200px}
 
 
 </div>
@@ -535,7 +537,7 @@ shape-memory alloys)
 Assembly Example
 ----------------
 
-![](images/collective_formation.gif){class="center" height=200px}
+![](collective_formation.gif){class="center" height=200px}
 
 
 ####  Nilles, A., Wasserman, J., Born, A., Horn, C., Born, J., & LaValle, S. M. (2019, August). A Hardware and Software Testbed for Underactuated Self-Assembling Robots. In 2019 International Symposium on Multi-Robot and Multi-Agent Systems (MRS) (pp. 7-9). IEEE.
@@ -557,13 +559,13 @@ manipulation and other useful tasks.
 Manipulation (WAFR 2020)
 ------------
 
-![](images/environment_and_triangles.png){class="center" width=600px}
+![](environment_and_triangles.png){class="center" width=600px}
 
 
 Manipulation (WAFR 2020)
 ------------
 
-![](images/FSMs.png){class="center" width=600px}
+![](FSMs.png){class="center" width=600px}
 
 
 Interesting Takeaways
@@ -579,21 +581,17 @@ Interesting Takeaways
 Corralling
 ----------
 
-![](images/corralling.gif){class="center" width=400px}
+![](corralling.gif){class="center" width=400px}
 
 Interfaces and Design
 ---------------------
 
-![](images/visualizer.jpg){class="center" width=600px}
+![](visualizer.jpg){class="center" width=600px}
 
 Interfaces and Design
 ---------------------
 
-<div align="center" style="float;padding:24px">
-<iframe width="600" height="250"
-src="images/improv_demo.mp4"
-frameborder="0" allowfullscreen>
-</iframe></div>
+![](improv_demo.gif){class="center" width=600px}
 
 with Dr. Amy LaViers. Choreographers and movement observers have lots of
 technologies for specifying movement! Published MOCO 2018.
@@ -620,7 +618,7 @@ I see this as a first step toward a CAD tool for micro-robotic assembly systems.
 </div>
 <div class="column" width="50%">
 
-![](images/design_short.png){class="center" width=300px}\
+![](design_short.png){class="center" width=300px}\
 
 
 </div>
@@ -685,7 +683,7 @@ Both of these could be "data-driven" over forward simulations of the nondetermin
 dynamical system. Also plan to continue work on analytical characterizations of
 the dynamical systems.
 
-![](images/pent_chaos.png){class="center" width=130px}
+![](pent_chaos.png){class="center" width=130px}
 
 
 Stretch goal
@@ -708,7 +706,7 @@ systems!
 - Lots of very cool problems to work on, especially when looking at sensor
 models / information spaces / low-complexity controllers.
 
-![](images/cycles.gif){class="center" width=200px}
+![](cycles.gif){class="center" width=200px}
 
 
 Thank you!

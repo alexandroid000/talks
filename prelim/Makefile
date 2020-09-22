@@ -5,6 +5,7 @@ INPUT_TYPE=md
 OPTIONS=-t dzslides \
 --template my.dzslides \
 --standalone \
+--resource-path=$(HOME)/common/figs:. \
 --mathjax=$(HOME)/src/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML \
 --include-in-header=header.txt  --include-in-header=css/include.css \
 --metadata=classoption:aspectratio=169 \
