@@ -10,7 +10,7 @@ date: |
 sponsors: <img src="/home/alli/common/figs/sponsors.png" width="800" height="100">
 aspectratio: 169
 self-contained: true
-resource-path: ["/home/alli/common/figs","."]
+resource-path: ["/home/alli/common/figs/","."]
 bibliography: thesisrefs.bib
 csl: ieee.csl
 ...
