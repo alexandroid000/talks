@@ -8,18 +8,22 @@ date: |
     | Thesis Advisor: Dr. Steven M. LaValle
     | October 21, 2020
 sponsors: <img src="/home/alli/common/figs/sponsors.png" width="800" height="100">
-aspectratio: 169
-self-contained: true
+revealjs-url: ./reveal.js/
 resource-path: ["/home/alli/common/figs/","."]
+css: ["alli.css"]
+aspectratio: 169
+width: 800
+height: 450
+self-contained: true
 bibliography: thesisrefs.bib
 csl: ieee.csl
 ...
 
+# Test
 
+## Test2
 
-Robotics "Stack"
-----------------
-
+### Test3
 
 Roadmap
 -------
@@ -29,8 +33,7 @@ reverse order of title:
 - how to model simple robots and what kinds of simplicity we care about, and why
     - micro-robots
     - insects (ant/termite collisions in tunnels)
-    - climate crisis requires monitoring of many types of ecosystems with
-  limited sensing/communication
+    - climate crisis requires monitoring of many types of ecosystems with limited sensing/communication
         - weaselballs, gates -> clean up trash/oil
 - how to model boundary interactions, dynamical consequences (limit cycles)
     - learning can replace analytic understanding of dynamics if the learning module
@@ -42,11 +45,57 @@ reverse order of title:
     - "complex, crowded environments"
     - WAFR2020 shows importance of sensor design, even coarse sensing
 
+What Makes a Robot "Simple"?
+-----------------------
 
-Environment Boundaries Can Be Useful in the Face of Uncertainty!
+<div class="row">
+<div class="column" width="50%">
+
+![An ATLAS robot using a vacuum cleaner. From IHMC
+[@ackerman2016ihmc].](atlas-vacuum.jpg){width=350px class="center"}
+
+</div>
+<div class="column" width="50%">
+
+
+![From Mike Johnson, YouTube [^1]](roomba.gif){width=350px class="center"}
+
+</div>
+</div>
+
+[^1]: https://www.youtube.com/watch?v=Q06G-bvGOXE
+
+Robotics "Stack"
+----------------
+
+
+When would we want a "Simple" Robot?
+------------------------------------
+
+- Novel environments lead to unique constraints on robot power
+    - Communication can be constrained by size, distance, transmission medium
+    - Computational processing can be constrained by size, security/privacy needs
+    - Cost (multiple redundant robots vs. one general purpose robot)
+- Ease of testing and verification
+
+
+What is a "Boundary Interaction"?
 ---------------------------------------
 
-![](roomba.gif){height="300px" class="center"}
+
+
+Why Do We Want to Understand Boundary Interactions?
+---------------------------------------------------
+
+- complex and crowded environments
+- intuitively useful for decreasing uncertainty
+
+*Designing* Boundary Interactions
+-------------------------------
+
+- space of possibilities is large; we choose a few appplications to ground but
+focus more on characterizing the design space
+- not always optimizing for the same thing (shortest path, fewest bounces, mechanical design...)
 
 
 Lessons from Manipulation
@@ -109,10 +158,10 @@ Minimalist Boundary Interactions
 - **Coverage** (Lewis, O'Kane 2013)
 - **Pursuit-evasion** (Bitbots)
 
-[^1]: O'Kane, J. M., & LaValle, S. M. Localization with limited sensing. IEEE Transactions on Robotics, 2007.
-[^2]: M. Katsev, A. Yershova, B. Tovar, R. Ghrist, and S. M. LaValle. IEEE Transactions on Robotics, 2011.
-[^3]: Tovar, B., Murrieta-Cid, R., & LaValle, S. M. Distance-optimal navigation in an unknown environment without sensing distances. IEEE Transactions on Robotics, 2007.
-[^4]: Lewis, J. S., & O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.
+- O'Kane, J. M., & LaValle, S. M. Localization with limited sensing. IEEE Transactions on Robotics, 2007.
+- M. Katsev, A. Yershova, B. Tovar, R. Ghrist, and S. M. LaValle. IEEE Transactions on Robotics, 2011.
+- Tovar, B., Murrieta-Cid, R., & LaValle, S. M. Distance-optimal navigation in an unknown environment without sensing distances. IEEE Transactions on Robotics, 2007.
+- Lewis, J. S., & O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.
 
 </div>
 </div>
