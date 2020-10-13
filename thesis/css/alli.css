@@ -13,19 +13,24 @@ body {
   background: #fff;
   background-color: #fff; }
 
-.reveal .sponsors {
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans');
+
+.reveal a {
+    line-height: 1.3em; }
+
+.sponsors {
   position: relative;
   width: 800px; }
-.reveal .center {
+.center {
   display: block;
   text-align: center;
   margin-left: auto;
   margin-right: auto; }
-.reveal .column {
+.column {
   float: left;
   width: 50%;
 }
-.reveal .row:after {
+.row:after {
   content: "";
   display: table;
   clear: both; }
@@ -231,10 +236,12 @@ content: "Example (" attr(name) ") ";
   margin: 300px 0px 10px 0px;}
 
 .reveal h2 {
-  font-size: 1.6em; }
+  font-size: 1.6em;
+  color: black;
+}
 
 .reveal h3 {
-  font-size: 1.3em; }
+font-size: 1.3em; }
 
 .reveal h4 {
   font-size: 1em; }
@@ -425,9 +432,9 @@ list-style-type: none; }
 .reveal a {
   color: #2a76dd;
   text-decoration: none;
-  -webkit-transition: color .15s ease;
-  -moz-transition: color .15s ease;
-  transition: color .15s ease; }
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none; }
 
 .reveal a:hover {
   color: #6ca0e8;
@@ -452,9 +459,9 @@ list-style-type: none; }
   box-shadow: none; }
 
 .reveal a img {
-  -webkit-transition: all .15s linear;
-  -moz-transition: all .15s linear;
-  transition: all .15s linear; }
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none; }
 
 .reveal a:hover img {
   background: rgba(255, 255, 255, 0.2);

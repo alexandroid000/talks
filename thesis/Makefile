@@ -3,7 +3,10 @@ INPUT=talk
 
 OPTIONS= --mathjax=$(HOME)/src/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML \
 -i -t revealjs talk.md \
+--section-divs \
+--variable transition="none" \
 --template=my.reveal \
+--extract-media=figs \
 --resource-path=$(HOME)/common/figs/:. \
 --filter=pandoc-citeproc
 #--mathjax \

@@ -10,7 +10,7 @@ date: |
 sponsors: <img src="/home/alli/common/figs/sponsors.png" width="800" height="100">
 revealjs-url: ./reveal.js/
 resource-path: ["/home/alli/common/figs/","."]
-css: ["alli.css"]
+css: ["css/metropolis.css"]
 aspectratio: 169
 width: 800
 height: 450
@@ -19,11 +19,6 @@ bibliography: thesisrefs.bib
 csl: ieee.csl
 ...
 
-# Test
-
-## Test2
-
-### Test3
 
 Roadmap
 -------
@@ -44,26 +39,27 @@ reverse order of title:
 - implications for where these robots do well, where they struggle
     - "complex, crowded environments"
     - WAFR2020 shows importance of sensor design, even coarse sensing
+- final overview of contributions
 
 What Makes a Robot "Simple"?
 -----------------------
 
-<div class="row">
-<div class="column" width="50%">
 
-![An ATLAS robot using a vacuum cleaner. From IHMC
-[@ackerman2016ihmc].](atlas-vacuum.jpg){width=350px class="center"}
+:::::::::::::: {.columns}
+::: {.column width="50%"}
 
-</div>
-<div class="column" width="50%">
+![An ATLAS robot using a vacuum cleaner. From IHMC [@ackerman2016ihmc].](atlas-vacuum.jpg){width=350px class="center"}
 
+:::
+::: {.column width="50%"}
 
 ![From Mike Johnson, YouTube [^1]](roomba.gif){width=350px class="center"}
 
-</div>
-</div>
+:::
+::::::::::::::
 
 [^1]: https://www.youtube.com/watch?v=Q06G-bvGOXE
+
 
 Robotics "Stack"
 ----------------
@@ -76,12 +72,35 @@ When would we want a "Simple" Robot?
     - Communication can be constrained by size, distance, transmission medium
     - Computational processing can be constrained by size, security/privacy needs
     - Cost (multiple redundant robots vs. one general purpose robot)
-- Ease of testing and verification
+- Ease of testing and verification (and eventually, automated design)
+
+
+Small is not always simple
+--------------------------
+
+:::::::::::::: {.columns}
+::: {.column width="60%"}
+
+![ Kantsler, V., et. al. **Ciliary contact interactions dominate surface scattering of swimming
+eukaryotes.** PNAS, 2013.](reorient.gif){width=400px class="center"}
+
+
+
+
+:::
+::: {.column width="40%"}
+
+
+![C. Bechinger, et. al. **Active particles in complex and crowded environments.** Reviews of Modern Physics, 2016.](swimmers.png){width=400px class="center"}
+:::
+::::::::::::::
+
 
 
 What is a "Boundary Interaction"?
----------------------------------------
+---------------------------------
 
+contact vs. collision
 
 
 Why Do We Want to Understand Boundary Interactions?
@@ -97,45 +116,17 @@ Why Do We Want to Understand Boundary Interactions?
 focus more on characterizing the design space
 - not always optimizing for the same thing (shortest path, fewest bounces, mechanical design...)
 
+Related Work
+============
+
 
 Lessons from Manipulation
 -------------------------
 
-<div class="row">
-<div class="column" width="60%">
-
-![](grasp.gif){width=350px class="center"}\
-
-</div>
-<div class="column" width="40%">
-
-
 > - Intelligent use of constraints / contact can enable robust robot behaviors
 > - Mason, Goldberg, Erdmann, Lozano-Pérez, etc.
+> - Jeffrey Aguilar, Tingnan Zhang, Feifei Qian, Mark Kingsbury, Benjamin McInroe, Nicole Mazouchova, Chen Li, Ryan Maladen, Chaohui Gong, Matt Travers, Ross L. Hatton, Howie Choset, Paul B. Umbanhowar, Daniel I. Goldman,  "A review on locomotion robophysics: the study of movement at the intersection of robotics, soft matter and dynamical systems."
 
-
-</div>
-</div>
-
-
-
-Definitions
------------
-
-> - *contact*: state of physical touching
-> - *collision*: contact with implied mechanical interaction (friction, sliding, etc)
-> - *boundary interaction*: umbrella term; "what does the robot do when it reaches
-a boundary in its environment?"
->   - can be an analytic model (i.e., reflection law)
->   - can be a distribution over trajectories, data-driven
->   - boundaries can be walls, laser beams, GPS boundaries, etc
-
-. . .
-
-#### Jeffrey Aguilar, Tingnan Zhang, Feifei Qian, Mark Kingsbury, Benjamin McInroe, Nicole Mazouchova, Chen Li, Ryan Maladen, Chaohui Gong, Matt Travers, Ross L. Hatton, Howie Choset, Paul B. Umbanhowar, Daniel I. Goldman,  "A review on locomotion robophysics: the study of movement at the intersection of robotics, soft matter and dynamical systems."
-
-Related Work
-============
 
 
 Minimalist Boundary Interactions
@@ -184,32 +175,16 @@ Wild Bodies
 ####  Bobadilla, L., Sanchez, O., Czarnowski, J., Gossman, K., & LaValle, S. M. (2012). Controlling wild bodies using linear temporal logic. In Robotics: Science and Systems.
 
 
-Micro-Robots
-------------
+Roadmap
+-------
 
-<div class="row">
-<div class="column" width="40%">
-
-![](reorient.gif){width=300px class="center"}
-
-<font size="3"> 
-
-C. Bechinger, et. al. **Active particles in complex and crowded environments.** Reviews of Modern Physics, 2016.
-
-Kantsler, V., et. al. **Ciliary contact interactions dominate surface scattering of swimming
-eukaryotes.** PNAS, 2013.
-
-</font></div>
-<div class="column" width="60%">
-
-![](swimmers.png){width=400px class="center"}\
-
-</div>
-</div>
 
 
 
 Bouncing Robots
+===============
+
+Baseline Behavior
 ---------------
 
 <div class="row">
@@ -223,7 +198,7 @@ Iterating the same boundary interaction can cause cycles and trapping regions:
 </div>
 <div class="column" width="50%">
 
-Combinatorial changes from small perturbations:
+Big changes from small perturbations:
 
 ![](plane.gif){width=300px class="center"}
 
@@ -248,43 +223,6 @@ Goal 1: Robust, Predictable Movement Primitives
 <div class="center">
 </div>
 
-
-Goal 2: Planning and Tasks
---------------------------
-
-<div class="center">
-How to get from start to goal? With minimal control complexity? How much
-uncertainty can a plan tolerate?
-</div>
-
-. . .
-
-<div class="center">
-What tasks can these robots complete? 
-</div>
-
-
-Goal 3: Tools for System Design and Analysis
--------------------------
-
-<div class="center">
-Can we find minimal requirements on sensing, actuation, control, memory for a
-given task?
-</div>
-
-. . .
-
-<div class="center">
-Can we more formally understand the trade-offs between sensing,
-actuation, computation, and memory?
-</div>
-
-. . .
-
-<div class="center">
-Given a large, well-characterized space of robot designs, how can automated
-tools aid the design and verification process?
-</div>
 
 
 Results: Bouncing Robots
