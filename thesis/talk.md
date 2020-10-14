@@ -23,6 +23,11 @@ csl: ieee.csl
 Roadmap
 -------
 
+> - Modelling simple robots
+> - Dynamics of "bouncing robot" trajectories
+> - Design for different tasks
+> - Review of contributions and implications for future work
+
 reverse order of title:
 
 - how to model simple robots and what kinds of simplicity we care about, and why
@@ -41,19 +46,30 @@ reverse order of title:
     - WAFR2020 shows importance of sensor design, even coarse sensing
 - final overview of contributions
 
+What Is a Robot?
+----------------
+
+sensing, action, perception loops
+
+sensing, actuation, computation, communication, power
+
+robotics "stack" and where I focus
+
 What Makes a Robot "Simple"?
 -----------------------
-
 
 :::::::::::::: {.columns}
 ::: {.column width="50%"}
 
-![An ATLAS robot using a vacuum cleaner. From IHMC [@ackerman2016ihmc].](atlas-vacuum.jpg){width=350px class="center"}
+
+
+![An ATLAS robot using a vacuum cleaner. From IHMC
+[@ackerman2016ihmc].](atlas_vacuum.gif){height=300px class="center"}
 
 :::
 ::: {.column width="50%"}
 
-![From Mike Johnson, YouTube [^1]](roomba.gif){width=350px class="center"}
+![From Mike Johnson, YouTube [^1]](roomba.gif){height=300px class="center"}
 
 :::
 ::::::::::::::
@@ -61,22 +77,26 @@ What Makes a Robot "Simple"?
 [^1]: https://www.youtube.com/watch?v=Q06G-bvGOXE
 
 
-Robotics "Stack"
-----------------
-
-
-When would we want a "Simple" Robot?
+When Do We Want a "Simple" Robot?
 ------------------------------------
 
-- Novel environments lead to unique constraints on robot power
+- Some environments lead to unavoidable constraints
     - Communication can be constrained by size, distance, transmission medium
-    - Computational processing can be constrained by size, security/privacy needs
+    - Computation can be constrained by size, security/privacy needs
     - Cost (multiple redundant robots vs. one general purpose robot)
 - Ease of testing and verification (and eventually, automated design)
 
 
-Small is not always simple
---------------------------
+"Grand Challenges" of Robotics (according to Rodney Brooks)
+------------------------------
+
+- Urbanization
+- Aging population
+- Climate change
+
+
+Motivating Examples
+-------------------
 
 :::::::::::::: {.columns}
 ::: {.column width="60%"}
@@ -84,14 +104,11 @@ Small is not always simple
 ![ Kantsler, V., et. al. **Ciliary contact interactions dominate surface scattering of swimming
 eukaryotes.** PNAS, 2013.](reorient.gif){width=400px class="center"}
 
-
-
-
 :::
 ::: {.column width="40%"}
 
-
 ![C. Bechinger, et. al. **Active particles in complex and crowded environments.** Reviews of Modern Physics, 2016.](swimmers.png){width=400px class="center"}
+
 :::
 ::::::::::::::
 
@@ -106,40 +123,52 @@ contact vs. collision
 Why Do We Want to Understand Boundary Interactions?
 ---------------------------------------------------
 
-- complex and crowded environments
-- intuitively useful for decreasing uncertainty
+- Useful or necessary to navigate in complex and crowded environments
+- Intuitively useful for decreasing uncertainty
+
+![Di Leonardo, et al. "Bacterial ratchet motors." Proceedings of the National Academy of Sciences (2010)](gear.gif){class="center" width=200px}
+
 
 *Designing* Boundary Interactions
 -------------------------------
 
+- models deliberately chosen to encompass many different physical realizations
 - space of possibilities is large; we choose a few appplications to ground but
 focus more on characterizing the design space
 - not always optimizing for the same thing (shortest path, fewest bounces, mechanical design...)
 
 Related Work
-============
+------------
 
-
-Lessons from Manipulation
--------------------------
+## Manipulation
 
 > - Intelligent use of constraints / contact can enable robust robot behaviors
 > - Mason, Goldberg, Erdmann, Lozano-Pérez, etc.
-> - Jeffrey Aguilar, Tingnan Zhang, Feifei Qian, Mark Kingsbury, Benjamin McInroe, Nicole Mazouchova, Chen Li, Ryan Maladen, Chaohui Gong, Matt Travers, Ross L. Hatton, Howie Choset, Paul B. Umbanhowar, Daniel I. Goldman,  "A review on locomotion robophysics: the study of movement at the intersection of robotics, soft matter and dynamical systems."
 
+## Robophysics
+
+> - Jeffrey Aguilar, Tingnan Zhang, Feifei Qian, Mark Kingsbury, Benjamin McInroe, Nicole Mazouchova, Chen Li, Ryan Maladen, Chaohui Gong, Matt Travers, Ross L. Hatton, Howie Choset, Paul B. Umbanhowar, Daniel I. Goldman,  "A review on locomotion robophysics: the study of movement at the intersection of robotics, soft matter and dynamical systems."
 
 
 Minimalist Boundary Interactions
 -----------------------------
 
-<div class="row">
-<div class="column" width="50%">
+![Lewis, J. S., & O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.](okane_unreliable.gif){height=270px class="center"}\
+
+The Importance of Being in Corners
+
+
+Minimalist Boundary Interactions
+-----------------------------
+
+:::::::::::::: {.columns}
+::: {.column width="50%"}
 
 ![](bitbots.jpg){width=350px class="center"}\
 
+:::
+::: {.column width="50%"}
 
-</div>
-<div class="column" width="50%">
 
 
 - **Localization** with limited sensing (O'Kane, LaValle 2007)
@@ -154,18 +183,8 @@ Minimalist Boundary Interactions
 - Tovar, B., Murrieta-Cid, R., & LaValle, S. M. Distance-optimal navigation in an unknown environment without sensing distances. IEEE Transactions on Robotics, 2007.
 - Lewis, J. S., & O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.
 
-</div>
-</div>
-
-
-Minimalist Boundary Interactions
------------------------------
-
-
-![](okane_unreliable.gif){height=270px class="center"}\
-
-
-#### Lewis, J. S., & O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.
+:::
+::::::::::::::
 
 Wild Bodies
 -----------
@@ -178,66 +197,53 @@ Wild Bodies
 Roadmap
 -------
 
-
-
+> - What can you do with a bouncing robot?
+> - What guarantees do we have about bouncing robots?
+> - Highlights of other projects in multi-agent systems, programming languages
+> - Future directions
 
 Bouncing Robots
-===============
-
-Baseline Behavior
 ---------------
 
-<div class="row">
-<div class="column" width="50%">
+:::::::::::::: {.columns}
+::: {.column width="50%"}
 
 Iterating the same boundary interaction can cause cycles and trapping regions:
 
-![](twoconv.gif){width=300px class="center"}
+![example inspired by Thiffeault, et. al. Microorganism billiards. Physica D: Nonlinear Phenomena, 2017](twoconv.gif){width=300px class="center"}
 
-
-</div>
-<div class="column" width="50%">
+:::
+::: {.column width="50%"}
 
 Big changes from small perturbations:
 
 ![](plane.gif){width=300px class="center"}
 
-</div>
-</div>
-
-####  Toward the design and analysis of blind, bouncing robots. L. H. Erickson and S. M. LaValle. ICRA, 2013
-
-#### Left example inspired by Thiffeault, et. al. Microorganism billiards. Physica D: Nonlinear Phenomena, 2017
+:::
+::::::::::::::
 
 
-Research Goals
-==============
+Methodology
+-----------
 
-Goal 1: Robust, Predictable Movement Primitives
------
+Switch between controllable baseline behaviors to complete tasks
 
+Behaviors I have focused on are:
+
+cycling, funnelling, wildness
 
 ![](flow.png){width=500px class="center"}\
 
 
-<div class="center">
-</div>
-
-
-
-Results: Bouncing Robots
-=======
-
 Modelling Assumptions
 ---------------------
 
-- Robot position modelled as a *point* in a *polygonal environment* (possibly with polygonal
-obstacles).
-- Robots move in *straight lines* until they encounter a boundary.
+> - Robot position modelled as a *point* in a *polygonal environment* (possibly with polygonal obstacles).
+> - Robots move in *straight lines* until they encounter a boundary.
 
+. . .
 
-![](bounce_examples.jpg){width=700px class="center"}
-
+![](bounce_examples.jpg){width=600px}
 
 
 Modelling Uncertainty
@@ -248,21 +254,30 @@ Modelling Uncertainty
 
 Uncertainty is unavoidable... Plan over **nondeterministic** bounce rules!
 
-. . .
-
-What kinds of error and nondeterminism does this include?
 
 How to Implement?
 -----------------
 
-> - differential drive with bump sensors and side-facing range sensor ("rotate-to-parallel")
-> - virtual boundaries (laser beams, GPS, visible boundaries, etc)
-> - contact sensor and mechanical alignment of robot body ("rotate-until-free")
 
-. . .
+- Differential drive with bump sensors and side-facing range sensor ("rotate-to-parallel")
+- Contact sensor and mechanical alignment of robot body ("rotate-until-free")
+- Boundaries can be virtual (laser beams, GPS, visible boundaries, etc)
 
-![](reorient.gif){width=300px class="center"}
 
+<div align="center" style="float:left;padding:24px">
+<iframe width="300" height="275"
+src="figs/robot_vid2.m4v"
+frameborder="0" allowfullscreen>
+</iframe></div>
+<div align="center" style="float;padding:24px">
+<iframe width="300" height="250"
+src="figs/rotate.mp4"
+frameborder="0" allowfullscreen>
+</iframe></div>
+
+<div align="center" style="float:left">
+<img src="figs/Petronics-logo.png" style="width:200px">
+</div>
 
 Geometry Influences Dynamics
 ----------------------------
@@ -273,7 +288,6 @@ We can explicitly compute transition function $f$ between points on
 the boundary.
 
 ![](contraction_map_cond.png){width=350px class="center"}\
-
 
 Geometry Influences Dynamics
 ----------------------------
@@ -298,14 +312,15 @@ Can be used to reduce uncertainty!
 Limit Cycles
 ------------------
 
-<div class="row">
-<div class="column" width="35%">
+:::::::::::::: {.columns}
+::: {.column width="50%"}
+
 
 ![](cycles.gif){width=250 class="center"}\
 
+:::
+::: {.column width="50%"}
 
-</div>
-<div class="column" width="65%">
 
 To write down a transition function for an entire cycle, compose individual
 transition functions until the composition is a return map.
@@ -319,9 +334,8 @@ A cycle is **stable** when this return map is a
 fixed-angle controller exists which will cause the robot's trajectory to enter a
 stable limit cycle.
 
-
-</div>
-</div>
+::::::::::::::
+:::
 
 
 
@@ -445,38 +459,19 @@ return any infeasible plans.
 
 However, it is **not** complete, for three reasons:
 
-> - currently does not take into account knowledge about initial conditions
-> - does not allow state splitting during the search (robot state is maintained
+> - Does not take into account knowledge about initial conditions
+> - Does not allow state splitting during the search (robot state is maintained
 as one contiguous set of points along the environment boundary)
-> - does not take into account how some state transitions reduce uncertainty
+> - Does not take into account how some state transitions reduce uncertainty
 
 
 Applications, Tasks, and Interfaces
 ==================
 
 
-Directed Self-Assembly and Manipulation
-----------------------
 
 
-<div class="row">
-<div class="column" width="50%">
 
-![](gear.gif){class="center" width=200px}
-
-</div>
-<div class="column" width="50%">
-
-![](ratchet.jpg){class="center" width=400px}
-
-
-</div>
-</div>
-
-
-####  Di Leonardo, Roberto, et al. "Bacterial ratchet motors." Proceedings of the National Academy of Sciences (2010)
-
-####  Klavins, Eric. "Programmable self-assembly." IEEE Control Systems Magazine 27, 2007.
 
 Weaselball Hub Design
 ---------------------
@@ -516,7 +511,7 @@ Assembly Example
 Key Research Insights and Questions
 ----------------------
 
-1. Control of macro states ("pressure", "temperature") could enable
+1. Control of macro states ("pressure", "temperature") can enable
 manipulation and other useful tasks.
 2. Robot-robot interactions affect these macro-states.
 3. Robot-boundary interactions affect these macro-states.
@@ -567,119 +562,13 @@ Interfaces and Design
 with Dr. Amy LaViers. Choreographers and movement observers have lots of
 technologies for specifying movement! Published MOCO 2018.
 
-Remaining Goals and Approach
-============================
-
-Main Goal: "The Bouncing Robot Design Game"
--------------------------------------------
-
-
-<div class="row">
-<div class="column" width="50%">
-
-Combine and extend work so far into an interactive tool for designing bouncing
-robot systems.
-
-Space of possible systems designs is large!
-
-
-I see this as a first step toward a CAD tool for micro-robotic assembly systems.
-
-
-</div>
-<div class="column" width="50%">
-
-![](design_short.png){class="center" width=300px}\
-
-
-</div>
-</div>
-
-Features of Design Tool
------------------------
-
-Interface:
-
-> - More visualizations, such as coverage, sample trajectories for plans, 
-  trapping regions, etc.
-> - Interactive placement of sensors, geometry, gates, etc.
-> - "Toolbox" of low-level controllers (ex: bounce rules and initial conditions
-needed to create cycle in selected region)
-> - User iteratively builds hierarchical controller.
-
-System Sensor Placement
------------------------
-
-Proposed first sensors:
-
-> - colored "laser beams" that emit a signal when they are crossed by a robot
-> - chemical comparators and globally switchable chemical "sources"
-
-. . .
-
-Most useful sensors are ones with computable spatial preimages, because they 
-induce a natural environment discretization. Can compare and optimize wrt
-planner discretization.
-
-
-Planning in Information Space
------------------------------
-
-Given user-defined regions within the environment (target regions), we want to
-be able to design *flows*: collective robot movement patterns that achieve a
-task.
-
-. . .
-
-For some tasks, like ones that require visiting some regions in a particular order, we can use the
-existing planner to automatically compute solutions.
-
-. . .
-
-
-User and program work together to create controller.
-
-
-Abstractions on Dynamics
-------------------------
-
-Given initial conditions and a controller:
-
-> - visualize and bound persistent states, using contraction properties
-> - analyze ergodicity for coverage applications?
-
-. . .
-
-Both of these could be "data-driven" over forward simulations of the nondeterministic
-dynamical system. Also plan to continue work on analytical characterizations of
-the dynamical systems.
-
 ![](pent_chaos.png){class="center" width=130px}
 
-
-Stretch goal
-------------
-
-LTL specifications and plan synthesis
-
-. . .
-
-"eventually reach region *A*..."
-
-"stay in region *B* until..."
-
-Conclusion
-----------
-
-- "Bouncing robot" model is cool and applies to a wide range of physical
-systems!
-- Compliance and minimalism are cool principles and still useful!
-- Lots of very cool problems to work on, especially when looking at sensor
-models / information spaces / low-complexity controllers.
-
 ![](cycles.gif){class="center" width=200px}
+
+Acknowledgements
+----------------
 
 
 Thank you!
 ==========
-
