@@ -31,16 +31,11 @@ Roadmap
 reverse order of title:
 
 - how to model simple robots and what kinds of simplicity we care about, and why
-    - micro-robots
-    - insects (ant/termite collisions in tunnels)
     - climate crisis requires monitoring of many types of ecosystems with limited sensing/communication
         - weaselballs, gates -> clean up trash/oil
 - how to model boundary interactions, dynamical consequences (limit cycles)
     - learning can replace analytic understanding of dynamics if the learning module
       can find stable gaits / motion patterns
-- designing these interactions for different tasks
-    - hierarchical control
-    - implications for interfaces and design: "there are lots of different good solutions"
 - implications for where these robots do well, where they struggle
     - "complex, crowded environments"
     - WAFR2020 shows importance of sensor design, even coarse sensing
@@ -87,37 +82,37 @@ When Do We Want a "Simple" Robot?
 - Ease of testing and verification (and eventually, automated design)
 
 
-"Grand Challenges" of Robotics (according to Rodney Brooks)
-------------------------------
 
-- Urbanization
-- Aging population
-- Climate change
-
-
-Motivating Examples
+Is Small Always Simple?
 -------------------
 
-:::::::::::::: {.columns}
-::: {.column width="60%"}
-
-![ Kantsler, V., et. al. **Ciliary contact interactions dominate surface scattering of swimming
-eukaryotes.** PNAS, 2013.](reorient.gif){width=400px class="center"}
-
-:::
-::: {.column width="40%"}
-
 ![C. Bechinger, et. al. **Active particles in complex and crowded environments.** Reviews of Modern Physics, 2016.](swimmers.png){width=400px class="center"}
-
-:::
-::::::::::::::
-
 
 
 What is a "Boundary Interaction"?
 ---------------------------------
 
-contact vs. collision
+:::::::::::::: {.columns}
+::: {.column width="33%"}
+
+
+![ Kantsler, V., et. al. **Ciliary contact interactions dominate surface scattering of swimming
+eukaryotes.** PNAS, 2013.](reorient.gif){width=600px class="center"}
+
+:::
+::: {.column width="33%"}
+
+![Karydis, et. al. **Motion Planning for Collision-resilient Robots in Unknown Maps with Risk Reward
+Trade-off.** IROS 2020](figs/collide-arclab.gif){width=600px class="center"}
+
+:::
+::: {.column width="33%"}
+
+![Mote, et. al. **Collision-Inclusive Trajectory Optimization for Free-Flying
+Spacecraft.** Journal of Guidance, Control, and Dynamics 2020.](figs/space-collide-mote.gif){width=300px class="center"}
+
+:::
+::::::::::::::
 
 
 Why Do We Want to Understand Boundary Interactions?
@@ -132,10 +127,15 @@ Why Do We Want to Understand Boundary Interactions?
 *Designing* Boundary Interactions
 -------------------------------
 
-- models deliberately chosen to encompass many different physical realizations
-- space of possibilities is large; we choose a few appplications to ground but
-focus more on characterizing the design space
-- not always optimizing for the same thing (shortest path, fewest bounces, mechanical design...)
+
+![](bounce_examples_w_monotone_fixed.png){width=600px class="center"}\
+
+. . .
+
+
+> - models deliberately chosen to encompass many different physical realizations
+> - space of possibilities is large; we choose a few appplications to ground but focus more on characterizing the design space
+> - not always optimizing for the same thing (shortest path, fewest bounces, mechanical design...)
 
 Related Work
 ------------
@@ -339,11 +339,8 @@ stable limit cycle.
 
 
 
-Results: Nondeterministic Planning
-==================
 
-
-Approach
+Planning for Nondeterministic Bouncing Strategies
 ---------
 
 
@@ -465,10 +462,12 @@ as one contiguous set of points along the environment boundary)
 > - Does not take into account how some state transitions reduce uncertainty
 
 
-Applications, Tasks, and Interfaces
-==================
+
+Self-Assembly
+-------------
 
 
+![](figs/protein.gif){class="center" height=200px}
 
 
 
@@ -544,11 +543,6 @@ Interesting Takeaways
 >   - what states could I reach in the future (with a given controller)?
 
 
-Corralling
-----------
-
-![](corralling.gif){class="center" width=400px}
-
 Interfaces and Design
 ---------------------
 
@@ -565,6 +559,15 @@ technologies for specifying movement! Published MOCO 2018.
 ![](pent_chaos.png){class="center" width=130px}
 
 ![](cycles.gif){class="center" width=200px}
+
+
+"Grand Challenges" of Robotics (according to Rodney Brooks)
+------------------------------
+
+- Aging population
+- Urbanization
+- Climate change
+
 
 Acknowledgements
 ----------------
