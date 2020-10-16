@@ -80,48 +80,75 @@ When Do We Want a "Simple" Robot?
     - Computation can be constrained by size, security/privacy needs
     - Cost (multiple redundant robots vs. one general purpose robot)
 - Ease of testing and verification (and eventually, automated design)
+- Robust, emergent behaviors vs. brittle, "optimal" behaviors
 
-
-
-Is Small Always Simple?
--------------------
-
-![C. Bechinger, et. al. **Active particles in complex and crowded environments.** Reviews of Modern Physics, 2016.](swimmers.png){width=400px class="center"}
-
-
-What is a "Boundary Interaction"?
----------------------------------
-
-:::::::::::::: {.columns}
-::: {.column width="33%"}
-
-
-![ Kantsler, V., et. al. **Ciliary contact interactions dominate surface scattering of swimming
-eukaryotes.** PNAS, 2013.](reorient.gif){width=600px class="center"}
-
-:::
-::: {.column width="33%"}
-
-![Karydis, et. al. **Motion Planning for Collision-resilient Robots in Unknown Maps with Risk Reward
-Trade-off.** IROS 2020](figs/collide-arclab.gif){width=600px class="center"}
-
-:::
-::: {.column width="33%"}
-
-![Mote, et. al. **Collision-Inclusive Trajectory Optimization for Free-Flying
-Spacecraft.** Journal of Guidance, Control, and Dynamics 2020.](figs/space-collide-mote.gif){width=300px class="center"}
-
-:::
-::::::::::::::
 
 
 Why Do We Want to Understand Boundary Interactions?
 ---------------------------------------------------
 
 - Useful or necessary to navigate in complex and crowded environments
-- Intuitively useful for decreasing uncertainty
+- Intuitively useful for decreasing uncertainty and creating robust trajectories
 
-![Di Leonardo, et al. "Bacterial ratchet motors." Proceedings of the National Academy of Sciences (2010)](gear.gif){class="center" width=200px}
+
+
+Recent Interest in Intentional Collisions
+---------------------------------
+
+:::::::::::::: {.columns}
+::: {.column width="50%"}
+
+![Z. Lu, Z. Liu, G. Correa, K. Karydis. **Motion Planning for Collision-resilient Robots in Unknown Maps with Risk Reward
+Trade-off.** IROS 2020](figs/collide-arclab.gif){width=600px class="center"}
+
+:::
+::: {.column width="50%"}
+
+![M. Mote, M. Egerstedt, E. Feron, A. Bylard, M. Pavone, **Collision-Inclusive Trajectory Optimization for Free-Flying
+Spacecraft.** Journal of Guidance, Control, and Dynamics 2020.](figs/space-collide-mote.gif){width=300px class="center"}
+
+:::
+::::::::::::::
+
+
+Developments at Small Scales
+-------------------
+
+
+
+:::::::::::::: {.columns}
+::: {.column width="50%"}
+
+
+![ Kantsler, et. al. **Ciliary contact interactions dominate surface scattering of swimming
+eukaryotes.** PNAS, 2013.](reorient.gif){height=200px class="center"}
+
+![Di Leonardo, et al. "Bacterial ratchet motors." PNAS, 2010.](gear.gif){class="center" height=200px}
+
+:::
+::: {.column width="50%"}
+
+![C. Bechinger, et. al. **Active particles in complex and crowded environments.** Reviews of Modern 
+Physics, 2016.](swimmers.png){height=300px class="center"}
+
+:::
+::::::::::::::
+
+Overlap With Locomotion and Manipulation
+----------------------------------------
+
+:::::::::::::: {.columns}
+::: {.column width="50%"}
+
+![manipulation]()
+
+:::
+::: {.column width="50%"}
+
+![](figs/obs-dist.gif)\
+
+:::
+::::::::::::::
 
 
 *Designing* Boundary Interactions
@@ -467,7 +494,9 @@ Self-Assembly
 -------------
 
 
-![](figs/protein.gif){class="center" height=200px}
+![Stanford YouTube Channel [^2]](figs/protein.gif){class="center" height=200px}
+
+[^2]: \url{https://www.youtube.com/watch?v=Pjt1Q2ZZVjA}
 
 
 

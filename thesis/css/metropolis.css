@@ -145,6 +145,12 @@ h1.title {
 .reveal em {
     font-style: italic; }
 
+.reveal .center {
+      display: block;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto; }
+
 .reveal ol,
 .reveal dl,
 .reveal ul {
@@ -303,7 +309,7 @@ h1.title {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.55); }
 
 .reveal figcaption {
-    font-size: 12pt; }
+    font-size: 10pt; }
 
 /*********************************************
  * NAVIGATION CONTROLS
