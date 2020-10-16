@@ -90,8 +90,6 @@ Why Do We Want to Understand Boundary Interactions?
 - Useful or necessary to navigate in complex and crowded environments
 - Intuitively useful for decreasing uncertainty and creating robust trajectories
 
-
-
 Recent Interest in Intentional Collisions
 ---------------------------------
 
@@ -114,16 +112,15 @@ Spacecraft.** Journal of Guidance, Control, and Dynamics 2020.](figs/space-colli
 Developments at Small Scales
 -------------------
 
-
-
 :::::::::::::: {.columns}
 ::: {.column width="50%"}
 
 
 ![ Kantsler, et. al. **Ciliary contact interactions dominate surface scattering of swimming
-eukaryotes.** PNAS, 2013.](reorient.gif){height=200px class="center"}
+eukaryotes.** PNAS, 2013.](reorient.gif){height=150px class="center"}
 
-![Di Leonardo, et al. "Bacterial ratchet motors." PNAS, 2010.](gear.gif){class="center" height=200px}
+![Di Leonardo, et al. "Bacterial ratchet motors." PNAS, 2010.](gear.gif){class="center"
+height=150px}
 
 :::
 ::: {.column width="50%"}
@@ -481,9 +478,10 @@ return any infeasible plans.
 
 . . .
 
-However, it is **not** complete, for three reasons:
+Limitations:
 
-> - Does not take into account knowledge about initial conditions
+> - Does not take into account knowledge about initial conditions (within start
+interval)
 > - Does not allow state splitting during the search (robot state is maintained
 as one contiguous set of points along the environment boundary)
 > - Does not take into account how some state transitions reduce uncertainty
@@ -499,42 +497,40 @@ Self-Assembly
 [^2]: \url{https://www.youtube.com/watch?v=Pjt1Q2ZZVjA}
 
 
-
-
 Weaselball Hub Design
 ---------------------
 
 <div class="center-text"> 
 
-<img src="weaselball_design_iterations.png" style="float:left;height:150px">
-<img src="weaselball_design4.jpg" style="float:right;height:150px">
+<img src="figs/weaselball_design_iterations.png" style="float:left;height:150px">
+<img src="figs/weaselball_design4.jpg" style="float:right;height:150px">
 
 </div>
 
-<div class="row">
-<div class="column" width="60%">
+:::::::::::::: {.columns}
+::: {.column width="40%"}
 
-Next step: **controllable detaching** (electro-permanent magnets or
+<img src="figs/weaselball_stacked.jpg" style="float:left;height:200px">
+
+:::
+::: {.column width="60%"}
+
+Future work would include **controllable detatching** (electro-permanent magnets or
 shape-memory alloys) 
 
-
-</div>
-<div class="column" width="40%">
-
-![](weaselball_stacked.jpg){class="center" height=200px}
+:::
+::::::::::::::
 
 
-</div>
-</div>
-
-
-Assembly Example
+Self-Assembly and Object Clustering
 ----------------
 
-![](collective_formation.gif){class="center" height=200px}
 
+![](collective_formation.gif){class="center" height=200px}\
 
-####  Nilles, A., Wasserman, J., Born, A., Horn, C., Born, J., & LaValle, S. M. (2019, August). A Hardware and Software Testbed for Underactuated Self-Assembling Robots. In 2019 International Symposium on Multi-Robot and Multi-Agent Systems (MRS) (pp. 7-9). IEEE.
+![Nilles, A., Wasserman, J., Born, A., Horn, C., Born, J., & LaValle, S. M. **A Hardware and Software Testbed for Underactuated Self-Assembling Robots.** 
+In 2019 International Symposium on Multi-Robot and Multi-Agent Systems, 2019](figs/box3.gif){class="center" height=200px}
+
 
 Key Research Insights and Questions
 ----------------------
@@ -545,7 +541,7 @@ manipulation and other useful tasks.
 3. Robot-boundary interactions affect these macro-states.
 4. How to tune and design these interactions?
 
-####  Mayya, Siddharth, Gennaro Notomista, Dylan Shell, Seth Hutchinson, and Magnus Egerstedt. "Non-uniform robot densities in vibration driven swarms using phase separation theory." IROS, 2019.
+Mayya, Siddharth, Gennaro Notomista, Dylan Shell, Seth Hutchinson, and Magnus Egerstedt. "Non-uniform robot densities in vibration driven swarms using phase separation theory." IROS, 2019.
 
 
 
@@ -595,12 +591,14 @@ technologies for specifying movement! Published MOCO 2018.
 
 - Aging population
 - Urbanization
+    - Construction
 - Climate change
 
 
 Acknowledgements
 ----------------
 
+![Samara (Yingying) Ren](samara.jpg)
 
 Thank you!
 ==========
