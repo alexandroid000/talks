@@ -39,18 +39,12 @@ October 21, 2020</div></p>
 <ul>
 <li>Modelling simple robots</li>
 <li>Dynamics of “bouncing robot” trajectories</li>
+<li>Wild bodies</li>
 <li>Design for different tasks</li>
-<li>Review of contributions and implications for future work</li>
+<li>Review of contributions</li>
 </ul>
 <p>reverse order of title:</p>
 <ul>
-<li class="fragment">how to model simple robots and what kinds of simplicity we care about, and why
-<ul>
-<li class="fragment">climate crisis requires monitoring of many types of ecosystems with limited sensing/communication
-<ul>
-<li class="fragment">weaselballs, gates -&gt; clean up trash/oil</li>
-</ul></li>
-</ul></li>
 <li class="fragment">how to model boundary interactions, dynamical consequences (limit cycles)
 <ul>
 <li class="fragment">learning can replace analytic understanding of dynamics if the learning module can find stable gaits / motion patterns</li>
@@ -60,14 +54,28 @@ October 21, 2020</div></p>
 <li class="fragment">“complex, crowded environments”</li>
 <li class="fragment">WAFR2020 shows importance of sensor design, even coarse sensing</li>
 </ul></li>
-<li class="fragment">final overview of contributions</li>
 </ul>
 </section>
 <section id="what-is-a-robot" class="level2">
 <h2>What Is a Robot?</h2>
-<p>sensing, action, perception loops</p>
-<p>sensing, actuation, computation, communication, power</p>
-<p>robotics “stack” and where I focus</p>
+<ul>
+<li class="fragment">Required: sensing, computation, action</li>
+<li class="fragment">Sometimes we also consider communication, power, form</li>
+</ul>
+</section>
+<section id="general-purpose-mobile-robot-design" class="level2">
+<h2>“General purpose” mobile robot design</h2>
+<ul>
+<li class="fragment">Develop or choose hardware (car, differential drive, etc..)</li>
+<li class="fragment">Construct or be provided a map</li>
+<li class="fragment">Develop state estimation / localization</li>
+<li class="fragment">Develop control system to follow given trajectories</li>
+<li class="fragment">Plan collision-free paths</li>
+<li class="fragment">User interface (choosing goals / waypoints in workspace)</li>
+</ul>
+<div class="fragment">
+<p>Still very hard! But what if for certain tasks, we didn’t have to do all this?</p>
+</div>
 </section>
 <section id="what-makes-a-robot-simple" class="level2">
 <h2>What Makes a Robot “Simple”?</h2>
@@ -93,29 +101,20 @@ October 21, 2020</div></p>
 <li class="fragment">Cost (multiple redundant robots vs. one general purpose robot)</li>
 </ul></li>
 <li class="fragment">Ease of testing and verification (and eventually, automated design)</li>
+<li class="fragment">Proofs of <em>minimal</em> complexity needed to complete a task</li>
+<li class="fragment">Robust, emergent behaviors vs. brittle, “optimal” behaviors</li>
 </ul>
 </section>
-<section id="is-small-always-simple" class="level2">
-<h2>Is Small Always Simple?</h2>
-<figure>
-<img data-src="figs/ea7287f966fffafebc53571a7f93eaa712a051fc.png" class="center" width="400" alt="C. Bechinger, et. al. Active particles in complex and crowded environments. Reviews of Modern Physics, 2016." /><figcaption aria-hidden="true">C. Bechinger, et. al. <strong>Active particles in complex and crowded environments.</strong> Reviews of Modern Physics, 2016.</figcaption>
-</figure>
-</section>
 <section id="what-is-a-boundary-interaction" class="level2">
-<h2>What is a “Boundary Interaction”?</h2>
+<h2>What is a Boundary Interaction?</h2>
+<p>Physical collision or virtual “stopping condition”</p>
 <div class="columns">
-<div class="column" style="width:33%;">
-<figure>
-<img data-src="figs/0cc909dc307c8921844098e0a3d365de28c8eaad.gif" class="center" width="600" alt="Kantsler, V., et. al. Ciliary contact interactions dominate surface scattering of swimming eukaryotes. PNAS, 2013." /><figcaption aria-hidden="true">Kantsler, V., et. al. <strong>Ciliary contact interactions dominate surface scattering of swimming eukaryotes.</strong> PNAS, 2013.</figcaption>
-</figure>
-</div><div class="column" style="width:33%;">
-<figure>
-<img data-src="figs/75f2c3736a24bf840c572882cba0fc08033348c1.gif" class="center" width="600" alt="Karydis, et. al. Motion Planning for Collision-resilient Robots in Unknown Maps with Risk Reward Trade-off. IROS 2020" /><figcaption aria-hidden="true">Karydis, et. al. <strong>Motion Planning for Collision-resilient Robots in Unknown Maps with Risk Reward Trade-off.</strong> IROS 2020</figcaption>
-</figure>
-</div><div class="column" style="width:33%;">
-<figure>
-<img data-src="figs/0f11a5802347d702d3b3f63b172f448d2cbac531.gif" class="center" width="300" alt="Mote, et. al. Collision-Inclusive Trajectory Optimization for Free-Flying Spacecraft. Journal of Guidance, Control, and Dynamics 2020." /><figcaption aria-hidden="true">Mote, et. al. <strong>Collision-Inclusive Trajectory Optimization for Free-Flying Spacecraft.</strong> Journal of Guidance, Control, and Dynamics 2020.</figcaption>
-</figure>
+<div class="column" style="width:50%;">
+<p><img data-src="figs/0c32f235d6fcf45371eb048b79817b7b536cc2c7.jpg" width="300" alt="iRobot" /><br />
+</p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="figs/60966e405262e2b6b83eaa964f8f6d6ebf809889.jpg" width="300" alt="Husqvarna" /><br />
+</p>
 </div>
 </div>
 </section>
@@ -123,23 +122,48 @@ October 21, 2020</div></p>
 <h2>Why Do We Want to Understand Boundary Interactions?</h2>
 <ul>
 <li class="fragment">Useful or necessary to navigate in complex and crowded environments</li>
-<li class="fragment">Intuitively useful for decreasing uncertainty</li>
+<li class="fragment">Intuitively useful for decreasing uncertainty and creating robust trajectories</li>
+<li class="fragment">Newly enabled by developments in robot materials, sensing, other hardware</li>
 </ul>
+</section>
+<section id="recent-interest-in-intentional-collisions" class="level2">
+<h2>Recent Interest in Intentional Collisions</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <figure>
-<img data-src="figs/f6d5e6c2711ca3efae79d47a2c43a0abca29f1d6.gif" class="center" width="200" alt="Di Leonardo, et al. “Bacterial ratchet motors.” Proceedings of the National Academy of Sciences (2010)" /><figcaption aria-hidden="true">Di Leonardo, et al. “Bacterial ratchet motors.” Proceedings of the National Academy of Sciences (2010)</figcaption>
+<img data-src="figs/75f2c3736a24bf840c572882cba0fc08033348c1.gif" class="center" width="600" alt="Z. Lu, Z. Liu, G. Correa, K. Karydis. Motion Planning for Collision-resilient Robots in Unknown Maps with Risk Reward Trade-off. IROS 2020" /><figcaption aria-hidden="true">Z. Lu, Z. Liu, G. Correa, K. Karydis. <strong>Motion Planning for Collision-resilient Robots in Unknown Maps with Risk Reward Trade-off.</strong> IROS 2020</figcaption>
 </figure>
+</div><div class="column" style="width:50%;">
+<figure>
+<img data-src="figs/0f11a5802347d702d3b3f63b172f448d2cbac531.gif" class="center" width="300" alt="M. Mote, M. Egerstedt, E. Feron, A. Bylard, M. Pavone, Collision-Inclusive Trajectory Optimization for Free-Flying Spacecraft. Journal of Guidance, Control, and Dynamics 2020." /><figcaption aria-hidden="true">M. Mote, M. Egerstedt, E. Feron, A. Bylard, M. Pavone, <strong>Collision-Inclusive Trajectory Optimization for Free-Flying Spacecraft.</strong> Journal of Guidance, Control, and Dynamics 2020.</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="developments-at-small-scales" class="level2">
+<h2>Developments at Small Scales</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<figure>
+<img data-src="figs/0cc909dc307c8921844098e0a3d365de28c8eaad.gif" class="center" height="150" alt="Kantsler, et. al. Ciliary contact interactions dominate surface scattering of swimming eukaryotes. PNAS, 2013." /><figcaption aria-hidden="true">Kantsler, et. al. <strong>Ciliary contact interactions dominate surface scattering of swimming eukaryotes.</strong> PNAS, 2013.</figcaption>
+</figure>
+<figure>
+<img data-src="figs/f6d5e6c2711ca3efae79d47a2c43a0abca29f1d6.gif" class="center" height="150" alt="Di Leonardo, et al. “Bacterial ratchet motors.” PNAS, 2010." /><figcaption aria-hidden="true">Di Leonardo, et al. “Bacterial ratchet motors.” PNAS, 2010.</figcaption>
+</figure>
+</div><div class="column" style="width:50%;">
+<figure>
+<img data-src="figs/ea7287f966fffafebc53571a7f93eaa712a051fc.png" class="center" height="300" alt="C. Bechinger, et. al. Active particles in complex and crowded environments. Reviews of Modern Physics, 2016." /><figcaption aria-hidden="true">C. Bechinger, et. al. <strong>Active particles in complex and crowded environments.</strong> Reviews of Modern Physics, 2016.</figcaption>
+</figure>
+</div>
+</div>
 </section>
 <section id="designing-boundary-interactions" class="level2">
 <h2><em>Designing</em> Boundary Interactions</h2>
-<p><img data-src="figs/af8acf51902c9f47be570cfc2ae77a528886bf5d.png" class="center" width="600" /><br />
-</p>
-<div class="fragment">
 <ul>
-<li>models deliberately chosen to encompass many different physical realizations</li>
-<li>space of possibilities is large; we choose a few appplications to ground but focus more on characterizing the design space</li>
-<li>not always optimizing for the same thing (shortest path, fewest bounces, mechanical design…)</li>
+<li class="fragment">Choose models to encompass many different physical realizations</li>
+<li class="fragment">Choose a few appplications to ground but focus more on characterizing the design space</li>
+<li class="fragment">Not always optimizing for the same thing (shortest path, fewest bounces, mechanical design…)</li>
 </ul>
-</div>
 </section>
 <section id="related-work" class="level2">
 <h2>Related Work</h2>
@@ -148,7 +172,6 @@ October 21, 2020</div></p>
 <h2>Manipulation</h2>
 <ul>
 <li>Intelligent use of constraints / contact can enable robust robot behaviors</li>
-<li>Mason, Goldberg, Erdmann, Lozano-Pérez, etc.</li>
 </ul>
 </section>
 <section id="robophysics" class="level2">
@@ -157,52 +180,27 @@ October 21, 2020</div></p>
 <li>Jeffrey Aguilar, Tingnan Zhang, Feifei Qian, Mark Kingsbury, Benjamin McInroe, Nicole Mazouchova, Chen Li, Ryan Maladen, Chaohui Gong, Matt Travers, Ross L. Hatton, Howie Choset, Paul B. Umbanhowar, Daniel I. Goldman, “A review on locomotion robophysics: the study of movement at the intersection of robotics, soft matter and dynamical systems.”</li>
 </ul>
 </section>
-<section id="minimalist-boundary-interactions" class="level2">
-<h2>Minimalist Boundary Interactions</h2>
-<p><img data-src="figs/f8a0110cc6378ba38724f227be60ec8f2a792c4e.gif" class="center" height="270" alt="Lewis, J. S., &amp; O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013." /><br />
-</p>
-<p>The Importance of Being in Corners</p>
-</section>
-<section id="minimalist-boundary-interactions-1" class="level2">
-<h2>Minimalist Boundary Interactions</h2>
+<section id="relationship-to-locomotion-and-manipulation" class="level2">
+<h2>Relationship to Locomotion and Manipulation</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="figs/013c58c60c3b303d59712b43cab3a02eee365bb3.jpg" class="center" width="350" /><br />
-</p>
+<p><span class="image">manipulation</span></p>
 </div><div class="column" style="width:50%;">
-<ul>
-<li class="fragment"><p><strong>Localization</strong> with limited sensing (O’Kane, LaValle 2007)</p></li>
-<li class="fragment"><p>Localization using limit cycles (Alam, Bobadilla, Shell 2017)</p></li>
-<li class="fragment"><p><strong>Mapping</strong> (Bitbots, LaValle et. al. 2011)</p></li>
-<li class="fragment"><p><strong>Navigation</strong> (Tovar, Murrieta-Cit, LaValle 2007) (Lewis, O’Kane 2013)</p></li>
-<li class="fragment"><p><strong>Coverage</strong> (Lewis, O’Kane 2013)</p></li>
-<li class="fragment"><p><strong>Pursuit-evasion</strong> (Bitbots)</p></li>
-<li class="fragment"><p>O’Kane, J. M., &amp; LaValle, S. M. Localization with limited sensing. IEEE Transactions on Robotics, 2007.</p></li>
-<li class="fragment"><p>M. Katsev, A. Yershova, B. Tovar, R. Ghrist, and S. M. LaValle. IEEE Transactions on Robotics, 2011.</p></li>
-<li class="fragment"><p>Tovar, B., Murrieta-Cid, R., &amp; LaValle, S. M. Distance-optimal navigation in an unknown environment without sensing distances. IEEE Transactions on Robotics, 2007.</p></li>
-<li class="fragment"><p>Lewis, J. S., &amp; O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.</p></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="wild-bodies" class="level2">
-<h2>Wild Bodies</h2>
-<p><img data-src="figs/6c38e5537a91e312f2a21cc44a2c07c6decdf8c1.gif" class="center" width="400" /><br />
+<p><img data-src="figs/737a8b874250f7e82493c142171cfff94c4afb8b.gif" /><br />
 </p>
-<section id="bobadilla-l.-sanchez-o.-czarnowski-j.-gossman-k.-lavalle-s.-m.-2012.-controlling-wild-bodies-using-linear-temporal-logic.-in-robotics-science-and-systems." class="level4">
-<h4>Bobadilla, L., Sanchez, O., Czarnowski, J., Gossman, K., &amp; LaValle, S. M. (2012). Controlling wild bodies using linear temporal logic. In Robotics: Science and Systems.</h4>
-</section>
-</section>
-<section id="roadmap-1" class="level2">
-<h2>Roadmap</h2>
+</div>
+</div>
+<div class="fragment">
 <ul>
-<li>What can you do with a bouncing robot?</li>
-<li>What guarantees do we have about bouncing robots?</li>
-<li>Highlights of other projects in multi-agent systems, programming languages</li>
-<li>Future directions</li>
+<li class="fragment">“Funnel chaining”</li>
+<li class="fragment">Mason, Goldberg, Erdmann, Lozano-Pérez, Liberzon</li>
 </ul>
+</div>
 </section>
 <section id="bouncing-robots" class="level2">
+<h2>Bouncing Robots</h2>
+</section>
+<section id="bouncing-robots-1" class="level2">
 <h2>Bouncing Robots</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -216,6 +214,27 @@ October 21, 2020</div></p>
 </div>
 </div>
 </section>
+<section id="minimalist-boundary-interactions" class="level2">
+<h2>Minimalist Boundary Interactions</h2>
+<figure>
+<img data-src="figs/f8a0110cc6378ba38724f227be60ec8f2a792c4e.gif" class="center" height="270" alt="Lewis, J. S., &amp; O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013." /><figcaption aria-hidden="true">Lewis, J. S., &amp; O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.</figcaption>
+</figure>
+<section id="the-importance-of-being-in-corners" class="level6">
+<h6>The Importance of Being in Corners</h6>
+</section>
+</section>
+<section id="minimalist-boundary-interactions-1" class="level2">
+<h2>Minimalist Boundary Interactions</h2>
+<ul>
+<li class="fragment"><strong>Localization</strong> with limited sensing (O’Kane, LaValle, IEEE Transaction on Robotics, 2007)
+<ul>
+<li class="fragment">Localization using limit cycles (Alam, Bobadilla, Shell 2017)</li>
+</ul></li>
+<li class="fragment"><strong>Mapping</strong> (LaValle et. al. 2011)</li>
+<li class="fragment"><strong>Navigation</strong> (Lewis, O’Kane IJRR 2013)</li>
+<li class="fragment"><strong>Coverage</strong> (Lewis, Feshbach, O’Kane, IROS, 2018)</li>
+</ul>
+</section>
 <section id="methodology" class="level2">
 <h2>Methodology</h2>
 <p>Switch between controllable baseline behaviors to complete tasks</p>
@@ -227,17 +246,18 @@ October 21, 2020</div></p>
 <section id="modelling-assumptions" class="level2">
 <h2>Modelling Assumptions</h2>
 <ul>
-<li>Robot position modelled as a <em>point</em> in a <em>polygonal environment</em> (possibly with polygonal obstacles).</li>
-<li>Robots move in <em>straight lines</em> until they encounter a boundary.</li>
+<li class="fragment">Robot position modelled as a <em>point</em> in a <em>polygonal environment</em> (possibly with polygonal obstacles).</li>
+<li class="fragment">Robots move in <em>straight lines</em> until they encounter a boundary.</li>
 </ul>
 <div class="fragment">
-<p><img data-src="figs/9fbda0d730a9488de40fbdaee32fb2b82437a4c1.jpg" width="600" /></p>
+<p><img data-src="figs/af8acf51902c9f47be570cfc2ae77a528886bf5d.png" class="center" width="600" /><br />
+</p>
 </div>
 </section>
 <section id="modelling-uncertainty" class="level2">
 <h2>Modelling Uncertainty</h2>
-<p><img data-src="figs/40f5ecfab6c00da8172fd4d12f05bd5c1e483211.png" class="center" width="400" /></p>
 <p>Uncertainty is unavoidable… Plan over <strong>nondeterministic</strong> bounce rules!</p>
+<p><img data-src="figs/40f5ecfab6c00da8172fd4d12f05bd5c1e483211.png" class="center" width="400" /></p>
 </section>
 <section id="how-to-implement" class="level2">
 <h2>How to Implement?</h2>
@@ -364,38 +384,48 @@ October 21, 2020</div></p>
 <h2>Completeness and Correctness</h2>
 <p>This is an exact planner, so all found solutions are correct, and it will not return any infeasible plans.</p>
 <div class="fragment">
-<p>However, it is <strong>not</strong> complete, for three reasons:</p>
+<p>Limitations:</p>
 <ul>
-<li>Does not take into account knowledge about initial conditions</li>
+<li>Does not take into account knowledge about initial conditions (within start interval)</li>
 <li>Does not allow state splitting during the search (robot state is maintained as one contiguous set of points along the environment boundary)</li>
 <li>Does not take into account how some state transitions reduce uncertainty</li>
 </ul>
 </div>
 </section>
+<section id="wild-bodies" class="level2">
+<h2>Wild Bodies</h2>
+</section>
+<section id="wild-bodies-1" class="level2">
+<h2>Wild Bodies</h2>
+<p><img data-src="figs/6c38e5537a91e312f2a21cc44a2c07c6decdf8c1.gif" class="center" width="400" alt="Bobadilla, L., Sanchez, O., Czarnowski, J., Gossman, K., &amp; LaValle, S. M. (2012). Controlling wild bodies using linear temporal logic. In Robotics: Science and Systems." /><br />
+</p>
+</section>
 <section id="self-assembly" class="level2">
 <h2>Self-Assembly</h2>
-<p><img data-src="figs/85c8b4abf920155999e6476fa5129d0253adf705.gif" class="center" height="200" /></p>
+<figure>
+<img data-src="figs/85c8b4abf920155999e6476fa5129d0253adf705.gif" class="center" height="200" alt="Stanford YouTube Channel" /><figcaption aria-hidden="true">Stanford YouTube Channel<a href="#/fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></figcaption>
+</figure>
 </section>
 <section id="weaselball-hub-design" class="level2">
 <h2>Weaselball Hub Design</h2>
 <div class="center-text">
-<p><img src="weaselball_design_iterations.png" style="float:left;height:150px"> <img src="weaselball_design4.jpg" style="float:right;height:150px"></p>
+<p><img src="figs/weaselball_design_iterations.png" style="float:left;height:150px"> <img src="figs/weaselball_design4.jpg" style="float:right;height:150px"></p>
 </div>
-<div class="row">
-<div class="column" style="width:60%;">
-<p>Next step: <strong>controllable detaching</strong> (electro-permanent magnets or shape-memory alloys)</p>
-</div>
+<div class="columns">
 <div class="column" style="width:40%;">
-<p><img data-src="figs/b6c944cb4568ea72fa7865ab141405af8c827d6e.jpg" class="center" height="200" /></p>
+<p><img src="figs/weaselball_stacked.jpg" style="float:left;height:200px"></p>
+</div><div class="column" style="width:60%;">
+<p>Future work would include <strong>controllable detatching</strong> (electro-permanent magnets or shape-memory alloys)</p>
 </div>
 </div>
 </section>
-<section id="assembly-example" class="level2">
-<h2>Assembly Example</h2>
-<p><img data-src="figs/2e9b9a206496e23328dd982c14ea163be62de47c.gif" class="center" height="200" /></p>
-<section id="nilles-a.-wasserman-j.-born-a.-horn-c.-born-j.-lavalle-s.-m.-2019-august.-a-hardware-and-software-testbed-for-underactuated-self-assembling-robots.-in-2019-international-symposium-on-multi-robot-and-multi-agent-systems-mrs-pp.-7-9.-ieee." class="level4">
-<h4>Nilles, A., Wasserman, J., Born, A., Horn, C., Born, J., &amp; LaValle, S. M. (2019, August). A Hardware and Software Testbed for Underactuated Self-Assembling Robots. In 2019 International Symposium on Multi-Robot and Multi-Agent Systems (MRS) (pp. 7-9). IEEE.</h4>
-</section>
+<section id="self-assembly-and-object-clustering" class="level2">
+<h2>Self-Assembly and Object Clustering</h2>
+<p><img data-src="figs/2e9b9a206496e23328dd982c14ea163be62de47c.gif" class="center" height="200" /><br />
+</p>
+<figure>
+<img data-src="figs/0dbe917a6f78c09f5d653a199bb812a8bee9a2dc.gif" class="center" height="200" alt="Nilles, A., Wasserman, J., Born, A., Horn, C., Born, J., &amp; LaValle, S. M. A Hardware and Software Testbed for Underactuated Self-Assembling Robots. In 2019 International Symposium on Multi-Robot and Multi-Agent Systems, 2019" /><figcaption aria-hidden="true">Nilles, A., Wasserman, J., Born, A., Horn, C., Born, J., &amp; LaValle, S. M. <strong>A Hardware and Software Testbed for Underactuated Self-Assembling Robots.</strong> In 2019 International Symposium on Multi-Robot and Multi-Agent Systems, 2019</figcaption>
+</figure>
 </section>
 <section id="key-research-insights-and-questions" class="level2">
 <h2>Key Research Insights and Questions</h2>
@@ -405,9 +435,7 @@ October 21, 2020</div></p>
 <li class="fragment">Robot-boundary interactions affect these macro-states.</li>
 <li class="fragment">How to tune and design these interactions?</li>
 </ol>
-<section id="mayya-siddharth-gennaro-notomista-dylan-shell-seth-hutchinson-and-magnus-egerstedt.-non-uniform-robot-densities-in-vibration-driven-swarms-using-phase-separation-theory.-iros-2019." class="level4">
-<h4>Mayya, Siddharth, Gennaro Notomista, Dylan Shell, Seth Hutchinson, and Magnus Egerstedt. “Non-uniform robot densities in vibration driven swarms using phase separation theory.” IROS, 2019.</h4>
-</section>
+<p>Mayya, Siddharth, Gennaro Notomista, Dylan Shell, Seth Hutchinson, and Magnus Egerstedt. “Non-uniform robot densities in vibration driven swarms using phase separation theory.” IROS, 2019.</p>
 </section>
 <section id="manipulation-wafr-2020" class="level2">
 <h2>Manipulation (WAFR 2020)</h2>
@@ -444,12 +472,18 @@ October 21, 2020</div></p>
 <h2>“Grand Challenges” of Robotics (according to Rodney Brooks)</h2>
 <ul>
 <li class="fragment">Aging population</li>
-<li class="fragment">Urbanization</li>
+<li class="fragment">Urbanization
+<ul>
+<li class="fragment">Construction</li>
+</ul></li>
 <li class="fragment">Climate change</li>
 </ul>
 </section>
 <section id="acknowledgements" class="level2">
 <h2>Acknowledgements</h2>
+<figure>
+<img data-src="figs/197b7098f0f2e85fdae2a156d6c8021b0a010443.jpg" alt="Samara (Yingying) Ren" /><figcaption aria-hidden="true">Samara (Yingying) Ren</figcaption>
+</figure>
 </section>
 </section>
 <section id="thank-you" class="slide level1 unnumbered">
@@ -464,6 +498,7 @@ October 21, 2020</div></p>
 <hr />
 <ol>
 <li id="fn1" role="doc-endnote"><p>https://www.youtube.com/watch?v=Q06G-bvGOXE<a href="#/fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p><a href="#/fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
     </div>

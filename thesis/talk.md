@@ -25,38 +25,48 @@ Roadmap
 
 > - Modelling simple robots
 > - Dynamics of "bouncing robot" trajectories
+> - Wild bodies
 > - Design for different tasks
-> - Review of contributions and implications for future work
+> - Review of contributions
 
 reverse order of title:
 
-- how to model simple robots and what kinds of simplicity we care about, and why
-    - climate crisis requires monitoring of many types of ecosystems with limited sensing/communication
-        - weaselballs, gates -> clean up trash/oil
 - how to model boundary interactions, dynamical consequences (limit cycles)
     - learning can replace analytic understanding of dynamics if the learning module
       can find stable gaits / motion patterns
 - implications for where these robots do well, where they struggle
     - "complex, crowded environments"
     - WAFR2020 shows importance of sensor design, even coarse sensing
-- final overview of contributions
+
 
 What Is a Robot?
 ----------------
 
-sensing, action, perception loops
+- Required: sensing, computation, action
+- Sometimes we also consider communication, power, form
 
-sensing, actuation, computation, communication, power
 
-robotics "stack" and where I focus
+"General purpose" mobile robot design
+--------------------------------------
+
+
+- Develop or choose hardware (car, differential drive, etc..)
+- Construct or be provided a map
+- Develop state estimation / localization
+- Develop control system to follow given trajectories
+- Plan collision-free paths
+- User interface (choosing goals / waypoints in workspace)
+
+. . .
+
+Still very hard! But what if for certain tasks, we didn't have to do all this?
+
 
 What Makes a Robot "Simple"?
 -----------------------
 
 :::::::::::::: {.columns}
 ::: {.column width="50%"}
-
-
 
 ![An ATLAS robot using a vacuum cleaner. From IHMC
 [@ackerman2016ihmc].](atlas_vacuum.gif){height=300px class="center"}
@@ -80,7 +90,33 @@ When Do We Want a "Simple" Robot?
     - Computation can be constrained by size, security/privacy needs
     - Cost (multiple redundant robots vs. one general purpose robot)
 - Ease of testing and verification (and eventually, automated design)
+- Proofs of *minimal* complexity needed to complete a task
 - Robust, emergent behaviors vs. brittle, "optimal" behaviors
+
+
+What is a Boundary Interaction?
+-------------------------------
+
+Physical collision or virtual "stopping condition"
+
+:::::::::::::: {.columns}
+::: {.column width="50%"}
+
+
+![iRobot [^3]](modewall.jpg){width=300px}\
+
+:::
+::: {.column width="50%"}
+
+![Husqvarna [^4]](husqvarna.jpg){width=300px}\
+
+[^3]:
+\url{https://homesupport.irobot.com/app/answers/detail/a_id/10219/~/the-dual-mode-virtual-wall%C2%AE-barrier-is-not-confining-roomba-to-desired-areas.}
+[^4]: \url{https://shop.husqvarna.com/us/automower-115h}
+
+
+:::
+::::::::::::::
 
 
 
@@ -89,6 +125,7 @@ Why Do We Want to Understand Boundary Interactions?
 
 - Useful or necessary to navigate in complex and crowded environments
 - Intuitively useful for decreasing uncertainty and creating robust trajectories
+- Newly enabled by developments in robot materials, sensing, other hardware
 
 Recent Interest in Intentional Collisions
 ---------------------------------
@@ -131,7 +168,30 @@ Physics, 2016.](swimmers.png){height=300px class="center"}
 :::
 ::::::::::::::
 
-Overlap With Locomotion and Manipulation
+
+*Designing* Boundary Interactions
+-------------------------------
+
+- Choose models to encompass many different physical realizations
+- Choose a few appplications to ground but focus more on characterizing the design space
+- Not always optimizing for the same thing (shortest path, fewest bounces, mechanical design...)
+
+
+
+
+Related Work
+------------
+
+## Manipulation
+
+> - Intelligent use of constraints / contact can enable robust robot behaviors
+
+## Robophysics
+
+> - Jeffrey Aguilar, Tingnan Zhang, Feifei Qian, Mark Kingsbury, Benjamin McInroe, Nicole Mazouchova, Chen Li, Ryan Maladen, Chaohui Gong, Matt Travers, Ross L. Hatton, Howie Choset, Paul B. Umbanhowar, Daniel I. Goldman,  "A review on locomotion robophysics: the study of movement at the intersection of robotics, soft matter and dynamical systems."
+
+
+Relationship to Locomotion and Manipulation
 ----------------------------------------
 
 :::::::::::::: {.columns}
@@ -147,84 +207,16 @@ Overlap With Locomotion and Manipulation
 :::
 ::::::::::::::
 
-
-*Designing* Boundary Interactions
--------------------------------
-
-
-![](bounce_examples_w_monotone_fixed.png){width=600px class="center"}\
-
 . . .
 
-
-> - models deliberately chosen to encompass many different physical realizations
-> - space of possibilities is large; we choose a few appplications to ground but focus more on characterizing the design space
-> - not always optimizing for the same thing (shortest path, fewest bounces, mechanical design...)
-
-Related Work
-------------
-
-## Manipulation
-
-> - Intelligent use of constraints / contact can enable robust robot behaviors
-> - Mason, Goldberg, Erdmann, Lozano-Pérez, etc.
-
-## Robophysics
-
-> - Jeffrey Aguilar, Tingnan Zhang, Feifei Qian, Mark Kingsbury, Benjamin McInroe, Nicole Mazouchova, Chen Li, Ryan Maladen, Chaohui Gong, Matt Travers, Ross L. Hatton, Howie Choset, Paul B. Umbanhowar, Daniel I. Goldman,  "A review on locomotion robophysics: the study of movement at the intersection of robotics, soft matter and dynamical systems."
+- "Funnel chaining"
+- Mason, Goldberg, Erdmann, Lozano-Pérez, Liberzon
 
 
-Minimalist Boundary Interactions
------------------------------
-
-![Lewis, J. S., & O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.](okane_unreliable.gif){height=270px class="center"}\
-
-The Importance of Being in Corners
+Bouncing Robots
+---------------
 
 
-Minimalist Boundary Interactions
------------------------------
-
-:::::::::::::: {.columns}
-::: {.column width="50%"}
-
-![](bitbots.jpg){width=350px class="center"}\
-
-:::
-::: {.column width="50%"}
-
-
-
-- **Localization** with limited sensing (O'Kane, LaValle 2007)
-- Localization using limit cycles (Alam, Bobadilla, Shell 2017)
-- **Mapping** (Bitbots, LaValle et. al. 2011)
-- **Navigation** (Tovar, Murrieta-Cit, LaValle 2007) (Lewis, O'Kane 2013)
-- **Coverage** (Lewis, O'Kane 2013)
-- **Pursuit-evasion** (Bitbots)
-
-- O'Kane, J. M., & LaValle, S. M. Localization with limited sensing. IEEE Transactions on Robotics, 2007.
-- M. Katsev, A. Yershova, B. Tovar, R. Ghrist, and S. M. LaValle. IEEE Transactions on Robotics, 2011.
-- Tovar, B., Murrieta-Cid, R., & LaValle, S. M. Distance-optimal navigation in an unknown environment without sensing distances. IEEE Transactions on Robotics, 2007.
-- Lewis, J. S., & O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.
-
-:::
-::::::::::::::
-
-Wild Bodies
------------
-
-![](weaselballs-gates.gif){width=400px class="center"}\
-
-####  Bobadilla, L., Sanchez, O., Czarnowski, J., Gossman, K., & LaValle, S. M. (2012). Controlling wild bodies using linear temporal logic. In Robotics: Science and Systems.
-
-
-Roadmap
--------
-
-> - What can you do with a bouncing robot?
-> - What guarantees do we have about bouncing robots?
-> - Highlights of other projects in multi-agent systems, programming languages
-> - Future directions
 
 Bouncing Robots
 ---------------
@@ -247,6 +239,25 @@ Big changes from small perturbations:
 ::::::::::::::
 
 
+
+Minimalist Boundary Interactions
+-----------------------------
+
+![Lewis, J. S., & O’Kane, J. M. Planning for provably reliable navigation using an unreliable, nearly sensorless robot. The International Journal of Robotics Research, 2013.](okane_unreliable.gif){height=270px class="center"}
+
+###### The Importance of Being in Corners
+
+
+Minimalist Boundary Interactions
+-----------------------------
+
+- **Localization** with limited sensing (O'Kane, LaValle, IEEE Transaction on Robotics, 2007)
+    - Localization using limit cycles (Alam, Bobadilla, Shell 2017)
+- **Mapping** (LaValle et. al. 2011)
+- **Navigation** (Lewis, O'Kane IJRR 2013)
+- **Coverage** (Lewis, Feshbach, O'Kane, IROS, 2018)
+
+
 Methodology
 -----------
 
@@ -262,26 +273,27 @@ cycling, funnelling, wildness
 Modelling Assumptions
 ---------------------
 
-> - Robot position modelled as a *point* in a *polygonal environment* (possibly with polygonal obstacles).
-> - Robots move in *straight lines* until they encounter a boundary.
+- Robot position modelled as a *point* in a *polygonal environment* (possibly with polygonal obstacles).
+- Robots move in *straight lines* until they encounter a boundary.
 
 . . .
 
-![](bounce_examples.jpg){width=600px}
+![](bounce_examples_w_monotone_fixed.png){width=600px class="center"}\
+
 
 
 Modelling Uncertainty
 ---------------------
 
 
-![](bounce_example_nondet.png){width=400px class="center"}
-
 Uncertainty is unavoidable... Plan over **nondeterministic** bounce rules!
+
+
+![](bounce_example_nondet.png){width=400px class="center"}
 
 
 How to Implement?
 -----------------
-
 
 - Differential drive with bump sensors and side-facing range sensor ("rotate-to-parallel")
 - Contact sensor and mechanical alignment of robot body ("rotate-until-free")
@@ -485,6 +497,19 @@ interval)
 > - Does not allow state splitting during the search (robot state is maintained
 as one contiguous set of points along the environment boundary)
 > - Does not take into account how some state transitions reduce uncertainty
+
+
+Wild Bodies
+-----------
+
+
+
+
+Wild Bodies
+-----------
+
+
+![Bobadilla, L., Sanchez, O., Czarnowski, J., Gossman, K., & LaValle, S. M. (2012). Controlling wild bodies using linear temporal logic. In Robotics: Science and Systems.](weaselballs-gates.gif){width=400px class="center"}\
 
 
 

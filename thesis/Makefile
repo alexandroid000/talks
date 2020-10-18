@@ -2,12 +2,13 @@
 INPUT=talk
 
 OPTIONS= --mathjax=$(HOME)/src/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML \
--i -t revealjs talk.md \
+--incremental \
+-t revealjs talk.md \
 --section-divs \
 --variable transition="none" \
 --template=my.reveal \
 --extract-media=figs \
---resource-path=$(HOME)/common/figs/:. \
+--resource-path=$(HOME)/common/figs/:.:./figs/ \
 --filter=pandoc-citeproc
 #--mathjax \
 #HTMLS := $(patsubst %.md,%.html,talk.md)
