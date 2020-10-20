@@ -328,8 +328,8 @@ frameborder="0" allowfullscreen>
 Geometry Influences Dynamics
 ----------------------------
 
-Given polygonal environment, parameterize points on boundaries. We can explicitly compute transition function $f$ between points on
-the boundary.
+Define transition function $f$ between points on environment boundary: consider
+a pair of mutually visible line segments.
 
 ![](contraction_map_cond.png){width=350px class="center"}\
 
@@ -483,9 +483,10 @@ Forming the Safe Bounce Visibility Graph
 :::
 ::: {.column width="50%"}
 
-![Visibility Graph in Partitioned Polygon](lp_bounce_visibility_graph.png){width=300px class="center"}
+![Visibility Graph in Partitioned
+Polygon](lp_bounce_visibility_graph.png){width=275px class="center"}
 
-![Refined Safe Action Graph](lp_bounce_safe_action_graph.png){width=300px class="center"}
+![Refined Safe Action Graph](lp_bounce_safe_action_graph.png){width=275px class="center"}
 
 :::
 ::::::::::::::
@@ -611,17 +612,50 @@ Self-Assembly and Object Clustering
 ![Nilles, A., Wasserman, J., Born, A., Horn, C., Born, J., & LaValle, S. M. **A Hardware and Software Testbed for Underactuated Self-Assembling Robots.** 
 In 2019 International Symposium on Multi-Robot and Multi-Agent Systems.](figs/box3.gif){class="center" height=200px}
 
+Motion Tracking and Analysis
+----------------------------
 
-Key Research Insights and Questions
+:::::::::::::: {.columns}
+::: {.column width="40%"}
+
+
+![](weaselball_long_duration.png){height=200px}\
+
+![](janus.mp4){height=200px}\
+
+:::
+::: {.column width="60%"}
+
+![](rotation_heatmap.png){width=300px}
+
+:::
+::::::::::::::
+
+Synchronization
+---------------
+
+:::::::::::::: {.columns}
+::: {.column width="50%"}
+
+
+![](weaselball_sim.mp4){width=400px}\
+
+:::
+::: {.column width="50%"}
+
+![](synchronizationRealLife.mp4){width=400px}\
+
+:::
+::::::::::::::
+
+Research Insights and Questions
 ----------------------
 
-1. Weaselballs are a pretty good analogue for micro-robots of interest.
-1. Control of macro states ("pressure", "temperature") can enable
-manipulation and other useful tasks.
+1. Weaselballs are a pretty good example of "active Brownian" agents.
+1. Control of macro states ("pressure", "temperature") can enable manipulation and other useful tasks.
 2. Robot-robot interactions affect these macro-states.
 3. Robot-boundary interactions affect these macro-states.
-4. How to tune and design these interactions without running into the curse of
-dimensionality?
+4. How to tune and design these interactions without running into the curse of dimensionality?
 
 . . .
 
@@ -682,8 +716,10 @@ Interfaces and Design
 with Dr. Amy LaViers. Choreographers and movement observers have lots of
 technologies for specifying movement! Published MOCO 2018.
 
-General Specification Approach
+Other Options For Motion or Hardware Design
 ------------------------------
+
+![](design.png){width=200px class="center"}\ ![](some_cards.small.jpg){width=350px class="center"}
 
 
 
@@ -694,6 +730,7 @@ General Specification Approach
 - Urbanization
 - Climate change
 
+My thesis work will solve all three of these problems.
 
 Acknowledgements
 ----------------
