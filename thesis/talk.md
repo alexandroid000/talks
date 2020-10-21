@@ -6,9 +6,9 @@ author: |
     | Alexandra (Alli) Nilles 
 date: |
     | Thesis Advisor: Dr. Steven M. LaValle
+    | Committee: Dr. Nancy M. Amato, Dr. Sayan Mitra, Dr. Todd D. Murphey
     | October 21, 2020
-sponsors: <img src="/home/alli/common/figs/sponsors.png" width="800" height="100">
-revealjs-url: ./reveal.js/
+sponsors: <img src="/home/alli/common/figs/sponsors.png" width="800" style="background:none;border:none;box-shadow:none;margin-bottom:100px">
 resource-path: ["/home/alli/common/figs/","."]
 css: ["css/metropolis.css"]
 aspectratio: 169
@@ -24,11 +24,26 @@ What Is a Robot?
 ----------------
 
 - Required: sensing, computation, action
-- Sometimes we also consider communication, power, form
+- Also important: communication, power, form
 
-. . .
+:::::::::::::: {.columns}
+::: {.column width="33%"}
 
-TODO: image examples
+![Wall-E](wall-e.jpg){height=200px}
+
+
+:::
+::: {.column width="33%"}
+
+![Robot and Frank](robot_and_frank.webp){height=200px}
+
+:::
+::: {.column width="33%"}
+
+![Interstellar](interstellar_robot.jpg){height=200px}
+
+:::
+::::::::::::::
 
 What is a Mobile Robot?
 -----------------------
@@ -63,17 +78,15 @@ What is a Mobile Robot?
 :::
 ::: {.column width="30%"}
 
-
 ![Robotics and Automation News, 2016](car_lidar.jpg){width=300px}
-
-
-Still very hard! What if for certain tasks, we didn't have to do all this?
 
 :::
 ::::::::::::::
 
+. . .
 
 
+Still very hard! What if for certain tasks, we didn't have to do all this?
 
 
 What Makes a Robot "Simple"?
@@ -96,13 +109,15 @@ What Makes a Robot "Simple"?
 [^1]: https://www.youtube.com/watch?v=Q06G-bvGOXE
 
 No all-purpose technical definition of "simple"... Long history of minimalism as
-a lens for analyzing robotic systems.
+a lens for analyzing robotic systems. See "The Compass that Steered Robotics", 
+Goldberg, Erdmann, Egerstedt, many others...
+
 
 When Do We Want a "Simple" Robot?
 ------------------------------------
 
 - Robot is too small for usual hardware
-- Environment makes usual design less effective
+- Environment makes usual sensors, communicators, etc less effective
 - When we want to minimize cost or resource usage
 - Want to get formal guarantees on behavior
     - No "unexpected" behaviors
@@ -113,7 +128,7 @@ When Do We Want a "Simple" Robot?
 What is a Boundary Interaction?
 -------------------------------
 
-Physical collision or virtual "stopping condition"
+Physical collision, virtual "boundary", or even another robot!
 
 :::::::::::::: {.columns}
 ::: {.column width="50%"}
@@ -129,8 +144,7 @@ Physical collision or virtual "stopping condition"
 
 
 
-[^3]:
-\url{https://homesupport.irobot.com/app/answers/detail/a_id/10219/~/the-dual-mode-virtual-wall%C2%AE-barrier-is-not-confining-roomba-to-desired-areas.}
+[^3]: \url{https://homesupport.irobot.com/app/answers/detail/a_id/10219/~/the-dual-mode-virtual-wall%C2%AE-barrier-is-not-confining-roomba-to-desired-areas.}
 [^4]: \url{https://shop.husqvarna.com/us/automower-115h}
 
 :::
@@ -139,10 +153,25 @@ Physical collision or virtual "stopping condition"
 Why Do We Want to Understand Boundary Interactions?
 ---------------------------------------------------
 
-- Useful or necessary to navigate in complex and crowded environments
-- Intuitively useful for decreasing uncertainty and creating robust trajectories
-- Newly enabled by developments in robot materials, sensing, other hardware
-- Interesting emergent behavior
+- Can be necessary to navigate in complex and crowded environments
+- Newly enabled by developments in robot materials, sensors
+- Intuitively useful for decreasing uncertainty (lessons from locomotion, manipulation)
+
+. . .
+
+:::::::::::::: {.columns}
+::: {.column width="50%"}
+
+![Feifei Qian, Dan Koditschek, IJRR 2020](figs/obs-dist.gif)
+
+:::
+::: {.column width="50%"}
+
+![Manipulation Lab, Dr. Matt Mason, CMU](grasp.gif)
+
+:::
+::::::::::::::
+
 
 Recent Interest in Intentional Collisions
 ---------------------------------
@@ -169,7 +198,6 @@ Developments at Small Scales
 :::::::::::::: {.columns}
 ::: {.column width="50%"}
 
-
 ![ Kantsler, et. al. **Ciliary contact interactions dominate surface scattering of swimming
 eukaryotes.** PNAS, 2013.](reorient.gif){height=150px class="center"}
 
@@ -186,12 +214,36 @@ Physics, 2016.](swimmers.png){height=300px class="center"}
 ::::::::::::::
 
 
+Emergence, Collective Intelligence, and Minimalism
+------------------------
+
+For robust emergent behaviors, we want to find mapping between local actions and global behavior.
+
+. . .
+
+Not often easy or intuitive. Options to bridge the gap: parameterize design space and sweep,
+reinforcement learning, control, dynamical system segmentation, statistical mechanics, information spaces...
+
+. . .
+
+Boundary interactions are an under-explored control mode, with promise for
+analytic guarantees, and are amenable to many "lines of attack."
+
+. . .
+
+- Roderich Groß, Natural Robotics Lab, computation-free swarming
+- Smarticles, MURI on Collective Behavior (Randall, Goldman, Strano, Richa, England, Murphey)
+- S. Mayya, G. Notomista, D. Shell, S. Hutchinson, and M. Egerstedt. "Non-uniform robot densities in vibration driven swarms using phase separation theory." IROS, 2019.
+- Collective intelligence: Radhika Nagpal, Kirstin Petersen
+- LaValle, Yu, Liberzon "Rendezvous without coordinates"
+
+
 *Designing* Boundary Interactions
 -------------------------------
 
 - Choose models to cover range of implementations
 - Use appplications to ground model choice, but focus more on characterizing the design space
-- Make tools that leave optimization options open (shortest path, fewest bounces, mechanical design...)
+- Make tools that leave optimization options open (shortest path, robustness, mechanical design...)
 
 . . .
 
@@ -204,16 +256,30 @@ Physics, 2016.](swimmers.png){height=300px class="center"}
 My Work
 -------
 
-[image bouncing] [image weaselballs]
+:::::::::::::: {.columns}
+::: {.column width="50%"}
 
-[image improv] [image yuliy projects?]
+Characterization and planning for model system, bouncing robots:
 
-
-
-Bouncing Robots
----------------
+![](twoconv.gif){height=150px class="center"}\ 
 
 
+Prototype programming language:
+
+![](improv_demo.gif){height=150px class="center"}\
+
+:::
+::: {.column width="50%"}
+
+Experimental testbed for self-assembling wild bodies:
+
+![](weaselballs_movement.gif){height=150px class="center"}\
+
+
+Many other (published and unpublished) projects...
+
+:::
+::::::::::::::
 
 Bouncing Robots
 ---------------
@@ -230,53 +296,25 @@ Iterating the same boundary interaction can cause cycles and trapping regions:
 
 Big changes in workspace from small perturbations:
 
-![](plane.gif){width=300px class="center"}
+![See also Erickson, LaValle ICRA 2013](plane.gif){width=300px class="center"}
 
 :::
 ::::::::::::::
 
 
-Minimalist Boundary Interactions
------------------------------
-
-- **Localization** with limited sensing (O'Kane, LaValle, IEEE Transaction on Robotics, 2007)
-    - Localization using limit cycles (Alam, Bobadilla, Shell 2017)
-- **Mapping** (LaValle et. al. 2011)
-- **Navigation** (Lewis, O'Kane IJRR 2013)
-- **Coverage** (Lewis, Feshbach, O'Kane, IROS, 2018)
-- **Density Regulation** (Siddharth Mayya, Magnus Egerstedt)
-- **Object Clustering** (Kim, Shell, ICRA 2015)
-
-The Importance of Being in Corners
+What Can You Do With a Bouncing Robot?
 -----------------------------
 
 ![Lewis, J. S., & O’Kane, J. M. Planning for provably reliable navigation 
 using an unreliable, nearly sensorless robot. IJRR,
-2013.](okane_unreliable.gif){height=400px class="center"}
+2013.](okane_unreliable.gif){height=200px class="center"}
 
-
-Inspiration from Locomotion and Manipulation
-----------------------------------------
-
-:::::::::::::: {.columns}
-::: {.column width="50%"}
-
-![Feifei Qian, Dan Koditschek, IJRR 2020](figs/obs-dist.gif)\
-
-:::
-::: {.column width="50%"}
-
-![Manipulation Lab, Dr. Matt Mason, CMU](grasp.gif)
-
-:::
-::::::::::::::
-
-. . .
-
-- Related: "funnel chaining," "pre-image backchaining," "fine motion planning"
-- Mason, Goldberg, Erdmann, Lozano-Pérez, Liberzon
-
-
+- **Navigation** (Lewis, O'Kane IJRR 2013; )
+- **Coverage** (Lewis, Feshbach, O'Kane, IROS, 2018)
+- **Localization** with limited sensing (O'Kane, LaValle, IEEE Transaction on Robotics, 2007)
+- Localization *and* coverage using limit cycles (Alam, Bobadilla, Shell 2017)
+- **Mapping** (LaValle et. al. 2011)
+- **Object Clustering** (Kim, Shell, ICRA 2015)
 
 Modelling Assumptions
 ---------------------
@@ -289,7 +327,6 @@ Modelling Assumptions
 ![](bounce_examples_w_monotone_fixed.png){width=600px class="center"}\
 
 
-
 Modelling Uncertainty
 ---------------------
 
@@ -298,31 +335,6 @@ Uncertainty is unavoidable... Plan over **nondeterministic** bounce rules!
 
 
 ![](bounce_example_nondet.png){width=400px class="center"}
-
-
-How to Implement?
------------------
-
-- Differential drive with bump sensors and side-facing range sensor ("rotate-to-parallel")
-- Contact sensor and mechanical alignment of robot body ("rotate-until-free")
-- Boundaries can be virtual (laser beams, GPS, visible boundaries, etc)
-
-. . .
-
-<div align="center" style="float:left;padding:0px">
-<iframe width="275" height="275"
-src="figs/robot_vid2.m4v"
-frameborder="0" allowfullscreen>
-</iframe></div>
-<div align="center" style="float;padding:0px">
-<iframe width="275" height="275"
-src="figs/rotate.mp4"
-frameborder="0" allowfullscreen>
-</iframe>
-<div align="center" style="float:right">
-<img src="figs/Petronics-logo.png" style="width:200px">
-</div>
-</div>
 
 
 Geometry Influences Dynamics
@@ -334,6 +346,7 @@ a pair of mutually visible line segments.
 ![](contraction_map_cond.png){width=350px class="center"}\
 
 $f$ is a *contraction mapping* iff $|\frac{f(x, \theta) - f(y,\theta)}{x-y} | < 1$
+
 
 Geometry Influences Dynamics
 ----------------------------
@@ -347,7 +360,7 @@ internal angle $\phi$ between the segments.
 :::::::::::::: {.columns}
 ::: {.column width="50%"}
 
-Can be used to reduce uncertainty!
+Can be used to check if transition between segments decreases uncertainty!
 
 :::
 ::: {.column width="50%"}
@@ -390,31 +403,19 @@ stable limit cycle. (WAFR 2018)
 Planning for Nondeterministic Bouncing Strategies
 ---------
 
-**Planning Problem:** Given start and goal sets on the boundary of the
+**Planning Problem:** Given map, and start and goal sets on the boundary of the
 polygonal environment, create a sequence of safe
 nondeterministic actions that takes the robot from any point in the start set
 to some point in the goal set.
 
 . . .
 
+Approach:
+
 1. Partition boundary using "visibility events"
-2. Create *safe edge-to-edge transition graph* using boundary segments
+2. Create discrete *bounce visibility graph* using boundary segments
 3. Search for paths and cycles (depending on specification)
-4. Translate paths to strategies
-
-
-Nondeterministic Planning
--------------------------
-
-We know the exact map of the environment at planning time.
-
-. . .
-
-**Bounce rule:** action to take at boundary, set of valid outgoing headings $u \subseteq (0, \pi)$.
-
-. . .
-
-Planner produces sequence of **bounce rules**.
+4. Translate paths to strategies (sequences of nondeterministic "bounce rules")
 
 
 Visibility Decomposition
@@ -437,25 +438,31 @@ original polygon they can "see".
 :::
 ::::::::::::::
 
+Discrete representation: bounce visibility graph encodes *possible* transitions between these segments.
 
 
 Defining Safe Actions
 ---------------------
 
-**Safe actions**: Given two edges ($e_{start}$ and $e_{goal}$) in the environment polygon, an interval of
-bounce angles is **safe** iff:
+Let an *action* for a bouncing robot be the heading of the robot as it leaves a
+boundary (recall *rules* specify how actions are produced).
 
 . . .
 
-any action in the interval,
+**Safe actions**: Given two segments $s$ and $g$ in the environment polygon, an
+action set $(\theta_{min}, \theta_{max})$ is **safe** from $s$ to $g$ iff:
 
 . . .
 
-executed from any point on $e_{start}$,
+any action $\theta \in (\theta_{min}, \theta_{max})$,
 
 . . .
 
-will cause the robot to transition to some point on $e_{goal}$.
+executed from any point on $s$,
+
+. . .
+
+will cause the robot to transition to some point on $g$.
 
 
 Forming the Safe Bounce Visibility Graph
@@ -464,7 +471,7 @@ Forming the Safe Bounce Visibility Graph
 **Nodes**: Boundary segments of *partitioned* polygon.
 
 **Edges**: Directed edge created between nodes $i$ and $j$ if safe action exists between segment $i$ and
-segment $j$. Can store data on safe angle interval, contraction coefficents.
+segment $j$.
 
 . . .
 
@@ -492,8 +499,15 @@ Polygon](lp_bounce_visibility_graph.png){width=275px class="center"}
 ::::::::::::::
 
 
-Examples of Search Queries
+Operations over the Safe Bounce Visibility Graph
 --------------------------
+
+Edges of graph can store data: maximum distance under that set of transitions,
+maximum contraction coefficients, safe angle interval, etc. Allows for different
+planning criteria.
+
+. . .
+
 
 **Query:** How far can we get with a constant nondeterministic bounce rule?
 
@@ -502,13 +516,14 @@ angle intervals at each step.
 
 ![](inserted_two_conv.png){width=700px class="center"}\
 
-Examples of Search Queries
+
+More Examples of Search Queries
 --------------------
 
 Query: Get from start to goal while travelling less than X distance.
 
 Approach: Search while bounding the maximum distance travelled by the robot by
-labelling each edge with the maximum distance travelled in that transition.
+labelling each edge with the maximum distance travelled in that transition set.
 
 . . .
 
@@ -517,9 +532,7 @@ Query: Make a plan that is overall stabilizing.
 Can search for only contracting paths, or keep the total state expansion/contraction under a bounded
 amount.
 
-Examples of Search Queries
---------------------
-
+. . .
 
 Of all paths from A to B (up to bounded length), which allows the most unreliable robot?
 
@@ -527,6 +540,7 @@ Of all paths from A to B (up to bounded length), which allows the most unreliabl
 
 In all cases, along with a plan, we also get a characterization of how much uncertainty the
 plan can tolerate (design constraints!)
+
 
 Completeness and Correctness
 ----------------------------
@@ -538,11 +552,9 @@ return any infeasible plans.
 
 Limitations:
 
-> - Does not take into account knowledge about initial conditions (within start
-interval).
-> - Does not allow state splitting during the search (robot state is maintained
-as one contiguous set of points along the environment boundary).
-> - Does not refine partition using information about uncertainty reduction.
+- Assumes robot could start anywhere in start node/segment.
+- Does not allow state splitting during the search.
+- Does not refine search using information about uncertainty reduction.
 
 
 Analyzing Reachability And Connectedness
@@ -564,9 +576,18 @@ Beyond Bouncing Robots
 Wild Bodies
 -----------
 
+:::::::::::::: {.columns}
+::: {.column width="60%"}
 
-![L. Bobadilla, O. Sanchez, J. Czarnowski, K. Gossman, S. M. LaValle (2012). Controlling wild bodies using linear temporal logic. In Robotics: Science and Systems.](weaselballs-gates.gif){width=500px class="center"}
+![L. Bobadilla, O. Sanchez, J. Czarnowski, K. Gossman, S. M. LaValle (2012). Controlling wild bodies using linear temporal logic. In Robotics: Science and Systems.](weaselballs-gates.gif){width=400px class="center"}
 
+:::
+::: {.column width="40%"}
+
+![](pent_chaos.png){width=200px}\
+
+:::
+::::::::::::::
 
 
 Self-Assembly
@@ -596,8 +617,8 @@ Weaselball Hub Design
 :::
 ::: {.column width="60%"}
 
-Future work would include **controllable detatching** (electro-permanent magnets or
-shape-memory alloys) 
+Work with Justin Wasserman, Austin Born, Chris Horn, John Born. Future work would include **controllable detatching** (electro-permanent magnets or
+shape-memory alloys).
 
 :::
 ::::::::::::::
@@ -606,11 +627,10 @@ shape-memory alloys)
 Self-Assembly and Object Clustering
 ----------------
 
-
-![](collective_formation.gif){class="center" height=200px}\
-
 ![Nilles, A., Wasserman, J., Born, A., Horn, C., Born, J., & LaValle, S. M. **A Hardware and Software Testbed for Underactuated Self-Assembling Robots.** 
-In 2019 International Symposium on Multi-Robot and Multi-Agent Systems.](figs/box3.gif){class="center" height=200px}
+In 2019 International Symposium on Multi-Robot and Multi-Agent Systems.](collective_formation.gif){class="center" height=200px}
+
+![](figs/box3.gif){class="center" height=200px}
 
 Motion Tracking and Analysis
 ----------------------------
@@ -628,25 +648,11 @@ Motion Tracking and Analysis
 
 ![](rotation_heatmap.png){width=300px}
 
-:::
-::::::::::::::
-
-Synchronization
----------------
-
-:::::::::::::: {.columns}
-::: {.column width="50%"}
-
-
-![](weaselball_sim.mp4){width=400px}\
-
-:::
-::: {.column width="50%"}
-
 ![](synchronizationRealLife.mp4){width=400px}\
 
 :::
 ::::::::::::::
+
 
 Research Insights and Questions
 ----------------------
@@ -657,24 +663,21 @@ Research Insights and Questions
 3. Robot-boundary interactions affect these macro-states.
 4. How to tune and design these interactions without running into the curse of dimensionality?
 
-. . .
 
-Related work:
-
-S. Mayya, G. Notomista, D. Shell, S. Hutchinson, and M. Egerstedt. "Non-uniform robot densities in vibration driven swarms using phase separation theory." IROS, 2019.
-
-
-Manipulation (WAFR 2020)
+Information Requirements of Collision-Based Micro-Manipulation (WAFR 2020)
 ------------
 
 ![](environment_and_triangles.png){class="center" width=600px}
 
+![Tommy Berrueta](tommy.jpg){width=100px}\ ![Ana Pervan](ana.jpg){width=100px}\
 
-Manipulation (WAFR 2020)
+
+Information Requirements of Collision-Based Micro-Manipulation (WAFR 2020)
 ------------
 
 ![](FSMs.png){class="center" width=600px}
 
+How much information do you need to know you're lost?
 
 Interesting Takeaways
 --------------
@@ -689,72 +692,210 @@ Interesting Takeaways
 How Do We Tell Robots What To Do?
 ---------------------------------
 
-With Python or C++ scripts (TODO show example).
-
-. . .
-
-Maybe, adapt some kind of logic (probably LTL) to your task domain.
-
-. . .
-
-Increasing interest in natural language interactions with humans.
-
-. . .
-
-Human adapts to interface... how should interface adapt to human?
-
-. . .
-
-Most useful thing computers can do is provide feedback quickly.
-
+- With Python or C++ scripts
+- Maybe, adapt some kind of logic (probably LTL) to your task domain.
+- Usually have precise control of individual robots. How to adapt to underactuated/emergent systems?
+- Increasing interest in natural language interactions with humans to ease this burden.
+- Maybe we won't ever be able to design robot motions in "one shot." How to enable iteration on motion strategies?
+- Maybe the most useful thing the computer can do is provide feedback, so humans catch errors quickly.
 
 Interfaces and Design
 ---------------------
 
-![](improv_demo.gif){class="center" width=600px}
+![](improv_demo.mp4){class="center" width=600px}
 
-with Dr. Amy LaViers. Choreographers and movement observers have lots of
+with Dr. Amy LaViers, Dr. Mattox Beckman, Chase Gladish, Jordan Parker. Choreographers and movement observers have lots of
 technologies for specifying movement! Published MOCO 2018.
 
-Other Options For Motion or Hardware Design
-------------------------------
+Improv Details
+---------------
 
-![](design.png){width=200px class="center"}\ ![](some_cards.small.jpg){width=350px class="center"}
+:::::::::::::: {.columns}
+::: {.column width="40%"}
+
+![](improv_code_ex.jpg){width=300px class="center"}\
+
+:::
+::: {.column width="60%"}
+
+![](improv-flowcart.png){width=400px class="center"}\
+
+Design criteria (based on *Cognitive Dimensions of Notations*):
+
+- closeness of mapping
+- succinctness
+- minimize hard mental operations
+- allow progressive evaluation
+
+:::
+::::::::::::::
+
+
+Let's be Creative!
+------------------
+
+:::::::::::::: {.columns}
+::: {.column width="50%"}
+
+![](design.png){width=300px class="center"}\
+
+:::
+::: {.column width="50%"}
+
+![](some_cards.small.jpg){width=350px class="center"}\
+
+:::
+::::::::::::::
+
+
+Conclusion
+----------
+
+Common Threads
+-------------
+
+
+- From simple interactions to robust behaviors
+- Choice of representation really matters
+- System design is an iterative process; tools should respect that
 
 
 
-"Grand Challenges" of Robotics (according to Rodney Brooks)
+"Grand Challenges" of Robotics (Rodney Brooks)
 ------------------------------
 
 - Aging population
 - Urbanization
 - Climate change
 
-My thesis work will solve all three of these problems.
+. . .
+
+Minimalism as a route to sustainability?
+
+. . .
+
+E-kagen robots (Koichi Suzumori): "good enough" or "irresponsible". Less focus on extreme accuracy, more
+on being robust and gentle.
+
+:::::::::::::: {.columns}
+::: {.column width="50%"}
+
+![A. Molchanov, A. Breitenmoser, G. Sukhatme. Active Drifters: Towards a Practical Multi-Robot System for Ocean Monitoring. ICRA 2015.](drifter.jpg){height=200px}
+
+:::
+::: {.column width="50%"}
+
+![](bees.jpg){height=200px}
+
+:::
+::::::::::::::
+
 
 Acknowledgements
 ----------------
 
-![Samara (Yingying) Ren](samara.jpg){height=200px}
+:::::::::::::: {.columns}
+::: {.column width="20%"}
 
-Israel
+![](samara.jpg){height=90px}
 
-Yuliy
 
-Amy
+![](wami.jpg){height=90px}
 
-Committee
+:::
+::: {.column width="20%"}
 
-NSF
+![](israel.jpg){height=90px}
 
-Department of Computer Science
+![](justin.jpg){height=90px} 
 
-All the undergrads
+:::
+::: {.column width="20%"}
 
-Thank you!
+![](yuliy.jpg){height=90px}
+
+![](austin.jpg){height=90px} 
+
+:::
+::: {.column width="20%"}
+
+![](amy.jpg){height=90px}
+
+![](jordan.jpg){height=90px} 
+
+:::
+::: {.column width="20%"}
+
+![](workshop.jpg){height=90px}
+
+<p style="font-size:0.7em">
+More undergrads: Chris Horn, John Born, Chase Gladish, Michael Zeng, Thomas
+Driscoll, Jon Park
+</p>
+
+:::
+::::::::::::::
+
+
+:::::::::::::: {.columns}
+::: {.column width="20%"}
+
+![](nancy.png){height=90px}
+
+![](uiuc-cs.jpg){height=90px}\
+
+:::
+::: {.column width="20%"}
+
+![](sayan.jpg){height=90px}
+
+![](geo.jpg){height=90px}\
+
+:::
+::: {.column width="20%"}
+
+![](todd.jpg){height=90px}
+
+![](hubler.jpg){height=90px}
+
+:::
+::: {.column width="40%"}
+
+![](alli-steve-seth.jpg){height=200px}
+
+:::
+::::::::::::::
+
+
+
+Thank you! Questions?
 ----------
 
 
 Sources
 -------
 
+
+How to Implement?
+-----------------
+
+- Differential drive with bump sensors and side-facing range sensor ("rotate-to-parallel")
+- Contact sensor and mechanical alignment of robot body ("rotate-until-free")
+- Boundaries can be virtual (laser beams, GPS, visible boundaries, etc)
+
+. . .
+
+<div align="center" style="float:left;padding:0px">
+<iframe width="275" height="275"
+src="figs/robot_vid2.m4v"
+frameborder="0" allowfullscreen>
+</iframe></div>
+<div align="center" style="float;padding:0px">
+<iframe width="275" height="275"
+src="figs/rotate.mp4"
+frameborder="0" allowfullscreen>
+</iframe>
+<div align="center" style="float:right">
+<img src="figs/Petronics-logo.png" style="width:200px">
+</div>
+</div>

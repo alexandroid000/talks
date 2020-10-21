@@ -25,7 +25,7 @@ body {
 
 body.dark {
     background: #33474b;
-background-color: #33474b; }
+    background-color: #33474b; }
     
 body.dark .reveal {
     color:#f1f1f1;
@@ -42,7 +42,7 @@ body.dark .reveal h6 {
 
 .reveal {
     font-family: "Fira Sans";
-    font-size: 28px;
+    font-size: 24px;
     font-weight: normal;
     color: var(--text-color); }
 
