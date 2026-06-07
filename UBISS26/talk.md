@@ -64,15 +64,29 @@ header-includes:
 
 ![\tiny Source: qubit.guide](figs/complexity.png){height=225px}
 
+
 # Why Minimalism in Robotics?
 
+
+## Organizing Robotics as a Synthetic Science
+
+For robotics to develop as a science\footnote{"What Is Robotics? Why Do We Need It and How Can We Get It?'' Dan Koditschek 2021}, we need theory that can:
+
+> - distinguish between and relate **tasks**,
+> - **architectures** for accomplishing them, and
+> - the **environments** within which robots may accomplish tasks
+
+. . .
+
+We need to be able to compare concepts within and across these domains.
 
 ## Robot Design is not a Simple Optimization Problem
 
 :::::::::::::: {.columns align=center}
 ::: {.column width="50%"}
-- Many feasible designs
+- Many feasible designs per task
 - Resource trade-offs
+- Highly coupled complex systems
 - Messy regions of infeasibility
 :::
 ::: {.column width="50%"}
@@ -80,31 +94,17 @@ header-includes:
 :::
 ::::::::::::::
 
-## Robotics as a Synthetic Science
-
-The design triple to be solved\footnote{"What Is Robotics? Why Do We Need It and How Can We Get It?'' Dan Koditschek 2021}:
-
-> - distinguishing between and relating **tasks**,
-> - **architectures** for accomplishing them, and
-> - the **environments** within which those accomplishments are sought
-
-## Complexity Reduction
-
-\centering
-
-![\tiny Source: Europa Star Magazine](figs/watch.jpg){height=225px}
-
-## Value of Abstraction
+## Benefits of Minmalist Abstractions
 
 :::::::::::::: {.columns align=center}
-::: {.column width="60%"}
+::: {.column width="50%"}
 > - Modularity and composition
-> - Reducing and classifying problems
-> - Complexity results
-> - Impossibility results
+> - Comparing and classifying problems (reducing one problem to another)
+> - Computational / information complexity results
+> - Impossibility results: boundary of feasibility
 :::
-::: {.column width="40%"}
-![\tiny Source: MasterHorologer](figs/watch-modules.jpg){height=200px}
+::: {.column width="50%"}
+![\tiny Source: MasterHorologer](figs/watch.jpg){height=200px}
 :::
 ::::::::::::::
 
@@ -115,11 +115,19 @@ The design triple to be solved\footnote{"What Is Robotics? Why Do We Need It and
 
 Minimalism helps us make *better abstractions* by intentionally removing *unnecessary details* from robotics problems!
 
+## Other Benefits of Minimalism
+
+> - Resource efficiency
+> - Ease of system debugging and verification
+> - Supply chain robustness
+
+# How to Do Minimalism in Robotics?
+
 ## Example: Gap Navigation Trees
 
 \centering
 
-![](figs/gnts.png){height=225px}
+![\tiny See "Gap navigation trees: A minimal representation for visibility-based tasks" in WAFR 2005 by S.M. LaValle et. al.](figs/gnts.png){height=225px}
 
 
 ## Back to the Bigger Picture
