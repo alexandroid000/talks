@@ -1,0 +1,19 @@
+title: Embodiment × Minimalism
+subtitle: UBISS 2026 Workshop A
+aspectratio: 169
+fontsize: 14pt
+slide-level: 2
+author:
+- Alexandra Nilles
+- Bașak Sakçak
+- Dylan Shell
+colortheme: beaver
+header-includes:
+- \setbeamertemplate{caption}{\raggedright\insertcaption\par}
+- \usepackage[T1]{fontenc}
+- \usepackage[utf8]{inputenc}
+- \usepackage[romanian]{babel}
+- \usepackage{graphicx}
+- \usepackage{multirow}
+- \setbeamerfont{caption}{size=\footnotesize}
+- \hypersetup{colorlinks,linkcolor=gray,urlcolor=blue}
