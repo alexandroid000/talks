@@ -1,4 +1,4 @@
-title: Embodiment × Minimalism
+title: Formalizing Co-Design
 subtitle: UBISS 2026 Workshop A
 aspectratio: 169
 fontsize: 14pt
@@ -8,7 +8,6 @@ author:
 - Bașak Sakçak
 - Dylan Shell
 colortheme: beaver
-linkcolor: blue
 header-includes:
 - \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 - \usepackage[T1]{fontenc}

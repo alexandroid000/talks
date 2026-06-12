@@ -1,12 +1,11 @@
 # standard input file and extension
-INPUT=embodiment-slides
+INPUT=codesign-slides
 INPUT_TYPE=md
-
 
 OPTIONS=-t beamer --standalone \
 --mathjax \
 --slide-level=2 \
---metadata-file=metadata-yaml.XXX \
+--metadata-file=metadata.yaml \
 --section-divs
 
 MARKDOWN=$(INPUT).md
