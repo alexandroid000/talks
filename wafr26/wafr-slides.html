@@ -1,41 +1,58 @@
 <!DOCTYPE html>
 <head>
 <meta charset="utf-8">
-  <meta name="author" content="Alli Nilles, Samara Ren, Israel Becerra, Steven M. LaValle" />
-  <meta name="dcterms.date" content="2018-12-09" />
-  <title>A Visibility-Based Approach to Computing Nondeterministic Bouncing Strategies</title>
-  <script src="/home/alli/src/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-  <!---
-  
-       (c) 2015, Peter Mosmans - Go Forward
-                                 www.go-forward.net
-  
-                                 peter.mosmans@go-forward.net
-  
-       Licensed under http://creativecommons.org/licenses/by-sa/4.0/
-       Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
-  
-  -->
+  <meta name="author" content="Alexandra Nilles, Henry Boekhoff   Department of Computer Science, Western Washington University" />
+  <meta name="author" content="Heather Jin Hee Kim, Julian Prieto   Sibley School of Mechanical and Aerospace Engineering, Cornell University" />
+  <meta name="author" content="Elizabeth Garner, Kirstin Petersen   Department of Electrical and Computer Engineering, Cornell University" />
+  <title>A (Scalable) Minimalist Algorithm for Shape-Changing Robots in Dense Swarms</title>
+  <script src="/usr/share/javascript/mathjax/MathJax.js"
+  type="text/javascript"></script>
   <style type="text/css">
-    html { background-color: black; }
-    body { background-color: white; border-radius: 12px; }
-  
+    html { background-color: black; font-size: 16pt; }
+    body {
+      background-color: white;
+      border-radius: 12px;
+      width: 800px;
+      height: 600px; }
+      .view section {
+      height: 600px;
+      margin: -140px -200px;
+      transform: scale(.3);
+    }
     .author, .date {
-        font-size: 8px
-        padding: 10px 10px 10px;
+        font-size: 16pt;
+        padding: 4px 4px 4px;
         margin: 0px;
-        text-align: right;
-        background-color: #EEEEEE;
+        text-align: center;
         color: #777777;
     }
     .author {
-        margin-top: 60px;
-        height: 112px;
+        margin-top: 50px;
+        padding: 6px 6px 6px 6px;
+        height: 50px;
     }
     .center {
-        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         margin-left: auto;
         margin-right: auto;
+    }
+    .centerv {
+        min-height:10em;
+        display: table-cell;
+        vertical-align: middle;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .column {
+        float: left;
+        width: 50%;
+    }
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
     }
     a { text-decoration: none; color: #111111; }
     /* A section is a slide. It's size is 800x600, and this will never change */
@@ -45,7 +62,7 @@
     blockquote { font-style: italic }
     code {
         white-space: pre;
-        font-size: 17px;
+        font-size: 16pt;
         background-color: #DDDDDD;
         border-radius: 5px;
         display: block;
@@ -53,17 +70,24 @@
     h1, h3, h4, h5 { text-align: center; }
     h1, h2, h3 { margin: 10pt 10pt 5pt 10pt; }
     h1 {
-        margin-top: 20px;
         font-size: 180%;
         background-color: #AAAAAA;
         border-radius: 12px; }
     h1.title {
+        margin-top: 50px;
+        font-size: 30pt;
+        padding: 30px;
+        background-color: #AAAAAA;
+        background-size: 250px;
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+    }
+    h1.subtitle {
         margin-top: 20px;
-        font-size: 35px;
-        padding: 120px;
+        font-size: 26pt;
+        padding: 60px;
         background-color:#FFFFFF;
-        background-image: url(images/sponsors.png);
-        background-size: 450px;
+        background-size: 60px;
         background-position: 10px 10px;
         background-repeat: no-repeat;
     }
@@ -71,12 +95,19 @@
         font-size: 120%;
         text-align: left;
     }
+    h2.title {
+        margin-top: 20px;
+        font-size: 32pt;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: #AAAAAA;
+    }
     h4 {
         margin: 0px;
         padding: 15px;
         background-color: #EEEEEE;
         color: #777777;
-        font-size: 15px;
+        font-size: 16pt;
     }
     h5 {
         margin: 0px;
@@ -85,9 +116,14 @@
     li { margin-bottom: 5px; }
     section {
         font-family: Arial, serif;
-        font-size: 16pt;
+        font-size: 20pt;
+        width: 80vw;
+        height: 80vh;
+        top: 0;
+        left: 0;
+        margin: 0;
     }
-    section.titleslide h1 { margin-top: 200px; }
+    section.titleslide h1 { margin-top: 150px; }
     td {
         padding: 5px 40px 5px 5px;
         border-right: 2px dotted #000000;
@@ -103,7 +139,8 @@
         display: block;
     }
     figcaption {
-      margin: 70px;
+      margin: 5px;
+      font-size: 12pt;
     }
     footer {
       position: absolute;
@@ -115,35 +152,24 @@
       border-top: 1px solid #CCC;
     }
     .strike { text-decoration: line-through; }
-    /* Transition effect */
-    /* Feel free to change the transition effect for original
-       animations. See here:
-       https://developer.mozilla.org/en/CSS/CSS_transitions
-       How to use CSS3 Transitions: */
-    /* section {
-        -moz-transition: left 400ms linear 0s;
-        -webkit-transition: left 400ms linear 0s;
-        -ms-transition: left 400ms linear 0s;
-        transition: left 400ms linear 0s;
-    } */
     /* Before */
     section { left: -150%; }
     /* Now */
     section[aria-selected] { left: 0; }
     /* After */
     section[aria-selected] ~ section { left: +150%; }
-  
+
     /* Incremental elements */
-  
+
     /* By default, visible */
     .incremental > * { opacity: 1; }
-  
+
     /* The current item */
     .incremental > *[aria-selected] { opacity: 1; }
-  
+
     /* The items to-be-selected */
-    .incremental > *[aria-selected] ~ * { opacity: 0.2; }
-  
+    .incremental > *[aria-selected] ~ * { opacity: 0.0; }
+
     div.sourceCode { overflow-x: auto; }
   table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
     margin: 0; padding: 0; vertical-align: baseline; border: none; }
@@ -183,173 +209,314 @@
 </head>
 <body>
 <section class="title">
-  <h1 class="title">A Visibility-Based Approach to Computing Nondeterministic Bouncing Strategies</h1>
-  <h2 class="author">Alli Nilles, Samara Ren, Israel Becerra, Steven M. LaValle</h2>
-  <h3 class="date">December 9, 2018</h3>
+  <h1 class="title .centerv">A (Scalable) Minimalist Algorithm for
+Shape-Changing Robots in Dense Swarms</h1>
+  <h2 class="author">Alexandra Nilles, Henry Boekhoff <br> Department of
+Computer Science, Western Washington University</h2>
+  <h2 class="author">Heather Jin Hee Kim, Julian Prieto <br> Sibley
+School of Mechanical and Aerospace Engineering, Cornell University</h2>
+  <h2 class="author">Elizabeth Garner, Kirstin Petersen <br> Department
+of Electrical and Computer Engineering, Cornell University</h2>
+  <h3 class="date"></h3>
 </section>
-<section id="minimalist-mobile-robots" class="slide level1">
-<h1>Minimalist Mobile Robots</h1>
-<p><img src="images/robot_spectrum.jpg" class="center" width="750" /><br />
+<section id="resource-constrained-shape-changing-robots"
+class="title-slide slide level1 center">
+<h1 class="center">Resource-Constrained Shape-Changing Robots</h1>
+
+</section>
+<section id="motivation-shape-changing-micro-robots"
+class="slide level2">
+<h2>Motivation: Shape-Changing Micro-Robots</h2>
+<div class="columns" data-align="center">
+<div class="column" style="width:60%;">
+<ul class="incremental">
+<li>Mechanisms include magnetism, bistable mechanisms, electrofluidics,
+many others</li>
+<li>Often, uniform global controls</li>
+<li>Often, strong influence from Brownian dynamics</li>
+<li>Why change shape?
+<ul class="incremental">
+<li>Drug delivery</li>
+<li>Collective dynamics (align, aggregate)</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:40%;">
+<figure>
+<img src="images/microrobot.gif" class="center" style="width:100.0%"
+alt="Fusco S, Huang HW, Peyer KE, Peters C, Haberli M, Ulbers A, Spyrogianni A, Pellicer E, Sort J, Pratsinis SE, Nelson BJ. Shape-switching microrobots for medical applications: The influence of shape in drug delivery and locomotion. ACS applied materials &amp; interfaces, 2015." />
+<figcaption aria-hidden="true">Fusco S, Huang HW, Peyer KE, Peters C,
+Haberli M, Ulbers A, Spyrogianni A, Pellicer E, Sort J, Pratsinis SE,
+Nelson BJ. Shape-switching microrobots for medical applications: The
+influence of shape in drug delivery and locomotion. ACS applied
+materials &amp; interfaces, 2015.</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="motivation-quorum-sensing-without-deliberation"
+class="slide level2">
+<h2>Motivation: Quorum Sensing without Deliberation</h2>
+<div class="columns" data-align="center">
+<div class="column" style="width:50%;">
+<ul class="incremental">
+<li>Externalize computation of density estimation to random walk</li>
+<li>Strong evidence of effective strategies in biological systems</li>
+<li>Minimizing onboard resources: no pheromones or explicit
+communication</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<figure>
+<img src="images/qs_random.png" style="width:90.0%"
+alt="Pavlic TP, Hanson J, Valentini G, Walker SI, Pratt SC. Quorum sensing without deliberation: biological inspiration for externalizing computation to physical spaces in multi-robot systems. Swarm Intelligence, 2021." />
+<figcaption aria-hidden="true">Pavlic TP, Hanson J, Valentini G, Walker
+SI, Pratt SC. Quorum sensing without deliberation: biological
+inspiration for externalizing computation to physical spaces in
+multi-robot systems. Swarm Intelligence, 2021.</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="motivation-deliberate-collisions" class="slide level2">
+<h2>Motivation: Deliberate Collisions</h2>
+<div class="columns" data-align="center">
+<div class="column" style="width:50%;">
+<ul class="incremental">
+<li>Collisions for efficient redirection</li>
+<li>Localization in dense swarms</li>
+<li>Task allocation</li>
+<li>Measuring aggregation: Motility induced phase separation (MIPS)</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<figure>
+<img src="images/sidd-collisions.png" class="center"
+style="width:100.0%"
+alt="Mayya S, Notomista G, Shell D, Hutchinson S, Egerstedt M. Non-uniform robot densities in vibration driven swarms using phase separation theory. In2019 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS).   Mayya S, Pierpaoli P, Nair G, Egerstedt M. Localization in densely packed swarms using interrobot collisions as a sensing modality. IEEE Transactions on Robotics, 2018." />
+<figcaption aria-hidden="true">Mayya S, Notomista G, Shell D, Hutchinson
+S, Egerstedt M. Non-uniform robot densities in vibration driven swarms
+using phase separation theory. In2019 IEEE/RSJ International Conference
+on Intelligent Robots and Systems (IROS). <br> Mayya S, Pierpaoli P,
+Nair G, Egerstedt M. Localization in densely packed swarms using
+interrobot collisions as a sensing modality. IEEE Transactions on
+Robotics, 2018.</figcaption>
+</figure>
+</div>
+</div>
+</section>
+
+<section id="our-scenario" class="title-slide slide level1 center">
+<h1 class="center">Our Scenario</h1>
+
+</section>
+<section id="assumptions" class="slide level2">
+<h2>Assumptions</h2>
+<ul class="incremental">
+<li>“Wild body” motion: no explicit motion model</li>
+<li>Agents will eventually explore everywhere (2D bounded
+environment)</li>
+<li>Robots have two possible shapes, can change shape individually</li>
+</ul>
+<figure>
+<img src="images/sim_screenshot.png" class="center" style="width:40.0%"
+alt="Our 2D simulator" />
+<figcaption aria-hidden="true">Our 2D simulator</figcaption>
+</figure>
+</section>
+<section id="research-questions" class="slide level2">
+<h2>Research Questions</h2>
+<p style="margin-top:3cm;">
+Can we control the proportion of the collective in each shape using
+local decisionmaking?
 </p>
-</section>
-<section id="a-different-motion-model" class="slide level1">
-<h1>A Different Motion Model</h1>
-<p>Consider a point robot moving in a polygonal environment.</p>
-<p>Tell the robot, “go forward until you can’t any more!”</p>
 <div class="incremental">
-<p>Compliance can reduce sensing and estimation requirements!</p>
-</div>
-<div class="incremental">
-<p><img src="images/bounce_examples.jpg" width="700" /></p>
-<p><strong>Bounce rule:</strong> determines action <span class="math inline">\(u \in (0, \pi)\)</span> at boundary.</p>
-<p><strong>Goal:</strong> Plan over strategies of sequential <strong>bounce rules</strong>.</p>
+<p style="margin-top:3cm;">
+What effect does shape have on collective dynamics?
+</p>
 </div>
 </section>
-<section id="interesting-baseline-behaviors" class="slide level1">
-<h1>Interesting Baseline Behaviors</h1>
-<p>Iterating the same rule can cause cycles and trapping regions:</p>
-<p><img src="images/twoconv.gif" class="center" width="300" /></p>
-<p>Combinatorial changes from small perturbations:</p>
-<p><img src="images/plane.gif" class="center" width="300" /></p>
-<h4 id="first-example-inspired-by-spagnolie-s.-e.-wahl-c.-lukasik-j.-thiffeault-j.-l.-2017.-microorganism-billiards.-physica-d-nonlinear-phenomena-341-33-44.">First example inspired by Spagnolie, S. E., Wahl, C., Lukasik, J., &amp; Thiffeault, J. L. (2017). Microorganism billiards. Physica D: Nonlinear Phenomena, 341, 33-44.</h4>
+<section id="proposed-algorithm" class="slide level2">
+<h2>Proposed Algorithm</h2>
+<ul class="incremental">
+<li>Intuition: collisions “reward” robots and increase likelihood of
+shape change</li>
+<li>Collision happens within <span
+class="math inline">\(\epsilon\)</span>: increment counter</li>
+<li>Elapsed time without collision exceeds <span
+class="math inline">\(\epsilon\)</span>: decrement counter</li>
+<li>Change shape when counter reaches <span
+class="math inline">\(m\)</span> (fully rewarded)</li>
+<li>Change back when counter reaches <span
+class="math inline">\(0\)</span> (fully sedate)</li>
+</ul>
 </section>
-<section id="what-about-uncertainty" class="slide level1">
-<h1>What About Uncertainty?</h1>
-<p><img src="images/bounce_example_nondet.jpg" class="center" width="400" /></p>
-<p>Uncertainty is unavoidable… Plan over <strong>nondeterministic</strong> bounce rules!</p>
-<div class="incremental">
-<p>Actions are convex open sets <span class="math inline">\(\tilde{\theta} \subseteq (0,\pi)\)</span></p>
-<p><strong>Safe actions</strong>: <em>Any</em> action in <span class="math inline">\(\tilde{\theta}\)</span> from <em>anywhere</em> on edge <span class="math inline">\(e_i\)</span> will get you to <em>somewhere</em> on edge <span class="math inline">\(e_j\)</span>.</p>
+<section id="proposed-state-machine" class="slide level2">
+<h2>Proposed State Machine</h2>
+<p><img src="images/state-machine.png" class="center"
+style="width:70.0%" /></p>
+</section>
+<section id="resources-required" class="slide level2">
+<h2>Resources Required</h2>
+<ul class="incremental">
+<li>Collision, proximity, or contact sensor(s)</li>
+<li>Edge trigger to classify contact as <em>new</em></li>
+<li>One integer counter</li>
+<li>One timer</li>
+<li>Two binary state variables</li>
+</ul>
+</section>
+
+<section id="analysis" class="title-slide slide level1 center">
+<h1 class="center">Analysis</h1>
+
+</section>
+<section id="population-dynamics" class="slide level2">
+<h2>Population Dynamics</h2>
+<p><span class="math display">\[\begin{align*}
+\dot{R} &amp; = S \lambda - R/\tau \\
+\dot{S} &amp; = R/\tau - S \lambda
+\end{align*}\]</span></p>
+<ul class="incremental">
+<li><span class="math inline">\(S\)</span>, <span
+class="math inline">\(R\)</span> represent population fractions (<span
+class="math inline">\(S + R = 1\)</span>)</li>
+<li><span class="math inline">\(\lambda\)</span> is transition rate from
+shape 1 to shape 2</li>
+<li><span class="math inline">\(\tau\)</span> is related to transition
+rate back to shape 1</li>
+</ul>
+</section>
+<section id="probability-of-collision" class="slide level2">
+<h2>Probability of Collision</h2>
+<div class="columns" data-align="center">
+<div class="column" style="width:50%;">
+<ul class="incremental">
+<li>To determine transition rate, need to understand probability of
+collision</li>
+<li>Depends on local density, robot size, robot speed</li>
+<li>Well-mixed (AKA mean field) assumption allows use of Poisson point
+process</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<figure>
+<img src="images/sidd-point-process.png" class="center"
+style="width:100.0%"
+alt="Mayya S, Pierpaoli P, Nair G, Egerstedt M. Localization in densely packed swarms using interrobot collisions as a sensing modality. IEEE Transactions on Robotics. 2018 Oct 8;35(1):21-34." />
+<figcaption aria-hidden="true">Mayya S, Pierpaoli P, Nair G, Egerstedt
+M. Localization in densely packed swarms using interrobot collisions as
+a sensing modality. IEEE Transactions on Robotics. 2018 Oct
+8;35(1):21-34.</figcaption>
+</figure>
 </div>
-<div class="incremental">
-<p><strong>Goal:</strong> along with plan, output a characterization of how much uncertainty the plan can tolerate (design constraints!)</p>
 </div>
 </section>
-<section id="geometry-influences-dynamics" class="slide level1">
-<h1>Geometry Influences Dynamics</h1>
-<p>Given geometry, we can explicitly analyze state transitions between intervals on the boundary <span class="math inline">\(\partial P\)</span> under nondeterministic actions <span class="math inline">\(\tilde{\theta}\)</span>:</p>
-<p><span class="math display">\[f: \partial P \times U \to \partial P\]</span></p>
-<p><strong>Observation:</strong> <span class="math inline">\(f\)</span> is easier to analyze when looking at pairs of mutually visible edges.</p>
-<p><strong>Observation:</strong> in a single action, the robot can only transition to visible segments of the boundary.</p>
-<h3 id="use-geometric-structure-to-discretize-space-of-possible-trajectories">Use geometric structure to discretize space of possible trajectories!</h3>
-</section>
-<section id="our-approach" class="slide level1">
-<h1>Our Approach</h1>
+<section id="density-predictions" class="slide level2">
+<h2>Density Predictions</h2>
+<p>Probability of collisions gives:</p>
 <ol class="incremental" type="1">
-<li>Partition boundary using “visibility events”</li>
-<li>Create <em>safe</em> edge-to-edge transition graph</li>
-<li>Search for paths and cycles (depending on specification)</li>
-<li>Translate paths to strategies</li>
+<li><span class="math inline">\(\lambda\)</span>: probability of <span
+class="math inline">\(m\)</span> sequential collisions with less than
+<span class="math inline">\(\epsilon\)</span> elapsed time between
+them</li>
+<li><span class="math inline">\(\tau\)</span>: probability of no
+collisions within <span class="math inline">\(m\epsilon\)</span>
+time</li>
 </ol>
 </section>
-<section id="visibility-decomposition" class="slide level1">
-<h1>Visibility Decomposition</h1>
-<p><img src="images/new_partial_local_sequence.png" class="center" width="600" /><br />
-</p>
-<div class="incremental">
-<p>Static obstacles are ok too - same partitioning operation!</p>
-</div>
+
+<section id="results" class="title-slide slide level1 center">
+<h1 class="center">Results</h1>
+
 </section>
-<section id="safe-bounce-visibility-graph" class="slide level1">
-<h1>Safe Bounce Visibility Graph</h1>
-<p><img src="images/safe_bvg.png" class="center" width="750" /></p>
-<p>Algorithm 1 of paper: polygon with <span class="math inline">\(n\)</span> vertices will produce bounce visibility graph with <span class="math inline">\(O(n^2)\)</span> nodes and <span class="math inline">\(O(n^4)\)</span> edges.</p>
+<section
+id="low-sensitivity-to-timer-threshold-epsilon-in-dense-settings"
+class="slide level2">
+<h2>Low Sensitivity to Timer Threshold <span
+class="math inline">\(\epsilon\)</span> in Dense Settings</h2>
+<p><img src="images/fracs_thresh_plot.png" class="center"
+style="width:80.0%" /></p>
 </section>
-<section id="properties-of-safe-bounce-visibility-graph" class="slide level1">
-<h1>Properties of Safe Bounce Visibility Graph</h1>
+<section id="effect-of-counter-threshold-m" class="slide level2">
+<h2>Effect of Counter Threshold <span
+class="math inline">\(m\)</span></h2>
+<p><img src="images/timer_comparison.png" class="center"
+style="width:80.0%" /></p>
+</section>
+<section id="high-sensitivity-to-density-with-fixed-m-and-epsilon"
+class="slide level2">
+<h2>High Sensitivity to Density with Fixed <span
+class="math inline">\(m\)</span> and <span
+class="math inline">\(\epsilon\)</span></h2>
+<figure>
+<img src="images/fracs_bots_plot.png" class="center" style="width:80.0%"
+alt="Distributed adaptation to density changes!" />
+<figcaption aria-hidden="true">Distributed adaptation to density
+changes!</figcaption>
+</figure>
+</section>
+<section id="demonstration" class="slide level2">
+<h2>Demonstration</h2>
+<p><video src="images/funnel_demo.mp4" class="center"
+style="width:90.0%" controls=""><a
+href="images/funnel_demo.mp4">Video</a></video></p>
+</section>
+
+<section id="dirty-laundry-and-next-steps"
+class="title-slide slide level1 center">
+<h1 class="center">Dirty Laundry and Next Steps</h1>
+
+</section>
+<section id="dirty-laundry" class="slide level2">
+<h2>Dirty Laundry</h2>
 <ul class="incremental">
-<li>Some segments are unreachable under safe actions</li>
-<li><strong>Proposition:</strong> For every polygon <span class="math inline">\(P\)</span> and the resulting partitioned polygon <span class="math inline">\(P&#39;\)</span> under Algorithm 1, each edge <span class="math inline">\(e \in P&#39;\)</span> has at least two safe actions which allow transitions away from <span class="math inline">\(e\)</span>.</li>
-</ul>
-<p><img src="images/safe_bvg.png" class="center" width="500" /></p>
-</section>
-<section id="example-path-queries" class="slide level1">
-<h1>Example Path Queries</h1>
-<p>Of all paths from A to B (up to bounded length), which allows the most unreliable robot?</p>
-<div class="incremental">
-<p>From a given start set, what parts of the polygon boundary are reachable under uncertainty? How much uncertainty?</p>
-</div>
-<div class="incremental">
-<p>What parts of polygon are reachable under a given set of actions?</p>
-</div>
-<div class="incremental">
-<p>What parts of the polygon are reachable with a constant controller?</p>
-</div>
-<div class="incremental">
-<p><img src="images/inserted_two_conv.png" class="center" width="700" /><br />
-</p>
-</div>
-</section>
-<section id="safe-stable-cycles" class="slide level1">
-<h1>Safe Stable Cycles</h1>
-<p>A cycle is <strong>stable</strong> when the composition of transition functions is a <em>contraction mapping</em>: two points under the mapping become closer together.</p>
-<div class="incremental">
-<p><strong>Theorem:</strong> For all convex polygons with <span class="math inline">\(n\)</span> edges, there exist constant fixed-angle bouncing strategies which result in a period <span class="math inline">\(n\)</span> limit cycle regardless of the robot’s start position.</p>
-</div>
-<div class="incremental">
-<p><strong>Proposition:</strong> For all points <span class="math inline">\(s\)</span> on the boundary of all polygons, a constant fixed-angle controller exists which will cause the robot’s trajectory to enter a stable limit cycle.</p>
-<p><img src="images/cycles.gif" class="center" style="float:left;padding:12px" width="250" /> <img src="images/bigc.gif" class="center" style="float:right;padding:12px" width="350" /><br />
-</p>
-</div>
-</section>
-<section id="example-cycle-queries" class="slide level1">
-<h1>Example Cycle Queries</h1>
+<li>MIPS normalization and discrete computation</li>
+<li>Radius assumptions</li>
+<li>Hardware experiments inconclusive
 <ul class="incremental">
-<li>Is there a safe cycle which visits edge set <span class="math inline">\(E\)</span> (in a particular order, or not)?
-<ul class="incremental">
-<li>Note that safe cycles are “stable,” even if they do not have the contraction property for all <span class="math inline">\(s, \theta\)</span>.</li>
+<li>Weaselball fail</li>
+<li>Micro-robot physics vary widely</li>
 </ul></li>
 </ul>
-<ul class="incremental">
-<li>For actions with uncertainty <span class="math inline">\(\pm \epsilon\)</span>, is there a reachable cycle which will shrink the size of the robot’s state estimate below <span class="math inline">\(\delta\)</span>?</li>
-</ul>
+<p><img src="images/laundry.png" class="center"
+style="width:40.0%" /></p>
 </section>
-<section id="dirty-laundry" class="slide level1">
-<h1>Dirty Laundry</h1>
+<section id="next-steps" class="slide level2">
+<h2>Next Steps</h2>
 <ul class="incremental">
-<li>Not complete: given a small start set, safe paths exist that we cannot find</li>
-<li>We can’t actually ignore corners always</li>
-<li>Computational geometry in Python…</li>
-<li>Needs experimental validation!</li>
+<li>Developing theory of robot “cross-section”</li>
+<li>Randomized navigation of dense swarms in dense obstacle fields</li>
+<li>Hardware validation and robophysics (publishing our shape-change
+mechanism)</li>
 </ul>
 <div class="incremental">
-<div data-align="center" style="float:left;padding:24px">
-<iframe width="300" height="275" src="images/robot_vid2.m4v" frameborder="0" allowfullscreen>
-</iframe>
-</div>
-<div data-align="center" style="float;padding:24px">
-<iframe width="300" height="250" src="images/rotate.mp4" frameborder="0" allowfullscreen>
-</iframe>
-</div>
-<div data-align="center" style="float:left">
-<p><img src="images/Petronics-logo.png" style="width:200px"></p>
-</div>
+<p><img src="images/wb-shapeshift.png" class="center"
+style="width:80.0%" /></p>
 </div>
 </section>
-<section id="future-work" class="slide level1">
-<h1>Future Work</h1>
+<section id="contributions" class="slide level2">
+<h2>Contributions</h2>
 <ul class="incremental">
-<li>How to plan over limit cycles? There are exponentially many, but only some are “good” (admit relatively large error cones, chain together easily with other limit cycles, etc)</li>
-<li>Code refactor, leading to design of high-level specification language
-<ul class="incremental">
-<li>LTL-ish (eventually reach region <em>A</em>… stay in region <em>B</em> until…)</li>
-<li>Multirobot context: guarantees on robot presence and density</li>
-</ul></li>
-</ul>
-<ul class="incremental">
-<li>More concrete applications
-<ul class="incremental">
-<li>Mobile robot monitoring conditions in warehouse, greenhouse, office</li>
-<li>Forest fire detecting drones, and other conservation applications</li>
-</ul></li>
+<li>Open-source simulator and hardware</li>
+<li>Useful approach for distributed adaptation to density change,
+supported by theory</li>
+<li>Hints at fun problem structure to improve theory</li>
 </ul>
 </section>
-<section id="thank-you-questions" class="slide level1">
-<h1>Thank you! Questions?</h1>
-<p><img src="images/tworef1.jpg" class="center" width="200" /><br />
-</p>
-<h4 id="presentation-template-from-httpsgithub.competermosmanspresentation-template">Presentation Template from https://github.com/PeterMosmans/presentation-template</h4>
+<section id="thank-you-questions" class="slide level2">
+<h2>Thank you! Questions?</h2>
+<p>New lab website: <a
+href="https://mrrp.cs.wwu.edu">https://mrrp.cs.wwu.edu</a></p>
 </section>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            processEscapes: true
+        }
+    });
+</script>
+
+<script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 <!-- {{{{ dzslides core
 #
 #

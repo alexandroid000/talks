@@ -1,23 +1,49 @@
 <style type="text/css">
-  html { background-color: black; }
-  body { background-color: white; border-radius: 12px; }
-
+  html { background-color: black; font-size: 16pt; }
+  body {
+    background-color: white;
+    border-radius: 12px;
+    width: 800px;
+    height: 600px; }
+    .view section {
+    height: 600px;
+    margin: -140px -200px;
+    transform: scale(.3);
+  }
   .author, .date {
-      font-size: 8px
-      padding: 10px 10px 10px;
+      font-size: 16pt;
+      padding: 4px 4px 4px;
       margin: 0px;
-      text-align: right;
-      background-color: #EEEEEE;
+      text-align: center;
       color: #777777;
   }
   .author {
-      margin-top: 60px;
-      height: 112px;
+      margin-top: 50px;
+      padding: 6px 6px 6px 6px;
+      height: 50px;
   }
   .center {
-      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin-left: auto;
       margin-right: auto;
+  }
+  .centerv {
+      min-height:10em;
+      display: table-cell;
+      vertical-align: middle;
+      margin-left: auto;
+      margin-right: auto;
+  }
+  .column {
+      float: left;
+      width: 50%;
+  }
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
   }
   a { text-decoration: none; color: #111111; }
   /* A section is a slide. It's size is 800x600, and this will never change */
@@ -27,7 +53,7 @@
   blockquote { font-style: italic }
   code {
       white-space: pre;
-      font-size: 17px;
+      font-size: 16pt;
       background-color: #DDDDDD;
       border-radius: 5px;
       display: block;
@@ -35,17 +61,24 @@
   h1, h3, h4, h5 { text-align: center; }
   h1, h2, h3 { margin: 10pt 10pt 5pt 10pt; }
   h1 {
-      margin-top: 20px;
       font-size: 180%;
       background-color: #AAAAAA;
       border-radius: 12px; }
   h1.title {
+      margin-top: 50px;
+      font-size: 30pt;
+      padding: 30px;
+      background-color: #AAAAAA;
+      background-size: 250px;
+      background-position: 10px 10px;
+      background-repeat: no-repeat;
+  }
+  h1.subtitle {
       margin-top: 20px;
-      font-size: 35px;
-      padding: 120px;
+      font-size: 26pt;
+      padding: 60px;
       background-color:#FFFFFF;
-      background-image: url(images/sponsors.png);
-      background-size: 450px;
+      background-size: 60px;
       background-position: 10px 10px;
       background-repeat: no-repeat;
   }
@@ -53,12 +86,19 @@
       font-size: 120%;
       text-align: left;
   }
+  h2.title {
+      margin-top: 20px;
+      font-size: 32pt;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      background-color: #AAAAAA;
+  }
   h4 {
       margin: 0px;
       padding: 15px;
       background-color: #EEEEEE;
       color: #777777;
-      font-size: 15px;
+      font-size: 16pt;
   }
   h5 {
       margin: 0px;
@@ -67,9 +107,14 @@
   li { margin-bottom: 5px; }
   section {
       font-family: Arial, serif;
-      font-size: 16pt;
+      font-size: 20pt;
+      width: 80vw;
+      height: 80vh;
+      top: 0;
+      left: 0;
+      margin: 0;
   }
-  section.titleslide h1 { margin-top: 200px; }
+  section.titleslide h1 { margin-top: 150px; }
   td {
       padding: 5px 40px 5px 5px;
       border-right: 2px dotted #000000;
@@ -85,7 +130,8 @@
       display: block;
   }
   figcaption {
-    margin: 70px;
+    margin: 5px;
+    font-size: 12pt;
   }
   footer {
     position: absolute;
@@ -97,17 +143,6 @@
     border-top: 1px solid #CCC;
   }
   .strike { text-decoration: line-through; }
-  /* Transition effect */
-  /* Feel free to change the transition effect for original
-     animations. See here:
-     https://developer.mozilla.org/en/CSS/CSS_transitions
-     How to use CSS3 Transitions: */
-  /* section {
-      -moz-transition: left 400ms linear 0s;
-      -webkit-transition: left 400ms linear 0s;
-      -ms-transition: left 400ms linear 0s;
-      transition: left 400ms linear 0s;
-  } */
   /* Before */
   section { left: -150%; }
   /* Now */
@@ -124,7 +159,7 @@
   .incremental > *[aria-selected] { opacity: 1; }
 
   /* The items to-be-selected */
-  .incremental > *[aria-selected] ~ * { opacity: 0.2; }
+  .incremental > *[aria-selected] ~ * { opacity: 0.0; }
 
   div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
