@@ -9,7 +9,7 @@ OPTIONS= --mathjax=$(HOME)/src/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML \
 --template=my.reveal \
 --extract-media=figs \
 --resource-path=$(HOME)/common/figs/:.:./figs/ \
---filter=pandoc-citeproc
+--citeproc
 #--mathjax \
 #HTMLS := $(patsubst %.md,%.html,talk.md)
 MARKDOWN=$(INPUT).md

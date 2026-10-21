@@ -217,35 +217,35 @@ Physics, 2016.](swimmers.png){height=300px class="center"}
 Emergence, Collective Intelligence, and Minimalism
 ------------------------
 
-For robust emergent behaviors, we want to find mapping between local actions and global behavior.
+simple local actions  $\leftrightarrow$ robust global behavior
 
 . . .
 
-Not often easy or intuitive. Options to bridge the gap: parameterize design space and sweep,
-reinforcement learning, control, dynamical system segmentation, statistical mechanics, information spaces...
+> - Computation-free swarming (Groß, Natural Robotics Lab)
+> - Smarticles, MURI on Collective Behavior (Randall, Goldman, Strano, Richa, England, Murphey)
+> - Stat mech, physics of vibration-driven swarms (Mayya, Shell, Egerstedt, et al)
+> - Collective intelligence (Nagpal, Petersen)
+> - Rendezvous without coordinates (LaValle, Yu, Liberzon)
 
 . . .
 
-Boundary interactions are an under-explored control mode, with promise for
-analytic guarantees, and are amenable to many "lines of attack."
+Many approaches to hardware / control design: parameter sweep, hand-crafted
+instructions, bio-inspiration, optimal control, evolutionary algorithms, learning, etc
 
-. . .
+Emergence, Collective Intelligence, and Minimalism
+------------------------
 
-- Roderich Groß, Natural Robotics Lab, computation-free swarming
-- Smarticles, MURI on Collective Behavior (Randall, Goldman, Strano, Richa, England, Murphey)
-- S. Mayya, G. Notomista, D. Shell, S. Hutchinson, and M. Egerstedt. "Non-uniform robot densities in vibration driven swarms using phase separation theory." IROS, 2019.
-- Collective intelligence: Radhika Nagpal, Kirstin Petersen
-- LaValle, Yu, Liberzon "Rendezvous without coordinates"
+simple local actions  $\leftrightarrow$ robust global behavior
+
+. . . 
 
 
-*Designing* Boundary Interactions
+Boundary interactions are an under-explored local control mode, with promise for
+analytic guarantees on global behavior, and are amenable to many of these "lines of attack."
+
+
+Designing Boundary Interactions
 -------------------------------
-
-- Choose models to cover range of implementations
-- Use appplications to ground model choice, but focus more on characterizing the design space
-- Make tools that leave optimization options open (shortest path, robustness, mechanical design...)
-
-. . .
 
 > Design activity... is a process of **satisficing** rather than optimizing;
 > producing any one of what might well be a large range of satisfactory solutions
@@ -253,27 +253,30 @@ analytic guarantees, and are amenable to many "lines of attack."
 > 
 > -- Nigel Cross, *Designerly Ways of Knowing*
 
+. . .
+
+Goal: develop design tools that apply to a broad family of hardware designs,
+allow flexibility for task definition, but still provide
+designer with formal guarantees on task success
+
 My Work
 -------
 
 :::::::::::::: {.columns}
 ::: {.column width="50%"}
 
-Characterization and planning for model system, bouncing robots:
 
-![](twoconv.gif){height=150px class="center"}\ 
+![Characterization and planning for bouncing robots](twoconv.gif){height=150px}
 
 
-Prototype programming language:
+![Testbed for self-assembling wild bodies](weaselballs_movement.gif){height=150px}
 
-![](improv_demo.gif){height=150px class="center"}\
 
 :::
 ::: {.column width="50%"}
 
-Experimental testbed for self-assembling wild bodies:
+![Live coding robot motion](improv_demo.gif){height=150px}
 
-![](weaselballs_movement.gif){height=150px class="center"}\
 
 
 Many other (published and unpublished) projects...
@@ -567,6 +570,31 @@ Analyzing Reachability And Connectedness
 Related to *link distance*, *art gallery* problems in computational geometry.
 
 
+Information Requirements of Collision-Based Micro-Manipulation (WAFR 2020)
+------------
+
+![](environment_and_triangles.png){class="center" width=600px}
+
+![Tommy Berrueta](tommy.jpg){width=100px}\ ![Ana Pervan](ana.jpg){width=100px}\
+
+
+Information Requirements of Collision-Based Micro-Manipulation (WAFR 2020)
+------------
+
+![](FSMs.png){class="center" width=600px}
+
+How much information do you need to know you're lost?
+
+Interesting Takeaways
+--------------
+
+- Sensors only need to provide coarse spatial or directional information
+- Given information history, three types of state estimation:
+  - what states could I have started in to create this information history?
+  - what states could I currently be in?
+  - what states could I reach in the future (with a given controller)?
+
+
 Beyond Bouncing Robots
 ----------------------
 
@@ -654,39 +682,25 @@ Motion Tracking and Analysis
 ::::::::::::::
 
 
-Research Insights and Questions
+Weaselball Summary
 ----------------------
 
-1. Weaselballs are a pretty good example of "active Brownian" agents.
-1. Control of macro states ("pressure", "temperature") can enable manipulation and other useful tasks.
-2. Robot-robot interactions affect these macro-states.
-3. Robot-boundary interactions affect these macro-states.
-4. How to tune and design these interactions without running into the curse of dimensionality?
+Contributions:
 
+1. Introduction of weaselballs+hubs as macro analogue of micro-scale "active Brownian" agents.
+2. Simulation (Gazebo/AWS) and motion tracking infrastructure.
+3. Identification of impact of assembly size/shape on dynamics.
 
-Information Requirements of Collision-Based Micro-Manipulation (WAFR 2020)
-------------
+. . .
 
-![](environment_and_triangles.png){class="center" width=600px}
+Challenges:
 
-![Tommy Berrueta](tommy.jpg){width=100px}\ ![Ana Pervan](ana.jpg){width=100px}\
+1. Controllable latch mechanism
+4. How to plan attaching/detatching without running into the curse of dimensionality?
+3. How to use knowlege of assembly dynamics for planning collective dynamics or
+object manipulation? Goal: manipulation spatial distribution & velocities
+("pressure and temperature")
 
-
-Information Requirements of Collision-Based Micro-Manipulation (WAFR 2020)
-------------
-
-![](FSMs.png){class="center" width=600px}
-
-How much information do you need to know you're lost?
-
-Interesting Takeaways
---------------
-
-- Sensors only need to provide coarse spatial or directional information
-- Given information history, three types of state estimation:
-  - what states could I have started in to create this information history?
-  - what states could I currently be in?
-  - what states could I reach in the future (with a given controller)?
 
 
 How Do We Tell Robots What To Do?
@@ -731,7 +745,7 @@ Design criteria (based on *Cognitive Dimensions of Notations*):
 ::::::::::::::
 
 
-Let's be Creative!
+Let's Be Creative!
 ------------------
 
 :::::::::::::: {.columns}
@@ -755,7 +769,7 @@ Common Threads
 -------------
 
 
-- From simple interactions to robust behaviors
+- Simple boundary interactions can lead to robust behaviors
 - Choice of representation really matters
 - System design is an iterative process; tools should respect that
 
@@ -856,7 +870,7 @@ Driscoll, Jon Park
 
 ![](todd.jpg){height=90px}
 
-![](hubler.jpg){height=90px}
+![](ubicomp_logo.jpg){height=90px}
 
 :::
 ::: {.column width="40%"}

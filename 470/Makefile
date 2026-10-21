@@ -1,10 +1,9 @@
 # standard input file and extension
-INPUT=11-lecture
+INPUT=10-lecture
 INPUT_TYPE=md
 
-
 OPTIONS=-t dzslides --template my.dzslides --standalone \
---mathjax=$(HOME)/src/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML \
+--mathjax=https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js \
 --include-in-header=header.txt  --include-in-header=css/include.css
 #--mathjax \
 #HTMLS := $(patsubst %.md,%.html,talk.md)

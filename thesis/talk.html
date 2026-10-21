@@ -16,6 +16,25 @@
     div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="https://unpkg.com/reveal.js@^4//dist/theme/black.css" id="theme">
   <link rel="stylesheet" href="css/metropolis.css"/>
@@ -93,7 +112,7 @@ October 21, 2020</div></p>
 </div>
 </section>
 <section id="what-makes-a-robot-simple" class="slide level2">
-<h2>What Makes a Robot “Simple”?</h2>
+<h2>What Makes a Robot “Simple?”</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <figure>
@@ -105,7 +124,7 @@ October 21, 2020</div></p>
 </figure>
 </div>
 </div>
-<p>No all-purpose technical definition of “simple”… Long history of minimalism as a lens for analyzing robotic systems. See “The Compass that Steered Robotics”, Goldberg, Erdmann, Egerstedt, many others…</p>
+<p>No all-purpose technical definition of “simple”… Long history of minimalism as a lens for analyzing robotic systems. See “The Compass that Steered Robotics,” Goldberg, Erdmann, Egerstedt, many others…</p>
 </section>
 <section id="when-do-we-want-a-simple-robot" class="slide level2">
 <h2>When Do We Want a “Simple” Robot?</h2>
@@ -123,7 +142,7 @@ October 21, 2020</div></p>
 </section>
 <section id="what-is-a-boundary-interaction" class="slide level2">
 <h2>What is a Boundary Interaction?</h2>
-<p>Physical collision, virtual “boundary”, or even another robot!</p>
+<p>Physical collision, virtual “boundary,” or even another robot!</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <figure>
@@ -190,50 +209,51 @@ October 21, 2020</div></p>
 </section>
 <section id="emergence-collective-intelligence-and-minimalism" class="slide level2">
 <h2>Emergence, Collective Intelligence, and Minimalism</h2>
-<p>For robust emergent behaviors, we want to find mapping between local actions and global behavior.</p>
-<div class="fragment">
-<p>Not often easy or intuitive. Options to bridge the gap: parameterize design space and sweep, reinforcement learning, control, dynamical system segmentation, statistical mechanics, information spaces…</p>
-</div>
-<div class="fragment">
-<p>Boundary interactions are an under-explored control mode, with promise for analytic guarantees, and are amenable to many “lines of attack.”</p>
-</div>
+<p>simple local actions <span class="math inline">\(\leftrightarrow\)</span> robust global behavior</p>
 <div class="fragment">
 <ul>
-<li class="fragment">Roderich Groß, Natural Robotics Lab, computation-free swarming</li>
-<li class="fragment">Smarticles, MURI on Collective Behavior (Randall, Goldman, Strano, Richa, England, Murphey)</li>
-<li class="fragment">S. Mayya, G. Notomista, D. Shell, S. Hutchinson, and M. Egerstedt. “Non-uniform robot densities in vibration driven swarms using phase separation theory.” IROS, 2019.</li>
-<li class="fragment">Collective intelligence: Radhika Nagpal, Kirstin Petersen</li>
-<li class="fragment">LaValle, Yu, Liberzon “Rendezvous without coordinates”</li>
+<li>Computation-free swarming (Groß, Natural Robotics Lab)</li>
+<li>Smarticles, MURI on Collective Behavior (Randall, Goldman, Strano, Richa, England, Murphey)</li>
+<li>Stat mech, physics of vibration-driven swarms (Mayya, Shell, Egerstedt, et al)</li>
+<li>Collective intelligence (Nagpal, Petersen)</li>
+<li>Rendezvous without coordinates (LaValle, Yu, Liberzon)</li>
 </ul>
+</div>
+<div class="fragment">
+<p>Many approaches to hardware / control design: parameter sweep, hand-crafted instructions, bio-inspiration, optimal control, evolutionary algorithms, learning, etc</p>
+</div>
+</section>
+<section id="emergence-collective-intelligence-and-minimalism-1" class="slide level2">
+<h2>Emergence, Collective Intelligence, and Minimalism</h2>
+<p>simple local actions <span class="math inline">\(\leftrightarrow\)</span> robust global behavior</p>
+<div class="fragment">
+<p>Boundary interactions are an under-explored local control mode, with promise for analytic guarantees on global behavior, and are amenable to many of these “lines of attack.”</p>
 </div>
 </section>
 <section id="designing-boundary-interactions" class="slide level2">
-<h2><em>Designing</em> Boundary Interactions</h2>
-<ul>
-<li class="fragment">Choose models to cover range of implementations</li>
-<li class="fragment">Use appplications to ground model choice, but focus more on characterizing the design space</li>
-<li class="fragment">Make tools that leave optimization options open (shortest path, robustness, mechanical design…)</li>
-</ul>
-<div class="fragment">
+<h2>Designing Boundary Interactions</h2>
 <blockquote>
 <p>Design activity… is a process of <strong>satisficing</strong> rather than optimizing; producing any one of what might well be a large range of satisfactory solutions rather than attempting to generate the one hypothetically-optimum solution.</p>
 <p>– Nigel Cross, <em>Designerly Ways of Knowing</em></p>
 </blockquote>
+<div class="fragment">
+<p>Goal: develop design tools that apply to a broad family of hardware designs, allow flexibility for task definition, but still provide designer with formal guarantees on task success</p>
 </div>
 </section>
 <section id="my-work" class="slide level2">
 <h2>My Work</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p>Characterization and planning for model system, bouncing robots:</p>
-<p><img data-src="figs/d8d327b9b2e84fff40d13541537ac51ad28cf3fc.gif" class="center" height="150" /> </p>
-<p>Prototype programming language:</p>
-<p><img data-src="figs/b10fb43bb53178ae636b51ced69ec008e81dfdba.gif" class="center" height="150" /><br />
-</p>
+<figure>
+<img data-src="figs/d8d327b9b2e84fff40d13541537ac51ad28cf3fc.gif" height="150" alt="Characterization and planning for bouncing robots" /><figcaption aria-hidden="true">Characterization and planning for bouncing robots</figcaption>
+</figure>
+<figure>
+<img data-src="figs/c151d59e435a17ed9020c9bf4960c540c1804063.gif" height="150" alt="Testbed for self-assembling wild bodies" /><figcaption aria-hidden="true">Testbed for self-assembling wild bodies</figcaption>
+</figure>
 </div><div class="column" style="width:50%;">
-<p>Experimental testbed for self-assembling wild bodies:</p>
-<p><img data-src="figs/c151d59e435a17ed9020c9bf4960c540c1804063.gif" class="center" height="150" /><br />
-</p>
+<figure>
+<img data-src="figs/b10fb43bb53178ae636b51ced69ec008e81dfdba.gif" height="150" alt="Live coding robot motion" /><figcaption aria-hidden="true">Live coding robot motion</figcaption>
+</figure>
 <p>Many other (published and unpublished) projects…</p>
 </div>
 </div>
@@ -336,7 +356,7 @@ October 21, 2020</div></p>
 </section>
 <section id="visibility-decomposition" class="slide level2">
 <h2>Visibility Decomposition</h2>
-<p>Equivalence relation on points along boundary with respect to what edges of original polygon they can “see”.</p>
+<p>Equivalence relation on points along boundary with respect to what edges of original polygon they can “see.”</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><img data-src="figs/80814b19fe84ec9fc6a15b58c894ca995d33d4d8.jpg" class="center" width="300" /><br />
@@ -430,6 +450,29 @@ October 21, 2020</div></p>
 <p><img data-src="figs/4789aefdd1295b0ee4a0486b915681e88e98430d.png" height="190" /> <img data-src="figs/fab35ee49a375625723819814027ada036db5736.png" height="190" /> <img data-src="figs/043ace4aa120b6c9715377ab6ba2e4079c147f63.png" height="190" /> </p>
 <p>Related to <em>link distance</em>, <em>art gallery</em> problems in computational geometry.</p>
 </section>
+<section id="information-requirements-of-collision-based-micro-manipulation-wafr-2020" class="slide level2">
+<h2>Information Requirements of Collision-Based Micro-Manipulation (WAFR 2020)</h2>
+<p><img data-src="figs/ae7580bcb2462d00e16b2d15965659e8db9f9d10.png" class="center" width="600" /></p>
+<p><img data-src="figs/6b63b081ebd5907cc8f8f3691c64d466a7b4567a.jpg" width="100" alt="Tommy Berrueta" /> <img data-src="figs/e2b6ba4fa08e3fb578ac14cc0f78f25495d5e02c.jpg" width="100" alt="Ana Pervan" /><br />
+</p>
+</section>
+<section id="information-requirements-of-collision-based-micro-manipulation-wafr-2020-1" class="slide level2">
+<h2>Information Requirements of Collision-Based Micro-Manipulation (WAFR 2020)</h2>
+<p><img data-src="figs/74250880df0561c87311fd4b276553041dbc16f5.png" class="center" width="600" /></p>
+<p>How much information do you need to know you’re lost?</p>
+</section>
+<section id="interesting-takeaways" class="slide level2">
+<h2>Interesting Takeaways</h2>
+<ul>
+<li class="fragment">Sensors only need to provide coarse spatial or directional information</li>
+<li class="fragment">Given information history, three types of state estimation:
+<ul>
+<li class="fragment">what states could I have started in to create this information history?</li>
+<li class="fragment">what states could I currently be in?</li>
+<li class="fragment">what states could I reach in the future (with a given controller)?</li>
+</ul></li>
+</ul>
+</section>
 <section id="beyond-bouncing-robots" class="slide level2">
 <h2>Beyond Bouncing Robots</h2>
 <p><img data-src="figs/b6c4fef1a73e7103cc9e319be5a917c00e3f3391.jpg" width="400" /><br />
@@ -489,38 +532,22 @@ October 21, 2020</div></p>
 </div>
 </div>
 </section>
-<section id="research-insights-and-questions" class="slide level2">
-<h2>Research Insights and Questions</h2>
+<section id="weaselball-summary" class="slide level2">
+<h2>Weaselball Summary</h2>
+<p>Contributions:</p>
 <ol type="1">
-<li class="fragment">Weaselballs are a pretty good example of “active Brownian” agents.</li>
-<li class="fragment">Control of macro states (“pressure”, “temperature”) can enable manipulation and other useful tasks.</li>
-<li class="fragment">Robot-robot interactions affect these macro-states.</li>
-<li class="fragment">Robot-boundary interactions affect these macro-states.</li>
-<li class="fragment">How to tune and design these interactions without running into the curse of dimensionality?</li>
+<li class="fragment">Introduction of weaselballs+hubs as macro analogue of micro-scale “active Brownian” agents.</li>
+<li class="fragment">Simulation (Gazebo/AWS) and motion tracking infrastructure.</li>
+<li class="fragment">Identification of impact of assembly size/shape on dynamics.</li>
 </ol>
-</section>
-<section id="information-requirements-of-collision-based-micro-manipulation-wafr-2020" class="slide level2">
-<h2>Information Requirements of Collision-Based Micro-Manipulation (WAFR 2020)</h2>
-<p><img data-src="figs/ae7580bcb2462d00e16b2d15965659e8db9f9d10.png" class="center" width="600" /></p>
-<p><img data-src="figs/6b63b081ebd5907cc8f8f3691c64d466a7b4567a.jpg" width="100" alt="Tommy Berrueta" /> <img data-src="figs/e2b6ba4fa08e3fb578ac14cc0f78f25495d5e02c.jpg" width="100" alt="Ana Pervan" /><br />
-</p>
-</section>
-<section id="information-requirements-of-collision-based-micro-manipulation-wafr-2020-1" class="slide level2">
-<h2>Information Requirements of Collision-Based Micro-Manipulation (WAFR 2020)</h2>
-<p><img data-src="figs/74250880df0561c87311fd4b276553041dbc16f5.png" class="center" width="600" /></p>
-<p>How much information do you need to know you’re lost?</p>
-</section>
-<section id="interesting-takeaways" class="slide level2">
-<h2>Interesting Takeaways</h2>
-<ul>
-<li class="fragment">Sensors only need to provide coarse spatial or directional information</li>
-<li class="fragment">Given information history, three types of state estimation:
-<ul>
-<li class="fragment">what states could I have started in to create this information history?</li>
-<li class="fragment">what states could I currently be in?</li>
-<li class="fragment">what states could I reach in the future (with a given controller)?</li>
-</ul></li>
-</ul>
+<div class="fragment">
+<p>Challenges:</p>
+<ol type="1">
+<li class="fragment">Controllable latch mechanism</li>
+<li class="fragment">How to plan attaching/detatching without running into the curse of dimensionality?</li>
+<li class="fragment">How to use knowlege of assembly dynamics for planning collective dynamics or object manipulation? Goal: manipulation spatial distribution &amp; velocities (“pressure and temperature”)</li>
+</ol>
+</div>
 </section>
 <section id="how-do-we-tell-robots-what-to-do" class="slide level2">
 <h2>How Do We Tell Robots What To Do?</h2>
@@ -558,7 +585,7 @@ October 21, 2020</div></p>
 </div>
 </section>
 <section id="lets-be-creative" class="slide level2">
-<h2>Let’s be Creative!</h2>
+<h2>Let’s Be Creative!</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><img data-src="figs/6945f063dbbaf6afa3bc8854987e34d11fc60300.png" class="center" width="300" /><br />
@@ -575,7 +602,7 @@ October 21, 2020</div></p>
 <section id="common-threads" class="slide level2">
 <h2>Common Threads</h2>
 <ul>
-<li class="fragment">From simple interactions to robust behaviors</li>
+<li class="fragment">Simple boundary interactions can lead to robust behaviors</li>
 <li class="fragment">Choice of representation really matters</li>
 <li class="fragment">System design is an iterative process; tools should respect that</li>
 </ul>
@@ -591,7 +618,7 @@ October 21, 2020</div></p>
 <p>Minimalism as a route to sustainability?</p>
 </div>
 <div class="fragment">
-<p>E-kagen robots (Koichi Suzumori): “good enough” or “irresponsible”. Less focus on extreme accuracy, more on being robust and gentle.</p>
+<p>E-kagen robots (Koichi Suzumori): “good enough” or “irresponsible.” Less focus on extreme accuracy, more on being robust and gentle.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <figure>
@@ -636,7 +663,7 @@ More undergrads: Chris Horn, John Born, Chase Gladish, Michael Zeng, Thomas Dris
 </p>
 </div><div class="column" style="width:20%;">
 <p><img data-src="figs/5c5b667263df9bb2e84c789f1931e1cef7546991.jpg" height="90" /></p>
-<p><img data-src="figs/b33c3c69be8828d6b57e44c1d3190d0b4478e139.jpg" height="90" /></p>
+<p><img data-src="figs/b8df6c6196e82e962e06bc86e919974b9fd1b3f7.jpg" height="90" /></p>
 </div><div class="column" style="width:40%;">
 <p><img data-src="figs/17656d458f68ac4df105aa239cf75031b801f11b.jpg" height="200" /></p>
 </div>
@@ -667,9 +694,9 @@ More undergrads: Chris Horn, John Born, Chase Gladish, Michael Zeng, Thomas Dris
 <p><img src="figs/Petronics-logo.png" style="width:200px"></p>
 </div>
 </div>
-<div id="refs" class="references" role="doc-bibliography">
-<div id="ref-ackerman2016ihmc">
-<p>[1] E. Ackerman, “IHMC’s atlas robot learning to do some chores,” <em>IEEE Spectrum Blog: Piscataway, NJ, USA</em>, 2016.</p>
+<div id="refs" class="references csl-bib-body" role="doc-bibliography">
+<div id="ref-ackerman2016ihmc" class="csl-entry" role="doc-biblioentry">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">E. Ackerman, <span>“IHMC’s ATLAS robot learning to do some chores,”</span> <em>IEEE Spectrum Blog: Piscataway, NJ, USA</em>, 2016.</div>
 </div>
 </div>
 </div>

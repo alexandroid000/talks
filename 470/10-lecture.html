@@ -3,7 +3,8 @@
 <meta charset="utf-8">
   <meta name="dcterms.date" content="2019-10-01" />
   <title>Lecture 10</title>
-  <script src="/home/alli/src/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"
+  type="text/javascript"></script>
   <!---
 
        (c) 2015, Peter Mosmans - Go Forward
@@ -224,16 +225,22 @@ Modern Robotics Chapter 4</div></h2>
 <h1>Admin</h1>
 <ul class="incremental">
 <li>I am not KDC!</li>
-<li>Homework 4 should be demonstrated individually to your TA in lab this week or next. Next week is the last week of Lab 3.</li>
+<li>Homework 4 should be demonstrated individually to your TA in lab
+this week or next. Next week is the last week of Lab 3.</li>
 <li>Homework 5 is due this Friday.</li>
 <li>Lab 2 is due this week.</li>
 </ul>
 </section>
 <section id="what-is-forward-kinematics" class="slide level1">
 <h1>What is “Forward Kinematics”?</h1>
-<p><strong>Kinematics</strong>: a branch of <em>classical mechanics</em> that describes motion of bodies without considering forces. AKA “the geometry of motion”</p>
+<p><strong>Kinematics</strong>: a branch of <em>classical mechanics</em>
+that describes motion of bodies without considering forces. AKA “the
+geometry of motion”</p>
 <div class="incremental">
-<p><strong>Forward kinematics</strong>: a specific problem in robotics. Given the individual state of each joint of the robot (in a local frame), what is the position of a given point on the robot in the global frame?</p>
+<p><strong>Forward kinematics</strong>: a specific problem in robotics.
+Given the individual state of each joint of the robot (in a local
+frame), what is the position of a given point on the robot in the global
+frame?</p>
 </div>
 <div class="incremental">
 <p><img src="images/ur5_example.jpg" class="center" width="600" /><br />
@@ -243,9 +250,11 @@ Modern Robotics Chapter 4</div></h2>
 <section id="assumptions" class="slide level1">
 <h1>Assumptions</h1>
 <ul class="incremental">
-<li>Our robot is a kinematic chain, made of rigid <em>links</em> connected by movable <em>joints</em></li>
+<li>Our robot is a kinematic chain, made of rigid <em>links</em>
+connected by movable <em>joints</em></li>
 <li>No branches or loops (will discuss later)</li>
-<li>All joints have one degree of freedom and are <em>revolute</em> or <em>prismatic</em></li>
+<li>All joints have one degree of freedom and are <em>revolute</em> or
+<em>prismatic</em></li>
 </ul>
 <div class="incremental">
 <p><img src="images/1DOFjoints.jpg" class="center" width="520" /><br />
@@ -259,35 +268,49 @@ Modern Robotics Chapter 4</div></h2>
 </section>
 <section id="review-on-screw-motions-1" class="slide level1">
 <h1>Review on Screw Motions</h1>
-<p>Definition 3.24 from Modern Robotics: a <strong>screw axis</strong> <span class="math inline">\(\mathcal{S}\)</span> is written as</p>
+<p>Definition 3.24 from Modern Robotics: a <strong>screw axis</strong>
+<span class="math inline">\(\mathcal{S}\)</span> is written as</p>
 <p><span class="math display">\[
 \mathcal{S} = \begin{bmatrix} \omega \\ v \end{bmatrix} \in \mathbb{R}^6
 \]</span> where either</p>
 <ul class="incremental">
-<li><span class="math inline">\(\lvert \lvert \omega \rvert \rvert = 1\)</span>
+<li><span class="math inline">\(\lvert \lvert \omega \rvert \rvert =
+1\)</span>
 <ul class="incremental">
-<li>where <span class="math inline">\(v = -\omega \times q + h\omega\)</span>, where <span class="math inline">\(q\)</span> is a point on the axis of the screw and <span class="math inline">\(h\)</span> is the pitch of the screw (<span class="math inline">\(h=0\)</span> for a pure rotation about the screw axis). OR</li>
+<li>where <span class="math inline">\(v = -\omega \times q +
+h\omega\)</span>, where <span class="math inline">\(q\)</span> is a
+point on the axis of the screw and <span
+class="math inline">\(h\)</span> is the pitch of the screw (<span
+class="math inline">\(h=0\)</span> for a pure rotation about the screw
+axis). OR</li>
 </ul></li>
 </ul>
 <ul class="incremental">
-<li><span class="math inline">\(\lvert \lvert \omega \rvert \rvert = 0\)</span> and <span class="math inline">\(\lvert \lvert v \rvert \rvert = 1\)</span>
+<li><span class="math inline">\(\lvert \lvert \omega \rvert \rvert =
+0\)</span> and <span class="math inline">\(\lvert \lvert v \rvert \rvert
+= 1\)</span>
 <ul class="incremental">
-<li>where the pitch of the screw is infinite and the motion is a translation along the axis defined by <span class="math inline">\(v\)</span>.</li>
+<li>where the pitch of the screw is infinite and the motion is a
+translation along the axis defined by <span
+class="math inline">\(v\)</span>.</li>
 </ul></li>
 </ul>
 </section>
 <section id="screw-motions-as-matrix-exponential" class="slide level1">
 <h1>Screw Motions as Matrix Exponential</h1>
-<p>The screw axis <span class="math inline">\(\mathcal{S}\)</span> can be expressed in matrix form as</p>
+<p>The screw axis <span class="math inline">\(\mathcal{S}\)</span> can
+be expressed in matrix form as</p>
 <p><span class="math display">\[
 [\mathcal{S}_i] = \begin{bmatrix}
 [\omega_i] &amp; v \\
 0 &amp; 0
 \end{bmatrix} \in se(3)
 \]</span></p>
-<p>where <span class="math inline">\([ \ldots ]\)</span> is the skew symmetric form.</p>
+<p>where <span class="math inline">\([ \ldots ]\)</span> is the skew
+symmetric form.</p>
 <div class="incremental">
-<p>To express a <strong>screw motion</strong> given a screw axis, we use the matrix exponential</p>
+<p>To express a <strong>screw motion</strong> given a screw axis, we use
+the matrix exponential</p>
 <p><span class="math display">\[
 e^{\left[\mathcal{S}\right] \theta} \in SE(3)
 \]</span></p>
@@ -297,10 +320,14 @@ e^{\left[\mathcal{S}\right] \theta} \in SE(3)
 <h1>But why?!?</h1>
 <ul class="incremental">
 <li>Outside the scope of this course…</li>
-<li>“The exponential map is a map from the Lie algebra of a Lie group to the group itself”</li>
+<li>“The exponential map is a map from the Lie algebra of a Lie group to
+the group itself”</li>
 </ul>
 <div class="incremental">
-<p>You can think of the Lie algebra as related to a tangent space, so a screw vector gives us a description of instantaneous tangent motion, and the exponential function “integrates” this motion over a displacement <span class="math inline">\(\theta\)</span>.</p>
+<p>You can think of the Lie algebra as related to a tangent space, so a
+screw vector gives us a description of instantaneous tangent motion, and
+the exponential function “integrates” this motion over a displacement
+<span class="math inline">\(\theta\)</span>.</p>
 </div>
 </section>
 <section id="actual-form-of-matrix-exponential" class="slide level1">
@@ -314,17 +341,27 @@ e^{\left[\mathcal{S}\right] \theta} \in SE(3)
 </p>
 </div>
 </section>
-<section id="modelling-robot-joints-as-screw-motions" class="slide level1">
+<section id="modelling-robot-joints-as-screw-motions"
+class="slide level1">
 <h1>Modelling Robot Joints as Screw Motions</h1>
-<p><span class="math inline">\(\mathcal{S} = \begin{bmatrix} \omega \\ v \end{bmatrix} \in \mathbb{R}^6\)</span></p>
+<p><span class="math inline">\(\mathcal{S} = \begin{bmatrix} \omega \\ v
+\end{bmatrix} \in \mathbb{R}^6\)</span></p>
 <p>case 1:</p>
 <div class="row">
 <div class="column" style="width:70%;">
 <ul class="incremental">
-<li><span class="math inline">\(\lvert \lvert \omega \rvert \rvert = 1\)</span>
+<li><span class="math inline">\(\lvert \lvert \omega \rvert \rvert =
+1\)</span>
 <ul class="incremental">
-<li>where <span class="math inline">\(v = -\omega \times q + h\omega\)</span>, where <span class="math inline">\(q\)</span> is a point on the axis of the screw and <span class="math inline">\(h\)</span> is the pitch of the screw <strong>(<span class="math inline">\(h=0\)</span> for a pure rotation about the screw axis)</strong>.</li>
-<li>So for revolute joints, <span class="math inline">\(\omega\)</span> is axis of rotation and <span class="math inline">\(v = -\omega \times q\)</span></li>
+<li>where <span class="math inline">\(v = -\omega \times q +
+h\omega\)</span>, where <span class="math inline">\(q\)</span> is a
+point on the axis of the screw and <span
+class="math inline">\(h\)</span> is the pitch of the screw
+<strong>(<span class="math inline">\(h=0\)</span> for a pure rotation
+about the screw axis)</strong>.</li>
+<li>So for revolute joints, <span class="math inline">\(\omega\)</span>
+is axis of rotation and <span class="math inline">\(v = -\omega \times
+q\)</span></li>
 </ul></li>
 </ul>
 </div>
@@ -334,17 +371,24 @@ e^{\left[\mathcal{S}\right] \theta} \in SE(3)
 </div>
 </div>
 </section>
-<section id="modelling-robot-joints-as-screw-motions-1" class="slide level1">
+<section id="modelling-robot-joints-as-screw-motions-1"
+class="slide level1">
 <h1>Modelling Robot Joints as Screw Motions</h1>
-<p><span class="math inline">\(\mathcal{S} = \begin{bmatrix} \omega \\ v \end{bmatrix} \in \mathbb{R}^6\)</span></p>
+<p><span class="math inline">\(\mathcal{S} = \begin{bmatrix} \omega \\ v
+\end{bmatrix} \in \mathbb{R}^6\)</span></p>
 <p>case 2:</p>
 <div class="row">
 <div class="column" style="width:70%;">
 <ul class="incremental">
-<li><span class="math inline">\(\lvert \lvert \omega \rvert \rvert = 0\)</span> and <span class="math inline">\(\lvert \lvert v \rvert \rvert = 1\)</span>
+<li><span class="math inline">\(\lvert \lvert \omega \rvert \rvert =
+0\)</span> and <span class="math inline">\(\lvert \lvert v \rvert \rvert
+= 1\)</span>
 <ul class="incremental">
-<li>where the pitch of the screw is infinite and the motion is a translation along the axis defined by <span class="math inline">\(v\)</span>.</li>
-<li><strong>prismatic joints</strong> defined by axis of movement <span class="math inline">\(v\)</span></li>
+<li>where the pitch of the screw is infinite and the motion is a
+translation along the axis defined by <span
+class="math inline">\(v\)</span>.</li>
+<li><strong>prismatic joints</strong> defined by axis of movement <span
+class="math inline">\(v\)</span></li>
 </ul></li>
 </ul>
 </div>
@@ -358,29 +402,40 @@ e^{\left[\mathcal{S}\right] \theta} \in SE(3)
 <h1>Product of Exponentials Approach</h1>
 <p><img src="images/3Rchain.jpg" class="center" width="700" /><br />
 </p>
-<p><strong>Key Idea:</strong> Model each joint as applying a screw motion to all links beyond it.</p>
+<p><strong>Key Idea:</strong> Model each joint as applying a screw
+motion to all links beyond it.</p>
 </section>
 <section id="product-of-exponentials-approach-1" class="slide level1">
 <h1>Product of Exponentials Approach</h1>
-<p>Let each joint <span class="math inline">\(i\)</span> have an associated parameter <span class="math inline">\(\theta_i\)</span> that defines its configuration (rotation angle for revolute joints, translation amount for prismatic).</p>
+<p>Let each joint <span class="math inline">\(i\)</span> have an
+associated parameter <span class="math inline">\(\theta_i\)</span> that
+defines its configuration (rotation angle for revolute joints,
+translation amount for prismatic).</p>
 <div class="incremental">
 <p>Initialization:</p>
 <ul class="incremental">
-<li>Choose a fixed, global base frame <span class="math inline">\(\{s\}\)</span></li>
-<li>Choose an “end effector” frame <span class="math inline">\(\{b\}\)</span> fixed to the robot</li>
+<li>Choose a fixed, global base frame <span
+class="math inline">\(\{s\}\)</span></li>
+<li>Choose an “end effector” frame <span
+class="math inline">\(\{b\}\)</span> fixed to the robot</li>
 <li>Put all joints in “zero position”</li>
-<li>Let <span class="math inline">\(M \in SE(3)\)</span> be the configuration of <span class="math inline">\(\{b\}\)</span> in the <span class="math inline">\(\{s\}\)</span> frame when robot is in zero position</li>
+<li>Let <span class="math inline">\(M \in SE(3)\)</span> be the
+configuration of <span class="math inline">\(\{b\}\)</span> in the <span
+class="math inline">\(\{s\}\)</span> frame when robot is in zero
+position</li>
 </ul>
 </div>
 </section>
 <section id="product-of-exponentials-formula" class="slide level1">
 <h1>Product of Exponentials Formula</h1>
-<p>For each joint <span class="math inline">\(i\)</span>, define the screw axis.</p>
+<p>For each joint <span class="math inline">\(i\)</span>, define the
+screw axis.</p>
 <div class="incremental">
 <p>For each motion of a joint, define the screw motion.</p>
 </div>
 <div class="incremental">
-<p>This form composes nicely through multiplication, giving us the <strong>Product of Exponentials (PoE)</strong> formula!</p>
+<p>This form composes nicely through multiplication, giving us the
+<strong>Product of Exponentials (PoE)</strong> formula!</p>
 <p><span class="math display">\[
 T(\theta) = e^{[\mathcal{S_1}]\theta_1} \ldots
 e^{[\mathcal{S_{n-1}}]\theta_{n-1}} e^{[\mathcal{S_{n}}]\theta_{n}} M
@@ -426,10 +481,12 @@ M = \begin{bmatrix}
 </section>
 <section id="example-1-2" class="slide level1">
 <h1>Example 1</h1>
-<p>Form <span class="math inline">\(e^{[\mathcal{S_i}] \theta}\)</span> for each joint:</p>
+<p>Form <span class="math inline">\(e^{[\mathcal{S_i}] \theta}\)</span>
+for each joint:</p>
 <p><span class="math display">\[
-e^{[\mathcal{S_i}] \theta} = \begin{bmatrix} 
-e^{[\omega_i] \theta} &amp; (I \theta + (1 - \cos(\theta) [\omega_i] + (\theta -
+e^{[\mathcal{S_i}] \theta} = \begin{bmatrix}
+e^{[\omega_i] \theta} &amp; (I \theta + (1 - \cos(\theta) [\omega_i] +
+(\theta -
 \sin(\theta) [\omega_i]^2) v_i \\
 0 &amp; 1
 \end{bmatrix}
@@ -457,24 +514,29 @@ M = \begin{bmatrix}
 \end{bmatrix}
 \]</span></p>
 <div class="incremental">
-<p>For joint 1: <span class="math inline">\(\omega_1 = (0,0,1) \qquad v_1 = (0,0,0)\)</span></p>
+<p>For joint 1: <span class="math inline">\(\omega_1 = (0,0,1) \qquad
+v_1 = (0,0,0)\)</span></p>
 </div>
 <div class="incremental">
-<p>For joint 2: <span class="math inline">\(\omega_2 = (0, -1, 0) \qquad q_2 = (L_1, 0, 0) \qquad v_2 = (0, 0, -L_1)\)</span></p>
+<p>For joint 2: <span class="math inline">\(\omega_2 = (0, -1, 0) \qquad
+q_2 = (L_1, 0, 0) \qquad v_2 = (0, 0, -L_1)\)</span></p>
 </div>
 <div class="incremental">
-<p>For joint 3: <span class="math inline">\(\omega_3 = (1, 0, 0) \qquad q_3 = (0, 0, -L_2) \qquad v_3 = (0, -L_2, 0)\)</span></p>
+<p>For joint 3: <span class="math inline">\(\omega_3 = (1, 0, 0) \qquad
+q_3 = (0, 0, -L_2) \qquad v_3 = (0, -L_2, 0)\)</span></p>
 </div>
 </section>
 <section id="next-time" class="slide level1">
 <h1>Next Time</h1>
 <ul class="incremental">
 <li>Product of exponentials in the end-effector frame</li>
-<li>Modelling robots in the <strong>Universal Robot Description Format</strong></li>
+<li>Modelling robots in the <strong>Universal Robot Description
+Format</strong></li>
 <li>Different kinds of joints</li>
 <li>What if my robot isn’t a kinematic chain??</li>
 </ul>
-<p><img src="images/Pantograph_animation.gif" class="center" width="400" /><br />
+<p><img src="images/Pantograph_animation.gif" class="center"
+width="400" /><br />
 </p>
 </section>
 <!-- {{{{ dzslides core
