@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Parker Gutierrez">
+  <meta name="author" content="Alexandra Nilles">
+  <title>A Randomized Bug Algorithm for Swarm Navigation in Dense Obstacle Fields</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="./reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="./reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="./reveal.js/dist/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="css/metropolis.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">A Randomized Bug Algorithm for Swarm Navigation in
+Dense Obstacle Fields</h1>
+  <p class="author">Parker Gutierrez</p>
+  <p class="author">Alexandra Nilles</p>
+  <p class="institute">Department of Computer Science, Western
+Washington University, Bellingham WA USA</p>
+</section>
+
+<section>
+<section id="introduction" class="title-slide slide level1">
+<h1>Introduction</h1>
+
+</section>
+<section id="navigation-in-cluttered-environments" class="slide level2">
+<h2>Navigation in Cluttered Environments</h2>
+<ul>
+<li class="fragment">Many natural and human-built environments have
+dense obstacle fields</li>
+<li class="fragment">Environments range from very ordered to very
+disordered</li>
+<li class="fragment">Motion planning algorithms do not scale well with
+many obstacles</li>
+</ul>
+<p><img data-src="images/forest.png" /></p>
+</section></section>
+<section id="common-approaches" class="title-slide slide level1">
+<h1>Common Approaches</h1>
+<ul>
+<li class="fragment">Artificial Potential Fields</li>
+<li class="fragment">Bug algorithms (reactive map-free navigation)</li>
+</ul>
+<p><img data-src="images/apf.png" /></p>
+<p><img data-src="images/bug.png" /></p>
+</section>
+
+<section id="the-problem-traps" class="title-slide slide level1">
+<h1>The Problem: Traps</h1>
+<p><img data-src="images/trap.png" /></p>
+</section>
+
+<section id="the-solution-randomization"
+class="title-slide slide level1">
+<h1>The Solution: Randomization</h1>
+<p>Randomization in artificial potential fields</p>
+<ul>
+<li>Paper 1</li>
+<li>Paper 2</li>
+<li>Paper 3</li>
+<li>…</li>
+</ul>
+<p>Randomization in bug algorithms?</p>
+<ul>
+<li>RandomBug</li>
+<li>BugFlood</li>
+</ul>
+<p><img data-src="images/randomized.png" /></p>
+</section>
+
+<section id="literature-gap" class="title-slide slide level1">
+<h1>Literature Gap</h1>
+<ul>
+<li class="fragment">Randomized bug algorithms in cluttered obstacle
+fields</li>
+<li class="fragment">Idea: we know that regular obstacle arrays cause
+well-behaved distributions for passive particles.</li>
+<li class="fragment">Apply strategy to multiple robots</li>
+<li class="fragment">Test how well effect persists if obstacle array is
+perturbed</li>
+<li class="fragment">Test how active control of robots can influence
+final distribution</li>
+</ul>
+<p><img data-src="images/galton.gif" /></p>
+</section>
+
+<section id="model-and-algorithm" class="title-slide slide level1">
+<h1>Model and Algorithm</h1>
+
+</section>
+
+<section id="robot-model" class="title-slide slide level1">
+<h1>Robot Model</h1>
+<ul>
+<li class="fragment">Homogenous robots</li>
+<li class="fragment">Constant velocity</li>
+<li class="fragment">Abstract sensing and obstacle avoidance</li>
+<li class="fragment">Cannot distinguish obstacles from other robots</li>
+</ul>
+<figure>
+<img data-src="images/sim_screenshot.png" alt="Our 2D simulator" />
+<figcaption aria-hidden="true">Our 2D simulator</figcaption>
+</figure>
+</section>
+
+<section id="environment-model" class="title-slide slide level1">
+<h1>Environment Model</h1>
+<ul>
+<li class="fragment">Grid world</li>
+<li class="fragment">Obstacles and robots of similar size</li>
+<li class="fragment">Robots spawn on one side of obstacle field</li>
+<li class="fragment">Goal line on other side of obstacle field</li>
+</ul>
+</section>
+
+<section id="algorithm" class="title-slide slide level1">
+<h1>Algorithm</h1>
+<ul>
+<li class="fragment">Robot senses goal and proceeds along shortest path
+to goal line: <em>Goal Heading</em></li>
+<li class="fragment">If obstacle detected, make random choice about
+circumnavigation direction</li>
+<li class="fragment">Optionally: track or measure angle deviation from
+starting position: <em>Start Heading</em></li>
+</ul>
+</section>
+
+<section id="results" class="title-slide slide level1">
+<h1>Results</h1>
+
+</section>
+
+<section id="simulator-validation" class="title-slide slide level1">
+<h1>Simulator Validation</h1>
+
+</section>
+
+<section id="effect-of-initial-swarm-density"
+class="title-slide slide level1">
+<h1>Effect of Initial Swarm Density</h1>
+
+</section>
+
+<section id="effect-of-perturbations-to-obstacle-field"
+class="title-slide slide level1">
+<h1>Effect of Perturbations to Obstacle Field</h1>
+
+</section>
+
+<section id="effect-of-angular-heading-constraints"
+class="title-slide slide level1">
+<h1>Effect of Angular Heading Constraints</h1>
+
+</section>
+
+<section id="next-steps" class="title-slide slide level1">
+<h1>Next Steps</h1>
+
+</section>
+
+<section id="next-steps-1" class="title-slide slide level1">
+<h1>Next Steps</h1>
+<ul>
+<li class="fragment">Predictive models for final distribution</li>
+<li class="fragment">Control laws using angular heading constraints and
+a “leader” robot
+<ul>
+<li class="fragment">Regrouping events</li>
+</ul></li>
+</ul>
+<div class="fragment">
+<ul>
+<li class="fragment">Relaxation of model assumptions
+<ul>
+<li class="fragment">Distinguishable robots and integration with swarm
+algorithms</li>
+<li class="fragment">Constant velocity (more realistic obstacle
+avoidance)</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li class="fragment">Gap-based model for integration with LiDAR sensing
+systems</li>
+</ul>
+</div>
+</section>
+
+<section id="thank-you-questions" class="title-slide slide level1">
+<h1>Thank you! Questions?</h1>
+<p>MRRP Lab</p>
+</section>
+    </div>
+  </div>
+
+  <script src="./reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="./reveal.js/plugin/notes/notes.js"></script>
+  <script src="./reveal.js/plugin/search/search.js"></script>
+  <script src="./reveal.js/plugin/zoom/zoom.js"></script>
+  <script src="./reveal.js/plugin/math/math.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        math: {
+          mathjax: '/usr/share/javascript/mathjax/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
