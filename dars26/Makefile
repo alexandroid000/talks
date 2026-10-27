@@ -7,15 +7,21 @@ HTMLOPTIONS=-t revealjs \
 	--standalone \
 	--template=template.html \
 	--mathjax \
+	--section-divs \
 	--slide-level=2 \
 	-V theme=simple \
 	-V transition=none \
+	-V width=1920 \
+	-V height=1080 \
+	-V margin=0.05 \
 	--css=css/metropolis.css
 #	-V revealjs-url="https://unpkg.com/reveal.js@^5" \
 #	--embed-resources \
 #        --section-divs \
 
-PDFOPTIONS=-t beamer
+PDFOPTIONS=-t beamer \
+	--slide-level=2 \
+	-V aspectratio=169
 
 MARKDOWN=$(INPUT).md
 HTML=$(MARKDOWN:.md=.html)
