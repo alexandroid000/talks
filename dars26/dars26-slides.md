@@ -18,9 +18,7 @@ institute:
 
 - Many natural and human-built environments have dense obstacle fields
 
-- Environments range from very dis-ordered to very ordered
-
-- Motion planning algorithms do not scale well with many obstacles
+- Environments range from disordered to ordered
 
 :::
 ::: {.column}
@@ -57,9 +55,11 @@ Two curses of dimensionality:
 
 ::: {.column}
 
-- Artificial Potential Fields (APFs): use map
+- Artificial Potential Fields (APFs)
+  - uses map
 
-- Bug algorithms: no map
+- Bug algorithms
+  - no map
 
 :::
 ::: {.column}
@@ -91,20 +91,17 @@ Bug algorithms: exponential runtime with trapping obstacles
 
 ## The Solution: Randomization
 
-
 Randomization in artificial potential fields
 
-- Paper 1
-- Paper 2
-- Paper 3
-- ...
+- J. Barraquand and J.-C. Latombe. A Monte-Carlo algorithm for path planning with many degrees of freedom. ICRA 1990.
+- N. Malone, H.T. Chiang, K. Lesser, M. Oishi, L. Tapia. Hybrid dynamic moving obstacle avoidance using a stochastic reachable set-based potential field. IEEE Transactions on Robotics, 2017.
+- Many more...
+
+. . .
 
 Randomization in bug algorithms?
 
-- RandomBug
-- BugFlood
-
-![](images/randomized.png)
+- QL Xu. Randombug: Novel path planning algorithm in unknown environment. Open Electrical & Electronic Engineering Journal, 2014.
 
 
 ## Literature Gap: Randomized Bug Algorithms
@@ -129,44 +126,28 @@ Randomization in bug algorithms?
 
 \centering
 
-![Source: Gregory Gunderson](images/binom.png){height=400px class="center"}
-
-
-## Contributions
-
-> - Apply strategy to multiple robots for distributed navigation in dense obstacle fields
-> - Test how well effect persists if obstacle array is perturbed
-> - Test how active control of robots can influence final distribution
+![Source: Gregory Gunderson](images/binom.png){height=400px fig-align="center"}
 
 
 # Model and Algorithm
 
 
-## Robot Model
+## Model
+
 
 :::: {.columns}
 
 ::: {.column}
+
+### Robot Model
 
 - Homogenous robots
 - Constant velocity
 - Abstract sensing and obstacle avoidance
 - Cannot distinguish obstacles from other robots
 
-:::
-::: {.column}
 
-![Our 2D simulator](images/simulator.png){width=400px}
-
-:::
-::::
-
-
-## Environment Model
-
-:::: {.columns}
-
-::: {.column}
+### Environment Model
 
 - Grid world
 - Obstacles and robots of similar size
@@ -176,11 +157,10 @@ Randomization in bug algorithms?
 :::
 ::: {.column}
 
-![Our 2D simulator](images/simulator.png){width=400px}
+![](images/simulator.png){width=700px}
 
 :::
 ::::
-
 
 ## Algorithm
 
@@ -188,18 +168,18 @@ Randomization in bug algorithms?
 
 ::: {.column}
 
-- Robot senses goal and proceeds directly toward goal line: *Goal Heading*
+- Robot senses goal and proceeds directly toward goal line (*Goal Heading*)
 - If obstacle detected, make random choice about circumnavigation direction
-- Optionally: track or measure angle deviation from starting position: *Start Heading*
+- Track or measure angle from starting position (*Start Heading*)
+- Can set constraint on relative angle between start and goal headings for deterministic "inward" turns
 
 :::
 ::: {.column}
 
-![Our 2D simulator](images/simulator.png){width=400px}
+![](images/simulator.png){width=700px}
 
 :::
 ::::
-
 
 # Results
 
@@ -207,36 +187,69 @@ Randomization in bug algorithms?
 ## Simulator Validation
 
 
-![Robot Distribution in Regular Obstacle Grid](images/Validation_Ridge.png)
+![Robot Distribution in Regular Obstacle Grid](images/Validation_Ridge.png){width=1300px fig-align="center"}
+
 
 
 ## Effect of Initial Swarm Density
 
 
+Lower-density swarms experience *less* relative spread.
 
-## Effect of Perturbations to Obstacle Field
+<div style="display: flex; justify-content: center; gap: 40px;">
+<div style="flex: 1; max-width: 45%;">
+<video width="700px" controls><source src="vids/highDregular.mp4" type="video/mp4"></video>
+</div>
+<div style="flex: 1; max-width: 45%;">
+<video width="700px" controls><source src="vids/lowDregular.mp4" type="video/mp4"></video>
+</div>
+</div>
+
+
+
+
+## Effect of Random Perturbations to Obstacle Field
+
+
+Perturbed obstacle fields lead to less spread. Degree of obstacle perturbation (±1, 2, or 3 units) has no significant effect on the final distribution.
+
+
+<div style="display: flex; justify-content: center; gap: 40px;">
+<div style="flex: 1; max-width: 45%;">
+<video width="700px" controls><source src="vids/highDperturbed.mp4" type="video/mp4"></video>
+</div>
+<div style="flex: 1; max-width: 45%;">
+<video width="700px" controls><source src="vids/lowDperturbed.mp4" type="video/mp4"></video>
+</div>
+</div>
+
+
+## Comparison with Optimal Strategy
+
+
+![Comparison with N=30 robots.](images/table2.png){width=1300px fig-align="center"}
 
 
 ## Effect of Angular Heading Constraints
 
 
+![](images/table3.png){width=700px fig-align="center"}
+
+
 ## Next Steps
 
-
 > - Predictive models for final distribution
-> - Control laws using angular heading constraints and a "leader" robot
+> - Control laws using angular heading constraints and/or beacon robots
 >   - Regrouping events
+> - More realistic obstacle avoidance and velocity control
 
 . . .
 
-> - Relaxation of model assumptions
->   - Distinguishable robots and integration with swarm algorithms
->   - Constant velocity (more realistic obstacle avoidance)
-
-. . .
-
-> - Gap-based model for integration with LiDAR sensing systems
+- Sensing position of other robots
+- Integration with swarm algorithms
 
 # Thank you! Questions?
 
-MRRP Lab
+Minimalist Resilient Robots for the Planet Lab: [https://mrrp-lab.github.io/](https://mrrp-lab.github.io/)
+
+![](images/map_w_bham.png){width=700px fig-align="center"}

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Parker Gutierrez">
-  <meta name="author" content="Alexandra Nilles">
+  <meta name="author" content="Dr. Alexandra Nilles">
   <title>A Randomized Bug Algorithm for Swarm Navigation in Dense Obstacle Fields</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -41,9 +41,9 @@
   <h1 class="title">A Randomized Bug Algorithm for Swarm Navigation in
 Dense Obstacle Fields</h1>
   <p class="author">Parker Gutierrez</p>
-  <p class="author">Alexandra Nilles</p>
+  <p class="author">Dr. Alexandra Nilles</p>
   <p class="institute">Department of Computer Science, Western
-Washington University, Bellingham WA USA</p>
+Washington University, Bellingham, Washington USA</p>
 </section>
 
 <section>
@@ -53,171 +53,259 @@ Washington University, Bellingham WA USA</p>
 </section>
 <section id="navigation-in-cluttered-environments" class="slide level2">
 <h2>Navigation in Cluttered Environments</h2>
+<div class="columns">
+<div class="column">
 <ul>
-<li class="fragment">Many natural and human-built environments have
-dense obstacle fields</li>
-<li class="fragment">Environments range from very ordered to very
-disordered</li>
-<li class="fragment">Motion planning algorithms do not scale well with
-many obstacles</li>
+<li><p>Many natural and human-built environments have dense obstacle
+fields</p></li>
+<li><p>Environments range from disordered to ordered</p></li>
 </ul>
+</div><div class="column">
 <p><img data-src="images/forest.png" /></p>
-</section></section>
-<section id="common-approaches" class="title-slide slide level1">
-<h1>Common Approaches</h1>
+<p><img data-src="images/orchard.jpg" /></p>
+</div>
+</div>
+</section>
+<section id="problem-scaling-motion-planning" class="slide level2">
+<h2>Problem: Scaling Motion Planning</h2>
+<div class="columns">
+<div class="column">
+<p>Two curses of dimensionality:</p>
+<ol type="1">
+<li>Number of robots</li>
+<li>Number of obstacles (number of topologically distinct paths)</li>
+</ol>
+</div><div class="column">
+<figure>
+<img data-src="images/plinko-paths.jpg"
+alt="Source: Richard F. Obrecht" />
+<figcaption aria-hidden="true">Source: Richard F. Obrecht</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="common-approaches" class="slide level2">
+<h2>Common Approaches</h2>
+<div class="columns">
+<div class="column">
 <ul>
-<li class="fragment">Artificial Potential Fields</li>
-<li class="fragment">Bug algorithms (reactive map-free navigation)</li>
+<li>Artificial Potential Fields (APFs)
+<ul>
+<li>uses map</li>
+</ul></li>
+<li>Bug algorithms
+<ul>
+<li>no map</li>
+</ul></li>
 </ul>
-<p><img data-src="images/apf.png" /></p>
-<p><img data-src="images/bug.png" /></p>
+</div><div class="column">
+<figure>
+<img data-src="images/apf.png" width="500"
+alt="Source: Rymsha Siddiqui" />
+<figcaption aria-hidden="true">Source: Rymsha Siddiqui</figcaption>
+</figure>
+<figure>
+<img data-src="images/bug.jpg" width="500"
+alt="Source: Automatic Addison" />
+<figcaption aria-hidden="true">Source: Automatic Addison</figcaption>
+</figure>
+</div>
+</div>
 </section>
-
-<section id="the-problem-traps" class="title-slide slide level1">
-<h1>The Problem: Traps</h1>
-<p><img data-src="images/trap.png" /></p>
+<section id="issues-for-distributed-robot-systems" class="slide level2">
+<h2>Issues for Distributed Robot Systems</h2>
+<div class="columns">
+<div class="column">
+<p>APFs: more obstacles = more complex field, more possibilities for
+local minima</p>
+<p>Bug algorithms: exponential runtime with trapping obstacles</p>
+</div><div class="column">
+<p><img data-src="images/bugtrap.png" width="500" /></p>
+</div>
+</div>
 </section>
-
-<section id="the-solution-randomization"
-class="title-slide slide level1">
-<h1>The Solution: Randomization</h1>
+<section id="the-solution-randomization" class="slide level2">
+<h2>The Solution: Randomization</h2>
 <p>Randomization in artificial potential fields</p>
 <ul>
-<li>Paper 1</li>
-<li>Paper 2</li>
-<li>Paper 3</li>
-<li>…</li>
+<li>J. Barraquand and J.-C. Latombe. A Monte-Carlo algorithm for path
+planning with many degrees of freedom. ICRA 1990.</li>
+<li>N. Malone, H.T. Chiang, K. Lesser, M. Oishi, L. Tapia. Hybrid
+dynamic moving obstacle avoidance using a stochastic reachable set-based
+potential field. IEEE Transactions on Robotics, 2017.</li>
+<li>Many more…</li>
 </ul>
+<div class="fragment">
 <p>Randomization in bug algorithms?</p>
 <ul>
-<li>RandomBug</li>
-<li>BugFlood</li>
+<li>QL Xu. Randombug: Novel path planning algorithm in unknown
+environment. Open Electrical &amp; Electronic Engineering Journal,
+2014.</li>
 </ul>
-<p><img data-src="images/randomized.png" /></p>
+</div>
 </section>
-
-<section id="literature-gap" class="title-slide slide level1">
-<h1>Literature Gap</h1>
+<section id="literature-gap-randomized-bug-algorithms"
+class="slide level2">
+<h2>Literature Gap: Randomized Bug Algorithms</h2>
+<div class="columns">
+<div class="column">
 <ul>
-<li class="fragment">Randomized bug algorithms in cluttered obstacle
-fields</li>
-<li class="fragment">Idea: we know that regular obstacle arrays cause
-well-behaved distributions for passive particles.</li>
-<li class="fragment">Apply strategy to multiple robots</li>
-<li class="fragment">Test how well effect persists if obstacle array is
-perturbed</li>
-<li class="fragment">Test how active control of robots can influence
-final distribution</li>
+<li><p>Idea: we know that regular obstacle arrays cause well-behaved
+distributions for passive particles</p></li>
+<li><p>Apply this to robots moving through dense obstacle
+fields</p></li>
+<li><p>Research questions: what if obstacles are not regularly arranged?
+How can active nature of robots be applied?</p></li>
 </ul>
-<p><img data-src="images/galton.gif" /></p>
-</section>
-
+</div><div class="column">
+<p><img data-src="images/plinko.jpg" height="400" /></p>
+</div>
+</div>
+<figure>
+<img data-src="images/binom.png" data-fig-align="center" height="400"
+alt="Source: Gregory Gunderson" />
+<figcaption aria-hidden="true">Source: Gregory Gunderson</figcaption>
+</figure>
+</section></section>
+<section>
 <section id="model-and-algorithm" class="title-slide slide level1">
 <h1>Model and Algorithm</h1>
 
 </section>
-
-<section id="robot-model" class="title-slide slide level1">
-<h1>Robot Model</h1>
+<section id="model" class="slide level2">
+<h2>Model</h2>
+<div class="columns">
+<div class="column">
+<section id="robot-model" class="level3">
+<h3>Robot Model</h3>
 <ul>
-<li class="fragment">Homogenous robots</li>
-<li class="fragment">Constant velocity</li>
-<li class="fragment">Abstract sensing and obstacle avoidance</li>
-<li class="fragment">Cannot distinguish obstacles from other robots</li>
-</ul>
-<figure>
-<img data-src="images/sim_screenshot.png" alt="Our 2D simulator" />
-<figcaption aria-hidden="true">Our 2D simulator</figcaption>
-</figure>
-</section>
-
-<section id="environment-model" class="title-slide slide level1">
-<h1>Environment Model</h1>
-<ul>
-<li class="fragment">Grid world</li>
-<li class="fragment">Obstacles and robots of similar size</li>
-<li class="fragment">Robots spawn on one side of obstacle field</li>
-<li class="fragment">Goal line on other side of obstacle field</li>
+<li>Homogenous robots</li>
+<li>Constant velocity</li>
+<li>Abstract sensing and obstacle avoidance</li>
+<li>Cannot distinguish obstacles from other robots</li>
 </ul>
 </section>
-
-<section id="algorithm" class="title-slide slide level1">
-<h1>Algorithm</h1>
+<section id="environment-model" class="level3">
+<h3>Environment Model</h3>
 <ul>
-<li class="fragment">Robot senses goal and proceeds along shortest path
-to goal line: <em>Goal Heading</em></li>
-<li class="fragment">If obstacle detected, make random choice about
-circumnavigation direction</li>
-<li class="fragment">Optionally: track or measure angle deviation from
-starting position: <em>Start Heading</em></li>
+<li>Grid world</li>
+<li>Obstacles and robots of similar size</li>
+<li>Robots spawn on one side of obstacle field</li>
+<li>Goal line on other side of obstacle field</li>
 </ul>
 </section>
-
+</div><div class="column">
+<p><img data-src="images/simulator.png" width="700" /></p>
+</div>
+</div>
+</section>
+<section id="algorithm" class="slide level2">
+<h2>Algorithm</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Robot senses goal and proceeds directly toward goal line (<em>Goal
+Heading</em>)</li>
+<li>If obstacle detected, make random choice about circumnavigation
+direction</li>
+<li>Track or measure angle from starting position (<em>Start
+Heading</em>)</li>
+<li>Can set constraint on relative angle between start and goal headings
+for deterministic “inward” turns</li>
+</ul>
+</div><div class="column">
+<p><img data-src="images/simulator.png" width="700" /></p>
+</div>
+</div>
+</section></section>
+<section>
 <section id="results" class="title-slide slide level1">
 <h1>Results</h1>
 
 </section>
-
-<section id="simulator-validation" class="title-slide slide level1">
-<h1>Simulator Validation</h1>
-
+<section id="simulator-validation" class="slide level2">
+<h2>Simulator Validation</h2>
+<figure>
+<img data-src="images/Validation_Ridge.png" data-fig-align="center"
+width="1300" alt="Robot Distribution in Regular Obstacle Grid" />
+<figcaption aria-hidden="true">Robot Distribution in Regular Obstacle
+Grid</figcaption>
+</figure>
 </section>
-
-<section id="effect-of-initial-swarm-density"
-class="title-slide slide level1">
-<h1>Effect of Initial Swarm Density</h1>
-
+<section id="effect-of-initial-swarm-density" class="slide level2">
+<h2>Effect of Initial Swarm Density</h2>
+<p>Lower-density swarms experience <em>less</em> relative spread.</p>
+<div style="display: flex; justify-content: center; gap: 40px;">
+<div style="flex: 1; max-width: 45%;">
+<video width="700px" controls>
+<source src="vids/highDregular.mp4" type="video/mp4">
+</video>
+</div>
+<div style="flex: 1; max-width: 45%;">
+<video width="700px" controls>
+<source src="vids/lowDregular.mp4" type="video/mp4">
+</video>
+</div>
+</div>
 </section>
-
-<section id="effect-of-perturbations-to-obstacle-field"
-class="title-slide slide level1">
-<h1>Effect of Perturbations to Obstacle Field</h1>
-
+<section id="effect-of-random-perturbations-to-obstacle-field"
+class="slide level2">
+<h2>Effect of Random Perturbations to Obstacle Field</h2>
+<p>Perturbed obstacle fields lead to less spread. Degree of obstacle
+perturbation (±1, 2, or 3 units) has no significant effect on the final
+distribution.</p>
+<div style="display: flex; justify-content: center; gap: 40px;">
+<div style="flex: 1; max-width: 45%;">
+<video width="700px" controls>
+<source src="vids/highDperturbed.mp4" type="video/mp4">
+</video>
+</div>
+<div style="flex: 1; max-width: 45%;">
+<video width="700px" controls>
+<source src="vids/lowDperturbed.mp4" type="video/mp4">
+</video>
+</div>
+</div>
 </section>
-
+<section id="comparison-with-optimal-strategy" class="slide level2">
+<h2>Comparison with Optimal Strategy</h2>
+<figure>
+<img data-src="images/table2.png" data-fig-align="center" width="1300"
+alt="Comparison with N=30 robots." />
+<figcaption aria-hidden="true">Comparison with N=30 robots.</figcaption>
+</figure>
+</section>
 <section id="effect-of-angular-heading-constraints"
-class="title-slide slide level1">
-<h1>Effect of Angular Heading Constraints</h1>
-
+class="slide level2">
+<h2>Effect of Angular Heading Constraints</h2>
+<p><img data-src="images/table3.png" data-fig-align="center"
+width="700" /></p>
 </section>
-
-<section id="next-steps" class="title-slide slide level1">
-<h1>Next Steps</h1>
-
-</section>
-
-<section id="next-steps-1" class="title-slide slide level1">
-<h1>Next Steps</h1>
+<section id="next-steps" class="slide level2">
+<h2>Next Steps</h2>
 <ul>
 <li class="fragment">Predictive models for final distribution</li>
-<li class="fragment">Control laws using angular heading constraints and
-a “leader” robot
+<li class="fragment">Control laws using angular heading constraints
+and/or beacon robots
 <ul>
 <li class="fragment">Regrouping events</li>
 </ul></li>
+<li class="fragment">More realistic obstacle avoidance and velocity
+control</li>
 </ul>
 <div class="fragment">
 <ul>
-<li class="fragment">Relaxation of model assumptions
-<ul>
-<li class="fragment">Distinguishable robots and integration with swarm
-algorithms</li>
-<li class="fragment">Constant velocity (more realistic obstacle
-avoidance)</li>
-</ul></li>
+<li>Sensing position of other robots</li>
+<li>Integration with swarm algorithms</li>
 </ul>
 </div>
-<div class="fragment">
-<ul>
-<li class="fragment">Gap-based model for integration with LiDAR sensing
-systems</li>
-</ul>
-</div>
-</section>
-
+</section></section>
 <section id="thank-you-questions" class="title-slide slide level1">
 <h1>Thank you! Questions?</h1>
-<p>MRRP Lab</p>
+<p>Minimalist Resilient Robots for the Planet Lab: <a
+href="https://mrrp-lab.github.io/">https://mrrp-lab.github.io/</a></p>
+<p><img data-src="images/map_w_bham.png" data-fig-align="center"
+width="700" /></p>
 </section>
     </div>
   </div>
@@ -374,6 +462,16 @@ systems</li>
         // devices. It is advisable to set this to a lower number than
         // viewDistance in order to save resources.
         mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1920,
+
+        height: 1080,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.05,
 
         math: {
           mathjax: '/usr/share/javascript/mathjax/MathJax.js',
