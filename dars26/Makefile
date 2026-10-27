@@ -20,8 +20,10 @@ HTMLOPTIONS=-t revealjs \
 #        --section-divs \
 
 PDFOPTIONS=-t beamer \
-	--slide-level=2 \
-	-V aspectratio=169
+	--slide-level=1 \
+	-V aspectratio=169 \
+	--section-divs \
+	--standalone
 
 MARKDOWN=$(INPUT).md
 HTML=$(MARKDOWN:.md=.html)
