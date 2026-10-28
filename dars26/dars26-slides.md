@@ -37,7 +37,7 @@ institute:
 
 ::: {.column}
 
-Two curses of dimensionality:
+Two curses leading to exponential runtime:
 
 1. Number of robots
 2. Number of obstacles (number of topologically distinct paths)
